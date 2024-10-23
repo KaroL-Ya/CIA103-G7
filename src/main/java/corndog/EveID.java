@@ -2,6 +2,7 @@ package cafevent;
 
 public class EveID {
 	private Integer EveID;
+	private String 	EveName;
 	public Integer getEveID() {
 		return EveID;
 	}
@@ -14,6 +15,6 @@ public class EveID {
 	public void setEveName(String eveName) {
 		EveName = eveName;
 	}
-	private String 	EveName;
+	
 
 }
