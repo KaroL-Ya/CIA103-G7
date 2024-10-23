@@ -1,6 +1,6 @@
-package cafevent;
+package corndog;
 
-public class EveID {
+public class EveID { 
 	private Integer EveID;
 	private String 	EveName;
 	public Integer getEveID() {
