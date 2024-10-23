@@ -1,4 +1,4 @@
-package com.cafe;
+package john;
 
 public class MemberVo {
 public static void main(String []args) {
