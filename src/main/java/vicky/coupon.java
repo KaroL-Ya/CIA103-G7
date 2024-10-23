@@ -1,4 +1,4 @@
-package coupon;
+package vicky;
 
 public class coupon {
 
