@@ -1,4 +1,4 @@
-package com.cafefly;
+package jason;
 
 public class CafeVO {
 	private Integer cafeId;
