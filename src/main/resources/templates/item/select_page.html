@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CAFE Shop :)</title>
+<link rel="stylesheet" th:href="@{/css/Item.css}">
+
+<!-- DataTables CSS & JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
+
+<!-- DataTables 設定 -->
+<script>
+	$(document)
+			.ready(
+					function() {
+						$('#itemTable')
+								.DataTable(
+										{
+											"lengthMenu" : [ 5, 10, 25 ],
+											"searching" : true,
+											"paging" : true,
+											"ordering" : true,
+											"language" : {
+												"processing" : "處理中...",
+												"loadingRecords" : "載入中...",
+												"lengthMenu" : "顯示 _MENU_ 筆結果",
+												"zeroRecords" : "沒有符合的結果",
+												"info" : "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+												"infoEmpty" : "顯示第 0 至 0 筆結果，共 0 筆",
+												"infoFiltered" : "(從 _MAX_ 筆結果中過濾)",
+												"search" : "搜尋:",
+												"paginate" : {
+													"first" : "第一頁",
+													"previous" : "上一頁",
+													"next" : "下一頁",
+													"last" : "最後一頁"
+												},
+												"aria" : {
+													"sortAscending" : ": 升冪排列",
+													"sortDescending" : ": 降冪排列"
+												}
+											}
+										});
+					});
+</script>
+</head>
+<body>
+
+	<header>
+		<h1>CAFE</h1>
+		<form action="#" method="get" style="margin-left: auto;">
+			<button type="submit" class="my_cafe">我的CAFE</button>
+		</form>
+		<form th:action="@{/item}" method="get">
+			<button type="submit" class="item_manage">商品管理</button>
+		</form>
+		<form th:action="@{/order_manage}" method="get">
+			<button type="submit" class="order_manage">訂單管理</button>
+		</form>
+		<form action="#" method="get">
+			<button type="submit" class="money_manage">查看款項</button>
+		</form>
+		<form action="#" method="post">
+			<button type="submit" class="log_out">登出</button>
+		</form>
+	</header>
+
+	<!-- 錯誤表列 -->
+	<div th:if="${not #lists.isEmpty(errorMsgs)}">
+		<font style="color: white">請修正以下錯誤:</font>
+		<ul>
+			<li th:each="message : ${errorMsgs}" style="color: white"
+				th:text="${message}"></li>
+		</ul>
+	</div>
+
+	<!-- 商品列表 -->
+	<div class="table_container">
+
+		<form th:action="@{/item/addItem}" method="get"
+			style="display: inline; margin-left: 5%;">
+			<button type="submit" class="add_item">新增商品</button>
+		</form>
+
+		<table id="itemTable" class="display">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>名稱</th>
+					<th>圖片</th>
+					<th>數量</th>
+					<th>狀態</th>
+					<th>介紹</th>
+					<th>單價</th>
+					<th>編輯</th>
+					<th>刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${itemList}">
+					<td th:text="${item.itemId}"></td>
+					<td th:text="${item.name}"></td>
+					<td><img th:if="${item.coverImg != null}"
+						th:src="@{/coverImg(itemId=${item.itemId})}" th:alt="${item.name}"
+						style="height: 100px; width: auto;"> <span
+						th:if="${item.coverImg == null}">尚無圖片</span></td>
+					<td th:text="${item.num}"></td>
+					<td><span th:if="${item.status == 1}">上架</span> <span
+						th:if="${item.status == 0}">下架</span> <span
+						th:if="${item.status != 1 and item.status != 0}">未知</span></td>
+					<td th:text="${item.content}"></td>
+					<td th:text="${item.price}"></td>
+					<td>
+						<form th:action="@{/item/getOne_For_Update}" method="get">
+							<input type="hidden" name="itemId" th:value="${item.itemId}">
+							<button type="submit" class="modify_item">修改</button>
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/item/delete}" method="post">
+							<input type="hidden" name="itemId" th:value="${item.itemId}">
+							<button type="submit" class="delete_item">刪除</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

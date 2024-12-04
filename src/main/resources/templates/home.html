@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" th:href="@{/css/Item.css}">
+<title>CafeFly</title>
+
+<style>
+.item {
+	padding: 2rem 1.5rem;
+	margin-left: 5px;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+	<header>
+		<h1>CAFE</h1>
+
+		<div>
+			<h4 style="margin-left: 570px; position: relative; display: inline-block;">
+				<!-- 購物車超連結 -->
+				<a th:href="@{/cart}"><img th:src="@{/images/cart.png}"
+					style="width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s;"
+					alt="購物車" />
+					<span th:if="${cartItemCount > 0}"
+					th:text="${cartItemCount}"
+					style="position: absolute; top: -9px; right: -10px; background-color: lightpink; color: cornsilk; border-radius: 50%; width: 25px; height: 16.5px; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; font-weight: bold;  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+				</span> </a>
+			</h4>
+		</div>
+
+		<form th:action="@{/}" method="get" style="margin-left: auto;">
+			<button type="submit" class="home">首頁</button>
+		</form>
+		<form th:action="@{/mall}" method="get">
+			<button type="submit" class="mall">商城</button>
+		</form>
+		<form th:action="@{/event}" method="get">
+			<button type="submit" class="event">活動</button>
+		</form>
+		<form action="#" method="get">
+			<button type="submit" class="member_manage">會員中心</button>
+		</form>
+		<form action="#" method="post">
+			<button type="submit" class="log_out">登出</button>
+		</form>
+	</header>
+
+	<div class="item">
+		<h3>
+			<a th:href="@{/item}"
+				style="text-decoration: underline; color: lightpink;">賣家商品管理</a>
+		</h3>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	background-color: rosybrown;
+	color: cornsilk;
+}
+
+
+.form-table {
+	width: 50%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	background-color: rosybrown;
+	color: cornsilk;
+}
+
+header {
+	display: flex;
+	font-size: 2rem;
+	align-items: center;
+	padding: 20px;
+	margin: 5px;
+	justify-content: space-between;
+}
+
+.status_select , .num_select{
+	color: cornsilk;
+	margin-left: 25%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 120px;
+	border: 1.5px solid #ddd;
+	border-radius: 5px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px 10px;
+	outline: none;
+}
+
+.error-messages {
+	text-align: center;
+	color: lightpink;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+input[type="text"], input[type="file"] {
+	width: 50%;
+	margin: 0 auto;
+	height: 40px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+	background-color: #ddd;
+	color: #333;
+	opacity: 70%;
+	outline: none;
+	display: block;
+}
+
+span.error {
+	display: block;
+	margin-left: 25%;
+	width: 50%;
+	color: #f9c8c8;
+	font-weight: bold;
+	font-size: 1rem;
+	text-align: left;
+}
+
+textarea {
+	width: 50%; /* 調整寬度 */
+	height: 100px; /* 調整高度 */
+	margin: 0 auto; /* 水平置中 */
+	display: block; /* 讓 margin 生效 */
+	padding: 10px; /* 增加內邊距 */
+	font-size: 16px; /* 調整字體大小 */
+	border-radius: 5px; /* 圓角邊框 */
+	border: 1px solid lightgray; /* 邊框顏色 */
+	background-color: #ddd; /* 背景顏色 */
+	color: #333; /* 字體顏色 */
+	opacity: 70%; /* 不透明度 */
+	outline: none; /* 移除點擊邊框 */
+}
+
+textarea:focus {
+	border-color: #ad6e6e; /* 聚焦時邊框顏色 */
+	background-color: #eee; /* 聚焦時背景顏色 */
+	outline: none; /* 聚焦時移除點擊邊框 */
+}
+
+.submit-container {
+	text-align: center;
+	margin-top: 20px;
+}
+
+button[type="submit"] {
+	color: cornsilk;
+	background-color: #ad6e6e;
+	border: none;
+	padding: 12px 30px;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:hover {
+	background-color: #8c5a5a;
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#blob_holder img {
+	height: 120px;
+	object-fit: scale-down;
+	margin-top: 5px;
+	margin-left: 25%;
+	text-align: left;
+}
+
+label {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-left: 25%;
+	width: 50%;
+	display: block;
+	text-align: left;
+}
+
+div {
+	margin-bottom: 5px;
+}
