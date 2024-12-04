@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>新增商品</title>
+<link rel="stylesheet" th:href="@{/css/addItem.css}">
+</head>
+<body>
+	<header>
+		<h3>新增商品</h3>
+		<h4>
+			<a th:href="@{/item}"> <img th:src="@{/images/back.jpg}"
+				style="width: 75px; height: 75px; border-radius: 50%;" alt="返回">
+			</a>
+		</h4>
+	</header>
+
+	<form th:action="@{insert}" method="post" th:object="${item}"
+		enctype="multipart/form-data">
+
+
+		<div>
+			<label>咖啡廳編號:</label> <input type="text" th:field="*{cafeId}"
+				onclick="hideContent('cafeId.errors');" /><br /> <span
+				th:if="${#fields.hasErrors('cafeId')}" th:errors="*{cafeId}"
+				class="error" id="cafeId.errors"></span>
+		</div>
+
+		<div>
+			<label>商品名稱:</label> <input type="text" th:field="*{name}"
+				onclick="hideContent('name.errors');" /><br /> <span
+				th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+				class="error" id="name.errors"></span>
+		</div>
+
+		<div>
+			<label>單價:</label> <input type="text" th:field="*{price}"
+				onclick="hideContent('price.errors');" /><br /> <span
+				th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+				class="error" id="price.errors"></span>
+		</div>
+
+		<div>
+			<label>數量:</label> <select class="num_select" th:field="*{num}">
+				<option th:each="i : ${#numbers.sequence(0, 20)}" th:value="${i}"
+					th:text="${i}"></option>
+			</select>
+		</div>
+
+		<div>
+			<label>介紹:</label>
+			<textarea th:field="*{content}"
+				onclick="hideContent('content.errors');"></textarea>
+			<br /> <span th:if="${#fields.hasErrors('content')}"
+				th:errors="*{content}" class="error" id="content.errors"></span>
+		</div>
+
+		<div>
+			<label>商品狀態:</label> <select class="status_select"
+				th:field="*{status}">
+				<option value="0">下架</option>
+				<option value="1">上架</option>
+			</select>
+		</div>
+
+
+		<label>封面圖片:</label> <input type="file" id="coverImg" name="coverImg">
+		<br> <input type="hidden" id="hiddenCoverImg"
+			name="hiddenCoverImg" th:value="${item.previewImage}"> <span
+			id="coverImg.errors" th:text="${coverImgError}" class="error"></span>
+		<div id="blob_holder">
+			<img th:if="${item.previewImage}" th:src="${item.previewImage}"
+				style="height: 120px; width: auto;">
+		</div>
+
+
+
+		<div class="submit-container">
+			<div></div>
+			<div>
+				<button type="submit" id="submit">送出新增</button>
+			</div>
+			<div></div>
+		</div>
+	</form>
+
+	<br>
+
+
+	<script src="/js/addItem.js"></script>
+
+
+
+
+</body>
+</html>
