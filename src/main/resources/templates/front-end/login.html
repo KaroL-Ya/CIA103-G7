@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <style>
+        div{
+            text-align: center;
+            /* padding: 5px 5px 5px 5px; */
+            display: flex;
+            justify-content: space-between;
+            background-color: hsla(45deg, 50%, 50%, .5);
+            padding: 10px;
+        }
+        label{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+        <form th:action="@{/login}" method="post" name="login">
+            <div>
+                <label>帳號:
+                    <input type="text" name="ac" id="ac" th:value="*{Ac}">
+                    <p th:text="${error}" style=color:red></p>
+                </label>
+                
+            </div>
+            <div>
+                <label>密碼:
+                    <input type="password" name="pw" id="pw" th:value="*{Pw}">
+                </label>
+            </div>
+            <div>
+                <button type="reset">清空資料</button>
+                <a href="./register">註冊會員</a>
+                <button type="submit" id="btn_submit">登入</button>
+            </div>
+        </form>
+
+      <script>
+
+      </script>
+</body>
+</html>

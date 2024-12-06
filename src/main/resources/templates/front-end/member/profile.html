@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料</title>
+</head>
+<body>
+
+	<div align="right">
+		<p th:if="${session.ac != null}">
+	    	歡迎,會員: <label th:text="${session.ac}"></label><label th:text="${session.name}"></label>
+	  	</p>	
+	</div>
+    <div align="center" >
+		<span>會員帳號:</span><span th:text="${memberVO.ac}"></span><br/>
+        <span>會員密碼:</span><span th:text="${memberVO.pw}"></span><br/>
+        <span>會員姓名:</span><span th:text="${memberVO.name}"></span><br/>
+        <span>EMAIL:</span><span th:text="${memberVO.email}"></span><br/>
+        <span>會員生日:</span><span th:text="${memberVO.birth}"></span><br/>
+        <span>性別:</span><span th:text="${memberVO.sex}"></span><br/>
+        <span>手機:</span><span th:text="${memberVO.phone}"></span><br/>
+        <span>住址:</span><span th:text="${memberVO.city}"></span><span th:text="${memberVO.disc}"></span><span th:text="${memberVO.address}"></span><br/>
+		<span>照片:</span><span><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></span><br/>
+	</div>
+</body>
+</html>
