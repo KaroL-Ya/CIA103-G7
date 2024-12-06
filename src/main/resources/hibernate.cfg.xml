@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/my_database?serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">kk880722</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<property name="hibernate.show_sql">true</property> <!-- 秀SQL指令 開發完調成False 執行後就不會看到SQL指令 -->
+		
+		<property name="hibernate.format_sql">true</property> <!-- 秀SQL指令時 會幫你自動排版 不要自動排版就一行的話 改false -->
+		
+		<property name="hibernate.hbm2ddl.auto">validate</property> <!-- 程式上限時 也可以去掉 -->
+		
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<mapping class="com.member.model.MemberVO"/> <!-- package(套件)名稱+class(類別)名稱 -->
+		<mapping class="com.admin.model.AdminVO"/>
+		<mapping class="com.admin.model.AdminAuthVO"/>
+		<mapping class="com.admin.model.AdminFuncVO"/>
+		<mapping class="com.dept.model.DeptVO"/>
+	</session-factory>
+</hibernate-configuration>

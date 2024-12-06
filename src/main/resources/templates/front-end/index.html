@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back廣咖樂</title>
+    <link href="./images/6666.png" rel="shortcut icon">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        h1{
+            text-align: center;
+            color:lightpink;
+        }
+        div.login{
+            text-align: center;
+            /* right */
+        }
+        div.logout{
+        	text-align:right;
+        }
+
+        a.login{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>歡迎來到Back廣咖樂</h1>
+	    <p th:if="${session.ac == null}">
+	        您尚未登入，請 <a href="./login">登入</a>。
+	    </p>
+	    <p th:if="${session.ac != null}">
+	    	歡迎,會員: <label th:text="${session.ac}"></label><label th:text="${session.name}"></label>
+	  	</p>	
+	    <form th:action="@{/mlogout}" method="get" th:if="${session.ac != null}">
+	    	<div class="mlogout">
+	    		<button type="submit">登出</button>
+	    	</div>
+		</form>
+    
+    <div>
+        <a href="."></a>
+    </div>
+
+	<li><form method="post" th:action="@{profile}">
+        到會員個人資料
+        <input type="submit" value="前往">
+    </form><br>
+    </li>
+
+    <script>
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin資料 - listOneAdmin.html</title>
+
+<head th:insert="~{/back-end/admin/included-fragment}"></head>
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>admin個人資料 - listOneAdmin.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneAdmin-div"> <!-- 此div被select_page.html第158行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		<span>Admin編號:</span><span th:text="${adminVO.admin_Id}"></span><br/>
+		<span>Admin帳號:</span><span th:text="${adminVO.admin_Ac}"></span><br/>
+        <span>Admin密碼:</span><span th:text="${adminVO.admin_Pw}"></span><br/>
+        <span>Admin姓名:</span><span th:text="${adminVO.admin_Name}"></span><br/>
+        <span>Admin狀態碼:</span><span th:text="${adminVO.getAdminStatusText}"></span><br/>
+        <span>到職日:</span><span th:text="${adminVO.hiredate}"></span><br/>
+		<span>部門:</span><span th:text="${adminVO.deptVO.deptno} + '-[' + ${adminVO.deptVO.dname} + ']'"></span><br/>
+		<span>照片:</span><span><img th:src="@{/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></span><br/>
+	</div>
+
+
+</body>
+</html>

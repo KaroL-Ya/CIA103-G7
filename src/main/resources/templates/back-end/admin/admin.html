@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理員</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        img{
+            max-width:100%;
+        }
+        body{
+            /* border:1px solid red; */
+            margin:0;
+        }
+        /* html can replace :root */
+        html{ /* 根元素 */
+            /* font-size:62.5%; */ /* 10px */
+            /* 宣告一個header變數 高60px */
+            --header-height: 60px;
+            /* 宣告一個aside變數 寬為240px */
+            --aside-width: 240px;
+        }
+        header{
+            /* font-size: 1.6rem; */
+        }
+        /* ========== header 區域 ========== */
+        header.header{
+            border:1px solid black;
+            background-color: lightgray;
+            /* height:60px; */
+            height: var(--header-height);
+            /* fixed | sticky */
+            position:sticky;
+            top:0;
+        }
+
+        /* ========== aside 區域 ========== */
+        aside.aside{
+            border:1px solid blue;
+            background-color: lightblue;
+            width: var(--aside-width);
+            position:fixed;
+            left:0;
+            top: var(--header-height);
+            height: calc(100% - var(--header-height));
+
+            overflow-y:auto;
+            padding:20px 0;
+        }
+        /* ========== main 區域 ========== */
+        main.main{
+            border:1px solid red;
+            /* height:1000px; */
+            background-color:orange;
+            width: calc(100% - var(--aside-width));
+            margin-left: var(--aside-width);
+            min-height: calc(100vh - var(--header-height));
+
+            padding:20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        這是 header
+      </header>
+  
+      <aside class="aside">
+        側邊欄
+      </aside>
+  
+      <main class="main">
+        主
+      </main>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+
+        </script>
+</body>
+</html>
