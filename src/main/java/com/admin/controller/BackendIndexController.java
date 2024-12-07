@@ -30,17 +30,9 @@ public class BackendIndexController {
 	DeptService deptSvc;
 	
     // inject(注入資料) via application.properties
-    @Value("${welcome.message}")
-    private String message;
+//    @Value("${welcome.message}")
+//    private String message;
 	
-//    private List<String> myList = Arrays.asList("Spring Boot Quickstart 官網 : https://start.spring.io", "IDE 開發工具", "直接使用(匯入)官方的 Maven Spring-Boot-demo Project + pom.xml", "直接使用官方現成的 @SpringBootApplication + SpringBootServletInitializer 組態檔", "依賴注入(DI) HikariDataSource (官方建議的連線池)", "Thymeleaf", "Java WebApp (<font color=red>快速完成 Spring Boot Web MVC</font>)");
-//    @GetMapping("/back-end")
-//    public String index(Model model) {
-//    	model.addAttribute("message", message);
-//        model.addAttribute("myList", myList);
-//        return "back-end/adminLogin"; //view
-//    }
-    
     //=========== 以下第63~75行是提供給 /src/main/resources/templates/back-end/emp/select_page.html 與 listAllEmp.html 要使用的資料 ===================   
     @GetMapping("/admin/backend_index")
 	public String backend_index(Model model) {

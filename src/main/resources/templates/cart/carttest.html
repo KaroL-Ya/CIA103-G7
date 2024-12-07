@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>購物車</title>
+<link rel="stylesheet" th:href="@{/css/Cart.css}">
+</head>
+<body>
+	<header>
+		<h1>購物車</h1>
+		<div class="header-buttons">
+			<a th:href="@{/}"><img th:src="@{/images/back.jpg}" alt="返回"></a>
+			<a th:href="@{/cart}"> <img th:src="@{/images/cart.png}"
+				alt="購物車"> <!-- 顯示購物車數量 --> <span th:if="${cartItemCount > 0}"
+				th:text="${cartItemCount}" class="cart-item-count"></span>
+
+			</a>
+		</div>
+	</header>
+
+	<!-- 如果購物車為空，顯示統一的提示 -->
+	<div th:if="${emptyCart}">
+		<div class="empty-cart">
+			<p>購物車為空</p>
+			<a href="/" class="btn">現在就去逛逛!</a>
+		</div>
+	</div>
+
+	<!-- 如果購物車有商品 -->
+	<div
+		th:if="${cart != null and cart.groupedItems != null and !cart.groupedItems.isEmpty()}"
+		class="cart-container">
+		<!-- 顯示會員編號與購物車編號 -->
+		<div class="cart-info">
+			<span>會員編號: <span th:text="${cart.cart?.memId}"></span></span> <span>購物車編號:
+				<span class="data-cart-id" th:text="${cart.cart?.cartId}"></span>
+			</span>
+		</div>
+
+		<!-- 顯示購物車項目 -->
+		<div class="cart-wrapper">
+			<div class="select-all">
+				<input type="checkbox" id="select-all-cart" class="select_all"
+					onclick="selectAllCart(this)"> <label for="select-all-cart">全選</label>
+			</div>
+
+			<div th:each="entry : ${cart.groupedItems}" class="group">
+				<div class="group-header">
+					<input type="checkbox" class="select-group"
+						onclick="selectAllGroup(this)"> <label
+						th:text="${entry.key}"></label>
+				</div>
+				<table class="cart">
+					<thead>
+						<tr>
+							<th>商品</th>
+							<th>單價</th>
+							<th>數量</th>
+							<th>總計</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${entry.value}"
+							th:attr="data-max-num=${item.maxNum},data-item-id=${item.itemId},data-cart-id=${cart.cart?.cartId},data-cafe-id=${item.cafeId}">
+							<td>
+								<div class="item-container">
+									<input type="checkbox" class="item-checkbox"
+										th:attr="data-item-id=${item.itemId}"> <img
+										th:src="@{/coverImg(itemId=${item.itemId})}"
+										th:alt="${item.name}" class="item-image"> <span
+										class="item-name" th:text="${item.name}"></span>
+								</div>
+							</td>
+							<td class="item-price" th:text="${item.price}"
+								style="text-align: center;"></td>
+							<td style="text-align: center;">
+								<button class="decrease-btn" onclick="decreaseQuantity(this)">-</button>
+								<input type="number" class="quantity-input"
+								th:value="${item.num}" min="1" max="${item.maxNum}"
+								style="width: 50px; text-align: center;"
+								onchange="validateAndRestore(this)"
+								onfocus="storePreviousValue(this)">
+								<button class="increase-btn" onclick="increaseQuantity(this)">+</button>
+							</td>
+							<td class="item-totalprice" th:text="${item.totalPrice}"
+								style="text-align: center;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<span>已選 <span id="selectedCount">0</span> 件商品
+		</span> <span>總金額：<span id="selectedTotal">$0</span></span>
+		<button onclick="removeSelectedItems()">移除勾選的商品</button>
+		<button onclick="checkout()">結帳</button>
+	</div>
+
+
+	<script src="/js/Cart.js"></script>
+</body>
+</html>

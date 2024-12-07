@@ -1,0 +1,173 @@
+/* 通用樣式 */
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	background-color: rosybrown; /* 修改背景顏色 */
+	padding: 20px;
+}
+
+.checkout-container {
+	max-width: 90%;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+	color: #333;
+	margin-bottom: 15px;
+}
+
+h1.checkout-title {
+	text-align: center;
+	font-size: 2rem;
+}
+
+h2.cafe-title {
+	font-size: 1.5rem;
+	color: #5a5a5a;
+}
+
+.cafe-group {
+	margin-bottom: 30px;
+}
+
+/* 表格樣式 */
+.product-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.product-table th, .product-table td {
+	padding: 12px;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+.product-table th {
+	background-color: #f9f9f9;
+}
+
+/* 備註輸入框樣式 */
+.cafe-remark {
+	margin-top: 10px;
+	font-size: 1rem;
+}
+
+.cafe-remark label {
+	font-size: 1rem;
+	color: #333;
+	margin-right: 10px;
+}
+
+.cafe-remark input {
+	width: 60%;
+	padding: 12px;
+	font-size: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	transition: border-color 0.3s ease;
+}
+
+.cafe-remark input:focus {
+	border-color: #6c757d; /* 聚焦時的邊框顏色 */
+	outline: none;
+	box-shadow: 0 0 5px rgba(108, 117, 125, 0.5); /* 聚焦時的陰影 */
+}
+
+.cafe-remark input::placeholder {
+	color: #aaa; /* 設置提示文字顏色 */
+}
+
+/* 選擇框和標籤 */
+.cafe-discount {
+	margin: 10px 0;
+}
+
+.platform-discount {
+	display: flex;
+	justify-content: center; /* 讓選擇框靠右對齊 flex-end */
+	margin-top: 10px; /* 可選，調整上方的間距 */
+	align-items: center;
+}
+
+.coupon-label {
+	font-size: 1rem;
+	margin-right: 10px;
+}
+
+select {
+	padding: 8px;
+	font-size: 1rem;
+	width: 200px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+/* 顯示金額 */
+.cafe-total, .payment-details {
+	background-color: #f9f9f9;
+	padding: 10px 15px;
+	margin-top: 15px;
+	border-radius: 8px;
+}
+
+.cafe-total p, .payment-details p {
+	font-size: 1.1rem;
+	margin: 8px 0;
+}
+
+.cafe-total-amount, .final-cafe-total, #total-product-amount,
+	#total-shipping-amount, #total-coupon-discount, #total-payment-amount {
+	font-weight: bold;
+	color: #333;
+}
+
+/* 金額強調 */
+.cafe-total-amount, .final-cafe-total, #total-product-amount,
+	#total-shipping-amount, #total-coupon-discount, #total-payment-amount {
+	font-size: 1.1rem;
+	color: #6c757d; /* 修改為深灰色 */
+}
+
+/* 固定在頁面底部的 footer */
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: #f9f9f9; /* 可以選擇柔和的背景顏色 */
+	color: #333;
+	padding: 15px;
+	display: flex;
+	justify-content: space-between; /* 確保金額和按鈕分開 */
+	align-items: center;
+	box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+footer button {
+	padding: 12px 25px;
+	margin-right: 55px;
+	font-size: 1.1rem;
+	background-color: lightcoral;
+	color: white;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+footer button:hover {
+	background-color: darkred;
+}
