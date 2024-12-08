@@ -35,12 +35,12 @@ public class FrontIndexController {
 	HttpSession session;
 
 	// inject(注入資料) via application.properties
-	@Value("${welcome.message}")
-	private String message;
+//	@Value("${welcome.message}")
+//	private String message;
 
 	@GetMapping("/index")
 	public String frontend_index(Model model) {
-		model.addAttribute("message", message);
+//		model.addAttribute("message", message);
 		return "front-end/index";
 	}
 

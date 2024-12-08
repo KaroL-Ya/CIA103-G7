@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,37 +28,26 @@ public class CartItem {
 
 	@Embeddable
 	public static class CartItemId implements Serializable {
+		
+		private static final long serialVersionUID = 1L;
+
 		@Column(name = "cart_id")
 		private Integer cartId;
 
 		@Column(name = "item_id")
 		private Integer itemId;
 
-		// Getters, Setters, equals(), and hashCode()
-
+		// 無參構造函數（必須）
 		public CartItemId() {
 		}
 
+		// 有參構造函數
 		public CartItemId(Integer cartId, Integer itemId) {
 			this.cartId = cartId;
 			this.itemId = itemId;
 		}
 
-		@Override
-		public boolean equals(Object o) {
-			if (this == o)
-				return true;
-			if (o == null || getClass() != o.getClass())
-				return false;
-			CartItemId that = (CartItemId) o;
-			return Objects.equals(cartId, that.cartId) && Objects.equals(itemId, that.itemId);
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(cartId, itemId);
-		}
-
+		// Getter 和 Setter
 		public Integer getCartId() {
 			return cartId;
 		}
@@ -73,6 +64,21 @@ public class CartItem {
 			this.itemId = itemId;
 		}
 
+		// equals 和 hashCode
+		@Override
+		public boolean equals(Object o) {
+			if (this == o)
+				return true;
+			if (o == null || getClass() != o.getClass())
+				return false;
+			CartItemId that = (CartItemId) o;
+			return Objects.equals(cartId, that.cartId) && Objects.equals(itemId, that.itemId);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(cartId, itemId);
+		}
 	}
 
 	public CartItemId getItemId() {

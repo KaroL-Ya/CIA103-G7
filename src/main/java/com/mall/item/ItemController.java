@@ -47,7 +47,7 @@ public class ItemController {
 		// 處理圖片驗證
 		if (file.isEmpty()) {
 			model.addAttribute("coverImgError", "請上傳封面圖片"); // 自定義錯誤訊息
-			return "back-end/item/addItem";
+			return "item/addItem";
 		} else {
 			try {
 				// 將圖片轉換為 byte[]
