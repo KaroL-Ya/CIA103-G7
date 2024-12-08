@@ -4,24 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員資料</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header.header {
+			background-color: pink;
+/*             color: #fff; */
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+        label.title {
+            font-size: 24px;
+            font-weight: bold;
+            color: pink;
+        }
+        div.header-right {
+            display: flex;
+            align-items: center;
+        }
+        div.header-right span {
+            margin-right: 15px;
+        }
+        div.header-right button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        div.header-right button:hover {
+            background-color: #e55b50;
+        }
+        hr {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        div {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        table td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 30%;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form input[type="submit"] {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #e55b50;
+        }
+    </style>
 </head>
 <body>
-
-	<div align="right">
-		<p th:if="${session.ac != null}">
-	    	歡迎,會員: <label th:text="${session.ac}"></label><label th:text="${session.name}"></label>
-	  	</p>	
-	</div>
-    <div align="center" >
-		<span>會員帳號:</span><span th:text="${memberVO.ac}"></span><br/>
-        <span>會員密碼:</span><span th:text="${memberVO.pw}"></span><br/>
-        <span>會員姓名:</span><span th:text="${memberVO.name}"></span><br/>
-        <span>EMAIL:</span><span th:text="${memberVO.email}"></span><br/>
-        <span>會員生日:</span><span th:text="${memberVO.birth}"></span><br/>
-        <span>性別:</span><span th:text="${memberVO.sex}"></span><br/>
-        <span>手機:</span><span th:text="${memberVO.phone}"></span><br/>
-        <span>住址:</span><span th:text="${memberVO.city}"></span><span th:text="${memberVO.disc}"></span><span th:text="${memberVO.address}"></span><br/>
-		<span>照片:</span><span><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></span><br/>
-	</div>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">Back廣咖樂</label>
+        </div>
+        <div class="header-right">
+            <span th:if="${session.ac != null}">
+                歡迎, 會員 <span th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
+            </span>
+            <form th:action="@{/mlogout}" method="get" th:if="${session.ac != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
+    <hr>
+    <div>
+        <table>
+            <tr>
+                <td>會員帳號:</td>
+                <td><span th:text="${memberVO.ac}"></span></td>
+            </tr>
+            <tr>
+                <td>會員密碼:</td>
+                <td><span th:text="${memberVO.pw}"></span></td>
+            </tr>
+            <tr>
+                <td>會員姓名:</td>
+                <td><span th:text="${memberVO.name}"></span></td>
+            </tr>
+            <tr>
+                <td>EMAIL:</td>
+                <td><span th:text="${memberVO.email}"></span></td>
+            </tr>
+            <tr>
+                <td>會員生日:</td>
+                <td><span th:text="${memberVO.birth}"></span></td>
+            </tr>
+            <tr>
+                <td>性別:</td>
+                <td><span th:text="${memberVO.sex}"></span></td>
+            </tr>
+            <tr>
+                <td>手機:</td>
+                <td><span th:text="${memberVO.phone}"></span></td>
+            </tr>
+            <tr>
+                <td>住址:</td>
+                <td>
+                    <span th:text="${memberVO.city}"></span>
+                    <span th:text="${memberVO.disc}"></span>
+                    <span th:text="${memberVO.address}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>照片:</td>
+                <td>
+                    <img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px">
+                </td>
+            </tr>
+        </table>
+        <form method="post" th:action="@{getOne_For_Update}">
+            <input type="submit" value="修改">
+            <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}">
+        </form>
+    </div>
 </body>
 </html>

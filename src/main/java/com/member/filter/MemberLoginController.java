@@ -53,6 +53,13 @@ public class MemberLoginController {
 			session.setAttribute("mem_Id",memberVO.getMem_Id());
 			session.setAttribute("ac",ac);
 			session.setAttribute("name",memberVO.getName());
+			session.setAttribute("email",memberVO.getEmail());
+			session.setAttribute("birth",memberVO.getBirth());
+			session.setAttribute("sex",memberVO.getSex());
+			session.setAttribute("phone",memberVO.getPhone());
+			session.setAttribute("city",memberVO.getCity());
+			session.setAttribute("disc",memberVO.getDisc());
+			session.setAttribute("address",memberVO.getAddress());
 			return "redirect:/index";
 		}else {
 			// 登入失敗

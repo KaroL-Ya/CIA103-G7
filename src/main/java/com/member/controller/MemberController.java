@@ -58,7 +58,14 @@ public class MemberController {
 			return "front-end/register";
 		}
 		/*************************** 2.開始新增資料 *****************************************/
-		memberSvc.addMember(memberVO);
+		if(memberSvc.checkAc(memberVO.getAc())==false) {
+			memberSvc.addMember(memberVO);
+		}else {
+			model.addAttribute("errorMessage","已存在的帳號");
+			return "front-end/register";
+//			return "redirect:/register";
+		}
+
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		return "redirect:/login"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
 		
@@ -113,22 +120,6 @@ public class MemberController {
 		model.addAttribute("memberVO", memberVO);
 		return "front-end/member/listOneMember"; // 修改成功後轉交listOneEmp.html
 	}
-
-	/*
-	 * This method will be called on listAllEmp.html form submission, handling POST request
-	 */
-//	@PostMapping("delete")
-//	public String delete(@RequestParam("empno") String empno, ModelMap model) {
-//		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-//		/*************************** 2.開始刪除資料 *****************************************/
-//		// EmpService empSvc = new EmpService();
-//		empSvc.deleteEmp(Integer.valueOf(empno));
-//		/*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
-//		List<EmpVO> list = empSvc.getAll();
-//		model.addAttribute("empListData", list);
-//		model.addAttribute("success", "- (刪除成功)");
-//		return "back-end/emp/listAllEmp"; // 刪除完成後轉交listAllEmp.html
-//	}
 	
 	// 去除BindingResult中某個欄位的FieldError紀錄
 	public BindingResult removeFieldError(MemberVO memberVO, BindingResult result, String removedFieldname) {
@@ -141,6 +132,33 @@ public class MemberController {
 		}
 		return result;
 	}
-
+	
+    @GetMapping("/admin/listAllMember")
+	public String listAllMember(Model model) {
+		return "back-end/admin/listAllMember";
+	}
+    
+    @ModelAttribute("MemberListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
+	protected List<MemberVO> referenceMListData(Model model) {
+    	List<MemberVO> list2 = memberSvc.getAll();
+    	model.addAttribute("memberListData", list2);
+		return list2;
+	}
+    
+	/*
+	 * This method will be called on listAllEmp.html form submission, handling POST request
+	 */
+	@PostMapping("delete")
+	public String delete(@RequestParam("mem_Id") String mem_Id, ModelMap model) {
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		/*************************** 2.開始刪除資料 *****************************************/
+		// EmpService empSvc = new EmpService();
+		memberSvc.deleteMember(Integer.valueOf(mem_Id));
+		/*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
+		List<MemberVO> list2 = memberSvc.getAll();
+		model.addAttribute("memberListData", list2);
+		model.addAttribute("success", "- (刪除成功)");
+		return "back-end/admin/listAllMember"; // 刪除完成後轉交listAllEmp.html
+	}
 
 }

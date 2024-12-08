@@ -9,8 +9,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.admin.model.AdminVO;
-
 @Service("memberService")
 public class MemberService {
 
@@ -27,6 +25,11 @@ public class MemberService {
     public void updateMember(MemberVO memberVO) {
         repository.save(memberVO);
     }
+    
+	public void deleteMember(Integer mem_Id) {
+		if (repository.existsById(mem_Id))
+			repository.deleteByMem_Id(mem_Id);
+	}
 
     public MemberVO getOneMember(Integer mem_Id) {
         Optional<MemberVO> optional = repository.findById(mem_Id);
@@ -54,6 +57,15 @@ public class MemberService {
 //		return null;	
 //
 //    }
+    public boolean checkAc(String ac) {
+    	List<String> allAc = repository.findByAc();
+    	for(String pk : allAc) {
+    		if(pk.equals(ac)) {
+    			return true; 
+    		}
+    	}
+    	return false;
+    }
     
     public MemberVO login(String ac,String pw) {
     	System.out.println(repository.getOneByAP(ac,pw));
@@ -61,9 +73,8 @@ public class MemberService {
     }
     
 
-//    public List<MemberVO> getAll() {
-//        return repository.findAll();
-//    }
-
+    public List<MemberVO> getAll() {
+        return repository.findAll();
+    }
 
 }
