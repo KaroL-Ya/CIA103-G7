@@ -56,7 +56,7 @@ public class FrontIndexController {
 		return "front-end/register";
 	}
 
-	@PostMapping("profile")
+	@GetMapping("profile")
 	public String profile(Model model) {
 		Integer id =(Integer) session.getAttribute("mem_Id");//id
 		model.addAttribute("memberVO",memberSvc.getOneMember(id));

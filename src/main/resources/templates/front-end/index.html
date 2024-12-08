@@ -1,69 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Back廣咖樂</title>
-<link href="./images/6666.png" rel="shortcut icon">
-<style>
-* {
-	box-sizing: border-box;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back廣咖樂</title>
+    <link href="./images/6666.png" rel="shortcut icon">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        img{
+            max-width:100%;
+        }
+        body{
+            /* border:1px solid red; */
+            margin:0;
+        }
+        /* html can replace :root */
+        html{ /* 根元素 */
+            /* font-size:62.5%; */ /* 10px */
+            /* 宣告一個header變數 高60px */
+            --header-height: 60px;
+            /* 宣告一個aside變數 寬為240px */
+            --aside-width: 240px;
+        }
+        header.header{
+             border:1px solid black;
+/*             background-color: lightgray; */
+            /* height:60px; */
+            height: var(--header-height);
+            /* fixed | sticky */
+            position:sticky;
+            top:0;
+        }
+        div.header-left{
+        	display:inline-block;
+        }
+        div.header-right{
+/*         	display:inline-block; */
+         	float:right;
+        	padding: 10px 20px;
+        }
+        label.title{
+        	color:pink;
+        	font-size:28px;
+        	float:left;
+        }
+        label.header-right{
+        	color:black;
+        }
 
-h1 {
-	text-align: center;
-	color: lightpink;
-}
-
-div.login {
-	text-align: center;
-	/* right */
-}
-
-div.logout {
-	text-align: right;
-}
-
-a.login {
-	border: 1px solid black;
-}
-</style>
+    </style>
 </head>
 <body>
-	<h1>歡迎來到Back廣咖樂</h1>
-	<p th:if="${session.ac == null}">
-		您尚未登入，請 <a href="./login">登入</a>。
-	</p>
-	<p th:if="${session.ac != null}">
-		歡迎,會員: <label th:text="${session.ac}"></label><label
-			th:text="${session.name}"></label>
-	</p>
+	<header class="header">
+		<div class="header-left">
+	    	<label class="title">Back廣咖樂</label>
+	    </div>
+	    <div class="header-right" align="right">
+	    	<span th:if="${session.ac == null}"><a href="./login">登入 | 註冊</a></span>
+	    	<span th:if="${session.ac != null}" style="border:1px solid blcak">
+	  		歡迎,會員<span th:text="${session.ac}"></span>,<span th:text="${session.name}"></span>
+	  		</span>
+	  		<span><a th:href="@{profile}" th:if="${session.ac !=null}">會員中心</a></span>
+	    	<form th:action="@{/mlogout}" method="get" th:if="${session.ac != null}">
+	    		<button type="submit">登出</button>
+			</form>
+	    </div>
+    </header>
+    <script>
 
-	<!-- 購物車超連結 -->
-	<a th:if="${session.ac != null}"
-		th:href="@{/cart/{mem_Id}(mem_Id=${session.mem_Id})}"> <img
-		th:src="@{/images/cart.png}"
-		style="width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s;"
-		alt="購物車" />
-	</a>
-
-	<form th:action="@{/mlogout}" method="get"
-		th:if="${session.ac != null}">
-		<div class="mlogout">
-			<button type="submit">登出</button>
-		</div>
-	</form>
-
-	<div>
-		<a href="."></a>
-	</div>
-
-	<li><form method="post" th:action="@{profile}">
-			到會員個人資料 <input type="submit" value="前往">
-		</form> <br></li>
-
-	<script>
-		
-	</script>
+    </script>
 </body>
 </html>

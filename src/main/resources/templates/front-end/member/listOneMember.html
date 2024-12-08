@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Member資料 - listOneMember.html</title>
+<title>會員資料 - listOneMember.html</title>
 
-<head th:insert="~{/back-end/admin/included-fragment}">
+<head>
 <style type="text/css">
 	
     span {
@@ -19,17 +19,23 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>member個人資料 - listOneMember.html</h2></div>
+		 <div align="center"> <h2>會員個人資料 - listOneMember.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/profile}"><img th:src="@{/images/222.png}">回會員中心<label th:text="${success}"></label></a></h3></div>
 </nav>
 
 	<div align="center" th:fragment="listOneMember-div"> <!-- 此div被select_page.html第158行insert用 -->
 		<h3><span>查詢結果 :</span></h3>
-		<span>Member帳號:</span><span th:text="${memberVO.Ac}"></span><br/>
-        <span>Member密碼:</span><span th:text="${memberVO.Pw}"></span><br/>
-        <span>Member姓名:</span><span th:text="${memberVO.Name}"></span><br/>
-<!--         <span>到職日:</span><span th:text="${adminVO.hiredate}"></span><br/> -->
-<!-- 		<span>部門:</span><span th:text="${adminVO.deptVO.deptno} + '-[' + ${adminVO.deptVO.dname} + ']'"></span><br/> -->
-<!-- 		<span>照片:</span><span><img th:src="@{/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></span><br/> -->
+		<span>會員帳號:</span><span th:text="${memberVO.ac}"></span><br/>
+        <span>會員密碼:</span><span th:text="${memberVO.pw}"></span><br/>
+        <span>會員姓名:</span><span th:text="${memberVO.name}"></span><br/>
+        <span>Email:</span><span th:text="${memberVO.email}"></span><br/>
+        <span>性別:</span><span th:text="${memberVO.sex}"></span><br/>
+        <span>生日:</span><span th:text="${memberVO.birth}"></span><br/>
+        <span>手機:</span><span th:text="${memberVO.phone}"></span><br/>
+		<span>市:</span><span th:text="${memberVO.city}"></span><br/>
+		<span>區:</span><span th:text="${memberVO.disc}"></span><br/>
+		<span>地址:</span><span th:text="${memberVO.address}"></span><br/>
+		<span>照片:</span><span><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></span><br/>
 	</div>
 
 
