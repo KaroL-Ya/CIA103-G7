@@ -10,14 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.mall.cart.CartServiceImpl;
-import com.mall.cart.CheckoutRequest;
-import com.mall.cart.ProcessResult;
-import com.mall.cart.Cart;
-import com.mall.cart.CartItem;
-import com.mall.cart.CartItemDto;
-import com.mall.cart.CartItemRepository;
-import com.mall.cart.CartRepository;
 
 @Controller
 public class CheckoutController {
@@ -72,7 +64,7 @@ public class CheckoutController {
 		model.addAttribute("groupedItems", groupedItems); // 分組後的商品
 		model.addAttribute("totalAmounts", totalAmounts); // 每間咖啡廳的總金額
 
-		return "cart/checkout"; // 返回 Thymeleaf 模板
+		return "front-end/cart/checkout"; // 返回 Thymeleaf 模板
 	}
 
 }

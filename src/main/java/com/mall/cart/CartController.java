@@ -1,24 +1,21 @@
 package com.mall.cart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/cart")
@@ -26,8 +23,6 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
-	@Autowired
-	private CartServiceImpl cartServiceImpl;
 
 	@Autowired
 	CartRepository cartRepository;
@@ -65,7 +60,7 @@ public class CartController {
 			model.addAttribute("emptyCart", false); // 設置購物車非空
 		}
 
-		return "cart/carttest"; // 返回 Thymeleaf 模板名稱
+		return "front-end/cart/carttest"; // 返回 Thymeleaf 模板名稱
 	}
 
 	// 更新商品數量

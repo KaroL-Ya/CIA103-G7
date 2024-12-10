@@ -12,7 +12,7 @@ import java.util.Objects;
 public class OrderDetails {
 
 	@EmbeddedId
-	private OrderDetailsId id; // 使用嵌合鍵作為主鍵
+	private OrderDetailsId orderDetailsId; // 使用嵌合鍵作為主鍵
 
 	@Column(name = "SALESNUM", nullable = false)
 	private Integer salesNum; // 購買數量
@@ -34,9 +34,9 @@ public class OrderDetails {
 	}
 
 	// 帶參構造函數
-	public OrderDetails(OrderDetailsId id, Integer salesNum, Integer price, Integer isReturn, Integer returnReason,
-			byte[] returnImg) {
-		this.id = id;
+	public OrderDetails(OrderDetailsId orderDetailsId, Integer salesNum, Integer price, Integer isReturn,
+			Integer returnReason, byte[] returnImg) {
+		this.orderDetailsId = orderDetailsId;
 		this.salesNum = salesNum;
 		this.price = price;
 		this.isReturn = isReturn;
@@ -45,12 +45,12 @@ public class OrderDetails {
 	}
 
 	// Getter 和 Setter
-	public OrderDetailsId getId() {
-		return id;
+	public OrderDetailsId getOrderDetailsId() {
+		return orderDetailsId;
 	}
 
-	public void setId(OrderDetailsId id) {
-		this.id = id;
+	public void setOrderDetailsId(OrderDetailsId orderDetailsId) {
+		this.orderDetailsId = orderDetailsId;
 	}
 
 	public Integer getSalesNum() {
@@ -98,7 +98,10 @@ public class OrderDetails {
 
 		private static final long serialVersionUID = 1L;
 
+		@Column(name = "ORDER_ID")
 		private Integer orderId;
+
+		@Column(name = "ITEM_ID")
 		private Integer itemId;
 
 		// 默認構造函數

@@ -32,7 +32,7 @@ public class ItemController {
 	public String addItem(ModelMap model) {
 		Item item = new Item();
 		model.addAttribute("item", item);
-		return "item/addItem";
+		return "back-end/item/addItem";
 	}
 
 	// addItem頁面按下送出按鈕，將資料送入資料庫
@@ -47,7 +47,7 @@ public class ItemController {
 		// 處理圖片驗證
 		if (file.isEmpty()) {
 			model.addAttribute("coverImgError", "請上傳封面圖片"); // 自定義錯誤訊息
-			return "item/addItem";
+			return "back-end/item/addItem";
 		} else {
 			try {
 				// 將圖片轉換為 byte[]
@@ -55,14 +55,14 @@ public class ItemController {
 			} catch (IOException e) {
 				model.addAttribute("coverImgError", "圖片上傳失敗，請重新嘗試");
 				model.addAttribute("item", item);
-				return "item/addItem";
+				return "back-end/item/addItem";
 			}
 		}
 
 		// 如果表單有其他欄位驗證失敗
 		if (result.hasErrors()) {
 			model.addAttribute("item", item);
-			return "item/addItem";
+			return "back-end/item/addItem";
 		}
 
 		// 保存到資料庫
@@ -86,7 +86,7 @@ public class ItemController {
 		Item item = itemService.getOneItem(Integer.valueOf(itemId));
 
 		model.addAttribute("item", item);
-		return "item/updateItem";
+		return "back-end/item/updateItem";
 	}
 
 	@PostMapping("update")
@@ -108,7 +108,7 @@ public class ItemController {
 		}
 
 		if (result.hasErrors()) {
-			return "item/updateItem"; // 返回修改页面
+			return "back-end/item/updateItem"; // 返回修改页面
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
@@ -130,7 +130,7 @@ public class ItemController {
 		List<Item> list = itemService.getAll();
 		model.addAttribute("itemList", list);
 		model.addAttribute("success", "已刪除");
-		return "item/select_page";
+		return "back-end/item/select_page";
 	}
 
 }
