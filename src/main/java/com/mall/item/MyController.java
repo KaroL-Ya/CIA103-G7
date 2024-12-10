@@ -31,7 +31,7 @@ public class MyController {
 	
 	@GetMapping("/cart")
 	public String getCart(Model model) {
-	    return "cart/carttest";
+	    return "front-end/cart/carttest";
 	}
 
 	
@@ -39,7 +39,7 @@ public class MyController {
 	@GetMapping("/item")
 	public String selectPage(ModelMap model) {
 		model.addAttribute("itemList", itemService.getAll());
-		return "item/select_page"; // Thymeleaf 頁面名稱
+		return "back-end/item/select_page"; // Thymeleaf 頁面名稱
 	}
 	
 	  @GetMapping("/coverImg")

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>完成訂單處理</title>
+
+</head>
+<body>
+	<h1>支付成功！</h1>
+	<p>請點擊下方按鈕完成訂單處理。</p>
+	<button id="completeOrder">完成訂單處理</button>
+	
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const orderData = localStorage.getItem("orderData");
+    if (!orderData) {
+        alert("交易資訊遺失，無法完成訂單處理！");
+        return;
+    }
+
+    // 將 JSON 字串解析為物件
+    const parsedData = JSON.parse(orderData);
+    console.log("讀取到的訂單資料：", parsedData);
+
+    // 發送請求到後端進行訂單處理
+    fetch("/payment/result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsedData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("訂單處理結果：", data);
+        })
+        .catch(error => {
+            console.error("訂單處理失敗：", error);
+            alert("無法完成訂單處理！");
+        });
+});
+
+    </script>
+</body>
+</html>

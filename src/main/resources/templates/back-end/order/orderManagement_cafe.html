@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>賣家訂單管理</title>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+th {
+	background-color: #778899;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+button {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.ship-btn {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+}
+
+.cancel-btn {
+	background-color: #f44336;
+	color: white;
+	border: none;
+}
+</style>
+</head>
+<body>
+
+	<h1>賣家訂單管理</h1>
+
+	<!-- 搜尋條件區 -->
+	<form action="/seller/orders" method="GET">
+		<label for="orderId">訂單編號：</label> <input type="text" id="orderId"
+			name="orderId" placeholder="輸入訂單編號" value="${param.orderId}">
+
+		<label for="status">訂單狀態：</label> <select id="status" name="status">
+			<option value="">全部</option>
+			<option value="0" th:selected="${param.status == '0'}">未付款</option>
+			<option value="1" th:selected="${param.status == '1'}">未出貨</option>
+			<option value="2" th:selected="${param.status == '2'}">未收貨</option>
+			<option value="3" th:selected="${param.status == '3'}">已完成</option>
+			<option value="4" th:selected="${param.status == '4'}">申請退貨</option>
+			<option value="5" th:selected="${param.status == '5'}">取消</option>
+		</select> <label for="yearFilter">年份篩選：</label> <select id="yearFilter"
+			name="yearFilter">
+			<option value="">全部</option>
+			<option th:each="year : ${yearList}" th:value="${year}"
+				th:text="${year}" th:selected="${param.yearFilter == year}"></option>
+		</select> <label for="monthFilter">月份篩選：</label> <select id="monthFilter"
+			name="monthFilter">
+			<option value="">全部</option>
+			<option th:each="month : ${monthList}" th:value="${month}"
+				th:text="${month}" th:selected="${param.monthFilter == month}"></option>
+		</select>
+
+		<button type="submit">搜尋</button>
+	</form>
+
+	<!-- 訂單表格 -->
+	<table>
+		<thead>
+			<tr>
+				<th>訂單編號</th>
+				<th>會員編號</th>
+				<th>咖啡廳編號</th>
+				<th>日期</th>
+				<th>金額</th>
+				<th>訂單狀態</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="orders : ${orderList}">
+				<td th:text="${orders.orderId}"></td>
+				<td th:text="${orders.memId}"></td>
+				<td th:text="${orders.cafeId}"></td>
+				<td th:text="${orders.date}"></td>
+				<td th:text="${orders.amount}"></td>
+				<td th:text="${orders.status}"></td>
+				<td>
+					<button class="ship-btn" th:if="${orders.status == 1}"
+						th:onclick="'location.href=\'/seller/orders/ship/' + ${orders.orderId}">出貨</button>
+					<button class="cancel-btn" th:if="${orders.status != 5}"
+						th:onclick="'location.href=\'/seller/orders/cancel/' + ${orders.orderId}">取消</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

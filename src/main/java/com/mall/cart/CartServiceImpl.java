@@ -23,7 +23,6 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private ItemRepository itemRepository;
 
-	// 獲取購物車詳細信息
 	@Override
 	public CartDto getCartDetails(Integer memId) {
 		Cart cart = cartRepository.findByMemId(memId).orElse(null);
@@ -33,6 +32,21 @@ public class CartServiceImpl implements CartService {
 		}
 
 		List<CartItem> cartItems = cartItemRepository.findByCartId(cart.getCartId());
+
+		// 遍歷檢查並移除不符合條件的商品
+		Iterator<CartItem> iterator = cartItems.iterator();
+		while (iterator.hasNext()) {
+			CartItem item = iterator.next();
+
+			Item itemEntity = itemRepository.findById(item.getItemId().getItemId())
+					.orElseThrow(() -> new RuntimeException("商品未找到，商品編號：" + item.getItemId().getItemId()));
+
+			// 若商品已下架或庫存不足，將其從購物車中移除
+			if (itemEntity.getStatus() == 0 || itemEntity.getNum() <= 0) {
+				cartItemRepository.delete(item); // 從資料庫刪除
+				iterator.remove(); // 從列表中移除
+			}
+		}
 
 		// 按 CafeId 分組
 		Map<Integer, List<CartItemDto>> groupedItems = cartItems.stream().map(item -> {
@@ -162,6 +176,57 @@ public class CartServiceImpl implements CartService {
 		result.setTotalAmounts(totalAmounts);
 
 		return result;
+	}
+
+	public List<CartItemDto> getCartItemsForCafe(Cart cart, List<CheckoutRequest.CartItemRequest> items) {
+		// 确保 items 不为空
+		if (items == null || items.isEmpty()) {
+			throw new RuntimeException("No items provided for cafe.");
+		}
+
+		// 将选中的商品ID收集到一个列表中
+		List<Integer> itemIds = items.stream().map(CheckoutRequest.CartItemRequest::getItemId)
+				.collect(Collectors.toList());
+
+		// 输出日志，确保参数正确
+		System.out.println("Cart ID: " + cart.getCartId());
+		System.out.println("Item IDs: " + itemIds);
+
+		// 查询对应的商品资料
+		List<CartItem> cartItems = cartItemRepository.findByCartIdAndItemIds(cart.getCartId(), itemIds);
+
+		// 输出查询结果的数量
+		System.out.println("Found CartItems: " + cartItems.size());
+		if (cartItems.isEmpty()) {
+			System.out.println("No items found for cartId: " + cart.getCartId() + " and itemIds: " + itemIds);
+			throw new RuntimeException("No items found for the provided cart and item IDs.");
+		}
+
+		// 将商品转换成 CartItemDto 并按咖啡厅ID分组
+		List<CartItemDto> cartItemDtos = cartItems.stream().map(cartItem -> {
+			System.out.println("Processing CartItem: " + cartItem);
+
+			CartItemDto dto = new CartItemDto();
+			dto.setCafeId(cartItem.getCafeId());
+			dto.setNum(cartItem.getNum());
+
+			// 查找商品详细信息
+			Item item = itemRepository.findById(cartItem.getItemId().getItemId()).orElseThrow(
+					() -> new RuntimeException("Item not found for ID: " + cartItem.getItemId().getItemId()));
+
+			System.out.println("Found item: " + item.getName());
+
+			dto.setItemId(item.getItemId());
+			dto.setName(item.getName());
+			dto.setPrice(item.getPrice());
+			dto.setTotalPrice(item.getPrice() * cartItem.getNum());
+			dto.setCoverImg(item.getCoverImg() != null ? item.getCoverImg() : new byte[0]);
+			dto.setMaxNum(item.getNum());
+
+			return dto;
+		}).collect(Collectors.toList());
+
+		return cartItemDtos;
 	}
 
 }

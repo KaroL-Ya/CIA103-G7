@@ -244,7 +244,7 @@ function removeSelectedItems() {
 		return;
 	}
 
-	const memId = 1005; // 動態獲取會員 ID
+	const memId = 1; // 動態獲取會員 ID
 	const itemIds = Array.from(selectedItems).map((checkbox) => {
 		const row = checkbox.closest('tr');
 		return parseInt(row.getAttribute('data-item-id'), 10);

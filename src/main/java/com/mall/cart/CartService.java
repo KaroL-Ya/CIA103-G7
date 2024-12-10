@@ -1,7 +1,5 @@
 package com.mall.cart;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 @Service

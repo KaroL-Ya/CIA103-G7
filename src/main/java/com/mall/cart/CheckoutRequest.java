@@ -1,68 +1,159 @@
 package com.mall.cart;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutRequest {
-	private Integer memId; // 會員 ID
-	private List<Integer> itemIds; // 商品 ID 列表
+    @JsonProperty("memId")
+    private Integer memId; // 會員 ID
 
-	// Getter 和 Setter
+    @JsonProperty("cafes")
+    private List<CafeOrder> cafes = new ArrayList<>(); // 默認設為空的 List，避免 null
 
-	public List<Integer> getItemIds() {
-		return itemIds;
-	}
+    @JsonProperty("platformCoupon")
+    private Integer platformCoupon; // 平台優惠券
 
-	public void setItemIds(List<Integer> itemIds) {
-		this.itemIds = itemIds;
-	}
+    // Getter 和 Setter
+    public Integer getMemId() {
+        return memId;
+    }
 
-	// Getter 和 Setter
-	public Integer getMemId() {
-		return memId;
-	}
+    public void setMemId(Integer memId) {
+        this.memId = memId;
+    }
 
-	public void setMemId(Integer memId) {
-		this.memId = memId;
-	}
+    public List<CafeOrder> getCafes() {
+        return cafes;
+    }
 
-	// 靜態內部類，表示商品請求
-	public static class CartItemRequest {
-		private CartItem.CartItemId itemId; // 嵌套的 CartItemId
-		private Integer cafeId; // 咖啡廳 ID
-		private Integer num; // 數量
-		private Integer price; // 單價
+    public void setCafes(List<CafeOrder> cafes) {
+        this.cafes = cafes;
+    }
 
-		// Getter 和 Setter
-		public CartItem.CartItemId getItemId() {
-			return itemId;
-		}
+    public Integer getPlatformCoupon() {
+        return platformCoupon;
+    }
 
-		public void setItemId(CartItem.CartItemId itemId) {
-			this.itemId = itemId;
-		}
+    public void setPlatformCoupon(Integer platformCoupon) {
+        this.platformCoupon = platformCoupon;
+    }
 
-		public Integer getCafeId() {
-			return cafeId;
-		}
+    // 獲取所有商品 ID 的方法
+    public List<Integer> getItemIds() {
+        List<Integer> itemIds = new ArrayList<>();
+        for (CafeOrder cafeOrder : cafes) {
+            for (CartItemRequest item : cafeOrder.getItems()) {
+                itemIds.add(item.getItemId());
+            }
+        }
+        return itemIds;
+    }
 
-		public void setCafeId(Integer cafeId) {
-			this.cafeId = cafeId;
-		}
+    // 內部類表示每間咖啡廳的訂單
+    public static class CafeOrder {
+        @JsonProperty("cafeId")
+        private Integer cafeId; // 咖啡廳 ID
 
-		public Integer getNum() {
-			return num;
-		}
+        @JsonProperty("items")
+        private List<CartItemRequest> items; // 商品資料
 
-		public void setNum(Integer num) {
-			this.num = num;
-		}
+        @JsonProperty("coupon")
+        private Integer coupon; // 咖啡廳優惠券
 
-		public Integer getPrice() {
-			return price;
-		}
+        @JsonProperty("shippingFee")
+        private Integer shippingFee; // 運費
 
-		public void setPrice(Integer price) {
-			this.price = price;
-		}
-	}
+        @JsonProperty("remark")
+        private String remark; // 備註
+
+        // Getter 和 Setter
+        public Integer getCafeId() {
+            return cafeId;
+        }
+
+        public void setCafeId(Integer cafeId) {
+            this.cafeId = cafeId;
+        }
+
+        public List<CartItemRequest> getItems() {
+            return items;
+        }
+
+        public void setItems(List<CartItemRequest> items) {
+            this.items = items;
+        }
+
+        public Integer getCoupon() {
+            return coupon;
+        }
+
+        public void setCoupon(Integer coupon) {
+            this.coupon = coupon;
+        }
+
+        public Integer getShippingFee() {
+            return shippingFee;
+        }
+
+        public void setShippingFee(Integer shippingFee) {
+            this.shippingFee = shippingFee;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+    }
+
+    // 商品的結構
+    public static class CartItemRequest {
+        @JsonProperty("itemId")
+        private Integer itemId; // 商品 ID
+
+        @JsonProperty("itemName")
+        private String itemName; // 品名
+
+        @JsonProperty("num")
+        private Integer num; // 數量
+
+        @JsonProperty("price")
+        private Integer price; // 單價
+
+        // Getter 和 Setter
+        public Integer getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(Integer itemId) {
+            this.itemId = itemId;
+        }
+
+        public Integer getNum() {
+            return num;
+        }
+
+        public void setNum(Integer num) {
+            this.num = num;
+        }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+
+        public String getItemName() {
+            return itemName;
+        }
+
+        public void setItemName(String itemName) {
+            this.itemName = itemName;
+        }
+    }
 }

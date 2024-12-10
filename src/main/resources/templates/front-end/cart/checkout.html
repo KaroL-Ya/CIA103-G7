@@ -9,7 +9,10 @@
 	<div class="checkout-container">
 		<h1 class="checkout-title">結帳頁面</h1>
 
+		<!-- 每間咖啡廳的購物車資料 -->
 		<div th:each="entry : ${groupedItems}" class="cafe-group">
+			<input type="hidden" class="cafe-id" th:value="${entry.key}">
+			<!-- 隱藏的咖啡廳ID -->
 			<h2 th:text="'咖啡廳: ' + ${entry.key}" class="cafe-title">咖啡廳名稱</h2>
 			<table class="product-table">
 				<thead>
@@ -21,16 +24,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="item : ${entry.value}">
+					<tr th:each="item : ${entry.value}"
+						th:attr="data-item-id=${item.itemId}">
 						<td th:text="${item.name}">商品名稱</td>
 						<td th:text="${item.num}">數量</td>
 						<td th:text="${item.price} + ' 元'">單價</td>
 						<td th:text="${item.totalPrice} + ' 元'">總價</td>
 					</tr>
+
 				</tbody>
 			</table>
 
-			<!-- 優惠券選擇 -->
+			<!-- 咖啡廳優惠券選擇 -->
 			<div class="cafe-discount">
 				<label th:for="'coupon-' + ${entry.key}">選擇優惠券：</label> <select
 					th:id="'coupon-' + ${entry.key}" th:name="'coupon-' + ${entry.key}"
@@ -41,13 +46,13 @@
 				</select>
 			</div>
 
-			<!-- 運費顯示 -->
+			<!-- 顯示運費 -->
 			<div class="shipping-fee">
 				<p>
 					運費：<span class="shipping-fee-amount">100 元</span>
 				</p>
 			</div>
-			
+
 			<!-- 備註輸入區域 -->
 			<div class="cafe-remark">
 				<label for="'remark-' + ${entry.key}">備註（選填）：</label> <input
@@ -76,7 +81,7 @@
 			</select>
 		</div>
 
-
+		<!-- 付款詳情 -->
 		<div class="payment-details">
 			<h3>付款詳情</h3>
 			<p>
@@ -94,7 +99,7 @@
 		</div>
 	</div>
 
-	<!-- 付款詳情與結帳按鈕放在footer -->
+	<!-- 付款詳情與結帳按鈕 -->
 	<footer class="footer">
 		<p>
 			總付款金額：<span id="total-payment-amount">0 元</span>

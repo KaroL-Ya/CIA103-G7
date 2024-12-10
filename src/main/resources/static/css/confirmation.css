@@ -1,0 +1,56 @@
+/* 通用樣式 */
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	background-color: rosybrown; /* 背景色 */
+	padding: 20px;
+}
+
+.container {
+	max-width: 90%;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	text-align: center;
+	font-size: 2rem;
+	color: #5a5a5a;
+}
+
+p {
+	text-align: center;
+	font-size: 1.2rem;
+	color: #5a5a5a;
+	margin: 10px 0;
+}
+
+/* 訂單 ID 和總金額 */
+.amount {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #6c757d;
+}
+
+/* 按鈕 */
+.payment-button {
+	display: block;
+	width: 200px;
+	height: 50px;
+	margin: 20px auto;
+	background-color: lightcoral;
+	color: white;
+	font-weight: bold;
+	font-size: 1.2rem;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.payment-button:hover {
+	background-color: darkred;
+}

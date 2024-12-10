@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>訂單成立</title>
+<link rel="stylesheet" href="/css/confirmation.css">
+</head>
+<body>
+
+	<div class="container">
+		<h1>訂單成立</h1>
+		<p>您的訂單已成立!</p>
+
+		<p>
+			前往<a href="#" style="color: lightcoral">我的訂單</a>查看明細，或繼續<a href="#"
+				style="color: lightcoral">逛逛</a>!
+		</p>
+	</div>
+
+	<script src="/js/confirmation.js"></script>
+
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const orderData = localStorage.getItem("orderData");
+    if (!orderData) {
+        alert("交易資訊遺失，無法完成訂單處理！");
+        return;
+    }
+
+    // 將 JSON 字串解析為物件
+    const parsedData = JSON.parse(orderData);
+    console.log("讀取到的訂單資料：", parsedData);
+
+    // 發送請求到後端進行訂單處理
+    fetch("/payment/result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsedData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("訂單處理結果：", data);
+        })
+        .catch(error => {
+            console.error("訂單處理失敗：", error);
+            alert("無法完成訂單處理！");
+        });
+});
+
+    </script>
+
+</body>
+</html>

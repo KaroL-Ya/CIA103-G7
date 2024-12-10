@@ -58,7 +58,7 @@
 		<form th:action="@{/item}" method="get">
 			<button type="submit" class="item_manage">商品管理</button>
 		</form>
-		<form th:action="@{/order_manage}" method="get">
+		<form th:action="@{/cafe_order}" method="get">
 			<button type="submit" class="order_manage">訂單管理</button>
 		</form>
 		<form action="#" method="get">
@@ -121,7 +121,8 @@
 						</form>
 					</td>
 					<td>
-						<form th:action="@{/item/delete}" method="post">
+						<form th:action="@{/item/delete}" method="post"
+							onsubmit="return confirmDelete()">
 							<input type="hidden" name="itemId" th:value="${item.itemId}">
 							<button type="submit" class="delete_item">刪除</button>
 						</form>
@@ -130,6 +131,13 @@
 			</tbody>
 		</table>
 	</div>
+
+	<script>
+		function confirmDelete() {
+			return confirm("確定要刪除此商品嗎？此操作無法復原！");
+		}
+	</script>
+
 
 </body>
 </html>

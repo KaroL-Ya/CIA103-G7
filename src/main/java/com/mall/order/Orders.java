@@ -2,6 +2,7 @@ package com.mall.order;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS") // 對應資料表 ORDERS
@@ -62,6 +63,17 @@ public class Orders {
 	// 訂單狀態
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
+
+	@OneToMany(mappedBy = "orderDetailsId.orderId", fetch = FetchType.LAZY)
+	private List<OrderDetails> orderDetails;
+
+	public List<OrderDetails> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetails> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 
 	// Constructor
 	public Orders() {
