@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>購物商城</title>
+
+<!-- 插入外部片段 -->
+<!-- <head th:insert="~{/item/included-fragment}"></head> -->
+
+<!-- 引入CSS和JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
+
+<!-- jquery datatables 設定 -->
+
+
+
+<style type="text/css">
+/*  CSS  */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.nav-bar {
+	background-color: #eab917;
+	color: rgb(117, 88, 9);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+}
+
+nav ul li {
+	margin: 0 15px;
+}
+
+nav ul li a {
+	text-decoration: none;
+}
+
+.product-list {
+	padding: 20px;
+}
+
+/* 商品容器 */
+.products {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr); /* 三列 */
+	grid-gap: 30px; /* 商品間距 */
+}
+
+.product {
+	border: 1px solid #ccc;
+	padding: 20px;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+/* 商品圖片 */
+.product img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover; /* 保持比例 */
+}
+
+/* 商品名稱、價格和詳情 */
+.product h3 {
+	font-size: 15px;
+	color: #333;
+}
+
+.price {
+	font-size: 20px;
+	font-weight: bold; /*粗體 */
+	color: #e60012;
+}
+
+/* 滾動區域 */
+.product-list {
+	max-height: 80vh;
+	overflow-y: auto; /* 垂直滾動 */
+}
+
+button {
+	background-color: #6F4F28;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+ul.list>li>a.link_title button.switch_btn span.-minus {
+	display: none;
+}
+
+ul.list>li>div.inner_block {
+	font-size: 18px;
+	color: #4a4a4a;
+	margin-top: 8px;
+	padding: 0 40px;
+	line-height: 1.6;
+	display: none;
+}
+
+ul.list>li.-on>a.link_title button.switch_btn span.-plus {
+	display: none;
+}
+
+ul.list>li.-on>a.link_title button.switch_btn span.-minus {
+	display: inline-blrgb(202, 101, 0)
+}
+
+/*  下拉選單  */
+.nav_list {
+	display: flex;
+}
+
+/* 顯示下面 */
+.nav_list li {
+	position: relative;
+	margin-right: 10px;
+}
+
+.nav_list li a {
+	/* text-decoration: none; */
+	color: #796509;
+	font-size: 20px;
+	padding: 20px;
+}
+
+/* 下拉表單字顏色 */
+.nav_list li a:hover {
+	color: #0077b5;
+}
+
+/* 下拉方框 */
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	min-width: 150px;
+	list-style: none;
+	padding: 0;
+}
+
+.dropdown-menu li { /* 下拉裡的水平線 */
+	border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:last-child {
+	border-bottom: none;
+}
+
+.dropdown-menu li a {
+	padding: 8px 12px;
+	display: block;
+}
+
+.dropdown-menu li a:hover {
+	background-color: #f4f4f4;
+}
+
+/* 顯示下拉菜單 */
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+</style>
+</head>
+
+<body>
+	<header>
+		<div class="nav-bar">
+			<a href="/lookItem">
+				<h1>購物商城</h1>
+			</a>
+
+			<nav>
+				<ul class="list">
+					<li>
+						<ul class="nav_list">
+							<li class="dropdown"><a href="#" class="data-toggle"
+								data-toggle="dropdown">咖啡豆</a>
+
+								<ul class="dropdown-menu">
+									<!-- 								加 -->
+									<li><a href="/lookItem/category/2">淺烘焙</a></li>
+									<li><a href="/lookItem/category/3">中烘焙</a></li>
+									<li><a href="/lookItem/category/4">深烘焙</a></li>
+
+								</ul></li>
+
+							<li>
+								<ul class="nav_list">
+									<li class="dropdown"><a href="#" class="data-toggle"
+										data-toggle="dropdown"> 咖啡機</a>
+										<ul class="dropdown-menu">
+											<li><a href="/lookItem/category/6">全自動咖啡機</a></li>
+											<li><a href="/lookItem/category/7">半自動咖啡機</a></li>
+											<li><a href="/lookItem/category/8">膠囊咖啡機</a></li>
+										</ul></li>
+								</ul>
+							</li>
+							<li>
+								<ul class="nav_list">
+									<li class="dropdown"><a href="#" class="dropdown-toggle"
+										data-toggle="dropdown">咖啡器具</a>
+										<ul class="dropdown-menu">
+											<li><a href="/lookItem/category/10">手沖壺</a></li>
+											<li><a href="/lookItem/category/11">虹吸壺</a></li>
+											<li><a href="/lookItem/category/12">濾壓壺</a></li>
+											<li><a href="/lookItem/category/13">其他</a></li>
+										</ul></li>
+								</ul>
+							</li>
+							<li>
+								<ul class="nav_list">
+									<li class="dropdown"><a href="/lookItem/category/14"
+										class="dropdown-toggle" data-toggle="dropdown">其他</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			
+		
+			<form  method="post" 
+				th:action="${listItem_ByCompositeQuery}"				
+				onsubmit="return validateForm()">
+				<input type="text" name="name" id="name" placeholder="搜尋商品名稱">
+				<button type="submit">搜尋</button>
+			</form>
+
+		</div>
+
+	</header>
+
+	<main>
+		<section class="product-list">
+			<h2>商品瀏覽</h2>
+
+			<!-- 商品九宮格 -->
+			<div class="products">
+
+				<!-- 用 Thymeleaf 迴圈顯示商品列表 -->
+
+				<div th:each="item : ${items}">
+					<div class="product">
+						<img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
+							alt="Cover Image" />
+
+						<h3 th:text="${item.name}"></h3>
+
+						<p class="price" th:text="'$' + ${item.price}"></p>
+
+						<!-- 						<form th:action="@{/oneItem/{itemId}(itemId=${item.itemId})}" -->
+						<!-- 							method="get"> -->
+						<!-- 							<button type="submit">查看詳情</button> -->
+						<!-- 						</form> -->
+
+						<form
+							th:action="@{lookItem/oneItem/{itemId}(itemId=${item.itemId})}"
+							method="get">
+							<button type="submit">查看詳情</button>
+						</form>
+
+						<!-- 						<a href="item/oneItem" class="button-link"> -->
+						<!--     						<button type="button">查看詳情</button> -->
+						<!-- 						</a> -->
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</main>
+
+	<script>
+    function validateForm() {       
+        var name = document.getElementById('name').value;    
+        if (name === "") {          
+            alert("請輸入關鍵字！");           
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+</body>
+</html>
