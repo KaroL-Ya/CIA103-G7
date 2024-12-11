@@ -20,7 +20,7 @@ public class AdminService {
 	@Autowired
     private SessionFactory sessionFactory;
 
-	public void addAdmin(AdminVO adminVO) {
+	public void addAdmin(AdminVO  adminVO) {
 		repository.save(adminVO);
 	}
 
