@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>忘記密碼</title>
+</head>
+<body>
+	<h1>忘記密碼 forgotPw.html</h1>
+	<div align="center">
+		 	<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3>
+	</div>
+	<div align="center">
+		<form th:action="@{/sendPTPw}" method="post" name="forgotPw">
+			<input type="text" name="email">
+			<button type="submit">信箱驗證</button>
+			<p th:text="${error}" style=color:red></p>
+		</form>
+	</div>
+</body>
+</html>

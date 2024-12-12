@@ -33,6 +33,9 @@
         margin-left: auto;
         margin-right: auto;
     }
+    span.error{
+       	color:red;
+    }
 </style>
 </head>
 <body>
@@ -52,7 +55,7 @@
 			
 			<div>
 			<label>會員帳號:</label>
-			<input type="text" th:field="*{ac}" onclick="hideContent('ac.errors');" /><br/>
+			<input type="text" th:field="*{ac}" onclick="hideContent('ac.errors');" readonly/><br/>
 			<span  th:if="${#fields.hasErrors('ac')}" th:errors="*{ac}" class="error" id="ac.errors"></span>
 			</div>
 			
@@ -62,16 +65,22 @@
 			<span  th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error" id="pw.errors"></span>
 			</div>
 			
+			<div>
+			<label>信箱:</label>
+			<input type="text" th:field="*{email}" onclick="hideContent('email.errors');" readonly/><br/>
+            <span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
+			</div>
+			
             <div>
             <label>會員姓名:</label>
             <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" /><br/>
             <span  th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
             </div>
             
-           	<div>
-			<label>Email:</label>
-			<input type="text" th:field="*{email}" onclick="hideContent('email.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
+            <div>
+			<label>生日:</label>
+			<input type="date" th:field="*{birth}" onclick="hideContent('birth.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error" id="birth.errors"></span>
 			</div>
             
             <div>
@@ -80,14 +89,9 @@
             <label for="boy">男</label>
             <input type="radio" th:field="*{sex}" value="女" onclick="hideContent('sex.errors');" name="sex" id="girl"/>
             <label for="girl">女</label>
+            <span  th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error" id="sex.errors"></span>
         	</div>
-            
-            <div>
-			<label>生日:</label>
-			<input type="date" th:field="*{birth}" onclick="hideContent('birth.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error" id="birth.errors"></span>
-			</div>
-			
+           	
 			<div>
 			<label>手機:</label>
 			<input type="text" th:field="*{phone}" onclick="hideContent('phone.errors');" /><br/>
@@ -95,22 +99,43 @@
 			</div>
 			
 			<div>
-			<label>市:</label>
-			<input type="text" th:field="*{city}" onclick="hideContent('city.errors');" /><br/>
+            <label>地址:</label>
+            <!-- <label for="city">縣市:</label> -->
+            <select id="city" name="city" onchange="loadDistricts(this.value)">
+<!--                 <option value="">請選擇縣市</option> -->
+<option th:filed="*{city}" th:value="*{city}" th:text="*{city}" th:selected="*{city}"></option>
+            </select>
             <span  th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span>
-			</div>
-			
-			<div>
-			<label>區:</label>
-			<input type="text" th:field="*{disc}" onclick="hideContent('disc.errors');" /><br/>
+
+            <!-- <label for="district">鄉鎮市區:</label> -->
+            <select id="district" name="disc">
+<!--                 <option value="">請選擇鄉鎮市區</option> -->
+<option th:filed="*{disc}" th:value="*{disc}" th:text="*{disc}" th:selected="*{disc}"></option>
+            </select>
             <span  th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span>
-			</div>
-			
-			<div>
-			<label>地址:</label>
-			<input type="text" th:field="*{address}" onclick="hideContent('address.errors');" /><br/>
+
+            <!-- <label>住址:</label> -->
+            <input type="text" th:field="*{address}" onclick="hideContent('address.errors');" />
             <span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span>
-			</div>
+        	</div>
+			
+<!-- 			<div> -->
+<!-- 			<label>市:</label> -->
+<!-- 			<input type="text" th:field="*{city}" onclick="hideContent('city.errors');" /><br/> -->
+<!--             <span  th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span> -->
+<!-- 			</div> -->
+			
+<!-- 			<div> -->
+<!-- 			<label>區:</label> -->
+<!-- 			<input type="text" th:field="*{disc}" onclick="hideContent('disc.errors');" /><br/> -->
+<!--             <span  th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span> -->
+<!-- 			</div> -->
+			
+<!-- 			<div> -->
+<!-- 			<label>地址:</label> -->
+<!-- 			<input type="text" th:field="*{address}" onclick="hideContent('address.errors');" /><br/> -->
+<!--             <span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span> -->
+<!-- 			</div> -->
 			
 			<div>
 			<label>照片:</label>

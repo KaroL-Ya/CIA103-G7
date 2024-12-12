@@ -1,43 +1,44 @@
 package com.member.model;
 
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "member")
 public class MemberVO implements Serializable{
+	private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="mem_Id",insertable = false,updatable = false)
+    @Column(name ="mem_Id",updatable = false)
     private Integer mem_Id;
     
     @Column(name ="ac")
-    @NotEmpty(message="會員帳號: 請勿空白")
-	@Pattern(regexp = "^[(a-zA-Z0-9)]{6,20}$", message = "會員帳號: 只能是英文字母、數字, 且長度必需在6到20之間")
+//    @NotEmpty(message="帳號:請勿空白")
+    @Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
     private String ac;
     
     @Column(name ="pw")
-    @NotEmpty(message="會員密碼: 請勿空白")
-	@Pattern(regexp = "^[(a-zA-Z0-9)]{6,20}$", message = "會員密碼: 只能是英文字母、數字, 且長度必需在6到20之間")
+//	@NotEmpty(message="密碼: 請勿空白")
+	@Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
     private String pw;
     
     @Column(name ="email")
-    @NotEmpty(message="信箱:請勿空白")
+    @NotEmpty(message="信箱: 請勿空白")
+    @Email(message="電子郵件格式無效")
     private String email;
     
     @Column(name ="status",columnDefinition = "bit", insertable = false)
@@ -47,30 +48,33 @@ public class MemberVO implements Serializable{
     private Timestamp registertime;
     
     @Column(name ="name")
-    @NotEmpty(message="會員姓名: 請勿空白")
-	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
+//    @NotEmpty(message="姓名: 請勿空白")
+	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$", message = "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間")
     private String name;
     
     @Column(name ="birth")
+    @Past(message="生日不能是未來")
     private Date birth;
     
     @Column(name ="sex")
+    @NotEmpty(message="性別: 請勿空白")
     private String sex;
     
     @Column(name ="phone")
-    @Pattern(regexp ="^09[0-9][0-9]\\d{6}$" , message="請輸入符合規則的電話號碼")
+//    @NotEmpty(message="行動電話: 請勿空白")
+    @Pattern(regexp = "^09[0-9][0-9]\\d{6}$", message = "行動電話(10碼): 不正確的格式")    
     private String phone;
     
     @Column(name ="city")
-    @NotEmpty(message="市:請勿空白")
+    @NotEmpty(message="縣市: 請勿空白")
     private String city;
     
     @Column(name ="disc")
-    @NotEmpty(message="區:請勿空白")
+    @NotEmpty(message="鄉鎮市區: 請勿空白")
     private String disc;
     
     @Column(name ="address")
-    @NotEmpty(message="住址:請勿空白")
+    @NotEmpty(message="地址: 請勿空白")
     private String address;
     
     @Column(name ="img",columnDefinition = "longblob")
@@ -142,6 +146,20 @@ public class MemberVO implements Serializable{
     public Timestamp getRegistertime() {
         return registertime;
     }
+    
+	@Transient
+	public String getMemberStatusText() {
+		switch (status) {
+        case 0:
+            return "未啟用";
+        case 1:
+            return "啟用";
+        case 2:
+            return "停權";
+        default:
+            return "未設定狀態"; // 處理無效的 status 值
+    }
+	}
 
     public void setRegistertime(Timestamp registertime) {
         this.registertime = registertime;

@@ -74,4 +74,11 @@ public class DeptVO implements java.io.Serializable {
 		this.admins = admins;
 	}
 
+	@Override
+	public String toString() {
+		return "DeptVO [deptno=" + deptno + ", dname=" + dname + ", loc=" + loc + "]";
+	}
+	
+	
+	
 }

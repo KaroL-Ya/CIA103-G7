@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import com.admin.model.AdminService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/back-end/admin")
 public class DBGifReaderController {
 	
 	@Autowired
