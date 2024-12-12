@@ -85,6 +85,20 @@
             </div>
         </form>
 	</div>
+	
+	<div align="center">
+		<form th:action="@{/verifyPage}" method="post" name="reVerifyPage">
+			<input type="text" name="email">
+			<button type="submit">信箱驗證</button>
+		</form>
+	</div>
+	
+	<div align="center">
+		<a th:href="@{/forgotPw}">忘記密碼</a>
+	</div>
+	
+	
+	
       <script>
 
       </script>

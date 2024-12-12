@@ -92,18 +92,17 @@
     </style>
 </head>
 <body>
-    <form th:action="@{/back-end/adminLogin}" method="post" name="adminLogin" enctype="multipart/form-data">
+    <form th:action="@{/adminLogin}" method="post" name="adminLogin" enctype="multipart/form-data">
         <h1>後台登入</h1>
         <div>
             <input type="text" name="admin_Ac" id="admin_Ac" th:value="*{Admin_Ac}">
+            <p th:text="${error}" style="color:red;"></p>
         </div>
         <div>
             <input type="password" name="admin_Pw" id="admin_Pw" th:value="*{Admin_Pw}">
         </div>
         <div class="btn_adminlogin">
-            <!-- <button type="submit" id="btn_submit">登入</button> -->
             <button type="submit" id="btn_submit">登入</button>
-            <a href="./admin/backend_index">後台首頁</a>
         </div>
     </form>
 

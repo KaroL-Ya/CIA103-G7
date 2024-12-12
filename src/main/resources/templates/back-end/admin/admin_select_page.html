@@ -62,12 +62,26 @@
              <div align="center"> <h2>Admin data management - select_page.html</h2>
     </nav>
     
+    <div>
+        	<span th:if="${session.admin_Id != null}" style="border:1px solid blcak">
+	  		歡迎,管理員<span th:text="${session.admin_Name}"></span>
+	  		</span>
+    </div>
+	
+	<div>
+		    <form th:action="@{/logout}" method="post" th:if="${session.admin_Id != null}">
+	    		<button type="submit">登出</button>
+			</form>
+	</div>
+    
         <h4><span>資料查詢:</span></h4>
         <!-- 錯誤表列 -->
         <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
         <div class="a">
           <ul>
-            <li><h5><a href='listAllAdmin'>List</a> all Admins. <br><br></h5></li>
+          <li><h5><a th:href='@{/back-end/admin/listAllMember}'>List</a> all Members. <br><br></h5></li>
+
+            <li><h5><a th:href="@{/back-end/admin/listAllAdmin}">List</a> all Admins. <br><br></h5></li>
     
             <li>
                 <form method="post" th:action="@{getOne_For_Display}">
@@ -76,9 +90,6 @@
                     <input type="submit" value="送出"> (輸入如7001)
                 </form><br>
             </li>
-    
-            
-            
             
             <li><form method="post" th:action="@{getOne_For_Display}">
                     選擇admin編號:
@@ -88,9 +99,6 @@
                     <input type="submit" value="送出">
                 </form><br>
             </li>
-    
-            
-            
             
             <li><form method="post" th:action="@{getOne_For_Display}">
                     選擇admin姓名:
@@ -100,10 +108,7 @@
                     <input type="submit" value="送出">
                 </form><br>
             </li>
-            
-            
-            
-            
+             
     <!--  萬用複合查詢-以下欄位-可隨意增減 -->
       
       <li>   
@@ -132,7 +137,7 @@
         
           <h4><span>admin管理</span></h4>
           <ul>
-              <li><h5><a href='addAdmin'>Add</a> a new Admin.</h5></li>
+              <li><h5><a th:href="@{/back-end/admin/addAdmin}">Add</a> a new Admin.</h5></li>
           </ul>
         </div>
         

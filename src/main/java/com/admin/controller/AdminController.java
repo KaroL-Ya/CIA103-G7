@@ -26,7 +26,7 @@ import com.admin.model.AdminVO;
 import com.dept.model.DeptService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/back-end/admin")
 public class AdminController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class AdminController {
 	@Autowired
 	DeptService deptSvc;
 
-	@GetMapping("addAdmin")
+	@GetMapping("/addAdmin")
 	public String addAdmin(ModelMap model) {
 		AdminVO adminVO = new AdminVO();
 		model.addAttribute("adminVO", adminVO);
@@ -61,33 +61,24 @@ public class AdminController {
 			return "back-end/admin/addAdmin";
 		}
 		/*************************** 2.開始新增資料 *****************************************/
-		// EmpService empSvc = new EmpService();
 		adminSvc.addAdmin(adminVO);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		List<AdminVO> list = adminSvc.getAll();
 		model.addAttribute("adminListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/admin/listAllAdmin"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+		return "redirect:/back-end/admin/listAllAdmin"; // 新增成功後重導至BackendIndexControoler @GetMapping("/listAllAdmin")
 	}
 
-	/*
-	 * This method will be called on listAllEmp.html form submission, handling POST request
-	 */
 	@PostMapping("getOne_For_Update")
 	public String getOne_For_Update(@RequestParam("admin_Id") String admin_Id, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始查詢資料 *****************************************/
-		// EmpService empSvc = new EmpService();
 		AdminVO adminVO = adminSvc.getOneAdmin(Integer.valueOf(admin_Id));
-
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("adminVO", adminVO);
-		return "back-end/admin/update_admin_input"; // 查詢完成後轉交update_emp_input.html
+		return "back-end/admin/update_admin_input"; // 查詢完成後轉交update_admin_input.html
 	}
 
-	/*
-	 * This method will be called on update_emp_input.html form submission, handling POST request It also validates the user input
-	 */
 	@PostMapping("update")
 	public String update(@Valid AdminVO adminVO, BindingResult result, ModelMap model,
 			@RequestParam("admin_Img") MultipartFile[] parts) throws IOException {
@@ -97,7 +88,6 @@ public class AdminController {
 		result = removeFieldError(adminVO, result, "admin_Img");
 
 		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
-			// EmpService empSvc = new EmpService();
 			byte[] upFiles = adminSvc.getOneAdmin(adminVO.getAdmin_Id()).getAdmin_Img();
 			adminVO.setAdmin_Img(upFiles);
 		} else {
@@ -110,36 +100,26 @@ public class AdminController {
 			return "back-end/admin/update_admin_input";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
-		// EmpService empSvc = new EmpService();
 		adminSvc.updateAdmin(adminVO);
-
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
 		adminVO = adminSvc.getOneAdmin(Integer.valueOf(adminVO.getAdmin_Id()));
 		model.addAttribute("adminVO", adminVO);
-		return "back-end/admin/listOneAdmin"; // 修改成功後轉交listOneEmp.html
+		return "back-end/admin/listOneAdmin"; // 修改成功後轉交listOneAdmin.html
 	}
 
-	/*
-	 * This method will be called on listAllEmp.html form submission, handling POST request
-	 */
 	@PostMapping("delete")
 	public String delete(@RequestParam("admin_Id") String admin_Id, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始刪除資料 *****************************************/
-		// EmpService empSvc = new EmpService();
 		adminSvc.deleteAdmin(Integer.valueOf(admin_Id));
 		/*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
 		List<AdminVO> list = adminSvc.getAll();
 		model.addAttribute("adminListData", list);
 		model.addAttribute("success", "- (刪除成功)");
-		return "back-end/admin/listAllAdmin"; // 刪除完成後轉交listAllEmp.html
+		return "back-end/admin/listAllAdmin"; // 刪除完成後轉交listAllAdmin.html
 	}
 
-	/*
-	 * 第一種作法 Method used to populate the List Data in view. 如 : 
-	 * <form:select path="deptno" id="deptno" items="${deptListData}" itemValue="deptno" itemLabel="dname" />
-	 */
 	@ModelAttribute("deptListData")
 	protected List<DeptVO> referenceListData() {
 		// DeptService deptSvc = new DeptService();
@@ -154,10 +134,19 @@ public class AdminController {
 	@ModelAttribute("deptMapData") //
 	protected Map<Integer, String> referenceMapData() {
 		Map<Integer, String> map = new LinkedHashMap<Integer, String>();
-		map.put(1, "資訊部");
-		map.put(2, "行銷部");
-		map.put(3, "業務部");
-		map.put(4, "會計部");
+		Set set = map.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext()) {
+			Map.Entry entry = (Map.Entry) it.next();
+			System.out.println(entry.getKey() + " " + entry.getValue());
+		}
+//		deptSvc.getAll();
+//		map.size();
+//		map.put(, )
+//		map.put(1, "資訊部");
+//		map.put(2, "行銷部");
+//		map.put(3, "業務部");
+//		map.put(4, "會計部");
 		return map;
 	}
 
@@ -173,14 +162,11 @@ public class AdminController {
 		return result;
 	}
 	
-	/*
-	 * This method will be called on select_page.html form submission, handling POST request
-	 */
 	@PostMapping("listAdmins_ByCompositeQuery")
 	public String listAllAdmin(HttpServletRequest req, Model model) {
 		Map<String, String[]> map = req.getParameterMap();
 		List<AdminVO> list = adminSvc.getAll(map);
-		model.addAttribute("adminListData", list); // for listAllEmp.html 第85行用
+		model.addAttribute("adminListData", list); // for listAllAdmin.html 第85行用
 		return "back-end/admin/listAllAdmin";
 	}
 

@@ -39,12 +39,21 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>Admin資料新增 - addAdmin.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/admin/admin_select_page}"><img th:src="@{/images/xxx.png}">回查詢頁</a></h3></div>
+		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
 </nav>
 
 	<div align="center">
 		<h3><b>所有欄位皆為必填欄位</b></h3>
 		<form th:action="@{insert}" method="post" th:object="${adminVO}" enctype="multipart/form-data">
+			
+			
+			
+			
+<!--             <div> -->
+<!--             <label>Admin編號:</label> -->
+            <input type="hidden" th:field="*{admin_Id}" onclick="hideContent('admin_Id.errors');" readonly/><br/>
+<!--             <span  th:if="${#fields.hasErrors('admin_Id')}" th:errors="*{admin_Id}" class="error" id="admin_Id.errors"></span> -->
+<!--             </div> -->
 
             <div>
             <label>Admin帳號:</label>
@@ -70,6 +79,8 @@
    			<label for="active">啟用</label>
 			<input type="radio" th:field="*{admin_Status}" value="0" onclick="hideContent('admin_Status.errors');" />
     		<label for="inactive">停用</label>
+<!-- 			<input type="text" th:field="*{admin_Status}" onclick="hideContent('admin_Status.errors');" /><br/> -->
+			<span  th:if="${#fields.hasErrors('admin_Status')}" th:errors="*{admin_Status}" class="error" id="admin_Status.errors"></span>
 			</div>
 
             <div>
@@ -89,7 +100,9 @@
 			<div>
 			<label>照片:</label>
 			<input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" onchange="hideContent('admin_Img.errors');" />
+<!-- 			<span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span> -->
 			<span class="error" th:utext="${errorMessage}" id="admin_Img.errors">${errorMessage}</span>
+<!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
 			<div id="blob_holder"></div>
 			</div>
 			

@@ -109,7 +109,7 @@
             <span th:if="${session.ac != null}">
                 歡迎, 會員 <span th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
             </span>
-            <form th:action="@{/mlogout}" method="get" th:if="${session.ac != null}">
+            <form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
                 <button type="submit">登出</button>
             </form>
         </div>

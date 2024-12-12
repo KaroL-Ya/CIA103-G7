@@ -18,31 +18,25 @@
             /* right */
         }
 
-        a.login{
-            border: 1px solid black;
-        }
-        div.logout{
-        	text-align: right;
-        }
     </style>
 </head>
 <body>
     <h1>這是一個後端開發人員設計的後台首頁</h1>
-    <h3>歡迎,管理員: <label th:text="${session.admin_Ac}"></label><label th:text="${session.admin_Name}"></label></h3>
-    <form th:action="@{/logout}" method="get">
-    	<div class="logout">
-    		<button type="submit">登出</button>
-    	</div>
-	</form>
     <div class="login">
-        <a href="./admin_select_page" class="login">管理員查詢</a>
+        <a th:href="@{/back-end/admin/admin_select_page}">管理員查詢</a>
     </div>
     
     <div>
-        
+        	<span th:if="${session.admin_Id != null}" style="border:1px solid blcak">
+	  		歡迎,管理員<span th:text="${session.admin_Name}"></span>
+	  		</span>
     </div>
-
-
+	
+	<div>
+		    <form th:action="@{/logout}" method="post" th:if="${session.admin_Id != null}">
+	    		<button type="submit">登出</button>
+			</form>
+	</div>
 
     <script>
 

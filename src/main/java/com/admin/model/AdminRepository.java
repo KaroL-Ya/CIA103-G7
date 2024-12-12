@@ -1,14 +1,10 @@
 package com.admin.model;
 
 import java.util.List;
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.member.model.MemberVO;
 
 public interface AdminRepository extends JpaRepository<AdminVO, Integer> {
 	
@@ -24,9 +20,13 @@ public interface AdminRepository extends JpaRepository<AdminVO, Integer> {
     @Query(value = "select admin_Ac from admin",nativeQuery = true)
     List<String> findByAdmin_Ac();
     
-    @Query(value = "select admin_Pw from admin where admin_Ac=?",nativeQuery = true)
-    String findGetOneByAdmin_Pw(String admin_Ac);
+    @Query(value = "from AdminVO where admin_Ac=?1 and admin_Pw=?2")
+    AdminVO getOneByAdmin_AP(String admin_Ac,String Admin_Pw);
     
-    @Query(value = "from AdminVO where admin_Ac=?1")
-    AdminVO useAdmin_AcFindAdmin_Id(String admin_Ac);
+    
+//  @Query(value = "select admin_Pw from admin where admin_Ac=?",nativeQuery = true)
+//  String findGetOneByAdmin_Pw(String admin_Ac);
+    
+//    @Query(value = "from AdminVO where admin_Ac=?1")
+//    AdminVO useAdmin_AcFindAdmin_Id(String admin_Ac);
 }

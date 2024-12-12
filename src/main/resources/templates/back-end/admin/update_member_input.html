@@ -42,15 +42,14 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>會員資料修改 - update_member_input.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/profile}"><img th:src="@{/images/222.png}">回會員中心</a></h3></div>
+		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/listAllMember}"><img th:src="@{/images/222.png}">回會員中心</a></h3></div>
 </nav>
 
 	<div align="center">
 		<h3><b>所有欄位皆為必填欄位</b></h3>
-		<form th:action="@{update}" method="post" th:object="${memberVO}" enctype="multipart/form-data">
+		<form th:action="@{/adminUpdateMember}" method="post" th:object="${memberVO}" enctype="multipart/form-data">
 			<div>
 				<input type="hidden" th:field="*{mem_Id}" style="border:0px ; font-weight: bold;" readonly /><br/>
-				<input type="hidden" th:field="*{status}" style="border:0px ; font-weight: bold;" readonly /><br/>
 			</div>
 			
 			<div>
@@ -70,6 +69,18 @@
 			<input type="text" th:field="*{email}" onclick="hideContent('email.errors');" readonly/><br/>
             <span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
 			</div>
+			
+            <div>
+            <label>狀態:</label>
+            <input type="radio" th:field="*{status}" value="0" onclick="hideContent('status.errors');" name="status" id="inactive" />
+   			<label for="inactive">未啟用</label>
+   			<input type="radio" th:field="*{status}" value="1" onclick="hideContent('status.errors');" name="status" id="active" />
+   			<label for="active">啟用</label>
+			<input type="radio" th:field="*{status}" value="2" onclick="hideContent('status.errors');" name="status" id="terminate" />
+    		<label for="terminate">停權</label>
+<!--             <input type="text" th:field="*{admin_Status}" onclick="hideContent('admin_Status.errors');" /><br/> -->
+<!--             <span  th:if="${#fields.hasErrors('admin_Status')}" th:errors="*{admin_Status}" class="error" id="admin_Status.errors"></span> -->
+            </div>
 			
             <div>
             <label>會員姓名:</label>
@@ -141,7 +152,7 @@
 			<label>照片:</label>
 			<input type="file" th:field="*{img}" onclick="previewImage()" multiple="multiple" />
             <!-- 可以不修改圖片 <span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span> -->
-			<div id="blob_holder"><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></div>
+			<div id="blob_holder"><img th:src="@{/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></div>
 			</div>
 			
 			<div>
