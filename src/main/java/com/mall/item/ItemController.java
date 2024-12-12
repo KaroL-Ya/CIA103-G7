@@ -1,7 +1,13 @@
 package com.mall.item;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +17,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.util.Base64;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/item")
@@ -25,6 +31,12 @@ public class ItemController {
 
 	@Autowired
 	ItemService itemService;
+
+	@Autowired
+	ItemRepository itemRepository;
+
+	@Autowired
+	ItemImgRepository itemImgRepository;
 
 	// 新增商品
 	// 點擊新增商品按鈕
@@ -63,6 +75,10 @@ public class ItemController {
 		if (result.hasErrors()) {
 			model.addAttribute("item", item);
 			return "back-end/item/addItem";
+		}
+
+		if (item.getNum() <= 0) {
+			item.setStatus(0);
 		}
 
 		// 保存到資料庫
@@ -111,6 +127,11 @@ public class ItemController {
 			return "back-end/item/updateItem"; // 返回修改页面
 		}
 
+		/*************************** 檢查商品數量，自動下架處理 *****************************/
+		if (item.getNum() <= 0) {
+			item.setStatus(0);
+		}
+
 		/*************************** 2.開始修改資料 *****************************************/
 		itemService.updateItem(item);
 
@@ -120,6 +141,25 @@ public class ItemController {
 		model.addAttribute("item", item);
 
 		return "redirect:/item";
+	}
+
+	// 點擊修改商品圖片按鈕
+	@GetMapping("UpdateItemImg")
+	public String UpdateUpdateItemImg(@RequestParam("itemId") String itemId, ModelMap model) {
+		Item item = itemService.getOneItem(Integer.valueOf(itemId));
+		model.addAttribute("item", item);
+
+		// 查詢與該商品相關的圖片 ID 列表
+		List<Integer> imgIds = itemImgRepository.getPictureIdsByItemId(Integer.valueOf(itemId));
+
+		System.out.println("imgIds: " + imgIds);
+
+		// 將圖片 ID 傳遞到模板
+		model.addAttribute("imgId", imgIds);
+
+		model.addAttribute("itemId", itemId);
+
+		return "back-end/item/updateItemImg";
 	}
 
 	@PostMapping("delete")

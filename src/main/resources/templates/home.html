@@ -20,42 +20,77 @@
 		<h1>CAFE</h1>
 
 		<div>
-			<h4 style="margin-left: 570px; position: relative; display: inline-block;">
+			<h4
+				style="margin-left: 400px; position: relative; display: inline-block;">
 				<!-- 購物車超連結 -->
 				<a th:href="@{/cart}"><img th:src="@{/images/cart.png}"
 					style="width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s;"
-					alt="購物車" />
-					<span th:if="${cartItemCount > 0}"
-					th:text="${cartItemCount}"
-					style="position: absolute; top: -9px; right: -10px; background-color: lightpink; color: cornsilk; border-radius: 50%; width: 25px; height: 16.5px; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; font-weight: bold;  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
-				</span> </a>
+					alt="購物車" /></a>
 			</h4>
 		</div>
 
 		<form th:action="@{/}" method="get" style="margin-left: auto;">
 			<button type="submit" class="home">首頁</button>
 		</form>
-		<form th:action="@{/mall}" method="get">
+		<form action="#" method="get">
 			<button type="submit" class="mall">商城</button>
 		</form>
-		<form th:action="@{/event}" method="get">
+		<form action="#" method="get">
 			<button type="submit" class="event">活動</button>
 		</form>
 		<form action="#" method="get">
-			<button type="submit" class="member_manage">會員中心</button>
+			<button type="submit" class="event">論壇</button>
 		</form>
-		<form action="#" method="post">
-			<button type="submit" class="log_out">登出</button>
+		<form th:action="@{/index}" method="get">
+			<button type="submit" class="mem_log_in">會員</button>
+		</form>
+		<form action="#" method="get">
+			<button type="submit" class="cafe_log_in">咖啡廳</button>
+		</form>
+		<form th:action="@{/admin/backend_index}" method="get">
+			<button type="submit" class="admin_log_in">管理員</button>
 		</form>
 	</header>
 
 	<div class="item">
 		<h3>
 			<a th:href="@{/item}"
-				style="text-decoration: underline; color: lightpink;">賣家商品管理</a>
+				style="text-decoration: underline; color: lightpink;">賣家商品管理、訂單管理、檢視營收</a>
 		</h3>
 	</div>
 
+	<div>
+		<h3
+			style="text-align: center; color: #6c757d; font-size: 1.5rem; text-shadow: 1px 1px 3px lightgray">測試加入購物車</h3>
+	</div>
+
+	<div>
+		<table id="itemTable" class="display">
+			<thead>
+				<tr th:each="item : ${itemList}" data-item-id="${item.itemId}"
+					data-max-num="${item.num}">
+					<td th:text="${item.name}"></td>
+					<td><img th:if="${item.coverImg != null}"
+						th:src="@{/coverImg(itemId=${item.itemId})}"
+						style="height: 100px; width: auto;"> <span
+						th:if="${item.coverImg == null}">尚無圖片</span></td>
+					<td><span th:if="${item.status == 1}">上架</span> <span
+						th:if="${item.status == 0}">下架</span> <span
+						th:if="${item.status != 1 and item.status != 0}">未知</span></td>
+					<td th:text="${item.price}"></td>
+
+					<td>
+						<form th:action="@{/cart/addCart}" method="post">
+							<input type="hidden" name="itemId" th:value="${item.itemId}">
+							<input type="hidden" class="form-quantity" name="num" value="1">
+							<button type="submit" class="itemtocart">加入購物車</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 	<script src="/js/home.js"></script> -->
 
 </body>
 </html>

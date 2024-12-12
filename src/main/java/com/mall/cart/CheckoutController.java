@@ -2,6 +2,9 @@ package com.mall.cart;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,8 +28,12 @@ public class CheckoutController {
 
 	// 處理結帳請求
 	@PostMapping("/cart/checkout")
-	public ResponseEntity<?> checkout(@RequestBody CheckoutRequest request) {
-		Integer memId = request.getMemId();
+	public ResponseEntity<?> checkout(HttpSession session, @RequestBody CheckoutRequest request) {
+		Integer memId = (Integer) session.getAttribute("mem_Id");
+		if (memId == null) {
+			return ResponseEntity.status(401).body(Map.of("success", false, "message", "用戶未登入"));
+		}
+
 		List<Integer> selectedItemIds = request.getItemIds();
 
 		// 獲取購物車
@@ -45,8 +52,10 @@ public class CheckoutController {
 	}
 
 	@GetMapping("/cart/checkout/page")
-	public String showCheckoutPage(@RequestParam Integer memId, @RequestParam List<Integer> selectedItemIds,
-			Model model) {
+	public String showCheckoutPage(HttpSession session, @RequestParam List<Integer> selectedItemIds, Model model) {
+
+		Integer memId = (Integer) session.getAttribute("mem_Id");
+
 		// 檢查數據
 		if (selectedItemIds == null || selectedItemIds.isEmpty()) {
 			// 這裡可以選擇重定向回購物車頁面或顯示錯誤提示

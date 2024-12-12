@@ -66,16 +66,10 @@
 		<form th:action="@{/}" method="get" style="margin-left: auto;">
 			<button type="submit" class="index">首頁</button>
 		</form>
-		<form action="#" method="get">
-			<button type="submit" class="my_cafe">我的CAFE</button>
-		</form>
-		<form th:action="@{/item}" method="get">
-			<button type="submit" class="item_manage">商品管理</button>
-		</form>
-		<form th:action="@{/cafe_order}" method="get">
+		<form th:action="@{/admin_order}" method="get">
 			<button type="submit" class="order_manage">訂單管理</button>
 		</form>
-		<form th:action="@{/cafe_money}" method="get">
+		<form th:action="@{/admin_money}" method="get">
 			<button type="submit" class="money_manage">檢視營收</button>
 		</form>
 		<form action="#" method="post">
@@ -87,7 +81,7 @@
 
 
 	<!-- 搜尋條件區 -->
-	<form th:action="@{listOrders_ByCompositeQuery}" method="POST"
+	<form th:action="@{listAllOrders_ByCompositeQuery}" method="POST"
 		class="search">
 		<label for="dateRange">日期範圍：</label> <input type="text" id="dateRange"
 			name="dateRange" placeholder=""> <label for="orderId">訂單編號：</label>
@@ -117,7 +111,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="orders : ${cafeOrderList}">
+			<tr th:each="orders : ${OrderList}">
 				<td th:text="'0000'+${orders.orderId}"></td>
 				<td th:text="${orders.memId}"></td>
 				<td th:text="${orders.date}"></td>
@@ -130,14 +124,6 @@
 
 
 				<td>
-
-					<button class="ship-btn"
-						th:classappend="${orders.status == 0} ? '' : 'disabled-btn'"
-						th:disabled="${orders.status != 0}"
-						th:attr="data-order-id=${orders.orderId}"
-						onclick="shipOrder(this)">
-						<span th:text="${orders.status == 0 ? '出貨' : '已出貨'}"></span>
-					</button>
 
 					<button class="details-btn"
 						th:attr="data-order-id=${orders.orderId}"
@@ -152,7 +138,6 @@
 		style="display: none;">
 		<!-- 動態生成的燈箱內容 -->
 	</div>
-
 
 	<script src="/js/orderManagement_cafe.js"></script>
 

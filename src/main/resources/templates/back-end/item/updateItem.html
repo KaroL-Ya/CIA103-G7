@@ -43,8 +43,7 @@
 		</div>
 
 		<div>
-			<label>數量:</label> <select class="num_select"
-				th:field="*{num}">
+			<label>數量:</label> <select class="num_select" th:field="*{num}">
 				<option th:each="i : ${#numbers.sequence(0, 20)}" th:value="${i}"
 					th:text="${i}"></option>
 			</select>
@@ -72,16 +71,26 @@
 				th:errors="*{coverImg}" class="error" id="coverImg.errors"></span>
 
 			<div id="blob_holder">
-				<img th:if="${item.previewImage}" th:src="${item.previewImage}"
-					style="height: 120px; width: auto;" />
+
+				<img th:if="${item.coverImg != null}"
+					th:src="@{/coverImg(itemId=${item.itemId})}" th:alt="${item.name}"
+					style="height: 120px; width: auto; border-radius: 10px;"> <img
+					th:if="${item.previewImage}" th:src="${item.previewImage}"
+					style="height: 120px; width: auto; border-radius: 10px;" />
 			</div>
 		</div>
+
+
 
 
 		<div class="submit-container">
 			<button type="submit">送出修改</button>
 		</div>
 	</form>
+
+
+
+
 
 	<script src="/js/updateItem.js"></script>
 

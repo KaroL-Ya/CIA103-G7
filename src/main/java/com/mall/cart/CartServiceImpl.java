@@ -23,6 +23,72 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+//	@Transactional
+//	public void createCartForMember(Integer memId) {
+//		Cart cart = new Cart();
+//		cart.setMemId(memId);
+//		cartRepository.save(cart);
+//	}
+//
+	@Transactional
+	public String addItemToCart(Integer memId, Integer itemId, Integer num) {
+		// 確保購物車存在，若不存在則創建
+		Cart cart = cartRepository.findByMemId(memId).orElse(null);
+		if (cart == null) {
+			cart = new Cart();
+			cart.setMemId(memId);
+			cartRepository.save(cart);
+		}
+
+		// 確保商品存在
+		Item item = itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("商品未找到"));
+
+		// 檢查商品庫存是否足夠
+		if (num > item.getNum()) {
+			return "商品庫存不足，無法加入購物車！";
+		}
+
+		// 檢查購物車內是否已存在該商品
+		CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getCartId(), itemId).orElse(null);
+		if (cartItem == null) {
+			// 新增商品
+			cartItem = new CartItem();
+			cartItem.setItemId(new CartItem.CartItemId(cart.getCartId(), itemId));
+			cartItem.setCafeId(item.getCafeId());
+
+			if (num > item.getNum()) {
+				return "加入購物車的數量超過商品庫存！";
+			}
+
+			cartItem.setNum(num);
+			cartItemRepository.save(cartItem);
+		} else {
+			// 更新商品數量
+			int newQuantity = cartItem.getNum() + num;
+
+			if (newQuantity > item.getNum()) {
+				return "加入購物車的數量超過商品庫存！";
+			}
+
+			cartItem.setNum(newQuantity);
+			cartItemRepository.save(cartItem);
+		}
+
+		return "商品已成功加入購物車！";
+	}
+
+	@Transactional
+	public void removePurchasedItems(Integer cartId, List<Integer> purchasedItemIds) {
+		if (purchasedItemIds == null || purchasedItemIds.isEmpty()) {
+			throw new IllegalArgumentException("購買的商品清單不能為空！");
+		}
+
+		// 從 cartitem 表中刪除購買的商品
+		cartItemRepository.deleteByCartIdAndItemIdIn(cartId, purchasedItemIds);
+
+		System.out.println("已從購物車中移除已購買的商品：" + purchasedItemIds);
+	}
+
 	@Override
 	public CartDto getCartDetails(Integer memId) {
 		Cart cart = cartRepository.findByMemId(memId).orElse(null);

@@ -1,0 +1,319 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin: 1px;
+	padding: 0;
+	background-color: rosybrown;
+}
+
+body {
+	margin: 20px !important; /* 強制覆蓋任何已應用的全局 margin 設定 */
+	background-color: rosybrown !important; /* 確保背景色不被其他樣式覆蓋 */
+	font-family: initial !important; /* 使用瀏覽器的默認字型 */
+}
+
+h1 {
+	font-size: 3.5rem !important;
+	font-weight: bold !important;
+	text-shadow: 3px 3px 5px lightpink !important;
+}
+
+header {
+	color: cornsilk;
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	justify-content: space-between;
+}
+
+header button {
+	color: cornsilk;
+	background-color: transparent;
+	padding: 10px 20px;
+	margin: 5px;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.2s;
+	box-shadow: 1px 1px 3px lightpink;
+}
+
+header button:hover {
+	background-color: lightcoral;
+	transform: scale(1.05);
+}
+
+div button {
+	color: cornsilk;
+	background-color: transparent;
+	padding: 5px 10px;
+	margin: 5px;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+button:hover {
+	background-color: lightcoral;
+}
+
+#dateRange {
+	width: 230px;
+	color: cornsilk;
+}
+
+.search {
+	margin: 20px auto;
+	border-collapse: collapse;
+	color: cornsilk;
+	font-size: 1rem;
+	text-align: center;
+}
+
+/* 搜尋框輸入框樣式 */
+.search input {
+	height: 40px;
+	padding: 5px 10px;
+	margin: 5px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1.5px solid lightgray;
+	font-size: 16px;
+}
+
+#status {
+	height: 40px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1.5px solid lightgray;
+	color: cornsilk;
+	/* 	margin-right: 5%; */
+	/* 	margin-bottom: 20px; */
+}
+
+.search button {
+	height: 40px;
+	width: 80px;
+	color: cornsilk;
+	background-color: transparent;
+	padding: 5px 10px;
+	margin: 5px;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	color: cornsilk;
+}
+
+.search button:hover {
+	background-color: lightcoral;
+}
+
+/* 表格樣式 */
+#cafe_orders {
+	width: 90%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	background-color: #f8f9fa;
+	color: cornsilk;
+	font-size: 1rem;
+	text-align: center;
+	border-radius: 10px;
+	/* 	margin-bottom: 20px; */
+}
+
+/* 按鈕 hover 效果 */
+button:hover {
+	background-color: lightcoral;
+	transform: scale(1.1); /* 當 hover 時略微放大按鈕 */
+	transition: all 0.2s ease-in-out;
+}
+
+#cafe_orders thead th {
+	background-color: #6c757d;
+	color: cornsilk;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#cafe_orders tbody tr {
+	transition: background-color 0.2s;
+}
+
+#cafe_orders tbody tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#cafe_orders tbody tr:hover {
+	background-color: #e9ecef;
+	cursor: pointer;
+}
+
+#cafe_orders td {
+	padding: 8px;
+	text-align: center;
+}
+
+#cafe_orders_length {
+	color: cornsilk;
+	margin-right: 5%;
+	margin-bottom: 20px;
+}
+
+/* 分頁按鈕樣式 */
+#cafe_orders_paginate {
+	margin-right: 5%;
+	color: cornsilk;
+}
+
+#cafe_orders_length {
+	margin-left: 5%;
+	margin-top: 5px;
+	color: cornsilk;
+}
+
+#cafe_orders_info {
+	margin-left: 5%;
+	color: cornsilk;
+}
+
+.disabled-btn {
+	color: #666;
+	cursor: not-allowed;
+	border: 1px solid #aaa;
+}
+
+/* 訂單詳情燈箱覆蓋層 */
+.order-details-modal .modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* 背景半透明黑色 */
+	z-index: 1050;
+}
+
+/* 訂單詳情燈箱內容 */
+.order-details-modal .modal {
+	display: block !important;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); /* 將燈箱內容居中 */
+	background-color: #f9f9f9; /* 燈箱背景色：淺灰色 */
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 添加陰影 */
+	z-index: 1060;
+	width: 50%; /* 可以根據需要調整寬度 */
+	height: 70%;
+	max-width: 600px; /* 最大寬度 */
+	text-align: center;
+}
+
+/* 標題樣式 */
+.order-details-modal .modal h2 {
+	margin-bottom: 15px;
+	font-size: 1.5rem;
+	color: #333;
+	background-color: #f9f9f9; /* 標題背景色 */
+	padding: 10px;
+	border-radius: 5px;
+}
+
+/* 表格樣式 */
+.order-details-modal .modal table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+	background-color: #fff; /* 表格背景色 */
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.order-details-modal .modal table th, .order-details-modal .modal table td
+	{
+	padding: 10px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+
+/* 表頭樣式 */
+.order-details-modal .modal table th {
+	/* 	background-color: #333; 深灰背景 */
+	color: #fff; /* 白色文字 */
+	font-weight: bold;
+}
+
+/* 表格內容樣式 */
+.order-details-modal .modal table td {
+	background-color: #f9f9f9; /* 淺灰背景 */
+	color: #555; /* 深灰文字 */
+}
+
+/* 總計與備註樣式 */
+.order-details-modal .modal p {
+	text-align: left;
+	font-size: 1rem;
+	color: #333; /* 文字顏色 */
+	margin: 10px 0;
+	padding: 10px;
+	background-color: #f9f9f9; /* 背景色 */
+	border-radius: 5px;
+}
+
+/* 總計與備註中的文字強調 */
+.order-details-modal .modal p strong {
+	color: #000; /* 更深的文字顏色 */
+	font-weight: bold;
+	background-color: #f9f9f9; /* 背景色 */
+}
+
+/* 關閉按鈕樣式 */
+.order-details-modal .modal button {
+	padding: 10px 20px;
+	margin-top: 30px;
+	background-color: #ff6666; /* 紅色背景 */
+	color: #fff; /* 白色文字 */
+	border: none;
+	border-radius: 5px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.order-details-modal .modal button:hover {
+	background-color: #cc3333; /* 更深的紅色 */
+}
+
+.dayContainer, .flatpickr-innerContainer, .flatpickr-months,
+	.flatpickr-rContainer, .flatpickr-days, .flatpickr-weekdays,
+	.flatpickr-weekday, .flatpickr-prev-month, .flatpickr-next-month,
+	.flatpickr-current-month, .numInputWrapper, svg {
+	background-color: #f9f9f9 !important;
+}
+
+.flatpickr-calendar {
+	width: auto !important;
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange,
+	.flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange,
+	.flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus,
+	.flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus,
+	.flatpickr-day.selected:hover, .flatpickr-day.startRange:hover,
+	.flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay,
+	.flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay,
+	.flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay,
+	.flatpickr-day.endRange.nextMonthDay {
+	background: lightgray !important;
+	color: #6c757d !important;
+	border-color: lightgray !important;
+}

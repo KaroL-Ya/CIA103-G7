@@ -52,7 +52,10 @@
 
 	<header>
 		<h1>CAFE</h1>
-		<form action="#" method="get" style="margin-left: auto;">
+		<form th:action="@{/}" method="get" style="margin-left: auto;">
+			<button type="submit" class="index">首頁</button>
+		</form>
+		<form action="#" method="get">
 			<button type="submit" class="my_cafe">我的CAFE</button>
 		</form>
 		<form th:action="@{/item}" method="get">
@@ -61,8 +64,8 @@
 		<form th:action="@{/cafe_order}" method="get">
 			<button type="submit" class="order_manage">訂單管理</button>
 		</form>
-		<form action="#" method="get">
-			<button type="submit" class="money_manage">查看款項</button>
+		<form th:action="@{/cafe_money}" method="get">
+			<button type="submit" class="money_manage">檢視營收</button>
 		</form>
 		<form action="#" method="post">
 			<button type="submit" class="log_out">登出</button>
@@ -89,20 +92,20 @@
 		<table id="itemTable" class="display">
 			<thead>
 				<tr>
-					<th>ID</th>
+<!-- 					<th>ID</th> -->
 					<th>名稱</th>
 					<th>圖片</th>
 					<th>數量</th>
 					<th>狀態</th>
 					<th>介紹</th>
 					<th>單價</th>
-					<th>編輯</th>
-					<th>刪除</th>
+					<th></th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="item : ${itemList}">
-					<td th:text="${item.itemId}"></td>
+<!-- 					<td th:text="${item.itemId}"></td> -->
 					<td th:text="${item.name}"></td>
 					<td><img th:if="${item.coverImg != null}"
 						th:src="@{/coverImg(itemId=${item.itemId})}" th:alt="${item.name}"
@@ -114,17 +117,20 @@
 						th:if="${item.status != 1 and item.status != 0}">未知</span></td>
 					<td th:text="${item.content}"></td>
 					<td th:text="${item.price}"></td>
-					<td>
+					<td style=" text-align: left; ">
 						<form th:action="@{/item/getOne_For_Update}" method="get">
 							<input type="hidden" name="itemId" th:value="${item.itemId}">
-							<button type="submit" class="modify_item">修改</button>
+							<button type="submit" class="modify_item" style=" width: 100px; ">修改</button>
 						</form>
-					</td>
-					<td>
-						<form th:action="@{/item/delete}" method="post"
-							onsubmit="return confirmDelete()">
+						<form th:action="@{/item/UpdateItemImg}" method="get">
 							<input type="hidden" name="itemId" th:value="${item.itemId}">
-							<button type="submit" class="delete_item">刪除</button>
+							<button type="submit" class="modify_item" style=" width: 100px; ">商品圖片</button>
+						</form>
+<!-- 					</td> -->
+<!-- 					<td> -->
+						<form th:action="@{/item/delete}" method="post" onsubmit="return confirmDelete()">
+							<input type="hidden" name="itemId" th:value="${item.itemId}">
+							<button type="submit" class="delete_item" style=" width: 100px; ">刪除</button>
 						</form>
 					</td>
 				</tr>

@@ -123,10 +123,11 @@ header img:hover {
 }
 /* 商品容器樣式 */
 .item-container {
+/* 	border:3px solid red; */
 	display: flex;
 	align-items: center; /* 垂直置中 */
 	justify-content: center; /* 水平置中 */
-	gap: 10px; /* 控制勾選框、圖片和文字間距 */
+	gap: 10px;  /* 控制勾選框、圖片和文字間距 */
 }
 
 /* 調整圖片大小和樣式 */

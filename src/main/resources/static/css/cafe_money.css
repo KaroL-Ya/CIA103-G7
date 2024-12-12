@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rosybrown;
+}
+
+h1 {
+    font-size: 3.5rem;
+    text-shadow: 3px 3px 5px lightpink;
+}
+
+header {
+    color: cornsilk;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+header button {
+    color: cornsilk;
+    background-color: transparent;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 1px 1px 3px lightpink;
+}
+
+header button:hover {
+    background-color: lightcoral;
+    transform: scale(1.05);
+}
+
+.search-form {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.search-form label {
+    margin: 0 10px;
+    font-weight: bold;
+    color: cornsilk;
+}
+
+.search-form select {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f2e9e9; /* 淺粉背景 */
+    color: #333; /* 深灰字體 */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.search-form select:hover {
+    background-color: #fff;
+    border-color: #bbb;
+}
+
+
+.search-form select option {
+    background-color: #f9dcdc; /* 選項背景顏色 */
+    color: #333; /* 選項文字顏色 */
+}
+
+.search-form select option:hover {
+    background-color: #fce4e4; /* 選項懸停時更亮的淺粉背景 */
+}
+
+.custom-select {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.custom-select:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-custom {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    background-color: lightpink;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-custom:hover {
+    background-color: lightpink;
+    transform: scale(1.05);
+}
+
+.revenue-summary {
+    margin: 30px auto;
+    width: 60%;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    text-align: center;
+    background-color: rosybrown;
+    color: cornsilk;
+}
+
+.revenue-summary h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: cornsilk;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.summary-table td {
+    padding: 15px;
+    font-size: 1.2rem;
+}
+
+.summary-table .left {
+    text-align: left;
+    font-weight: bold;
+    color: cornsilk;
+}
+
+.summary-table .right {
+    text-align: right;
+    font-weight: bold;
+    color: cornsilk;
+}
+
+.summary-table .revenue-highlight {
+    color: cornsilk;
+    font-size: 1.8rem;
+}
+
+.summary-table .divider-row td {
+    padding: 0;
+}
+
+.summary-table hr {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+button#search-btn {
+    background-color: rgb(218, 156, 157);
+    color: #fff;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+button#search-btn:hover {
+    background-color: #cc5a50;
+}

@@ -1,11 +1,15 @@
 package com.mall.item;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
@@ -62,7 +66,7 @@ public class Item implements java.io.Serializable {
 	@Column(name = "COMMENTS")
 	private Integer comments; // 評論數量
 
-//	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@OneToMany(mappedBy = "itemId", cascade = CascadeType.ALL, orphanRemoval = true)
 //	@Column(name = "IMGID")
 //	private List<ItemImg> img; // 商品圖片列表
 

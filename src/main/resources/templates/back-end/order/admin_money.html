@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>檢視營收</title>
+<link rel="stylesheet" th:href="@{/css/cafe_money.css}">
+</head>
+<body>
+	<header>
+		<h1>CAFE</h1>
+		<form th:action="@{/}" method="get" style="margin-left: auto;">
+			<button type="submit" class="index">首頁</button>
+		</form>
+		<form th:action="@{/admin_order}" method="get">
+			<button type="submit" class="order_manage">訂單管理</button>
+		</form>
+		<form th:action="@{/admin_money}" method="get">
+			<button type="submit" class="money_manage">檢視營收</button>
+		</form>
+		<form action="#" method="post">
+			<button type="submit" class="log_out">登出</button>
+		</form>
+	</header>
+
+	<form id="search-form" method="GET" th:action="@{/admin_money}"
+		class="search-form">
+		<label for="year">年份：</label> <select id="year" name="year"
+			class="custom-select">
+			<option value="" disabled selected>選擇年份</option>
+			<option th:each="year : ${years}" th:value="${year}"
+				th:text="${year}"></option>
+		</select> <label for="month">月份：</label> <select id="month" name="month"
+			class="custom-select">
+			<option value="" disabled selected>選擇月份</option>
+			<option th:each="month : ${#numbers.sequence(1, 12)}"
+				th:value="${month}" th:text="${month}"></option>
+		</select>
+		<button type="button" id="search-btn" class="btn btn-custom">搜尋</button>
+	</form>
+
+	<div class="revenue-summary">
+		<h2 th:text="${monthlyTitle}">總營收</h2>
+		<table class="summary-table">
+			<tr>
+				<td class="left">訂單數量：</td>
+				<td class="right"><strong th:text="${orderCount}"></strong></td>
+			</tr>
+			<tr>
+				<td class="left">訂單總金額：</td>
+				<td class="right"><strong th:text="${totalAmount}"></strong></td>
+			</tr>
+			<tr>
+				<td class="left">咖啡廳收入：</td>
+				<td class="right"><strong
+					th:text="${revenue}"></strong></td>
+			</tr>
+			<tr class="divider-row">
+				<td colspan="2"><hr></td>
+			</tr>
+			<tr>
+				<td class="left">平台收益（8%）：</td>
+				<td class="right revenue-highlight"><strong th:text="${platformFee}"></strong></td>
+			</tr>
+		</table>
+	</div>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const searchBtn = document.getElementById('search-btn');
+			if (searchBtn) {
+				searchBtn.addEventListener('click', function() {
+					const year = document.getElementById('year').value;
+					const month = document.getElementById('month').value;
+
+					if (!year || !month) {
+						alert('請選擇年份和月份後再進行搜尋！');
+						return;
+					}
+
+					document.getElementById('search-form').submit();
+				});
+			}
+		});
+	</script>
+</body>
+</html>

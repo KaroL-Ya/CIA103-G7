@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -61,9 +63,9 @@ public class EcpayController {
 	private OrderDetailsRepository orderDetailsRepository;
 
 	@PostMapping("/cart/submit-order")
-	public ResponseEntity<String> submitOrder(@RequestBody CheckoutRequest request) {
+	public ResponseEntity<String> submitOrder(HttpSession session, @RequestBody CheckoutRequest request) {
 
-		Integer memId = request.getMemId();
+		Integer memId = (Integer) session.getAttribute("mem_Id");
 		List<CheckoutRequest.CafeOrder> cafes = request.getCafes();
 
 		if (memId == null || cafes == null || cafes.isEmpty()) {
@@ -103,8 +105,8 @@ public class EcpayController {
 	}
 
 	@PostMapping("/payment/result")
-	public ResponseEntity<?> createOrder(@RequestBody CheckoutRequest request) {
-		Integer memId = request.getMemId();
+	public ResponseEntity<?> createOrder(HttpSession session, @RequestBody CheckoutRequest request) {
+		Integer memId = (Integer) session.getAttribute("mem_Id");
 		List<CheckoutRequest.CafeOrder> cafes = request.getCafes(); // 這裡應該從前端獲取咖啡廳的資料
 
 		List<Integer> itemIds = request.getItemIds();
@@ -152,8 +154,8 @@ public class EcpayController {
 			order.setCafeId(cafeId);
 			order.setDate(new Date()); // 設定訂單日期
 			order.setAmount(cafeTotalWithShipping); // 設定該咖啡廳的總金額（包括運費）
-			order.setStatus(1); // 訂單狀態設為"未付款"
-			order.setPaid(1); // 設定 PAID 欄位為 0 (未支付)
+			order.setStatus(0); // 訂單狀態設為預設"已付款"
+			order.setPaid(1); // PAID是實付金額不是付款狀態QAQ
 			order.setMemo(cafeOrder.getRemark()); // 存儲咖啡廳的備註
 			orders.add(order);
 		}
@@ -179,7 +181,6 @@ public class EcpayController {
 				orderDetail.setReturnReason(0); // 無退貨原因
 				orderDetails.add(orderDetail);
 
-				// 減少庫存並檢查是否需要下架商品
 				// 減少庫存並檢查是否需要下架商品
 				Item itemFromDb = itemRepository.findById(item.getItemId())
 						.orElseThrow(() -> new RuntimeException("商品未找到，商品ID：" + item.getItemId()));
@@ -221,11 +222,15 @@ public class EcpayController {
 			orderIds.add(o.getOrderId()); // 收集所有的訂單ID
 		}
 
+		// 移除購物車中已購買的商品
+		cartServiceImpl.removePurchasedItems(cart.getCartId(), itemIds);
+
 		return ResponseEntity.ok().body(Map.of("orderIds", orderIds, "totalAmount", totalAmount));
 	}
 
 //	@PostMapping("/payment/result")
 //	public ResponseEntity<?> paymentResult(@RequestParam Map<String, String> params, Model model) {
+
 //		String paymentStatus = params.get("RtnCode"); // 支付狀態碼
 //		String customField1 = params.get("CustomField1"); // 來自支付的 memId
 //		String customField2 = params.get("CustomField2"); // 來自支付的 cafes 資料

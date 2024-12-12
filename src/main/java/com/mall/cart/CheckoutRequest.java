@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutRequest {
-    @JsonProperty("memId")
-    private Integer memId; // 會員 ID
+//    @JsonProperty("memId")
+//    private Integer memId; // 會員 ID
 
     @JsonProperty("cafes")
     private List<CafeOrder> cafes = new ArrayList<>(); // 默認設為空的 List，避免 null
@@ -15,13 +15,13 @@ public class CheckoutRequest {
     private Integer platformCoupon; // 平台優惠券
 
     // Getter 和 Setter
-    public Integer getMemId() {
-        return memId;
-    }
-
-    public void setMemId(Integer memId) {
-        this.memId = memId;
-    }
+//    public Integer getMemId() {
+//        return memId;
+//    }
+//
+//    public void setMemId(Integer memId) {
+//        this.memId = memId;
+//    }
 
     public List<CafeOrder> getCafes() {
         return cafes;

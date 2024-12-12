@@ -10,15 +10,13 @@
 		<h1>購物車</h1>
 		<div class="header-buttons">
 			<a th:href="@{/}"><img th:src="@{/images/back.jpg}" alt="返回"></a>
-			<a th:href="@{/cart}"> <img th:src="@{/images/cart.png}"
-				alt="購物車"> <!-- 顯示購物車數量 --> <span th:if="${cartItemCount > 0}"
-				th:text="${cartItemCount}" class="cart-item-count"></span>
-
+			<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
+				th:src="@{/images/cart.png}" alt="購物車">
 			</a>
 		</div>
 	</header>
 
-	<!-- 如果購物車為空，顯示統一的提示 -->
+	<!-- 如果購物車為空，顯示提示 -->
 	<div th:if="${emptyCart}">
 		<div class="empty-cart">
 			<p>購物車為空</p>
@@ -30,11 +28,11 @@
 	<div
 		th:if="${cart != null and cart.groupedItems != null and !cart.groupedItems.isEmpty()}"
 		class="cart-container">
-		<!-- 顯示會員編號與購物車編號 -->
 		<div class="cart-info">
-			<span>會員編號: <span th:text="${cart.cart?.memId}"></span></span> <span>購物車編號:
-				<span class="data-cart-id" th:text="${cart.cart?.cartId}"></span>
-			</span>
+			<input type="hidden" name="memId" th:value="${session.mem_Id}">
+			<!-- 			<span>會員編號: <span th:text="${session.mem_Id}"></span></span> <span>購物車編號: -->
+			<!-- 				<span class="data-cart-id" th:text="${cart.cart?.cartId}"></span> -->
+			<!-- 			</span> -->
 		</div>
 
 		<!-- 顯示購物車項目 -->
@@ -65,13 +63,13 @@
 							<td>
 								<div class="item-container">
 									<input type="checkbox" class="item-checkbox"
-										th:attr="data-item-id=${item.itemId}"> <img
-										th:src="@{/coverImg(itemId=${item.itemId})}"
-										th:alt="${item.name}" class="item-image"> <span
-										class="item-name" th:text="${item.name}"></span>
+										th:attr="data-item-id=${item.itemId}"> 
+									<img th:src="@{/coverImg(itemId=${item.itemId})}"
+										th:alt="${item.name}" class="item-image"> 
+									<div style=" width:30px" class="item-name" th:text="${item.name}"></div>
 								</div>
 							</td>
-							<td class="item-price" th:text="${item.price}"
+							<td class="item-price" th:text=" '$'+${item.price}"
 								style="text-align: center;"></td>
 							<td style="text-align: center;">
 								<button class="decrease-btn" onclick="decreaseQuantity(this)">-</button>
@@ -82,7 +80,7 @@
 								onfocus="storePreviousValue(this)">
 								<button class="increase-btn" onclick="increaseQuantity(this)">+</button>
 							</td>
-							<td class="item-totalprice" th:text="${item.totalPrice}"
+							<td class="item-totalprice" th:text="'$'+${item.totalPrice}"
 								style="text-align: center;"></td>
 						</tr>
 					</tbody>
