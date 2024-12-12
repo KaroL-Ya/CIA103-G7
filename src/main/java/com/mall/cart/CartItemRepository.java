@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -35,5 +36,13 @@ public interface CartItemRepository extends JpaRepository<CartItem, CartItem.Car
 
 	@Query("SELECT c FROM CartItem c WHERE c.itemId.cartId = :cartId AND c.itemId.itemId IN :itemIds")
 	List<CartItem> findByCartIdAndItemIds(@Param("cartId") Integer cartId, @Param("itemIds") List<Integer> itemIds);
+
+	@Query("SELECT c FROM CartItem c WHERE c.itemId.cartId = :cartId AND c.itemId.itemId = :itemId")
+	Optional<CartItem> findByCartIdAndItemId(@Param("cartId") Integer cartId, @Param("itemId") Integer itemId);
+	
+	@Modifying
+	@Query("DELETE FROM CartItem c WHERE c.itemId.cartId = :cartId AND c.itemId.itemId IN :itemIds")
+	void deleteByCartIdAndItemIdIn(@Param("cartId") Integer cartId, @Param("itemIds") List<Integer> itemIds);
+
 
 }

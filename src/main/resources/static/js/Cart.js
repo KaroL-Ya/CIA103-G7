@@ -1,9 +1,3 @@
-// 確保 Footer 不會遮擋底部商品
-window.addEventListener('load', () => {
-	const footerHeight = document.querySelector('.footer').offsetHeight;
-	document.querySelector('.cart-container').style.marginBottom = `${footerHeight}px`;
-});
-
 // 更新總價格與商品數量
 function updateTotal() {
 	try {
@@ -205,8 +199,7 @@ function updateNumInDatabase(itemId, newNum) {
 	console.log('發送的請求數據：', requestData); // 驗證數據
 
 
-	const memId = 1; // 動態獲取會員 ID
-	fetch(`/cart/${memId}/updateNum`, {
+	fetch(`/cart/updateNum`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -244,13 +237,12 @@ function removeSelectedItems() {
 		return;
 	}
 
-	const memId = 1; // 動態獲取會員 ID
 	const itemIds = Array.from(selectedItems).map((checkbox) => {
 		const row = checkbox.closest('tr');
 		return parseInt(row.getAttribute('data-item-id'), 10);
 	});
 
-	fetch(`/cart/${memId}/removeSelectedItems`, {
+	fetch(`/cart/removeSelectedItems`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
@@ -381,7 +373,6 @@ function checkout() {
 	}
 
 	const requestData = {
-		memId: 1, // 假設從 sessionStorage 或後端獲取會員 ID
 		itemIds: selectedItems.map(item => item.itemId) // 僅傳送 itemId
 	};
 
@@ -401,7 +392,7 @@ function checkout() {
 		.then(data => {
 			console.log("結帳成功：", data);
 			// 跳轉到頁面渲染的 URL，並傳遞參數
-			const queryString = `memId=${requestData.memId}&selectedItemIds=${requestData.itemIds.join(',')}`;
+			const queryString = `selectedItemIds=${requestData.itemIds.join(',')}`;
 			window.location.href = `/cart/checkout/page?${queryString}`;
 		})
 		.catch(error => {
@@ -409,3 +400,21 @@ function checkout() {
 			alert(`結帳失敗：${error.message}`);
 		});
 }
+document.addEventListener('DOMContentLoaded', function() {
+
+	// 確保 Footer 不會遮擋底部商品
+	const 調整Footer間距 = () => {
+		const footer = document.querySelector('.footer');
+		const cartContainer = document.querySelector('.cart-container');
+		if (footer && cartContainer) {
+			const footerHeight = footer.offsetHeight; // 獲取 Footer 高度
+			cartContainer.style.marginBottom = `${footerHeight+35}px`; // 設定底部邊距
+		}
+	};
+
+	// 頁面載入完成後調整 Footer
+	window.addEventListener('load', 調整Footer間距);
+
+	// 窗口大小改變時重新調整 Footer
+	window.addEventListener('resize', 調整Footer間距);
+});

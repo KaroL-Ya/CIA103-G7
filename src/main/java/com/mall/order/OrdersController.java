@@ -22,14 +22,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class OrdersController {
@@ -52,29 +59,86 @@ public class OrdersController {
 	@Autowired
 	private OrderDetailsRepository orderDetailsRepository;
 
-	@GetMapping("/seller/orders")
-	public String getOrderList(@RequestParam(required = false) String orderId,
-			@RequestParam(required = false) String status, @RequestParam(required = false) String yearFilter,
-			@RequestParam(required = false) String monthFilter, Model model) {
-		List<Orders> orderList = ordersService.getOrderList(orderId, status, yearFilter, monthFilter);
-		model.addAttribute("orderList", orderList);
-		model.addAttribute("yearList", ordersService.getAvailableYears());
-		model.addAttribute("monthList", ordersService.getAvailableMonths());
-		return "order-management";
+	// 賣家管理
+	@PostMapping("listOrders_ByCompositeQuery")
+	public String orderListAll(HttpServletRequest req, Model model) {
+		String orderIdStr = req.getParameter("orderId");
+		String statusStr = req.getParameter("status");
+		String dateRange = req.getParameter("dateRange");
+
+		Integer orderId = (orderIdStr != null && !orderIdStr.isEmpty()) ? Integer.valueOf(orderIdStr) : null;
+		Integer status = (statusStr != null && !statusStr.isEmpty()) ? Integer.valueOf(statusStr) : null;
+
+		java.sql.Timestamp startDate = null;
+		java.sql.Timestamp endDate = null;
+
+		if (dateRange != null && !dateRange.isEmpty()) {
+			String[] dates = dateRange.split(" to ");
+			if (dates.length > 0) {
+				startDate = java.sql.Timestamp.valueOf(dates[0] + " 00:00:00");
+			}
+			if (dates.length > 1) {
+				endDate = java.sql.Timestamp.valueOf(dates[1] + " 23:59:59");
+			}
+		}
+
+		List<Orders> list = ordersService.findOrders(orderId, status, startDate, endDate);
+		model.addAttribute("cafeOrderList", list);
+		return "back-end/order/orderManagement_cafe";
 	}
 
-	@GetMapping("/seller/orders/ship/{orderId}")
-	public String shipOrder(@PathVariable Integer orderId) {
-		ordersService.updateOrderStatus(orderId, 2);
-		return "redirect:/seller/orders";
+	@GetMapping("/cafe_order/ship/{orderId}")
+	public ResponseEntity<Void> shipOrder(@PathVariable Integer orderId) {
+		try {
+			ordersService.updateOrderStatus(orderId, 1); // 更新訂單狀態
+			return ResponseEntity.ok().build(); // 返回 200 OK
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 返回 500 錯誤
+		}
 	}
 
-	@GetMapping("/seller/orders/cancel/{orderId}")
-	public String cancelOrder(@PathVariable Integer orderId) {
-		ordersService.updateOrderStatus(orderId, 5);
-		return "redirect:/seller/orders";
+	@GetMapping("/cafe_order/details/{orderId}")
+	public ResponseEntity<Map<String, Object>> getOrderDetails(@PathVariable Integer orderId) {
+		Map<String, Object> detailsWithSummary = ordersService.getOrderDetailsWithSummary(orderId);
+		return ResponseEntity.ok(detailsWithSummary);
 	}
 
+	// 後台管理
+	@PostMapping("listAllOrders_ByCompositeQuery")
+	public String adminOrderListAll(HttpServletRequest req, Model model) {
+		String orderIdStr = req.getParameter("orderId");
+		String statusStr = req.getParameter("status");
+		String dateRange = req.getParameter("dateRange");
+
+		Integer orderId = (orderIdStr != null && !orderIdStr.isEmpty()) ? Integer.valueOf(orderIdStr) : null;
+		Integer status = (statusStr != null && !statusStr.isEmpty()) ? Integer.valueOf(statusStr) : null;
+
+		java.sql.Timestamp startDate = null;
+		java.sql.Timestamp endDate = null;
+
+		if (dateRange != null && !dateRange.isEmpty()) {
+			String[] dates = dateRange.split(" to ");
+			if (dates.length > 0) {
+				startDate = java.sql.Timestamp.valueOf(dates[0] + " 00:00:00");
+			}
+			if (dates.length > 1) {
+				endDate = java.sql.Timestamp.valueOf(dates[1] + " 23:59:59");
+			}
+		}
+
+		List<Orders> list = ordersService.findOrders(orderId, status, startDate, endDate);
+		model.addAttribute("OrderList", list);
+		return "back-end/order/orderManagement_admin";
+	}
+
+
+	@GetMapping("/admin_order/details/{orderId}")
+	public ResponseEntity<Map<String, Object>> getAllOrderDetails(@PathVariable Integer orderId) {
+		Map<String, Object> detailsWithSummary = ordersService.getOrderDetailsWithSummary(orderId);
+		return ResponseEntity.ok(detailsWithSummary);
+	}
+
+//	建立訂單
 //	@PostMapping("/cart/submit-order")
 //	public ResponseEntity<?> submitOrder(@RequestBody CheckoutRequest request) {
 //		Integer memId = request.getMemId();

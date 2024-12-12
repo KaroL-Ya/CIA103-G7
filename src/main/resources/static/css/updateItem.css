@@ -6,7 +6,6 @@
 	color: cornsilk;
 }
 
-
 .form-table {
 	width: 50%;
 	border-collapse: collapse;
@@ -24,7 +23,7 @@ header {
 	justify-content: space-between;
 }
 
-.status_select , .num_select{
+.status_select, .num_select {
 	color: cornsilk;
 	margin-left: 25%;
 	margin-top: 5px;
@@ -117,10 +116,12 @@ button[type="submit"]:hover {
 
 #blob_holder img {
 	height: 120px;
+	width: auto; border-radius : 10px;
 	object-fit: scale-down;
 	margin-top: 5px;
 	margin-left: 25%;
 	text-align: left;
+	border-radius: 10px;
 }
 
 label {
@@ -135,4 +136,8 @@ label {
 
 div {
 	margin-bottom: 5px;
+}
+
+#coverImg {
+	color: #ddd;
 }

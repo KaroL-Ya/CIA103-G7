@@ -1,51 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後台首頁</title>
-    <link href="../images/222.png" rel="shortcut icon">
-    <style>
-        *{
-            box-sizing: border-box;
-        }
-        h1{
-            text-align: center;
-            color:lightpink;
-        }
-        div.login{
-            text-align: center;
-            /* right */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>後台首頁</title>
+<link href="../images/222.png" rel="shortcut icon">
+<style>
+* {
+	box-sizing: border-box;
+}
 
-        a.login{
-            border: 1px solid black;
-        }
-        div.logout{
-        	text-align: right;
-        }
-    </style>
+h1 {
+	text-align: center;
+	color: lightpink;
+}
+
+div.login {
+	text-align: center;
+	/* right */
+}
+
+a.login {
+	border: 1px solid black;
+}
+
+div.logout {
+	text-align: right;
+}
+</style>
 </head>
 <body>
-    <h1>這是一個後端開發人員設計的後台首頁</h1>
-    <h3>歡迎,管理員: <label th:text="${session.admin_Ac}"></label><label th:text="${session.admin_Name}"></label></h3>
-    <form th:action="@{/logout}" method="get">
-    	<div class="logout">
-    		<button type="submit">登出</button>
-    	</div>
+	<h1>這是一個後端開發人員設計的後台首頁</h1>
+	<h3>
+		歡迎,管理員: <label th:text="${session.admin_Ac}"></label><label
+			th:text="${session.admin_Name}"></label>
+	</h3>
+	<form th:action="@{/logout}" method="get">
+		<div class="logout">
+			<button type="submit">登出</button>
+		</div>
 	</form>
-    <div class="login">
-        <a href="./admin_select_page" class="login">管理員查詢</a>
-    </div>
-    
-    <div>
-        
-    </div>
+
+	<form th:action="@{/admin_order}" method="get">
+		<button type="submit" class="order_manage">訂單管理</button>
+	</form>
+	<form th:action="@{/admin_money}" method="get">
+		<button type="submit" class="money_manage">檢視營收</button>
+	</form>
+	<div class="login">
+		<a href="./admin_select_page" class="login">管理員查詢</a>
+	</div>
+
+	<div></div>
 
 
 
-    <script>
-
-    </script>
+	<script>
+		
+	</script>
 </body>
 </html>

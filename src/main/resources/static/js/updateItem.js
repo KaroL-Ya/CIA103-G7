@@ -15,11 +15,11 @@ const acceptedTypes = {
 	'image/gif': true
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 	const fileInput = document.getElementById("coverImg");
 
 	if (fileInput) {
-		fileInput.addEventListener("change", function (event) {
+		fileInput.addEventListener("change", function(event) {
 			const files = event.target.files || event.dataTransfer.files;
 			for (let i = 0; i < files.length; i++) {
 				previewFile(files[i]);
@@ -33,11 +33,11 @@ function previewFile(file) {
 
 	if (filereader_support && acceptedTypes[file.type]) {
 		const reader = new FileReader();
-		reader.onload = function (event) {
+		reader.onload = function(event) {
 			const image = new Image();
 			image.src = event.target.result;
-			image.width = 120; // 調整圖片寬度
-			image.height = 90; // 調整圖片高度
+			image.width = 90; // 調整圖片寬度
+			image.height = 120; // 調整圖片高度
 			image.style.marginTop = "5px";
 
 			// 清空並新增圖片預覽

@@ -8,7 +8,7 @@ public class ItemImg {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IMG_ID")
+	@Column(name = "IMGID")
 	private Integer imgId;
 
 	@ManyToOne

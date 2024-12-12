@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品圖片</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style type="text/css">
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	background-color: rosybrown;
+	color: cornsilk;
+}
+
+.form-table {
+	width: 50%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	background-color: rosybrown;
+	color: cornsilk;
+}
+
+header {
+	display: flex;
+	font-size: 2rem;
+	align-items: center;
+	padding: 20px;
+	margin: 5px;
+	justify-content: space-between;
+}
+
+input[type="text"], input[type="file"] {
+	width: 50%;
+	margin: 0 auto;
+	height: 40px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+	background-color: #ddd;
+	color: #333;
+	opacity: 70%;
+	outline: none;
+	display: block;
+}
+
+.gallery, #uploadPic, #uploadPic button {
+	margin: 10px;
+	text-align: center;
+}
+
+button[type="submit"] {
+	color: cornsilk;
+	background-color: #ad6e6e;
+	border: none;
+	padding: 12px 30px;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:hover {
+	background-color: #8c5a5a;
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item, img {
+	display: inline-block;
+	height: 100px;
+	width: auto;
+	height: 100px;
+	border-radius: 10px;
+	margin: 2px;
+	transition: transform 0.3s ease;
+}
+
+img:hover {
+	transform: scale(1.2);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+</head>
+<body>
+
+	<header>
+		<h3>商品圖片</h3>
+		<h4>
+			<a th:href="@{/item}"><img th:src="@{/images/back.jpg}" alt="返回"
+				style="width: 75px; height: 75px; border-radius: 50%;"></a>
+		</h4>
+	</header>
+
+	<!-- 新增商品圖片按鈕-->
+	<form id="uploadPic"
+		th:action="@{/item/uploadpicture/{itemId}(itemId=${item.itemId})}"
+		method="post" enctype="multipart/form-data">
+		<input type="file" name="pictures" multiple accept="image/*">
+		<button type="submit">新增商品圖片</button>
+		<!-- 					<p>最多可上傳 5 張圖片，每張大小不可超過 2 MB。</p>-->
+	</form>
+	<br>
+
+	<div class="gallery">
+		<div th:if="${imgId != null and !imgId.isEmpty()}">
+			<div th:each="imgId : ${imgId}" class="gallery-item">
+				<form th:action="@{/item/deletePicture}" method="get" class="imgs">
+					<input type="hidden" name="imgId" th:value="${imgId}" /> <input
+						type="hidden" name="itemId" th:value="${itemId}" /> <a
+						href="javascript:void(0);" onclick="confirmAndSubmit(this);">
+						<img th:src="@{'/item/picture/' + ${imgId}}" alt="作品圖片">
+
+					</a>
+				</form>
+			</div>
+		</div>
+		<div th:if="${imgId == null || imgId.isEmpty()}">
+			<p class="no-images">無圖片可顯示。</p>
+		</div>
+	</div>
+
+
+
+	<script>
+		// 防止未選取圖片時提交
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.getElementById('uploadPic');
+			form.addEventListener('submit', function(event) {
+				const fileInput = form.querySelector('input[type="file"]');
+				if (!fileInput.files.length) {
+					alert('請選擇至少一張圖片後再提交！');
+					event.preventDefault(); // 阻止表單提交
+				}
+			});
+		});
+
+		function confirmAndSubmit(anchor) {
+			if (confirm("確定要刪除此圖片嗎？")) {
+				anchor.closest('form').submit();
+			}
+		}
+	</script>
+</body>
+</html>

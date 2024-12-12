@@ -92,6 +92,15 @@ public class OrderDetails {
 	public void setReturnImg(byte[] returnImg) {
 		this.returnImg = returnImg;
 	}
+	
+	// 添加便捷方法
+    public Integer getOrderId() {
+        return orderDetailsId != null ? orderDetailsId.getOrderId() : null;
+    }
+
+    public Integer getItemId() {
+        return orderDetailsId != null ? orderDetailsId.getItemId() : null;
+    }
 
 	// 複合主鍵類別 OrderDetailsId（嵌合鍵）
 	public static class OrderDetailsId implements Serializable {
