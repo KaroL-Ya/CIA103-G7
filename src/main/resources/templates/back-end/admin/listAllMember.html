@@ -19,7 +19,7 @@ margin: 1rem 12rem 2rem 12rem;
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>所有會員資料 - listAllMember.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/admin/admin_select_page}">
+		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}">
 <!-- 		 <img th:src="@{/images/222.png}"> -->
 		 回查詢頁<label th:text="${success}"></label></a></h3></div>
 </nav>
@@ -53,16 +53,16 @@ margin: 1rem 12rem 2rem 12rem;
 				<td th:text="${memberVO.ac}"></td>
 				<td th:text="${memberVO.pw}"></td>
 				<td th:text="${memberVO.email}"></td>
-				<td th:text="${memberVO.status}"></td>
+				<td th:text="${memberVO.getMemberStatusText}"></td>
 				<td th:text="${memberVO.registertime}"></td>
 				<td th:text="${memberVO.name}"></td>
 				<td th:text="${memberVO.birth}"></td>
 				<td th:text="${memberVO.sex}"></td>
 				<td th:text="${memberVO.phone}"></td>
 				<td th:text="${memberVO.city}+${memberVO.disc}+${memberVO.address}"></td>
-				<td><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></td>
+				<td><img th:src="@{/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></td>
 			<td>
-			  <form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
+			  <form method="post" th:action="@{/adminGetOneMember_For_Update}" style="margin-bottom: 0px;" enctype="multipart/form-data">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}"></form>
 			</td>

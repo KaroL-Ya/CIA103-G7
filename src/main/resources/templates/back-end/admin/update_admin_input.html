@@ -39,7 +39,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>admin資料修改 - update_admin_input.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
+		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
 </nav>
 
 	<div align="center">
@@ -69,7 +69,7 @@
             </div>
 
             <div>
-            <label>admin狀態碼:</label>
+            <label>admin狀態:</label>
             <input type="radio" th:field="*{admin_Status}" value="1" onclick="hideContent('admin_Status.errors');" />
    			<label for="active">啟用</label>
 			<input type="radio" th:field="*{admin_Status}" value="0" onclick="hideContent('admin_Status.errors');" />
@@ -96,7 +96,7 @@
 			<label>照片:</label>
 			<input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" />
             <!-- 可以不修改圖片 <span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span> -->
-			<div id="blob_holder"><img th:src="@{/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></div>
+			<div id="blob_holder"><img th:src="@{/back-end/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></div>
 			</div>
 			
 			<div>

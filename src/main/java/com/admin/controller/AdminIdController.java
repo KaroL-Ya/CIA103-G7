@@ -29,11 +29,9 @@ import com.admin.model.AdminVO;
 import com.dept.model.DeptService;
 import com.dept.model.DeptVO;
 
-
-
 @Controller
 @Validated
-@RequestMapping("/admin")
+@RequestMapping("/back-end/admin")
 public class AdminIdController {
 	
 	@Autowired

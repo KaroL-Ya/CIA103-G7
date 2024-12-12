@@ -37,7 +37,7 @@ public class MemberLoginFilter implements Filter {
 
         // 取得 session 並檢查是否已登入
         HttpSession session = httpRequest.getSession(false);
-        if (session == null) {
+        if (session == null || !"member".equals(session.getAttribute("memberRole"))) {
             // 如果沒有登入，重定向到登入頁面
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         } else {

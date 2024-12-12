@@ -15,8 +15,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 
-
-
 @Controller
 @RequestMapping("/member")
 public class DBGifReaderController2 {
