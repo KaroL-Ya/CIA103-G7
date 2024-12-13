@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>咖啡廳資料</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	color: #333;
+}
+
+header {
+	background-color: #ffc;
+	padding: 10px 20px;
+}
+
+header .title {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+div {
+	margin: 20px auto;
+	max-width: 800px;
+	padding: 20px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	vertical-align: top;
+}
+
+table td:first-child {
+	font-weight: bold;
+	color: #555;
+	width: 30%;
+}
+
+img {
+	max-width: 100%;
+	border-radius: 8px;
+}
+
+form input[type="submit"] {
+	background-color: #007BFF;
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+form input[type="submit"]:hover {
+	background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+	<header>
+		<span class="title">咖啡廳中心</span>
+	</header>
+	<div class="header-right">
+		<span th:if="${session.ac != null}"> 歡迎, 商家 <span
+			th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
+		</span> 
+		<span style="display: flex; justify-content: flex-end; gap: 10px;">
+			<form th:action="@{/logout}" method="get"
+				th:if="${session.ac != null}">
+				<button type="submit">登出</button>
+			</form>
+			<form th:action="@{/index1}" method="get"
+				th:if="${session.ac != null}">
+				<button type="submit">回首頁</button>
+			</form>
+		</span>
+
+	</div>
+
+
+	<div>
+		<table>
+			<tr>
+				<td>名稱:</td>
+				<td><span th:text="${cafeVO.name}"></span></td>
+			</tr>
+			<tr>
+				<td>統一編號:</td>
+				<td><span th:text="${cafeVO.taxId}"></span></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><span th:text="${cafeVO.email}"></span></td>
+			</tr>
+			<tr>
+				<td>電話:</td>
+				<td><span th:text="${cafeVO.phone}"></span></td>
+			</tr>
+			<tr>
+				<td>地址:</td>
+				<td><span th:text="${cafeVO.address}"></span></td>
+			</tr>
+			<tr>
+				<td>介紹:</td>
+				<td><span th:text="${cafeVO.introduce}"></span></td>
+			</tr>
+			<tr>
+				<td>照片:</td>
+				<td><img
+					th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}"
+					width="100px"></td>
+			</tr>
+		</table>
+		<form method="post" th:action="@{/cafe/getOne_For_Update}">
+			<input type="submit" value="修改"> <input type="hidden"
+				name="cafeId" th:value="${cafeVO.cafeId}">
+		</form>
+	</div>
+</body>
+</html>

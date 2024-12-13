@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家後台首頁</title>
+    <link href="../images/cafe_icon.png" rel="shortcut icon">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: lightblue;
+        }
+        div.login {
+            text-align: center;
+        }
+        a.login {
+            border: 1px solid black;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+        }
+        a.login:hover {
+            background-color: #e2e6ea;
+        }
+        div.logout {
+            text-align: right;
+            padding: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>咖啡廳管理後台首頁</h1>
+    <h3>歡迎, 管理員: <label th:text="${session.ac}"></label><label th:text="${session.name}"></label></h3>
+    <form th:action="@{/logout}" method="get">
+        <div class="logout">
+            <button type="submit">登出</button>
+        </div>
+    </form>
+    <div class="login">
+        <a href="./select_page" class="login">咖啡廳查詢</a>
+    </div>
+
+    <div>
+        <!-- 未來可以擴充的內容 -->
+    </div>
+
+</body>
+</html>

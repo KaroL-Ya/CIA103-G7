@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊咖啡廳</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .nav-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 align="center">商家註冊</h1>
+    </header>
+    <div class="form-container">
+        <form th:action="@{/cafe/insertCafe}" method="post" th:object="${cafeVO}" enctype="multipart/form-data">
+            <label>統一編號:</label>
+            <input type="text" th:field="*{taxId}" placeholder="請輸入8位數字">
+            <div th:if="${#fields.hasErrors('taxId')}" class="errormessage" th:errors="*{taxId}"></div>
+            
+            <label>名稱:</label>
+            <input type="text" name="name" th:field="*{name}" >
+            <div th:if="${#fields.hasErrors('name')}" class="errormessage" th:errors="*{name}"></div>
+            
+            <label>帳號:</label>
+            <input type="text" name="ac" th:field="*{ac}" placeholder="6-20位英文字母或數字" >
+            <div th:if="${#fields.hasErrors('ac')}" class="errormessage" th:errors="*{ac}"></div>
+            
+            <label>密碼:</label>
+            <input type="password" name="pw" th:field="*{pw}" placeholder="6-20位英文字母或數字" >
+            <div th:if="${#fields.hasErrors('pw')}" class="errormessage" th:errors="*{pw}"></div>
+            
+            <label>信箱:</label>
+            <input type="email" name="email" th:field="*{email}" >
+            <div th:if="${#fields.hasErrors('email')}" class="errormessage" th:errors="*{email}"></div>
+            
+            <label>電話:</label>
+            <input type="text" name="phone" th:field="*{phone}" placeholder="09XXXXXXXX">
+            <div th:if="${#fields.hasErrors('phone')}" class="errormessage" th:errors="*{phone}"></div>
+            
+            <label>城市:</label>
+            <input type="text" name="city" th:field="*{city}" >
+            <div th:if="${#fields.hasErrors('city')}" class="errormessage" th:errors="*{city}"></div>
+            
+            <label>地區:</label>
+            <input type="text" name="disc" th:field="*{disc}" >
+            <div th:if="${#fields.hasErrors('disc')}" class="errormessage" th:errors="*{disc}"></div>
+            
+            <label>地址:</label>
+            <input type="text" name="address" th:field="*{address}" >
+            <div th:if="${#fields.hasErrors('address')}" class="errormessage" th:errors="*{address}"></div>
+            
+            <label>商家介紹:</label>
+            <textarea th:field="*{introduce}" name="introduce" ></textarea>
+            <div th:if="${#fields.hasErrors('introduce')}" class="errormessage" th:errors="*{introduce}"></div>
+            
+            <label>圖片:</label>
+            <input type="file" th:field="*{img}" name="img" accept="image/*">
+            <span class="error" th:utext="${errorMessage}" id="img.errors">${errorMessage}</span>
+            
+            <button type="submit" id="submit"> 送出新增</button>
+        </form>
+        
+    </div>
+</body>
+</html>
