@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-view {
+    background-color: #4CAF50; /* 綠色背景 */
+    color: white; /* 白色文字 */
+    border: none; /* 去掉邊框 */
+    padding: 10px 20px; /* 內邊距 */
+    text-align: center; /* 文字置中 */
+    font-size: 14px; /* 字型大小 */
+    cursor: pointer; /* 滑鼠指標變成手型 */
+    border-radius: 5px; /* 圓角邊框 */
+    transition: background-color 0.3s ease; /* 漸變效果 */
+}
+
+.btn-view:hover {
+    background-color: #45a049; /* 深綠色背景 */
+}
+
+.btn-view:active {
+    background-color: #3e8e41; /* 更深的綠色背景 */
+    transform: scale(0.98); /* 按下時稍微縮小 */
+}

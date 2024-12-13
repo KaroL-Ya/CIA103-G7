@@ -80,16 +80,17 @@ label.header-right {
 			<form action="#" method="get">
 				<button type="submit" class="mall">商城</button>
 
-	    	<label class="title">Back廣咖樂</label>
-	    </div>
-	    <div class="header-right" align="right">
-	    	<span th:if="${session.ac == null}"><a href="./login">登入 | 註冊</a></span>
-	    	<span th:if="${session.ac != null}" style="border:1px solid blcak">
-	  		歡迎,會員<span th:text="${session.ac}"></span>,<span th:text="${session.name}"></span>
-	  		</span>
-	  		<span><a th:href="@{/profile}" th:if="${session.ac !=null}">會員中心</a></span>
-	    	<form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
-	    		<button type="submit">登出</button>
+				<label class="title">Back廣咖樂</label>
+		</div>
+		<div class="header-right" align="right">
+			<span th:if="${session.ac == null}"><a href="./login">登入 |
+					註冊</a></span> <span th:if="${session.ac != null}"
+				style="border: 1px solid blcak"> 歡迎,會員<span
+				th:text="${session.ac}"></span>,<span th:text="${session.name}"></span>
+			</span> <span><a th:href="@{/profile}" th:if="${session.ac !=null}">會員中心</a></span>
+			<form th:action="@{/mlogout}" method="post"
+				th:if="${session.ac != null}">
+				<button type="submit">登出</button>
 
 			</form>
 			<form action="#" method="get">
@@ -108,6 +109,13 @@ label.header-right {
 				<button type="submit" class="admin_log_in">管理員</button>
 			</form>
 
+			</form>
+			<form th:action="@{/uco/listCoupons}" method="get">
+			<input type="hidden" name="mem_Id" th:value="${session.mem_Id}">
+				<div class="uco">
+					<button type="submit">我的優惠券</button>
+				</div>
+			</form>
 
 			<form th:action="@{/mlogout}" method="get"
 				th:if="${session.ac != null}">

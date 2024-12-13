@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		let orderData = {
 			cafes: [],
 			platformCoupon: parseInt(document.querySelector('#platform-coupon').value) || 0,
-			memId: 1,
+			memId: 1001,
 		};
 
 		let cafeGroups = document.querySelectorAll('.cafe-group');
