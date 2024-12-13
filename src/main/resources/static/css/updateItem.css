@@ -139,5 +139,22 @@ div {
 }
 
 #coverImg {
+	margin-left: 317px;
+	width: 100px;
+	transition: transform 0.3s ease;
 	color: #ddd;
+}
+
+#coverImg:hover {
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+img {
+	transition: transform 0.3s ease;
+}
+
+img:hover {
+	transform: scale(1.2);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

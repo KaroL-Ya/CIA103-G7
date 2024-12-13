@@ -96,14 +96,16 @@ public class MyController {
 
 	@GetMapping("/item")
 	public String selectPage(ModelMap model) {
-		model.addAttribute("itemList", itemService.getAll());
+		Integer cafeId = 5;
+		model.addAttribute("itemList", itemService.getAllByCafe(cafeId));
 		return "back-end/item/select_page"; // Thymeleaf 頁面名稱
 	}
 
 	@GetMapping("/cafe_order")
 	public String cafe_orderManagement(ModelMap model) {
-		model.addAttribute("cafeOrderList", ordersService.getAll());
-//		model.addAttribute("cafeOrderList", ordersService.getAllByCafe());
+		Integer cafeId = 5;
+//		model.addAttribute("cafeOrderList", ordersService.getAll());
+		model.addAttribute("cafeOrderList", ordersService.getAllByCafe(cafeId));
 		return "back-end/order/orderManagement_cafe"; // Thymeleaf 頁面名稱
 	}
 
@@ -111,7 +113,7 @@ public class MyController {
 	public String getCafeMoney(@RequestParam(required = false) Integer year,
 			@RequestParam(required = false) Integer month, Model model) {
 		// 預設咖啡廳 ID
-		Integer cafeId = 1;
+		Integer cafeId = 5;
 
 		// 設置標題
 		String monthlyTitle = (year != null && month != null) ? year + "年" + month + "月營收" : "總營收";
@@ -119,8 +121,8 @@ public class MyController {
 
 		// 查詢訂單數據
 		List<Orders> orders = (year != null && month != null)
-				? ordersService.findOrdersByCafeAndMonth(cafeId, year, month)
-				: ordersService.findOrdersByCafe(cafeId);
+				? ordersService.findOrdersByCafeAndMonth(cafeId, year, month) // 查詢年月
+				: ordersService.findOrdersByCafe(cafeId); // 總營收
 
 		// 計算統計數據
 		int orderCount = (int) orders.stream().filter(o -> o.getStatus() == 2).count();
@@ -171,8 +173,8 @@ public class MyController {
 		model.addAttribute("monthlyTitle", monthlyTitle);
 
 		// 查詢訂單數據
-		List<Orders> orders = (year != null && month != null) ? ordersService.findOrdersByMonth(year, month)
-				: ordersService.getAllOrders();
+		List<Orders> orders = (year != null && month != null) ? ordersService.findOrdersByMonth(year, month) // 查詢年月
+				: ordersService.getAllOrders(); // 總營收
 
 		// 計算統計數據
 		int orderCount = (int) orders.stream().filter(o -> o.getStatus() == 2).count();

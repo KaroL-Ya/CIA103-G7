@@ -39,15 +39,15 @@ public class Item implements java.io.Serializable {
 	private Integer cafeItemId; // 每個咖啡廳內的唯一商品 ID
 
 	@NotBlank(message = "請勿空白")
-	@Pattern(regexp = "^[\u4e00-\u9fa5a-zA-Z0-9_\s]{2,30}$", message = "只能是中、英文字母、數字和_ , 且長度必需在2到30之間")
-	@Column(name = "NAME", nullable = false, length = 30)
+	@Pattern(regexp = "^[\u4e00-\u9fa5a-zA-Z0-9_\\s]{2,20}$", message = "只能是中、英文字母、數字和_ , 且長度必需在2到20之間")
+	@Column(name = "NAME", nullable = false, length = 20)
 	private String name; // 商品名稱
 
 	@NotNull(message = "不能為空")
 	@Positive(message = "必須大於0")
 	@Column(name = "PRICE", nullable = false)
 	private Integer price; // 商品價格，需大於等於0
-	
+
 	@NotNull(message = "不能為空")
 	@Column(name = "NUM", nullable = false)
 	private Integer num; // 商品數量
@@ -78,26 +78,24 @@ public class Item implements java.io.Serializable {
 	private String previewImage; // 不保存至資料庫
 
 	public String getPreviewImage() {
-	    return previewImage;
+		return previewImage;
 	}
 
 	public void setPreviewImage(String previewImage) {
-	    this.previewImage = previewImage;
+		this.previewImage = previewImage;
 	}
-	
+
 	@Transient
-    private String coverImgUrl;
+	private String coverImgUrl;
 
-    // Getter 和 Setter
-    public String getCoverImgUrl() {
-        return coverImgUrl;
-    }
+	// Getter 和 Setter
+	public String getCoverImgUrl() {
+		return coverImgUrl;
+	}
 
-    public void setCoverImgUrl(String coverImgUrl) {
-        this.coverImgUrl = coverImgUrl;
-    }
-
-
+	public void setCoverImgUrl(String coverImgUrl) {
+		this.coverImgUrl = coverImgUrl;
+	}
 
 	public Integer getNum() {
 		return num;

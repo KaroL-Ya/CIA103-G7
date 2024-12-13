@@ -84,6 +84,17 @@ img:hover {
 	transform: scale(1.2);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+#imgupload {
+	width: 100px;
+	transition: transform 0.3s ease;
+	color: #ddd;
+}
+
+#imgupload:hover {
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
 </style>
 
 </head>
@@ -101,7 +112,8 @@ img:hover {
 	<form id="uploadPic"
 		th:action="@{/item/uploadpicture/{itemId}(itemId=${item.itemId})}"
 		method="post" enctype="multipart/form-data">
-		<input type="file" name="pictures" multiple accept="image/*">
+		<input id="imgupload" type="file" name="pictures" multiple
+			accept="image/*">
 		<button type="submit">新增商品圖片</button>
 		<!-- 					<p>最多可上傳 5 張圖片，每張大小不可超過 2 MB。</p>-->
 	</form>

@@ -37,7 +37,7 @@
 
 		<!-- 顯示購物車項目 -->
 		<div class="cart-wrapper">
-			<div class="select-all">
+			<div class="select-all" style=" margin-left: 140px; ">
 				<input type="checkbox" id="select-all-cart" class="select_all"
 					onclick="selectAllCart(this)"> <label for="select-all-cart">全選</label>
 			</div>
@@ -63,10 +63,11 @@
 							<td>
 								<div class="item-container">
 									<input type="checkbox" class="item-checkbox"
-										th:attr="data-item-id=${item.itemId}"> 
-									<img th:src="@{/coverImg(itemId=${item.itemId})}"
-										th:alt="${item.name}" class="item-image"> 
-									<div style=" width:30px" class="item-name" th:text="${item.name}"></div>
+										th:attr="data-item-id=${item.itemId}"> <img
+										th:src="@{/coverImg(itemId=${item.itemId})}"
+										th:alt="${item.name}" class="item-image">
+									<div style="width: 205px; text-align: left;" class="item-name"
+										th:text="${item.name}"></div>
 								</div>
 							</td>
 							<td class="item-price" th:text=" '$'+${item.price}"

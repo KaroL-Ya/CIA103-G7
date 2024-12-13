@@ -21,6 +21,14 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	List<Orders> findByOthers(@Param("orderId") Integer orderId, @Param("status") Integer status,
 			@Param("startDate") java.sql.Timestamp startDate, @Param("endDate") java.sql.Timestamp endDate);
 
+	@Query(value = "FROM Orders o WHERE " + "(o.cafeId = :cafeId) AND"  + "(:orderId IS NULL OR o.orderId = :orderId) AND "
+			+ "(:status IS NULL OR o.status = :status) AND "
+			+ "((:startDate IS NULL AND :endDate IS NULL) OR (o.date BETWEEN :startDate AND :endDate)) "
+			+ "ORDER BY o.orderId")
+	List<Orders> findByCafeIdOthers(@Param("cafeId") Integer cafeId, @Param("orderId") Integer orderId,
+			@Param("status") Integer status, @Param("startDate") java.sql.Timestamp startDate,
+			@Param("endDate") java.sql.Timestamp endDate);
+
 	@Query("SELECT o FROM Orders o WHERE o.cafeId = :cafeId")
 	List<Orders> findByCafeId(@Param("cafeId") Integer cafeId);
 
@@ -30,14 +38,13 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 	@Query("SELECT DISTINCT YEAR(o.date) FROM Orders o WHERE o.cafeId = :cafeId ORDER BY YEAR(o.date) ASC")
 	List<Integer> findAvailableYears(@Param("cafeId") int cafeId);
-	
-	//後台
-		@Query("SELECT o FROM Orders o WHERE YEAR(o.date) = :year AND MONTH(o.date) = :month")
-		List<Orders> findByMonth(@Param("year") Integer year,
-				@Param("month") Integer month);
 
-		@Query("SELECT DISTINCT YEAR(o.date) FROM Orders o ORDER BY YEAR(o.date) ASC")
-		List<Integer> findAllAvailableYears();
+	// 後台
+	@Query("SELECT o FROM Orders o WHERE YEAR(o.date) = :year AND MONTH(o.date) = :month")
+	List<Orders> findByMonth(@Param("year") Integer year, @Param("month") Integer month);
+
+	@Query("SELECT DISTINCT YEAR(o.date) FROM Orders o ORDER BY YEAR(o.date) ASC")
+	List<Integer> findAllAvailableYears();
 
 	// 根據訂單id查詢商品，確保每間咖啡廳只能看到自己的訂單
 //	@Query(value = "from orders where CAFE_ID like?1 order by ORDER_ID")
