@@ -3,7 +3,7 @@ package com;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-import com.G7Application;
+//import com.G7Application;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 

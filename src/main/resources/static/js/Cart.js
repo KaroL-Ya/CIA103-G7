@@ -199,7 +199,9 @@ function updateNumInDatabase(itemId, newNum) {
 	console.log('發送的請求數據：', requestData); // 驗證數據
 
 
+
 	fetch(`/cart/updateNum`, {
+
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -373,6 +375,7 @@ function checkout() {
 	}
 
 	const requestData = {
+
 		itemIds: selectedItems.map(item => item.itemId) // 僅傳送 itemId
 	};
 

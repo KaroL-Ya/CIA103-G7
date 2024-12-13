@@ -156,6 +156,7 @@ public class EcpayController {
 			order.setAmount(cafeTotalWithShipping); // 設定該咖啡廳的總金額（包括運費）
 			order.setStatus(0); // 訂單狀態設為預設"已付款"
 			order.setPaid(1); // PAID是實付金額不是付款狀態QAQ
+
 			order.setMemo(cafeOrder.getRemark()); // 存儲咖啡廳的備註
 			orders.add(order);
 		}
