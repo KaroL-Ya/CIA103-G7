@@ -43,6 +43,11 @@ public class OrdersService {
 			java.sql.Timestamp endDate) {
 		return ordersRepository.findByOthers(orderId, status, startDate, endDate);
 	}
+	
+	public List<Orders> findCafeOrders(Integer cafeId, Integer orderId, Integer status, java.sql.Timestamp startDate,
+			java.sql.Timestamp endDate) {
+		return ordersRepository.findByCafeIdOthers(cafeId, orderId, status, startDate, endDate);
+	}
 
 	public List<Orders> getAll() {
 		return ordersRepository.findAll();
@@ -94,10 +99,10 @@ public class OrdersService {
 	}
 
 	// 咖啡廳商家自己的訂單
-//	public List<Orders> getAllByCafe(Integer cafeId) {
-//		List<Orders> cafeOrderList = ordersRepository.findByCafeId(cafeId);
-//		return cafeOrderList;
-//	}
+	public List<Orders> getAllByCafe(Integer cafeId) {
+		List<Orders> cafeOrderList = ordersRepository.findByCafeId(cafeId);
+		return cafeOrderList;
+	}
 
 //	public List<Orders> getOrderList(String orderId, String status, String year, String month) {
 //        return ordersRepository.findOrders(orderId, status, year, month);

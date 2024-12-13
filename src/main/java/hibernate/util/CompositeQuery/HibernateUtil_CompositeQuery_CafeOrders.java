@@ -35,6 +35,8 @@ public class HibernateUtil_CompositeQuery_CafeOrders {
 			predicate = builder.greaterThanOrEqualTo(root.get("date"), java.sql.Timestamp.valueOf(value + " 00:00:00"));
 		} else if ("endDate".equals(columnName)) { // 用於範圍查詢 - 結束日期
 			predicate = builder.lessThanOrEqualTo(root.get("date"), java.sql.Timestamp.valueOf(value + " 23:59:59"));
+		} else if ("cafeId".equals(columnName)) { // 用於Integer
+			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
 		}
 
 //		else if ("sal".equals(columnName) || "comm".equals(columnName)) // 用於Double

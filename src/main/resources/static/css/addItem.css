@@ -1,29 +1,29 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background-color: rosybrown;
-    color: cornsilk;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	background-color: rosybrown;
+	color: cornsilk;
 }
 
 .form-table {
-    width: 50%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    background-color: rosybrown;
-    color: cornsilk;
+	width: 50%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	background-color: rosybrown;
+	color: cornsilk;
 }
 
 header {
-    display: flex;
-    font-size: 2rem; /* 保持原標題大小 */
-    align-items: center;
-    padding: 20px;
-    margin: 5px;
-    justify-content: space-between;
+	display: flex;
+	font-size: 2rem; /* 保持原標題大小 */
+	align-items: center;
+	padding: 20px;
+	margin: 5px;
+	justify-content: space-between;
 }
 
-.status_select, .num_select{
+.status_select, .num_select {
 	color: cornsilk;
 	margin-left: 25%;
 	margin-top: 5px;
@@ -38,42 +38,39 @@ header {
 	outline: none;
 }
 
-
-
 .error-messages {
-    text-align: center;
-    color: lightpink;
-    font-weight: bold;
-    margin-bottom: 10px;
+	text-align: center;
+	color: lightpink;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 /* 輸入框置中 */
 input[type="text"], input[type="file"] {
-    width: 50%; /* 輸入框寬度為畫面 50% */
-    margin: 0 auto; /* 置中 */
-    height: 40px;
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 3px;
-    border: 1px solid lightgray;
-    background-color: #ddd;
-    color: #333;
-    opacity: 70%;
-    outline: none;
-    display: block; /* 獨佔一行，保證置中 */
+	width: 50%; /* 輸入框寬度為畫面 50% */
+	margin: 0 auto; /* 置中 */
+	height: 40px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+	background-color: #ddd;
+	color: #333;
+	opacity: 70%;
+	outline: none;
+	display: block; /* 獨佔一行，保證置中 */
 }
 
 /* 錯誤驗證消息 */
 span.error {
-    display: block; /* 保證錯誤訊息在輸入框下方 */
-    margin-left: 25%;
-    width: 50%; /* 與輸入框寬度一致 */
-    color: #f9c8c8; /* 使用明顯對比的紅色 */
-    font-weight: bold; /* 加粗 */
-    font-size: 1rem;
-    text-align: left; /* 左對齊方便閱讀 */
+	display: block; /* 保證錯誤訊息在輸入框下方 */
+	margin-left: 25%;
+	width: 50%; /* 與輸入框寬度一致 */
+	color: #f9c8c8; /* 使用明顯對比的紅色 */
+	font-weight: bold; /* 加粗 */
+	font-size: 1rem;
+	text-align: left; /* 左對齊方便閱讀 */
 }
-
 
 textarea {
 	width: 50%; /* 調整寬度 */
@@ -96,63 +93,76 @@ textarea:focus {
 	outline: none; /* 聚焦時移除點擊邊框 */
 }
 
-
 /* 按鈕容器 - 置中 */
 .submit-container {
-    text-align: center;
-    margin-top: 20px; /* 與其他表單元件間距 */
+	text-align: center;
+	margin-top: 20px; /* 與其他表單元件間距 */
 }
 
 /* 送出按鈕 */
 button[type="submit"] {
-    color: cornsilk;
-    background-color: #ad6e6e; /* 與背景風格一致 */
-    border: none;
-    padding: 12px 30px; /* 按鈕大小 */
-    font-size: 1rem; /* 字體大小適中 */
-    border-radius: 5px; /* 圓角 */
-    cursor: pointer;
-    transition: all 0.3s ease; /* 過渡效果 */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+	color: cornsilk;
+	background-color: #ad6e6e; /* 與背景風格一致 */
+	border: none;
+	padding: 12px 30px; /* 按鈕大小 */
+	font-size: 1rem; /* 字體大小適中 */
+	border-radius: 5px; /* 圓角 */
+	cursor: pointer;
+	transition: all 0.3s ease; /* 過渡效果 */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* 陰影效果 */
 }
 
 /* 懸停效果 */
 button[type="submit"]:hover {
-    background-color: #8c5a5a; /* 懸停背景顏色加深 */
-    transform: scale(1.1); /* 放大效果 */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 加強陰影效果 */
+	background-color: #8c5a5a; /* 懸停背景顏色加深 */
+	transform: scale(1.1); /* 放大效果 */
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 加強陰影效果 */
 }
-
-
 
 /* 預覽圖片樣式 */
 #blob_holder img {
-    height: 120px;
-    width: auto;
-    border-radius: 10px;
-    object-fit: scale-down; /* 確保圖片比例不變 */
-    margin-top: 0px;
-    margin-left: 25%;
-    text-align: left;
+	height: 120px;
+	width: auto;
+	border-radius: 10px;
+	object-fit: scale-down; /* 確保圖片比例不變 */
+	margin-top: 0px;
+	margin-left: 25%;
+	text-align: left;
 }
-
 
 /* 表單標籤樣式 */
 label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-left: 25%;
-    width: 50%; /* 與輸入框寬度一致 */
-    display: block;
-    text-align: left; /* 與輸入框置中對齊 */
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-left: 25%;
+	width: 50%; /* 與輸入框寬度一致 */
+	display: block;
+	text-align: left; /* 與輸入框置中對齊 */
 }
 
 /* 表單容器間距 */
 div {
-    margin-bottom: 5px; /* 每個表單項目之間的距離 */
+	margin-bottom: 5px; /* 每個表單項目之間的距離 */
 }
 
-#coverImg{
+#coverImg {
+	margin-left: 317px;
+	width: 100px;
+	transition: transform 0.3s ease;
 	color: #ddd;
+}
+
+#coverImg:hover {
+	transform: scale(1.05);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+img {
+	transition: transform 0.3s ease;
+}
+
+img:hover {
+	transform: scale(1.2);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

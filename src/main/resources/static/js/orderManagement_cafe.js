@@ -57,7 +57,7 @@ function showDetails(button) {
 			const { details, totalAmount, memo } = data;
 
 			if (!Array.isArray(details) || details.length === 0) {
-				throw new Error("訂單詳情為空或數據格式錯誤。");
+				throw new Error("訂單詳情為空");
 			}
 
 			const modalContainer = document.getElementById("modal-container");

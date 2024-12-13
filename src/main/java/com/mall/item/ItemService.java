@@ -59,21 +59,21 @@ public class ItemService {
 	}
 
 	// 咖啡廳商家自己的商品
-//	public List<Item> getAllByCafe(Integer cafeId) {
-//
-//		
-//		List<Item> cafeItemList = itemRepository.findByCafeId(cafeId);
-//		// 動態設置 coverImgUrl
-//		cafeItemList.forEach(item -> {
-//            if (item.getCoverImg() != null) {
-//                item.setCoverImgUrl("/coverImg?itemId=" + item.getItemId());
-//            } else {
-//                item.setCoverImgUrl(null); // 如果沒有圖片，可以設置預設圖片 URL
-//            }
-//        });
-//
-//		return cafeItemList;
-//	}
+	public List<Item> getAllByCafe(Integer cafeId) {
+
+		
+		List<Item> cafeItemList = itemRepository.findByCafeId(cafeId);
+		// 動態設置 coverImgUrl
+		cafeItemList.forEach(item -> {
+            if (item.getCoverImg() != null) {
+                item.setCoverImgUrl("/coverImg?itemId=" + item.getItemId());
+            } else {
+                item.setCoverImgUrl(null); // 如果沒有圖片，可以設置預設圖片 URL
+            }
+        });
+
+		return cafeItemList;
+	}
 
 	public void saveItemImage(Integer itemId, byte[] imgBytes) {
 		Item item = itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("商品不存在"));

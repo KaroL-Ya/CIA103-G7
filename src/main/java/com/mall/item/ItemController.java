@@ -164,13 +164,15 @@ public class ItemController {
 
 	@PostMapping("delete")
 	public String delete(@RequestParam("itemId") String itemId, ModelMap model) {
-		// EmpService empSvc = new EmpService();
+
+		itemImgRepository.deleteAllByItemId(Integer.valueOf(itemId));
+
 		itemService.deleteItem(Integer.valueOf(itemId));
 
 		List<Item> list = itemService.getAll();
 		model.addAttribute("itemList", list);
 		model.addAttribute("success", "已刪除");
-		return "back-end/item/select_page";
+		return "redirect:/item";
 	}
 
 }

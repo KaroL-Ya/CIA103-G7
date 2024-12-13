@@ -30,7 +30,7 @@
 				style="font-weight: bold; border: 0;" />
 		</div>
 		<div>
-			<label>商品名稱:</label> <input type="text" th:field="*{name}"
+			<label>商品名稱:</label> <input id="name" type="text" th:field="*{name}"
 				onclick="hideContent('name.errors');" /> <span
 				th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 				class="error" id="name.errors"></span>

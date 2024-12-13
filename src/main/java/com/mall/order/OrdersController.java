@@ -62,6 +62,17 @@ public class OrdersController {
 	// 賣家管理
 	@PostMapping("listOrders_ByCompositeQuery")
 	public String orderListAll(HttpServletRequest req, Model model) {
+//		, HttpSession session) {
+
+		// 從 Session 獲取 cafeId
+//		Integer cafeId = (Integer) session.getAttribute("cafeId");
+//		if (cafeId == null) {
+//			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+//			return "redirect:/login"; // 假設登錄頁面是 /login
+//		}
+		
+		Integer cafeId = 5;
+
 		String orderIdStr = req.getParameter("orderId");
 		String statusStr = req.getParameter("status");
 		String dateRange = req.getParameter("dateRange");
@@ -82,7 +93,7 @@ public class OrdersController {
 			}
 		}
 
-		List<Orders> list = ordersService.findOrders(orderId, status, startDate, endDate);
+		List<Orders> list = ordersService.findCafeOrders(cafeId, orderId, status, startDate, endDate);
 		model.addAttribute("cafeOrderList", list);
 		return "back-end/order/orderManagement_cafe";
 	}
@@ -130,7 +141,6 @@ public class OrdersController {
 		model.addAttribute("OrderList", list);
 		return "back-end/order/orderManagement_admin";
 	}
-
 
 	@GetMapping("/admin_order/details/{orderId}")
 	public ResponseEntity<Map<String, Object>> getAllOrderDetails(@PathVariable Integer orderId) {
