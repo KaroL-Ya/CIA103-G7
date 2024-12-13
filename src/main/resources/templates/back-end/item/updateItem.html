@@ -66,6 +66,7 @@
 		</div>
 		<div>
 			<label>封面圖片:</label> <input type="file" id="coverImg" name="coverImg">
+			<br>
 			<!-- 可以不修改圖片  -->
 			<span th:if="${#fields.hasErrors('coverImg')}"
 				th:errors="*{coverImg}" class="error" id="coverImg.errors"></span>

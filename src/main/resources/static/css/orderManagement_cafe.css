@@ -2,13 +2,12 @@
 
 * {
 	box-sizing: border-box;
-	margin: 1px;
 	padding: 0;
 	background-color: rosybrown;
 }
 
 body {
-	margin: 20px !important; /* 強制覆蓋任何已應用的全局 margin 設定 */
+	margin:0px !important; /* 強制覆蓋任何已應用的全局 margin 設定 */
 	background-color: rosybrown !important; /* 確保背景色不被其他樣式覆蓋 */
 	font-family: initial !important; /* 使用瀏覽器的默認字型 */
 }
