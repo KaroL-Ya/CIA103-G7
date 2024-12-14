@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>購物商城</title>
+<title>商品瀏覽</title>
 
 <!-- 插入外部片段 -->
 <!-- <head th:insert="~{/item/included-fragment}"></head> -->
@@ -41,10 +41,12 @@ nav ul {
 	list-style: none;
 	padding: 0;
 	display: flex;
+	
 }
 
 nav ul li {
 	margin: 0 15px;
+
 }
 
 nav ul li a {
@@ -100,6 +102,11 @@ button {
 	border: none;
 	padding: 10px 20px;
 	cursor: pointer;
+	border-radius: 5px; /* 圓角 */
+}
+
+button:hover {
+	background-color: #e60012; /* 滑鼠懸停時顏色變換 */
 }
 
 * {
@@ -117,6 +124,7 @@ ul.list>li>div.inner_block {
 	padding: 0 40px;
 	line-height: 1.6;
 	display: none;
+		
 }
 
 ul.list>li.-on>a.link_title button.switch_btn span.-plus {
@@ -127,63 +135,86 @@ ul.list>li.-on>a.link_title button.switch_btn span.-minus {
 	display: inline-blrgb(202, 101, 0)
 }
 
-/*  下拉選單  */
+/* 去掉列表的黑點並使其水平排列 */
 .nav_list {
-	display: flex;
+    display: flex; /* 水平排列 */
+    padding: 0; /* 去掉內邊距 */
+    margin: 0; /* 去掉外邊距 */
+    list-style-type: none; /* 去掉黑點 */
 }
 
-/* 顯示下面 */
+/* 每個列表項目的間距 */
 .nav_list li {
-	position: relative;
-	margin-right: 10px;
+	margin-right: 20px; /* 控制列表項目的間距 */
 }
 
-.nav_list li a {
-	/* text-decoration: none; */
+/* 連結文字樣式 */
+.nav-link {
 	color: #796509;
 	font-size: 20px;
-	padding: 20px;
+	padding: 10px;
+	text-decoration: none;
+	transition: font-size 0.5s ease; /* 平滑過渡效果 */
+	
 }
 
-/* 下拉表單字顏色 */
-.nav_list li a:hover {
+/* 滑鼠懸停時字體變大 */
+.nav-link:hover {
+	font-size: 24px;
 	color: #0077b5;
 }
 
-/* 下拉方框 */
-.dropdown-menu {
-	display: none;
-	position: absolute;
-	left: 0;
-	top: 100%;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	min-width: 150px;
-	list-style: none;
-	padding: 0;
+/* 圖標容器 (水平排列) */
+.container {
+	display: flex;
+	align-items: center; /* 垂直置中 */
+	gap: 15px; /* 控制間距 */
+
 }
 
-.dropdown-menu li { /* 下拉裡的水平線 */
-	border-bottom: 1px solid #ddd;
+/* 搜尋圖示及購物車圖示樣式 */
+.container a svg, .search-container button svg {
+	width: 30px; /* 圖示寬度 */
+	height: 30px; /* 圖示高度 */
+	fill: black; /* 預設顏色 */
+	transition: fill 0.3s ease; /* 平滑變色效果 */
+	cursor: pointer; /* 鼠標變為可點擊手勢 */
 }
 
-.dropdown-menu li:last-child {
-	border-bottom: none;
+/* 滑鼠懸停時的變色效果 */
+.container a:hover svg, .search-container button:hover svg {
+	fill: #ff9900;
 }
 
-.dropdown-menu li a {
-	padding: 8px 12px;
-	display: block;
+/* 搜尋按鈕樣式 (透明背景) */
+.search-container button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0; /* 移除內邊距 */
+	
+}
+/* 搜尋容器樣式 (靠右對齊) */
+.search-container {
+	display: flex;
+	justify-content: flex-end; /* 內容靠右 */
+	align-items: center;
+	gap: 10px; /* 搜尋框和按鈕間距 */
+	width: 100%; /* 保證容器撐滿寬度 */
+	box-sizing: border-box;
+	padding-right: 0px; /* 靠右的邊距調整 */
 }
 
-.dropdown-menu li a:hover {
-	background-color: #f4f4f4;
+/* 搜尋框樣式 */
+.search-container input {
+	padding: 8px 12px; /* 內邊距 */
+	border-radius: 15px; /* 圓角 */
+	outline: none; /* 點擊時移除預設外框 */	
+	width: 150px; /* 搜尋框寬度，可調整 */
+	transition: border-color 0.5s ease;
+	align-items: center;
 }
 
-/* 顯示下拉菜單 */
-.dropdown:hover .dropdown-menu {
-	display: block;
-}
 </style>
 </head>
 
@@ -194,65 +225,46 @@ ul.list>li.-on>a.link_title button.switch_btn span.-minus {
 				<h1>購物商城</h1>
 			</a>
 
-			<nav>
-				<ul class="list">
-					<li>
-						<ul class="nav_list">
-							<li class="dropdown"><a href="#" class="data-toggle"
-								data-toggle="dropdown">咖啡豆</a>
+			<ul class="nav_list">
+				<li><a href="#" class="nav-link">最新消息</a></li>
+				<li><a href="#" class="nav-link">咖啡廳介紹</a></li>
+				<li><a href="#" class="nav-link">活動列表</a></li>
+				<li><a href="#" class="nav-link">論壇</a></li>
 
-								<ul class="dropdown-menu">
-									<!-- 								加 -->
-									<li><a href="/lookItem/category/2">淺烘焙</a></li>
-									<li><a href="/lookItem/category/3">中烘焙</a></li>
-									<li><a href="/lookItem/category/4">深烘焙</a></li>
-
-								</ul></li>
-
-							<li>
-								<ul class="nav_list">
-									<li class="dropdown"><a href="#" class="data-toggle"
-										data-toggle="dropdown"> 咖啡機</a>
-										<ul class="dropdown-menu">
-											<li><a href="/lookItem/category/6">全自動咖啡機</a></li>
-											<li><a href="/lookItem/category/7">半自動咖啡機</a></li>
-											<li><a href="/lookItem/category/8">膠囊咖啡機</a></li>
-										</ul></li>
-								</ul>
-							</li>
-							<li>
-								<ul class="nav_list">
-									<li class="dropdown"><a href="#" class="dropdown-toggle"
-										data-toggle="dropdown">咖啡器具</a>
-										<ul class="dropdown-menu">
-											<li><a href="/lookItem/category/10">手沖壺</a></li>
-											<li><a href="/lookItem/category/11">虹吸壺</a></li>
-											<li><a href="/lookItem/category/12">濾壓壺</a></li>
-											<li><a href="/lookItem/category/13">其他</a></li>
-										</ul></li>
-								</ul>
-							</li>
-							<li>
-								<ul class="nav_list">
-									<li class="dropdown"><a href="/lookItem/category/14"
-										class="dropdown-toggle" data-toggle="dropdown">其他</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
+			</ul>
 			
-		
-			<form  method="post" 
-				th:action="${listItem_ByCompositeQuery}"				
+			<form method="post"
+				th:action="@{/lookItem/listItem_ByCompositeQuery}"
 				onsubmit="return validateForm()">
-				<input type="text" name="name" id="name" placeholder="搜尋商品名稱">
-				<button type="submit">搜尋</button>
+				<div class="search-container">
+					<input type="text" name="name" id="name" placeholder="搜尋商品名稱">
+					<button type="submit">
+
+						<!-- 放入 SVG 圖示 -->
+					<svg xmlns="http://www.w3.org/2000/svg" height="20px"
+							viewBox="0 -960 960 960" width="24px" fill="#000000">
+            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+        			</svg>
+					</button>
+					
+				</div>
 			</form>
+			
+			<div class="container">
+				<a href="###"> 
+			<svg xmlns="http://www.w3.org/2000/svg"
+						height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+        <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+   			</svg>
 
-		</div>
+				</a> <a href="###"> 
+				<svg xmlns="http://www.w3.org/2000/svg"
+						height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+					<path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
+				</svg>
 
+				</a>
+			</div>
 	</header>
 
 	<main>
@@ -296,15 +308,15 @@ ul.list>li.-on>a.link_title button.switch_btn span.-minus {
 	</main>
 
 	<script>
-    function validateForm() {       
-        var name = document.getElementById('name').value;    
-        if (name === "") {          
-            alert("請輸入關鍵字！");           
-            return false;
-        }
-        return true;
-    }
-</script>
+		function validateForm() {
+			var name = document.getElementById('name').value;
+			if (name === "") {
+				alert("請輸入關鍵字！");
+				return false;
+			}
+			return true;
+		}
+	</script>
 
 
 </body>

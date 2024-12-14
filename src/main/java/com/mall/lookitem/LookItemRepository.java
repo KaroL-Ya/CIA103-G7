@@ -11,14 +11,7 @@ import java.util.Optional;
 
 public interface LookItemRepository extends JpaRepository<LookItemVO, Integer> {
 
-  
     List<LookItemVO> findByNameLike(String name);
-
-    List<LookItemVO> findByCategoryId(String category);
-
-   
-	
-
 }
 
         // 商品狀態查商品（上架或下架商品）
