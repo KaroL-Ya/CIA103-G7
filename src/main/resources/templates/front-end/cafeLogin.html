@@ -2,23 +2,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>咖啡廳登入</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>咖啡廳登入</title>
 </head>
 <body>
-    <header>
-        <h1>咖啡廳登入</h1>
-    </header>
-    <div align="center">
-        <form th:action="@{/cafeLogin}" method="post">
-            <label>帳號:</label>
-            <input type="text" name="ac"><br/>
-            <label>密碼:</label>
-            <input type="password" name="pw"><br/>
-            <button type="submit">登入</button>
-            <a th:href="@{/cafe/register}">註冊咖啡廳</a>
-        </form>
-    </div>
+	<header>
+		<h1>咖啡廳登入</h1>
+	</header>
+	<div align="center">
+		<form th:action="@{/cafe/cafe_Login}" method="post">
+			<label>帳號:</label> <input type="text" name="ac" th:value="*{ac}"><br />
+			<label>密碼:</label> <input type="password" name="pw" th:value="*{pw}"><br />
+			<button type="submit">登入</button>
+			<a th:href="@{/cafe/cafeRegister}">註冊咖啡廳</a>
+		</form>
+	</div>
 </body>
 </html>

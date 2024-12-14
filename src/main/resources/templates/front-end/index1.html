@@ -35,7 +35,7 @@
             <label class="title">咖啡廳首頁</label>
         </div>
         <div class="header-right">
-            <span th:if="${session.ac == null}"><a th:href="@{/cafe/login}">商家登入 | 註冊</a></span><br>
+            <span th:if="${session.ac == null}"><a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a></span><br>
             <span th:if="${session.ac != null}">歡迎, <span th:text="${session.ac}"></span></span>
             <a th:href="@{/cafe/cafeProfile}" th:if="${session.ac != null}">會員中心</a>
             <form th:action="@{/logout}" method="get" th:if="${session.ac != null}">

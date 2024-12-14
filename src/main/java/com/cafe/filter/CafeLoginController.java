@@ -22,7 +22,7 @@ public class CafeLoginController {
     @Autowired
     HttpSession session;
 
-    @PostMapping("/cafeLogin")
+    @PostMapping("/cafe/cafe_Login")
     public String login(@RequestParam String ac, @RequestParam String pw,
                         HttpSession session, ModelMap model) {
         CafeVO cafeVO = cafeSvc.login(ac, pw);
@@ -37,17 +37,17 @@ public class CafeLoginController {
             session.setAttribute("disc", cafeVO.getDisc());
             session.setAttribute("address", cafeVO.getAddress());
             session.setAttribute("state", cafeVO.getState());
-            return "redirect:/index1";
+            return "redirect:/cafe";
         } else {
             // 登入失敗
             model.addAttribute("error", "帳號或密碼錯誤");
-            return "front-end/login";  // 返回登入頁面
+            return "front-end/cafeLogin";  // 返回登入頁面
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // 清除 Session
-        return "redirect:/cafe/login";
+        return "redirect:/cafe/cafeLogin";
     }
 }

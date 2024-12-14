@@ -12,7 +12,7 @@ import com.cafe.model.CafeVO;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class FrontIndexController {
+public class CafeFrontController {
 
     @Autowired
     CafeService cafeSvc;
@@ -29,17 +29,24 @@ public class FrontIndexController {
     }
 
     // 登入頁面
-    @GetMapping("/cafe/login")
-    public String login(Model model) {
-        return "front-end/login"; // view
+    @GetMapping("/cafe/cafeLogin")
+    public String cafeLogin(Model model) {
+        return "front-end/cafeLogin"; // view
+    }
+    
+    // 登入按鈕
+    @GetMapping("/cafe/cafe_Login")
+    public String cafe_Login(Model model) {
+    	
+        return "front-end/index1"; // view
     }
 
     // 註冊頁面
-    @GetMapping("/cafe/register")
+    @GetMapping("/cafe/cafeRegister")
     public String addCafe(ModelMap model) {
         CafeVO cafeVO = new CafeVO();
         model.addAttribute("cafeVO", cafeVO);
-        return "front-end/register";
+        return "front-end/cafeRegister";
     }
 
     // 個人檔案頁面

@@ -49,7 +49,7 @@ public class CafeController {
         // 確保至少上傳一張圖片
         if (parts.length == 0 || parts[0].isEmpty()) {
             model.addAttribute("errorMessage", "請上傳至少一張圖片");
-            return "front-end/register"; // 返回註冊頁面並顯示錯誤訊息
+            return "front-end/cafeRegister"; // 返回註冊頁面並顯示錯誤訊息
         }
 
         // 將圖片的 byte[] 設置到 cafeVO 中
@@ -59,16 +59,16 @@ public class CafeController {
         // 檢查帳號是否已存在
         if (cafeSvc.checkAc(cafeVO.getAc())) {
             model.addAttribute("errorMessage", "該帳號已存在");
-            return "front-end/register"; // 返回註冊頁面並顯示錯誤訊息
+            return "front-end/cafeRegister"; // 返回註冊頁面並顯示錯誤訊息
         }
         // 檢查表單是否有驗證錯誤
         if (result.hasErrors()) {
-            return "front-end/register"; // 返回註冊頁面以顯示錯誤
+            return "front-end/cafeRegister"; // 返回註冊頁面以顯示錯誤
         }
         // 保存咖啡廳資料
         cafeSvc.addCafe(cafeVO);
 
-        return "redirect:/cafe/login"; // 成功後重導向到登入頁面
+        return "front-end/cafeLogin"; // 成功後重導向到登入頁面
     }
 
 
