@@ -258,7 +258,7 @@ li {
 
 <div class="container">
 	<!-- 回首頁按鈕放置右上角 -->
-<!-- 	<a th:href="@{/test}" class="right-btn">回優惠券頁面</a> -->
+	<a th:href="@{/cafe}" class="right-btn">回商家登入頁面</a>
 
 	<!-- 商家優惠券管理標題 -->
 	<h2 style="padding-right: 100px;">商家優惠券管理</h2>
@@ -269,7 +269,7 @@ li {
 	<h4>資料查詢</h4>
 	<ul>
 		<li>
-			<a th:href="@{/cco/listAllCco}" class="btn">列出所有商家優惠券</a>
+			<a th:href="@{/cco/listAllCco}" class="btn">列出所有優惠券</a>
 		</li>
 		<li>
 			<form method="post" th:action="@{/cco/getOne_For_Display}">
