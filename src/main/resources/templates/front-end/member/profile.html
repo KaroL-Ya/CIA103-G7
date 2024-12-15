@@ -106,10 +106,10 @@
             <label class="title">Back廣咖樂</label>
         </div>
         <div class="header-right">
-            <span th:if="${session.ac != null}">
-                歡迎, 會員 <span th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
+            <span th:if="${session.mem_Id != null}">
+                歡迎, 會員 <span th:text="${session.name}"></span>
             </span>
-            <form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
+            <form th:action="@{/mlogout}" method="post" th:if="${session.mem_Id != null}">
                 <button type="submit">登出</button>
             </form>
         </div>
@@ -118,7 +118,7 @@
     <div>
         <table>
             <tr>
-                <td>會員帳號:</td>
+                <td>會員帳號</td>
                 <td><span th:text="${memberVO.ac}"></span></td>
             </tr>
             <tr>

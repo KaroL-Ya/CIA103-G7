@@ -44,8 +44,8 @@ public class CafeLoginController {
             return "front-end/cafeLogin";  // 返回登入頁面
         }
     }
-
-    @GetMapping("/logout")
+    // 柏志幫你家/cafe/cafe_
+    @GetMapping("/cafe/cafe_logout")
     public String logout(HttpSession session) {
         session.invalidate(); // 清除 Session
         return "redirect:/cafe/cafeLogin";

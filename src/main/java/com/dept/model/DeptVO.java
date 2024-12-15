@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+
 import com.admin.model.AdminVO;
 
 import javax.persistence.OrderBy;
@@ -42,6 +44,7 @@ public class DeptVO implements java.io.Serializable {
 	}
 
 	@Column(name = "DNAME")
+	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "部門名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
 	public String getDname() {
 		return this.dname;
 	}
@@ -51,6 +54,7 @@ public class DeptVO implements java.io.Serializable {
 	}
 
 	@Column(name = "LOC")
+	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "地點: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
 	public String getLoc() {
 		return this.loc;
 	}

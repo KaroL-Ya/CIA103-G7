@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.dept.model.DeptVO;
+import com.admin.model.AdminFuncService;
+import com.admin.model.AdminFuncVO;
 import com.admin.model.AdminService;
 import com.admin.model.AdminVO;
 import com.dept.model.DeptService;
@@ -34,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	DeptService deptSvc;
+	
+	@Autowired
+	AdminFuncService adminFuncSvc;
 
 	@GetMapping("/addAdmin")
 	public String addAdmin(ModelMap model) {
@@ -108,6 +114,7 @@ public class AdminController {
 		return "back-end/admin/listOneAdmin"; // 修改成功後轉交listOneAdmin.html
 	}
 
+	
 	@PostMapping("delete")
 	public String delete(@RequestParam("admin_Id") String admin_Id, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
@@ -169,5 +176,35 @@ public class AdminController {
 		model.addAttribute("adminListData", list); // for listAllAdmin.html 第85行用
 		return "back-end/admin/listAllAdmin";
 	}
+	
+	@PostMapping("getOne_For_Update2")
+	public String getOne_For_Update2(@RequestParam("admin_Id") String admin_Id, ModelMap model) {
+		AdminVO adminVO = adminSvc.getOneAdmin(Integer.valueOf(admin_Id));
+		List<AdminFuncVO> adminFuncVO = adminFuncSvc.getAll();
+		model.addAttribute("adminVO", adminVO);
+		model.addAttribute("adminFuncVO",adminFuncVO);
+		return "back-end/admin/update_adminauth_input";
+	}
+
+	@PostMapping("update2")
+	@Transactional
+	public String update2(@Valid AdminVO adminVO,BindingResult result,@RequestParam(required = false) Set<String> admin_Func, ModelMap model) throws IOException {
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		if(admin_Func==null) {
+			return "redirect:/back-end/admin/listAllAdminAuth";
+		}
+		if (result.hasErrors()) {
+			result.getAllErrors().forEach(error -> {
+		        System.out.println("Error: " + error.getDefaultMessage());
+		    });
+			return "back-end/admin/update_adminauth_input";
+		}
+		/*************************** 2.開始修改資料 *****************************************/
+		adminSvc.deleteAdminAuth(adminVO.getAdmin_Id());
+		adminSvc.addAdminAuth(adminVO.getAdmin_Id(), admin_Func);
+
+		return "redirect:/back-end/admin/listAllAdminAuth"; // 修改成功後轉交listOneAdmin.html
+	}
+	
 
 }

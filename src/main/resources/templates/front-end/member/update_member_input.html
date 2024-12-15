@@ -7,148 +7,192 @@
 
 <head>
 <style type="text/css">
-	
-	button {
-		padding: 5px;
-	}
-	form {
-		display: table;
-	}
-	form div {
-		display: table-row;
-	}
-	label, input, span, select {
-		display: table-cell;
-		margin: 5px;
-		text-align: left;		
-	}
-	input[type=text], input[type=password], select, textarea {
-		width: 200px;
-		margin: 5px;
-	}
-	form div div {
-		display: table-cell;
-	}
-	.center {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    span.error{
-       	color:red;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header.header {
+            background-color: pink;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        label.title {
+            font-size: 24px;
+            font-weight: bold;
+            color: pink;
+        }
+                div.header-right {
+            display: flex;
+            align-items: center;
+        }
+        div.header-right span {
+            margin-right: 15px;
+        }
+        div.header-right button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        div.header-right button:hover {
+            background-color: #e55b50;
+        }
+        div {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        hr {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        form {
+            margin-top: 20px;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        input[type="text"], input[type="password"], input[type="date"], select, textarea {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #e55b50;
+        }
+                form input[type="submit"] {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #e55b50;
+        }
+        span.error {
+            color: red;
+            font-size: 12px;
+        }
 </style>
 </head>
 <body>
-
+	<header class="header">
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>會員資料修改 - update_member_input.html</h2>
 		 <h3><a class="navbar-brand" th:href="@{/profile}"><img th:src="@{/images/222.png}">回會員中心</a></h3></div>
 </nav>
-
-	<div align="center">
-		<h3><b>所有欄位皆為必填欄位</b></h3>
+	</header>
+	<div>
+		<h3><b>帳號、電子郵件不能變更</b></h3>
 		<form th:action="@{update}" method="post" th:object="${memberVO}" enctype="multipart/form-data">
-			<div>
-				<input type="hidden" th:field="*{mem_Id}" style="border:0px ; font-weight: bold;" readonly /><br/>
-				<input type="hidden" th:field="*{status}" style="border:0px ; font-weight: bold;" readonly /><br/>
-			</div>
-			
-			<div>
-			<label>會員帳號:</label>
-			<input type="text" th:field="*{ac}" onclick="hideContent('ac.errors');" readonly/><br/>
-			<span  th:if="${#fields.hasErrors('ac')}" th:errors="*{ac}" class="error" id="ac.errors"></span>
-			</div>
-			
-			<div>
-			<label>會員密碼:</label>
-			<input type="text" th:field="*{pw}" onclick="hideContent('pw.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error" id="pw.errors"></span>
-			</div>
-			
-			<div>
-			<label>信箱:</label>
-			<input type="text" th:field="*{email}" onclick="hideContent('email.errors');" readonly/><br/>
-            <span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
-			</div>
-			
-            <div>
-            <label>會員姓名:</label>
-            <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
-            </div>
-            
-            <div>
-			<label>生日:</label>
-			<input type="date" th:field="*{birth}" onclick="hideContent('birth.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error" id="birth.errors"></span>
-			</div>
-            
-            <div>
-            <label>性別:</label>
-            <input type="radio" th:field="*{sex}" value="男" onclick="hideContent('sex.errors');" name="sex" id="boy"/>
-            <label for="boy">男</label>
-            <input type="radio" th:field="*{sex}" value="女" onclick="hideContent('sex.errors');" name="sex" id="girl"/>
-            <label for="girl">女</label>
-            <span  th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error" id="sex.errors"></span>
-        	</div>
-           	
-			<div>
-			<label>手機:</label>
-			<input type="text" th:field="*{phone}" onclick="hideContent('phone.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error" id="phone.errors"></span>
-			</div>
-			
-			<div>
-            <label>地址:</label>
-            <!-- <label for="city">縣市:</label> -->
-            <select id="city" name="city" onchange="loadDistricts(this.value)">
-<!--                 <option value="">請選擇縣市</option> -->
-<option th:filed="*{city}" th:value="*{city}" th:text="*{city}" th:selected="*{city}"></option>
-            </select>
-            <span  th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span>
-
-            <!-- <label for="district">鄉鎮市區:</label> -->
-            <select id="district" name="disc">
-<!--                 <option value="">請選擇鄉鎮市區</option> -->
-<option th:filed="*{disc}" th:value="*{disc}" th:text="*{disc}" th:selected="*{disc}"></option>
-            </select>
-            <span  th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span>
-
-            <!-- <label>住址:</label> -->
-            <input type="text" th:field="*{address}" onclick="hideContent('address.errors');" />
-            <span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span>
-        	</div>
-			
-<!-- 			<div> -->
-<!-- 			<label>市:</label> -->
-<!-- 			<input type="text" th:field="*{city}" onclick="hideContent('city.errors');" /><br/> -->
-<!--             <span  th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span> -->
-<!-- 			</div> -->
-			
-<!-- 			<div> -->
-<!-- 			<label>區:</label> -->
-<!-- 			<input type="text" th:field="*{disc}" onclick="hideContent('disc.errors');" /><br/> -->
-<!--             <span  th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span> -->
-<!-- 			</div> -->
-			
-<!-- 			<div> -->
-<!-- 			<label>地址:</label> -->
-<!-- 			<input type="text" th:field="*{address}" onclick="hideContent('address.errors');" /><br/> -->
-<!--             <span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span> -->
-<!-- 			</div> -->
-			
-			<div>
-			<label>照片:</label>
-			<input type="file" th:field="*{img}" onclick="previewImage()" multiple="multiple" />
-            <!-- 可以不修改圖片 <span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span> -->
-			<div id="blob_holder"><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></div>
-			</div>
-			
-			<div>
-				<div><button type="submit" id="submit"> 送出修改 </button></div>
-			</div>		
+			<table>
+				<tr>
+					<td>會員帳號</td>
+					<td><input type="text" th:field="*{ac}" onclick="hideContent('ac.errors');" readonly/></td>
+					<td><span th:if="${#fields.hasErrors('ac')}" th:errors="*{ac}" class="error" id="ac.errors"></span></td>
+				</tr>
+				<tr>
+					<td>會員密碼</td>
+					<td><input type="text" th:field="*{pw}" onclick="hideContent('pw.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error" id="pw.errors"></span></td>
+				</tr>
+				<tr>
+					<td>電子郵件</td>
+					<td><input type="text" th:field="*{email}" onclick="hideContent('email.errors');" readonly/></td>
+					<td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span></td>
+				</tr>
+				<tr>
+					<td>會員姓名</td>
+					<td><input type="text" th:field="*{name}" onclick="hideContent('name.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span></td>
+				</tr>
+				<tr>
+					<td>生日</td>
+					<td><input type="date" th:field="*{birth}" onclick="hideContent('birth.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error" id="birth.errors"></span></td>
+				</tr>
+				<tr>
+					<td>性別</td>
+					<td><input type="radio" th:field="*{sex}" value="男" onclick="hideContent('sex.errors');" name="sex" id="boy"/><label for="boy">男</label></td>
+					<td><input type="radio" th:field="*{sex}" value="女" onclick="hideContent('sex.errors');" name="sex" id="girl"/><label for="girl">女</label></td>
+					<td><span th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="error" id="sex.errors"></span></td>
+				</tr>
+				<tr>
+					<td>行動電話</td>
+					<td><input type="text" th:field="*{phone}" onclick="hideContent('phone.errors');" /></td>
+					<td><span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error" id="phone.errors"></span></td>
+				</tr>
+				<tr>
+					<td>地址</td>
+					<td>            
+						<select id="city" name="city" onchange="loadDistricts(this.value)">
+							<option th:filed="*{city}" th:value="*{city}" th:text="*{city}" th:selected="*{city}"></option>
+	            		</select>
+	            	</td>
+	            	<td>
+	            		<select id="district" name="disc">
+							<option th:filed="*{disc}" th:value="*{disc}" th:text="*{disc}" th:selected="*{disc}"></option>
+			            </select>
+            		</td>
+					<td><input type="text" th:field="*{address}" onclick="hideContent('address.errors');" style="width:300px;"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><span  th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span></td>
+					<td><span  th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span></td>
+					<td><span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span></td>
+				</tr>
+				<tr>
+					<td>頭像</td>
+					<td><input type="file" th:field="*{img}" onclick="previewImage()" multiple="multiple" /></td>
+					<td id="blob_holder"><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></td>
+					<td><span th:if="${#fields.hasErrors('img')}" th:errors="*{img}" class="error" id="img.errors"></span></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="3"><button type="submit" id="submit" style="width:100%;height:50px;">送出修改</button></td>
+					<td><input type="hidden" th:field="*{mem_Id}" style="border:0px ; font-weight: bold;" readonly /></td>
+					<td><input type="hidden" th:field="*{status}" style="border:0px ; font-weight: bold;" readonly /></td>
+				</tr>
+			</table>
 		</form>
-	
 	</div>
 
 <script th:src="@{/js/TwCityDisc.js}"></script>

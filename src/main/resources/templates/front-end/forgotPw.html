@@ -3,15 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <title>忘記密碼</title>
+<style>
+            * {
+                box-sizing: border-box;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            body {
+                /* border:1px solid red; */
+                margin: 0;
+                background: #c28888;
+            }
+
+            /* html can replace :root */
+            html {
+                /* 根元素 */
+                /* font-size:62.5%; */
+                /* 10px */
+                /* 宣告一個header變數 高60px */
+                --header-height: 60px;
+                /* 宣告一個aside變數 寬為240px */
+                --aside-width: 240px;
+            }
+
+            header.header {
+                /*              border:1px solid black; */
+                /*             background-color: lightgray; */
+                /* height:60px; */
+                height: var(--header-height);
+                /* fixed | sticky */
+                position: sticky;
+                top: 0;
+            }
+
+            div.header-left {
+                display: inline-block;
+            }
+
+            div.header-right {
+                /*         	display:inline-block; */
+                float: right;
+                padding: 10px 20px;
+            }
+
+            label.title {
+                color: pink;
+                font-size: 28px;
+                float: left;
+            }
+
+            label.header-right {
+                color: black;
+            }
+
+            input[type="text"]{
+                padding: 10px;
+                width: 200px;
+            }
+
+            button {
+                padding: 5px;
+                width: 200px;
+                font-size: 16px;
+                margin: 15px 0px;
+            }
+
+            h2 {
+                border-bottom: 3px solid white;
+                width: 20%;
+                padding-bottom: 3px;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            span.error {
+                color: red;
+            }
+</style>
 </head>
 <body>
-	<h1>忘記密碼 forgotPw.html</h1>
+	<header class="header">
+        <div class="header-left">
+            <label class="title">Back廣咖樂</label>
+        </div>
+        <div class="header-right" align="right">
+			<a th:href="@{/login}">回上一頁</a>
+        </div>
+    </header>
 	<div align="center">
-		 	<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3>
+		<h2>忘記密碼 forgotPw.html</h2>
 	</div>
 	<div align="center">
 		<form th:action="@{/sendPTPw}" method="post" name="forgotPw">
-			<input type="text" name="email">
+			<input type="text" name="email" placeholder="請輸入已經驗證過的電子郵件"><br>
 			<button type="submit">信箱驗證</button>
 			<p th:text="${error}" style=color:red></p>
 		</form>

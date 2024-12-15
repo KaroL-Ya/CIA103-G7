@@ -45,6 +45,9 @@ public class FrontIndexController {
 
 	@GetMapping("/profile")
 	public String profile(Model model) {
+		if(session.getAttribute("mem_Id")==null) {
+			return "front-end/login";
+		}
 		Integer id =(Integer) session.getAttribute("mem_Id");//id
 		model.addAttribute("memberVO",memberSvc.getOneMember(id));
 		return "front-end/member/profile";

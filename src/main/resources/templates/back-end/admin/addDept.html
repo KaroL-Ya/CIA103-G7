@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>新增部門 - addDept.html</title>
+    <link th:href=@{/images/222.png} rel="shortcut icon">
+<style type="text/css">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header.header {
+    background-color: pink;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+}
+
+label.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: pink;
+}
+
+div.header-right {
+    display: flex;
+    align-items: center;
+}
+
+div.header-right span {
+    margin-right: 15px;
+}
+
+div.header-right button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+div.header-right button:hover {
+    background-color: #e55b50;
+}
+
+button {
+    padding: 5px;
+}
+
+form {
+    display: table;
+}
+
+form div {
+    display: table-row;
+}
+
+label, input, span, select {
+/*     display: table-cell; */
+    margin: 2px;
+    text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+    width: 200px;
+    margin: 2px;
+}
+
+form div div {
+    display: table-cell;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span {
+    display: inline-block;
+    width: 250px;
+    text-align: left;
+    font-weight: bold;
+    color:red;
+}
+
+div.a {
+    display: inline-block;
+    width: 50%;
+    height: auto;
+    padding: 5px;
+    border: 0px solid blue;
+    background-color: white;
+}
+
+div.b {
+    position: absolute;
+    bottom: 6%;
+    right: 2%;
+    width: 45%;
+    padding: 5px;
+    border: 1px solid pink;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #FFC0CB;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 0;
+}
+
+a:hover {
+    background-color: #FF7F50;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">xxx</label>
+        </div>
+        <div class="header-right">
+            管理員-<span th:if="${session.admin_Name != null}"
+                th:text="${session.admin_Name}"></span>
+            <form th:action="@{/logout}" method="post"
+                th:if="${session.admin_Name != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
+    	<div align="center">
+		 	<h2>Back廣咖樂-新增部門</h2>
+		 	<h3><a th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/222.png}">回查詢頁<label th:text="${success}"></label></a></h3>
+		</div>
+
+	<div align="center">
+		<h3><b>所有欄位皆為必填欄位</b></h3>
+		<form th:action="@{insertDept}" method="post" th:object="${deptVO}" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td>部門名稱</td>
+					<td><input type="text" th:field="*{dname}" onclick="hideContent('dname.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('dname')}" th:errors="*{dname}" class="error" id="dname.errors"></span></td>
+				</tr>				
+				<tr>
+					<td>地點</td>
+					<td><input type="text" th:field="*{loc}" onclick="hideContent('loc.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('loc')}" th:errors="*{loc}" class="error" id="loc.errors"></span></td>
+				</tr>
+				
+				<tr>
+					<td colspan="3" align="center"><span class="error" th:utext="${errorMessage}" id="img.errors"></span><h2 id="errorMessage"></h2></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td colspan="3" align="center"><button type="submit" id="submit">送出新增</button></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			
+            <input type="hidden" th:field="*{deptno}" /><br/>
+
+		</form>
+	</div>
+
+
+<!-- JavaScript part -->
+<script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
+</script>
+
+</body>
+</html>

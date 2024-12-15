@@ -66,16 +66,17 @@ public class MemberController {
 		}else {
 			model.addAttribute("errorMessage","已存在的帳號");
 			return "front-end/register";
-//			return "redirect:/register";
 		}
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
-//		return "redirect:/login";
 		return "redirect:/verifyPage?email=" + memberVO.getEmail();
 	}
 	
 	// 顯示驗證碼頁面
 	@GetMapping("/verifyPage")
-	public String showVerifyPage(@RequestParam String email, Model model) {
+	public String showVerifyPage(@RequestParam(required = false) String email, Model model) {
+	    if (email == null || email.isEmpty()) {
+	        return "redirect:/login"; // 將使用者導向另一個網址
+	    }
 	    model.addAttribute("email", email);
 	    return "front-end/verifyPage"; // 對應前端頁面的名稱
 	}
@@ -113,12 +114,22 @@ public class MemberController {
 	    if (expectedCode != null && expectedCode.equals(verificationCode)) {
 	    	memberSvc.updateStatus(email);
 	        session.removeAttribute("verificationCode"); // 驗證成功後刪除驗證碼
-	        return "redirect:/index"; // 驗證成功後跳轉到成功頁面
+	        return "redirect:/login"; // 驗證成功後跳轉到成功頁面
 	    }
 
 	    model.addAttribute("email", email);
 	    model.addAttribute("error", "驗證碼錯誤或已過期！");
 	    return "front-end/verifyPage"; // 驗證失敗重新顯示驗證頁面
+	}
+	
+	// 顯示驗證碼頁面
+	@GetMapping("/sendPTPw")
+	public String forgotPage(@RequestParam(required = false) String email, Model model) {
+	    if (email == null || email.isEmpty()) {
+	        return "redirect:/forgotPw"; // 將使用者導向另一個網址
+	    }
+	    model.addAttribute("email", email);
+	    return "front-end/verifyPage"; // 對應前端頁面的名稱
 	}
 	
 	@PostMapping("/sendPTPw")
@@ -139,6 +150,7 @@ public class MemberController {
 	@PostMapping("getOne_For_Update")
 	public String getOne_For_Update(@RequestParam("mem_Id") String mem_Id, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 因無給使用者ID 故無需做錯誤處理
 		/*************************** 2.開始查詢資料 *****************************************/
 		MemberVO memberVO = memberSvc.getOneMember(Integer.valueOf(mem_Id));
 

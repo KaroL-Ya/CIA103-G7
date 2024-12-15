@@ -1,151 +1,243 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後台首頁</title>
-    <link href="../images/222.png" rel="shortcut icon">
-    <style type="text/css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>後台首頁</title>
+    <link th:href=@{/images/222.png} rel="shortcut icon">
+<style type="text/css">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        button {
-            padding: 5px;
-        }
-        form {
-            display: table;
-        }
-        form div {
-            display: table-row;
-        }
-        label, input, span, select {
-            display: table-cell;
-            margin: 2px;
-            text-align: left;		
-        }
-        input[type=text], input[type=password], select, textarea {
-            width: 200px;
-            margin: 2px;
-        }
-        form div div {
-            display: table-cell;
-        }
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        span {
-            display: inline-block;
-            width: 150px;
-            text-align: left;
-            font-weight: bold;
-        }
-        div.a {
-            display: inline-block;
-            width: 50%;
-            height: auto;
-            padding: 5px;
-            border: 0px solid blue;    
-            background-color: white; 
-        }
-        div.b {
-            position: absolute; 
-            bottom: 1%; 
-            right: 2%; 
-            width: 45%;
-            padding: 5px; 
-            border: 1px solid blue;
-        }
-    </style>
-    </head>
-    <body>
-    
-    <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-             <div align="center"> <h2>Admin data management - select_page.html</h2>
-    </nav>
-    
-    <div>
-        	<span th:if="${session.admin_Id != null}" style="border:1px solid blcak">
-	  		歡迎,管理員<span th:text="${session.admin_Name}"></span>
-	  		</span>
-    </div>
-	
-	<div>
-		    <form th:action="@{/logout}" method="post" th:if="${session.admin_Id != null}">
-	    		<button type="submit">登出</button>
-			</form>
-	</div>
-    
-        <h4><span>資料查詢:</span></h4>
-        <!-- 錯誤表列 -->
-        <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
-        <div class="a">
-          <ul>
-          <li><h5><a th:href='@{/back-end/admin/listAllMember}'>List</a> all Members. <br><br></h5></li>
+html, body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-            <li><h5><a th:href="@{/back-end/admin/listAllAdmin}">List</a> all Admins. <br><br></h5></li>
-    
-            <li>
-                <form method="post" th:action="@{getOne_For_Display}">
-                    輸入admin編號:
-                    <input type="text" name="admin_Id" th:value="${param.admin_Id}" > 
-                    <input type="submit" value="送出"> (輸入如7001)
-                </form><br>
-            </li>
-            
-            <li><form method="post" th:action="@{getOne_For_Display}">
-                    選擇admin編號:
-                    <select name="admin_Id">
-                         <option th:each="adminVO : ${adminListData}" th:value="${adminVO.admin_Id}" th:text="${adminVO.admin_Id}" />
-                    </select>
-                    <input type="submit" value="送出">
-                </form><br>
-            </li>
-            
-            <li><form method="post" th:action="@{getOne_For_Display}">
-                    選擇admin姓名:
-                    <select name="admin_Id">
-                         <option th:each="adminVO : ${adminListData}" th:value="${adminVO.admin_Id}" th:text="${adminVO.admin_Name}" />
-                    </select>
-                    <input type="submit" value="送出">
-                </form><br>
-            </li>
-             
-    <!--  萬用複合查詢-以下欄位-可隨意增減 -->
-      
-      <li>   
-        <form method="post" th:action="@{listAdmins_ByCompositeQuery}">
-            <font color=blue>萬用複合查詢:</font><br>
-            輸入admin編號: 
-            <input type="text" name="admin_Id" value="7001"><br>
-               
-            輸入admin姓名: 
-            <input type="text" name="admin_Name" value="林柏志"><br>
-        
-            選擇部門: 
-              <select th:field="*{deptVO.deptno}">
-                <option value="">
-                <option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" />
-            </select><br>
-    
-            到職日:
-            <input name="hiredate" type="date">
-            
-            <input type="submit" value="送出">
-         
-         </form>
-      </li>
-    </ul>	
-        
-          <h4><span>admin管理</span></h4>
-          <ul>
-              <li><h5><a th:href="@{/back-end/admin/addAdmin}">Add</a> a new Admin.</h5></li>
-          </ul>
+header.header {
+    background-color: pink;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+}
+
+label.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: pink;
+}
+
+div.header-right {
+    display: flex;
+    align-items: center;
+}
+
+div.header-right span {
+    margin-right: 15px;
+}
+
+div.header-right button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+div.header-right button:hover {
+    background-color: #e55b50;
+}
+
+button {
+    padding: 5px;
+}
+
+form {
+    display: table;
+}
+
+form div {
+    display: table-row;
+}
+
+label, input, span, select {
+    display: table-cell;
+    margin: 2px;
+    text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+    width: 200px;
+    margin: 2px;
+}
+
+form div div {
+    display: table-cell;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    font-weight: bold;
+}
+
+div.a {
+    display: inline-block;
+    width: 50%;
+    height: auto;
+    padding: 5px;
+    border: 0px solid blue;
+    background-color: white;
+}
+
+div.b {
+    position: absolute;
+    bottom: 6%;
+    right: 2%;
+    width: 45%;
+    padding: 5px;
+    border: 1px solid pink;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #FFC0CB;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 0;
+}
+
+a:hover {
+    background-color: #FF7F50;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">xxx</label>
         </div>
-        
-        <!-- 旗標getOne_For_Display見EmpnoController.java的第74行 -->
-        <div class="b" th:if="${getOne_For_Display}">
-            <!--使用listOneEmp.html網頁的listOneEmp-div片段--> <!-- 見listOneEmp.html的第35行的th:fragment="listOneEmp-div" --> <!-- 使用th:replace也可 -->
-            <div th:insert="~{/back-end/admin/listOneAdmin :: listOneAdmin-div}"></div>
+        <div class="header-right">
+            管理員-<span th:if="${session.admin_Name != null}"
+                th:text="${session.admin_Name}"></span>
+            <form th:action="@{/logout}" method="post"
+                th:if="${session.admin_Name != null}">
+                <button type="submit">登出</button>
+            </form>
         </div>
-    
-    </body>
-    </html>
+    </header>
+
+<main>
+    <section style="padding: 20px;">
+
+        <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+
+        <div class="query-section">
+            <div class="a">
+                <a th:href='@{/back-end/admin/listAllMember}'>會員管理</a>
+                <a th:href="@{/back-end/admin/listAllAdmin}">管理員</a>
+                <a th:href="@{/back-end/admin/addAdmin}">新增管理員</a>
+                <a th:href="@{/back-end/admin/listAllDept}">部門管理</a>
+                <a th:href="@{/back-end/admin/addDept}">新增部門</a>
+				<h4 style="color: #F5DEB3;">管理員查詢</h4>
+                <div>
+                    <form method="post" th:action="@{getOne_For_Display}">
+                        <label for="admin_Id">輸入 admin 編號:</label>
+                        <input type="text" id="admin_Id" name="admin_Id" th:value="${param.admin_Id}">
+                        <input type="submit" value="送出"> (輸入如 7001)
+                    </form>
+                </div>
+
+                <div>
+                    <form method="post" th:action="@{getOne_For_Display}">
+                        <label for="admin_Id_select">選擇 admin 編號:</label>
+                        <select id="admin_Id_select" name="admin_Id">
+                            <option th:each="adminVO : ${adminListData}" th:value="${adminVO.admin_Id}" th:text="${adminVO.admin_Id}" />
+                        </select>
+                        <input type="submit" value="送出">
+                    </form>
+                </div>
+
+                <div>
+                    <form method="post" th:action="@{getOne_For_Display}">
+                        <label for="admin_Name_select">選擇 admin 姓名:</label>
+                        <select id="admin_Name_select" name="admin_Id">
+                            <option th:each="adminVO : ${adminListData}" th:value="${adminVO.admin_Id}" th:text="${adminVO.admin_Name}" />
+                        </select>
+                        <input type="submit" value="送出">
+                    </form>
+                </div>
+
+                <form method="post" th:action="@{listAdmins_ByCompositeQuery}" class="composite-query">
+                    <h4 style="color: #F5DEB3;">萬用複合查詢:</h4>
+                    <div style="margin-bottom: 10px;">
+                        <label for="admin_Id_query">輸入 admin 編號:</label>
+                        <input type="text" id="admin_Id_query" name="admin_Id">
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="admin_Name_query">輸入 admin 姓名:</label>
+                        <input type="text" id="admin_Name_query" name="admin_Name">
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="dept_select">選擇部門:</label>
+                        <select id="dept_select" th:field="*{deptVO.deptno}">
+                            <option value=""></option>
+                            <option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" />
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="hiredate">到職日:</label>
+                        <input id="hiredate" name="hiredate" type="date">
+                    </div>
+                    <input type="submit" value="送出">
+                </form>
+            </div>
+
+            <div class="b" th:if="${getOne_For_Display}">
+                <div th:insert="~{/back-end/admin/listOneAdmin :: listOneAdmin-div}"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <footer>
+        &copy; 後台管理系統
+    </footer>
+</body>
+</html>

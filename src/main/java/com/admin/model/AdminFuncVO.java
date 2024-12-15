@@ -35,7 +35,6 @@ public class AdminFuncVO implements Serializable{
     private Set<AdminVO> func_Admins;
     
     
-    
 //    @OneToMany(mappedBy = "adminFunc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<AdminAuthVO> adminAuths = new HashSet<>();
 //

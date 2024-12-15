@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>所有會員資料 - listAllMember.html</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>所有Admin資料 - listAllAdmin.html</title>
 <link th:href=@{/images/222.png} rel="shortcut icon">
 	<head th:insert="~{/back-end/admin/included-fragment}"></head>
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
@@ -31,7 +31,6 @@
             align-items: center;
             height: var(--header-height);
         }
-        
         label.title {
             font-size: 24px;
             font-weight: bold;
@@ -93,50 +92,40 @@
         </div>
     </header>
 		<div align="center">
-		 	<h2>Back廣咖樂-所有管理員資料</h2>
-		 	<h3><a th:href="@{/back-end/admin/admin_select_page}">回查詢頁<label th:text="${success}"></label></a></h3>
+		 	<h2>Back廣咖樂-所有管理員權限資料</h2>
+		 	<h3><a th:href="@{/back-end/admin/listAllAdmin}">回管理員查詢<label th:text="${success}"></label></a></h3>
 		</div>
 
-<h3 align="center"><a th:href="@{/back-end/admin/listAllAdminAuth}">管理員權限</a></h3>
 <table id="example" class="display" style="width: 100%">
-<thead >
-<tr style="background-color:#F5DEB3">
-   <th>管理員編號</th>
-   <th>管理員姓名</th>
-   <th>帳號</th>
-   <th>密碼</th>
-   <th>狀態</th>
-   <th>到職日</th>
-   <th>照片</th>
-   <th>部門</th>
-   <th>修改</th>
-   <th>刪除</th>
-</tr>
-</thead>
-
-<tbody>
-   <th:block th:each="adminVO : ${adminListData}">
-       <tr>
-           <td th:text="${adminVO.admin_Id}"></td>
-           <td th:text="${adminVO.admin_Name}"></td>
-           <td th:text="${adminVO.admin_Ac}"></td>
-           <td th:text="${adminVO.admin_Pw}"></td>
-           <td th:text="${adminVO.getAdminStatusText}"></td>
-           <td th:text="${adminVO.hiredate}"></td>
-           <td><img th:src="@{/back-end/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></td>
-           <td th:text="${adminVO.deptVO.deptno} + '-[' + ${adminVO.deptVO.dname} + ']'"></td>
-       <td>
-         <form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
-            <input type="submit" value="修改">
-            <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form>
-       </td>
-       <td>
-         <form method="post" th:action="@{/back-end/admin/delete}" style="margin-bottom: 0px;">
-            <input type="submit" value="刪除">
-            <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form>
-       </td>
-       </tr>
-   </th:block>
+  <thead>
+    <tr style="background-color:#F5DEB3">
+      <th>管理員編號</th>
+      <th>Admin姓名</th>
+      <th>權限列表</th>
+      <th>修改</th>
+<!--       <th>刪除</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <th:block th:each="adminVO : ${adminAuthListData}">
+        <tr>
+            <td th:text="${adminVOStat.count + 7000}"></td>
+            <td th:text="${adminVO.admin_Name}"></td>
+            <td>
+                <label th:each="func : ${adminVO.admin_Func}" th:text="${func.func_Name} + '.'"></label>
+            </td>
+            <td>
+			  <form method="post" th:action="@{getOne_For_Update2}" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form>
+			</td>
+<!-- 			<td> -->
+<!-- 			  <form method="post" th:action="@{/back-end/admin/delete}" style="margin-bottom: 0px;"> -->
+<!-- 			     <input type="submit" value="刪除"> -->
+<!-- 			     <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form> -->
+<!-- 			</td> -->
+        </tr>
+    </th:block>
 </tbody>
 </table>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
@@ -173,6 +162,7 @@
 		});
 	});
 </script>
+
 
 </body>
 </html>

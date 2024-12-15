@@ -42,5 +42,15 @@ public class DeptService {
 	public Set<AdminVO> getEmpsByDeptno(Integer deptno) {
 		return getOneDept(deptno).getAdmins();
 	}
+	
+	public boolean checkDname(String dname) {
+		List<String> allDname = repository.findByDname();
+		for (String dn : allDname) {
+			if (dn.equals(dname)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -56,50 +56,19 @@ public class AdminService {
 		return false;
 	}
 
-	public AdminVO adminLogin(String admin_Ac, String admin_Pw) {
-//		AdminVO admin = repository.getOneByAdmin_AP(admin_Ac, admin_Pw);
-//		Set<AdminFuncVO> func = admin.getAdmin_Func();
-//		System.out.println(admin.getAdmin_Func());
-//		System.out.println(admin.getDeptVO());
-//		System.out.println(admin);
-//		for(AdminFuncVO aaa : func) {
-//			System.out.println(aaa);
-//		}
-//		return admin;		
+	public AdminVO adminLogin(String admin_Ac, String admin_Pw) {	
 		return repository.getOneByAdmin_AP(admin_Ac, admin_Pw);
 	}
 	
-//	public Set<AdminVO> getAllFunc() {
-//		
-//		return "1";
-//	}
+	public void deleteAdminAuth(Integer admin_Id) {
+		repository.deleteAdminAuth(admin_Id);
+	}
 	
+	public void addAdminAuth(Integer adminId, Set<String> func_Id) {
+		for(String bo12 : func_Id) {
+			repository.addAdminAuth(adminId, Integer.valueOf(bo12));
+		}
+	}
 	
 
-//	public String checkAdminLogin(String admin_Ac,String admin_Pw) {
-//	String msg = "";
-//    List<String> allAdmin_Ac = repository.findByAdmin_Ac();
-//    String getOneAdmin_Pw = repository.findGetOneByAdmin_Pw(admin_Ac);
-//    AdminVO adminVO = repository.useAdmin_AcFindAdmin_Id(admin_Ac);
-//    System.out.println(adminVO);
-//    
-//    for(String pk : allAdmin_Ac) {
-//    	if(pk.equals(admin_Ac)) {
-//    		if(admin_Pw.equals(getOneAdmin_Pw)) {
-//    			return "符合";
-//    		}else {
-//    			return "密碼有錯";
-//    		}
-//    	}
-//    }
-//	return "查無此帳號";
-//}
-
-//	public Optional<AdminVO> findByAc(String admin_Ac){
-//	AdminVO adminVO = null;
-//	ResultSet result = repository.findById();
-//	for(AdminVO a:adminVO) {
-//	}
-//	return adminVO == null ? Optional.empty() : Optional.of(adminVO);
-//}
 }

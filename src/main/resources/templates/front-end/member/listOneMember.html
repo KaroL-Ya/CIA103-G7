@@ -7,37 +7,97 @@
 
 <head>
 <style type="text/css">
-	
+	* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: pink;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header h3 {
+            margin: 10px 0 0;
+        }
+        header a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header a img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        div.header-right button:hover {
+            background-color: #e55b50;
+        }
+        div {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     span {
 		display: inline-block;
 		width: 150px;
 		text-align: left;
 		font-weight: bold;
 	}
+	pan.label {
+            display: inline-block;
+            width: 150px;
+            text-align: left;
+            font-weight: bold;
+            color: #555;
+        }
+        span.value {
+            color: #333;
+        }
+        img {
+            border-radius: 8px;
+            margin-top: 10px;
+        }
 </style>
 </head>
 <body>
-
+<header>
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>會員個人資料 - listOneMember.html</h2>
+		 <div align="center"><h2>會員個人資料 - listOneMember.html</h2>
 		 <h3><a class="navbar-brand" th:href="@{/profile}"><img th:src="@{/images/222.png}">回會員中心<label th:text="${success}"></label></a></h3></div>
 </nav>
-
+</header>
 	<div align="center" th:fragment="listOneMember-div"> <!-- 此div被select_page.html第158行insert用 -->
 		<h3><span>查詢結果 :</span></h3>
-		<span>會員帳號:</span><span th:text="${memberVO.ac}"></span><br/>
-        <span>會員密碼:</span><span th:text="${memberVO.pw}"></span><br/>
-        <span>會員姓名:</span><span th:text="${memberVO.name}"></span><br/>
-        <span>Email:</span><span th:text="${memberVO.email}"></span><br/>
-        <span>性別:</span><span th:text="${memberVO.sex}"></span><br/>
-        <span>生日:</span><span th:text="${memberVO.birth}"></span><br/>
-        <span>手機:</span><span th:text="${memberVO.phone}"></span><br/>
+		<span>會員帳號</span><span th:text="${memberVO.ac}"></span><br/>
+        <span>會員密碼</span><span th:text="${memberVO.pw}"></span><br/>
+        <span>會員姓名</span><span th:text="${memberVO.name}"></span><br/>
+        <span>電子郵件</span><span th:text="${memberVO.email}"></span><br/>
+        <span>性別</span><span th:text="${memberVO.sex}"></span><br/>
+        <span>生日</span><span th:text="${memberVO.birth}"></span><br/>
+        <span>行動電話</span><span th:text="${memberVO.phone}"></span><br/>
 		<span>市:</span><span th:text="${memberVO.city}"></span><br/>
 		<span>區:</span><span th:text="${memberVO.disc}"></span><br/>
 		<span>地址:</span><span th:text="${memberVO.address}"></span><br/>
 		<span>照片:</span><span><img th:src="@{/member/DBGifReader} + '?mem_Id=' + ${memberVO.mem_Id}" width="100px"></span><br/>
 	</div>
-
-
 </body>
 </html>

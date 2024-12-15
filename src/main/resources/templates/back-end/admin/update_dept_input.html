@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>會員資料修改 - update_member_input.html</title>
+<title>部門資料修改 - update_dept_input.html</title>
 <link th:href=@{/images/222.png} rel="shortcut icon">
 <head>
 <style type="text/css">
@@ -124,7 +124,7 @@
         <div class="header-left">
             <label class="title">xxx</label>
         </div>
-        <h3 align="center"><a th:href="@{/back-end/admin/listAllAdmin}"><img th:src="@{/images/222.png}">回管理員</a></h3>
+        <h3 align="center"><a th:href="@{/back-end/admin/listAllDept}"><img th:src="@{/images/222.png}">回部門</a></h3>
         <div class="header-right">
             <span th:if="${session.admin_Name != null}">
                 管理員-<span th:text="${session.admin_Name}"></span>
@@ -137,56 +137,30 @@
 		 	
 <div align="center">
    <h3><b>所有欄位皆為必填欄位</b></h3>
-   <form th:action="@{update}" method="post" th:object="${adminVO}" enctype="multipart/form-data">
+   <form th:action="@{updateDept}" method="post" th:object="${deptVO}" enctype="multipart/form-data">
        <table>
        		<tr>
-       			<td>管理員編號</td>
-       			<td><input type="text" th:field="*{admin_Id}" style="border:0px ; font-weight: bold;" readonly /></td>
+       			<td>部門編號</td>
+       			<td><input type="text" th:field="*{deptno}" style="border:0px ; font-weight: bold;" readonly /></td>
        			<td></td>
        		</tr>
             <tr>
-       			<td>管理員帳號</td>
-       			<td><input type="text" th:field="*{admin_Ac}" onclick="hideContent('admin_Id.errors');" /></td>
-       			<td><span  th:if="${#fields.hasErrors('admin_Ac')}" th:errors="*{admin_Ac}" class="error" id="admin_Ac.errors"></span></td>
+       			<td>部門名稱</td>
+       			<td><input type="text" th:field="*{dname}" onclick="hideContent('dname.errors');" /></td>
+       			<td><span  th:if="${#fields.hasErrors('dname')}" th:errors="*{dname}" class="error" id="dname.errors"></span></td>
        		</tr>
        		<tr>
-       			<td>管理員密碼</td>
-       			<td><input type="text" th:field="*{admin_Pw}" onclick="hideContent('admin_Pw.errors');" /></td>
-       			<td><span  th:if="${#fields.hasErrors('admin_Pw')}" th:errors="*{admin_Pw}" class="error" id="admin_Pw.errors"></span></td>
+       			<td>地點</td>
+       			<td><input type="text" th:field="*{loc}" onclick="hideContent('loc.errors');" /></td>
+       			<td><span  th:if="${#fields.hasErrors('loc')}" th:errors="*{loc}" class="error" id="loc.errors"></span></td>
        		</tr>
-       		<tr>
-       			<td>管理員姓名</td>
-       			<td><input type="text" th:field="*{admin_Name}" onclick="hideContent('admin_Name.errors');" /></td>
-       			<td><span  th:if="${#fields.hasErrors('admin_Name')}" th:errors="*{admin_Name}" class="error" id="admin_Name.errors"></span></td>
-       		</tr>
-       		<tr>
-       			<td>管理員狀態</td>
-       			<td colspan="3"><input type="radio" th:field="*{admin_Status}" value="1" onclick="hideContent('admin_Status.errors');" id="active" class="sta"/><label for="active">啟用</label></td>
-       			<td><input type="radio" th:field="*{admin_Status}" value="0" onclick="hideContent('admin_Status.errors');" id="inactive"class="sta"/><label for="inactive">停用</label></td>
-       			<td><span  th:if="${#fields.hasErrors('admin_Status')}" th:errors="*{admin_Status}" class="error" id="admin_Status.errors"></span></td>
-       		</tr>
-       		<tr>
-       			<td>到職日</td>
-       			<td><input type="date" th:field="*{hiredate}" onclick="hideContent('hiredate.errors');" /></td>
-       			<td><span  th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}" class="error" id="hiredate.errors"></span></td>
-       		</tr>
-       		<tr>
-       			<td>部門</td>
-       			<td>
-					<select th:field="*{deptVO.deptno}">
-           				<option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" />
-       				</select>
-				</td>
-       			<td><span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span></td>
-       		</tr>
-       		<tr>
-       			<td>照片</td>
-       			<td><input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" /></td>
-       			<td><span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span></td>
-       		</tr>
-       		<tr>
-       			<td colspan="3" id="blob_holder" align="center"><img th:src="@{/back-end/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></td>
-       		</tr>
+       		
+				<tr>
+					<td colspan="3" align="center"><span class="error" th:utext="${errorMessage}" id="img.errors"></span><h2 id="errorMessage"></h2></td>
+					<td></td>
+					<td></td>
+				</tr>
+
        		<tr>
        			<td colspan="3" align="center"><button type="submit" id="submit">送出修改</button></td>
        		</tr>
@@ -195,6 +169,5 @@
 
 </div>
 
-<script th:src="@{/js/HandlePic.js}"></script>
 </body>
 </html>

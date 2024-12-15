@@ -3,6 +3,8 @@ package com.member.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "member")
@@ -28,12 +29,14 @@ public class MemberVO implements Serializable{
     
     @Column(name ="ac")
 //    @NotEmpty(message="帳號:請勿空白")
-    @Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
+//    @Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
+    @Pattern(regexp = "^[(a-zA-Z0-9_)]{8,20}$", message = "英文字母、數字和_ , 且長度必需在8到20之間")
     private String ac;
     
     @Column(name ="pw")
 //	@NotEmpty(message="密碼: 請勿空白")
-	@Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
+//	@Size(min=8,max=20,message="密碼: 長度必需在{min}到{max}之間")
+    @Pattern(regexp = "^[(a-zA-Z0-9_)]{8,20}$", message = "英文字母、數字和_ , 且長度必需在8到20之間")
     private String pw;
     
     @Column(name ="email")
@@ -142,10 +145,6 @@ public class MemberVO implements Serializable{
     public void setStatus(Integer status) {
         this.status = status;
     }
-
-    public Timestamp getRegistertime() {
-        return registertime;
-    }
     
 	@Transient
 	public String getMemberStatusText() {
@@ -161,8 +160,19 @@ public class MemberVO implements Serializable{
     }
 	}
 
+    public Timestamp getRegistertime() {
+        return registertime;
+    }
+
     public void setRegistertime(Timestamp registertime) {
         this.registertime = registertime;
+    }
+    
+	@Transient
+    public String getFormattedRegistertime() {
+        if (registertime == null) return null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(registertime);
     }
 
     public String getName() {
