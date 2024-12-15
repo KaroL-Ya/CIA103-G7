@@ -9,6 +9,7 @@ import javax.mail.FetchProfile.Item;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +30,6 @@ public class LookItemService {
 	public void updateLookItem(LookItemVO lookItemVO) {
 		repository.save(lookItemVO);
 	}
-
 
 	public LookItemVO getOneItem(Integer itemId) {
 		Optional<LookItemVO> optionalItem = repository.findById(itemId);
@@ -52,13 +52,9 @@ public class LookItemService {
 	public void uploadImage(MultipartFile file, LookItemVO item) throws IOException {
 
 		byte[] imageBytes = file.getBytes();
-		item.setCoverImg(imageBytes); 
+		item.setCoverImg(imageBytes);
 
 		repository.save(item);
 	}
 
-	 public List<LookItemVO> getItemsByCategoryId(String categoryId) {
-	        return repository.findByCategoryId(categoryId);
-	    }
-	 
 }

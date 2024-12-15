@@ -66,7 +66,6 @@ public class LookItemVO implements java.io.Serializable {
     @Transient
     private String base64CoverImg; //非持久化字段
     
-    private String categoryId; 
 
     public LookItemVO() {
     }
@@ -159,21 +158,11 @@ public class LookItemVO implements java.io.Serializable {
     public void setCoverImg(byte[] coverImg) {
         this.coverImg = coverImg;
     }
-
-    
+  
     public String getBase64CoverImg() {
         return base64CoverImg;
     }
-
     public void setBase64CoverImg(String base64CoverImg) {
         this.base64CoverImg = base64CoverImg;
     }
-
-    public String getCategoryId() {
-    	return categoryId;
-    }
-    public void setCategoryId() {
-    	this.categoryId = categoryId;
-    }
-    	
 }
