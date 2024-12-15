@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>錯誤頁面 - error.html</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8d7da;
+        color: #721c24;
+        text-align: center;
+        padding: 50px;
+    }
+    .error-container {
+        background-color: #f5c6cb;
+        border: 1px solid #f5c2c7;
+        padding: 30px;
+        border-radius: 10px;
+        display: inline-block;
+    }
+    h1 {
+        font-size: 48px;
+    }
+    p {
+        font-size: 20px;
+    }
+    a {
+        color: #721c24;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<div class="error-container">
+    <h1>出現錯誤！</h1>
+    <p>抱歉，系統發生了錯誤，請稍後再試。</p>
+    <p th:if="${errorMsg != null}" th:text="'錯誤訊息: ' + ${errorMsg}"></p>
+    <p>如需協助，請聯絡網站管理員。</p>
+    <a th:href="@{/news/list_all}">回到首頁</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>新聞資料新增 - addNews.html</title>
+
+<head th:insert="~{/back-end/news/included-fragment}"></head>
+<style type="text/css">
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, textarea {
+		display: table-cell;
+		margin: 5px;
+		text-align: left;		
+	}
+	input[type=text], textarea {
+		width: 200px;
+		margin: 5px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+	<div align="center"> 
+		<h2>新聞資料新增 - addNews.html</h2>
+		<h3><a class="navbar-brand" th:href="@{/news/selectNews}"><img th:src="@{/images/back1.gif}">回新聞列表</a></h3>
+	</div>
+</nav>
+
+<div align="center">
+	<h3><b>所有欄位皆為必填欄位</b></h3>
+	<form th:action="@{insert}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
+		<div>
+			<label>新聞標題:</label>
+			<input type="text" th:field="*{title}" onclick="hideContent('title.errors');" /><br/>
+			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error" id="title.errors"></span>
+		</div>
+		
+		<div>
+			<label>新聞內容:</label>
+			<textarea th:field="*{content}" rows="5" onclick="hideContent('content.errors');"></textarea><br/>
+			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error" id="content.errors"></span>
+		</div>
+		
+		<div>
+			<label>發布日期:</label>
+			<input type="date" th:field="*{time}" onclick="hideContent('time.errors');" /><br/>
+			<span th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="error" id="time.errors"></span>
+		</div>
+		
+<!-- 		<div> -->
+<!-- 			<label>封面圖片:</label> -->
+<!-- 			<input type="file" th:field="*{coverImage}" onclick="previewImage()" onchange="hideContent('coverImage.errors');" /> -->
+<!-- 			<span th:if="${#fields.hasErrors('coverImage')}" th:errors="*{coverImage}" class="error" id="coverImage.errors"></span> -->
+<!-- 			<div id="blob_holder"></div> -->
+<!-- 		</div> -->
+		
+		<div>
+			<div></div>
+			<div><button type="submit" id="submit">送出新增</button></div>
+			<div></div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+// 清除提示信息
+function hideContent(d) {
+	document.getElementById(d).style.display = "none";
+}
+
+// 圖片上傳預覽
+// function previewImage() {
+// 	var fileInput = document.getElementById("coverImage");
+// 	fileInput.addEventListener("change", function(event) {
+// 		var files = event.target.files || event.dataTransfer.files;
+// 		for (var i = 0; i < files.length; i++) {
+// 			displayPreview(files[i]);
+// 		}
+// 	}, false);
+// }
+// function displayPreview(file) {
+// 	if (typeof FileReader !== 'undefined' && file.type.startsWith("image/")) {
+// 		var reader = new FileReader();
+// 		reader.onload = function(event) {
+// 			var image = new Image();
+// 			image.src = event.target.result;
+// 			image.width = 100;
+// 			image.height = 75;
+// 			image.border = 2;
+// 			if (blob_holder.hasChildNodes()) {
+// 				blob_holder.removeChild(blob_holder.childNodes[0]);
+// 			}
+// 			blob_holder.appendChild(image);
+// 		};
+// 		reader.readAsDataURL(file);
+// 	} else {
+// 		alert("僅支持圖片類型上傳 (PNG, JPEG, GIF)");
+// 	}
+// }
+</script>
+
+</body>
+</html>
