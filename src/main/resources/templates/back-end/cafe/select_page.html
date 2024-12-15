@@ -88,32 +88,32 @@ div.b {
 	<div class="a">
 		<ul>
 			<li><h5>
-					<a href='listAllCafe'>檢視所有商家</a> <br>
-					<br>
+					<a href='listAllCafe'>檢視所有商家</a> <br> <br>
 				</h5></li>
 
 			<li>
 				<form method="post" th:action="@{/cafe/getOne_For_Display}">
 					輸入商家編號: <input type="text" name="cafeId" th:value="${param.cafeId}">
 					<input type="submit" value="送出"> (輸入如1)
-				</form>
-				<br>
+				</form> <br>
 			</li>
 
+			<!-- 選擇商家編號 -->
 			<form method="post" th:action="@{/cafe/getOne_For_Display}">
-				選擇商家編號: <select name="cafeId" required>
+				選擇商家編號: <select name="cafeId">
 					<option th:each="cafeVO : ${CafeListData}"
 						th:value="${cafeVO.cafeId}" th:text="${cafeVO.cafeId}"></option>
+
 				</select> <input type="submit" value="送出">
 			</form>
 			<br>
 			<li><form method="post" th:action="@{/cafe/getOne_For_Display}">
-					選擇商家名稱: <select name="cafeId"required>
+					選擇商家名稱: <select name="cafeId">
 						<option th:each="cafeVO : ${CafeListData}"
-							th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}" />
+							th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}"></option>
+
 					</select> <input type="submit" value="送出">
-				</form>
-				<br></li>
+				</form> <br></li>
 
 		</ul>
 		<h4>
