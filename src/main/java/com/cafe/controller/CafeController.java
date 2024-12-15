@@ -116,6 +116,13 @@ public class CafeController {
         return "front-end/cafe/update_cafe_input";
     }
 
+ // 後台查詢單一咖啡廳
+    @PostMapping("/getOne_Update")
+    public String getOneCafeUpdate(@RequestParam("cafeId") String cafeId, ModelMap model) {
+        CafeVO cafeVO = cafeSvc.getOneCafe(Integer.valueOf(cafeId));
+        model.addAttribute("cafeVO", cafeVO);
+        return "back-end/cafe/update_cafe_input";
+    }
     // 查詢所有咖啡廳
     @GetMapping("/listAllCafe")
     public String listAllCafe(Model model) {
