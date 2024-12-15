@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,93 +5,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>咖啡廳資料修改 - update_cafe_input.html</title>
 <style>
-    button {
-        padding: 5px;
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: auto;
-        width: 300px;
-    }
-    label {
-        font-weight: bold;
-        margin: 10px 0 5px;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-    button {
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        width: 100%;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
+/* 全局樣式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h3 {
+    color: #007BFF;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 導航欄 */
+.navbar {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* 表單樣式 */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: left;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+form textarea {
+    height: 100px;
+    resize: none;
+}
+
+form input[type="file"] {
+    padding: 5px;
+}
+
+/* 錯誤訊息樣式 */
+.errormessage {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+/* 按鈕樣式 */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
 </style>
 </head>
 <body>
-<div align="center">
-    <h3>所有欄位皆為必填欄位</h3>
-    <h3><a class="navbar-brand" th:href="@{/cafe/cafeProfile}"><img th:src="@{/images/cafe_icon.png}">回咖啡廳中心<label th:text="${success}"></label></a></h3></div>
-    <form th:action="@{/cafe/updateCafe}" method="post" th:object="${cafeVO}" enctype="multipart/form-data">
-<!--         <label>商家編號:</label> -->
-        <input type="hidden" th:field="*{cafeId}" /><br/>
-<!--         <label>狀態:</label> -->
-        <input type="hidden" th:field="*{state}" /><br/>
-        <label>統一編號:</label>
-            <input type="text" th:field="*{taxId}" placeholder="請輸入8位數字">
-            <div th:if="${#fields.hasErrors('taxId')}" class="errormessage" th:errors="*{taxId}"></div>
-            
-            <label>名稱:</label>
-            <input type="text" name="name" th:field="*{name}" >
-            <div th:if="${#fields.hasErrors('name')}" class="errormessage" th:errors="*{name}"></div>
-            
-            <label>帳號:</label>
-            <input type="text" name="ac" th:field="*{ac}" placeholder="6-20位英文字母或數字" >
-            <div th:if="${#fields.hasErrors('ac')}" class="errormessage" th:errors="*{ac}"></div>
-            
-            <label>密碼:</label>
-            <input type="password" name="pw" th:field="*{pw}" placeholder="6-20位英文字母或數字" >
-            <div th:if="${#fields.hasErrors('pw')}" class="errormessage" th:errors="*{pw}"></div>
-            
-            <label>信箱:</label>
-            <input type="email" name="email" th:field="*{email}" >
-            <div th:if="${#fields.hasErrors('email')}" class="errormessage" th:errors="*{email}"></div>
-            
-            <label>電話:</label>
-            <input type="text" name="phone" th:field="*{phone}" placeholder="09XXXXXXXX">
-            <div th:if="${#fields.hasErrors('phone')}" class="errormessage" th:errors="*{phone}"></div>
-            
-            <label>城市:</label>
-            <input type="text" name="city" th:field="*{city}" >
-            <div th:if="${#fields.hasErrors('city')}" class="errormessage" th:errors="*{city}"></div>
-            
-            <label>地區:</label>
-            <input type="text" name="disc" th:field="*{disc}" >
-            <div th:if="${#fields.hasErrors('disc')}" class="errormessage" th:errors="*{disc}"></div>
-            
-            <label>地址:</label>
-            <input type="text" name="address" th:field="*{address}" >
-            <div th:if="${#fields.hasErrors('address')}" class="errormessage" th:errors="*{address}"></div>
-            
-            <label>商家介紹:</label>
-            <textarea th:field="*{introduce}" name="introduce" ></textarea>
-            <div th:if="${#fields.hasErrors('introduce')}" class="errormessage" th:errors="*{introduce}"></div>
-            
-            <label>圖片:</label>
-            <input type="file" th:field="*{img}" name="img" accept="image/*">
-            <span class="error" th:utext="${errorMessage}" id="img.errors">${errorMessage}</span>
-        <button type="submit">送出修改</button>
-    </form>
+<div class="navbar">
+    <h3>
+        <a th:href="@{/cafe/cafeProfile}">
+            <img th:src="@{/images/cafe_icon.png}" alt="咖啡圖標" style="vertical-align: middle; width: 20px;">
+            回咖啡廳中心
+        </a>
+    </h3>
 </div>
+
+<h3>所有欄位皆為必填欄位</h3>
+
+<form th:action="@{/cafe/updateCafe}" method="post" th:object="${cafeVO}" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{cafeId}" />
+    <input type="hidden" th:field="*{state}" />
+
+    <label>統一編號:</label>
+    <input type="text" th:field="*{taxId}" placeholder="請輸入8位數字">
+    <div th:if="${#fields.hasErrors('taxId')}" class="errormessage" th:errors="*{taxId}"></div>
+
+    <label>名稱:</label>
+    <input type="text" th:field="*{name}">
+    <div th:if="${#fields.hasErrors('name')}" class="errormessage" th:errors="*{name}"></div>
+
+    <label>帳號:</label>
+    <input type="text" th:field="*{ac}" placeholder="6-20位英文字母或數字">
+    <div th:if="${#fields.hasErrors('ac')}" class="errormessage" th:errors="*{ac}"></div>
+
+    <label>密碼:</label>
+    <input type="password" th:field="*{pw}" placeholder="6-20位英文字母或數字">
+    <div th:if="${#fields.hasErrors('pw')}" class="errormessage" th:errors="*{pw}"></div>
+
+    <label>信箱:</label>
+    <input type="email" th:field="*{email}">
+    <div th:if="${#fields.hasErrors('email')}" class="errormessage" th:errors="*{email}"></div>
+
+    <label>電話:</label>
+    <input type="text" th:field="*{phone}" placeholder="09XXXXXXXX">
+    <div th:if="${#fields.hasErrors('phone')}" class="errormessage" th:errors="*{phone}"></div>
+
+    <label>城市:</label>
+    <input type="text" th:field="*{city}">
+    <div th:if="${#fields.hasErrors('city')}" class="errormessage" th:errors="*{city}"></div>
+
+    <label>地區:</label>
+    <input type="text" th:field="*{disc}">
+    <div th:if="${#fields.hasErrors('disc')}" class="errormessage" th:errors="*{disc}"></div>
+
+    <label>地址:</label>
+    <input type="text" th:field="*{address}">
+    <div th:if="${#fields.hasErrors('address')}" class="errormessage" th:errors="*{address}"></div>
+
+    <label>商家介紹:</label>
+    <textarea th:field="*{introduce}" name="introduce"></textarea>
+    <div th:if="${#fields.hasErrors('introduce')}" class="errormessage" th:errors="*{introduce}"></div>
+
+    <label>圖片:</label>
+    <input type="file" th:field="*{img}" name="img" accept="image/*">
+    <span class="error" th:utext="${errorMessage}" id="img.errors">${errorMessage}</span>
+
+    <button type="submit">送出修改</button>
+</form>
 </body>
 </html>
-    
