@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Back廣咖樂論壇</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/forum.css}" rel="stylesheet" />
+</head>
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="forum">Back廣咖樂論壇</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            會員
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="login">登入/註冊</a></li>
+                            <li><a class="dropdown-item" href="#!">貼文收藏</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">登出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">咖啡廳交流天地</h1>
+                <p class="lead mb-0">Cafe Forum</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-12">
+                <!-- Featured blog post-->
+                <div class="card mb-4">
+                </div>
+
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <li class="nav-item">
+                        <a class="nav-link" href="forum/create">
+                            <button class="btn btn-danger">新增貼文</button>
+                        </a>
+                    </li>
+                </nav>
+
+                <div th:each="post : ${posts}">
+                    <div class="text-muted fst-italic mb-2">
+                        發佈於 <span th:text="${#dates.format(post.time, 'yyyy 年 MM 月 dd 日 HH:mm')}"></span>，作者：
+                        <span th:text="${post.memId}">作者名稱</span>
+                    </div> 
+                    <h3 th:text="${post.title}">貼文標題</h3> <!-- 顯示貼文 -->
+                    <p class="fs-5 mb-4" th:text="${post.content}">這裡是貼文內容</p>
+                    <div>按讚人數：<span th:text="${post.count}">0</span></div>
+                    <a class="btn btn-primary" th:href="@{/post/{id}(id=${post.postId})}">閱讀更多... →</a>
+
+                    <!-- 按讚表單 -->
+                    <form th:action="@{/forum/like}" method="post">
+                        <input type="hidden" name="postId" th:value="${post.postId}" />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">按讚</button>
+                    </form>
+
+		                   <!-- 修改貼文按鈕，僅顯示給貼文的作者 -->
+				<div th:if="${post != null and post.memId != null and session != null and session.memId != null and post.memId == session.memId}">
+				    <a class="btn btn-warning" th:href="@{/forum/edit/{id}(id=${post.postId})}">修改貼文</a>
+				</div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination-->
+        <nav aria-label="Pagination">
+            <hr class="my-0" />
+          <ul class="pagination justify-content-center my-4">
+    <!-- 上一頁按鈕 -->
+    <li th:class="${currentPage == 1 ? 'page-item disabled' : 'page-item'}">
+        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=1}" tabindex="-1" aria-disabled="true">第一頁</a>
+    </li>
+    <li th:class="${currentPage == 1 ? 'page-item disabled' : 'page-item'}">
+        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${currentPage - 1}}" aria-disabled="true">上一頁</a>
+    </li>
+
+    <!-- 分頁頁碼 -->
+    <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" th:class="page-item">
+        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${pageNum}}" th:text="${pageNum}"></a>
+    </li>
+
+    <!-- 下一頁按鈕 -->
+    <li th:class="${currentPage == totalPages ? 'page-item disabled' : 'page-item'}">
+        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${currentPage + 1}}">下一頁</a>
+    </li>
+
+    <!-- 尾頁按鈕 -->
+    <li th:class="${currentPage == totalPages ? 'page-item disabled' : 'page-item'}">
+        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${totalPages}}">尾頁</a>
+    </li>
+</ul>
+
+
+
+
+
+        </nav>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+</html>

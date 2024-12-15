@@ -18,39 +18,39 @@ import java.util.*;
 @Controller
 @RequestMapping("/back-end/admin")
 public class BackendIndexController {
-	
-	@Autowired
-	AdminService adminSvc;
-	
-	@Autowired
-	DeptService deptSvc;
+ 
+ @Autowired
+ AdminService adminSvc;
+ 
+ @Autowired
+ DeptService deptSvc;
     
     @GetMapping("/backend_index")
-	public String backend_index(Model model) {
-		return "back-end/admin/backend_index";
-	}
+ public String backend_index(Model model) {
+  return "back-end/admin/backend_index";
+ }
     
     @GetMapping("/admin_select_page")
-	public String select_page(Model model) {
-		return "back-end/admin/admin_select_page";
-	}
+ public String select_page(Model model) {
+  return "back-end/admin/admin_select_page";
+ }
     
     @GetMapping("/listAllAdmin")
-	public String listAllAdmin(Model model) {
-		return "back-end/admin/listAllAdmin";
-	}
+ public String listAllAdmin(Model model) {
+  return "back-end/admin/listAllAdmin";
+ }
     
     @ModelAttribute("adminListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
-	protected List<AdminVO> referenceListData(Model model) {
-    	List<AdminVO> list = adminSvc.getAll();
-		return list;
-	}
+ protected List<AdminVO> referenceListData(Model model) {
+     List<AdminVO> list = adminSvc.getAll();
+  return list;
+ }
     
-	@ModelAttribute("deptListData") // for select_page.html 第135行用
-	protected List<DeptVO> referenceListData_Dept(Model model) {
-		model.addAttribute("deptVO", new DeptVO()); // for select_page.html 第133行用
-		List<DeptVO> list = deptSvc.getAll();
-		return list;
-	}
+ @ModelAttribute("deptListData") // for select_page.html 第135行用
+ protected List<DeptVO> referenceListData_Dept(Model model) {
+  model.addAttribute("deptVO", new DeptVO()); // for select_page.html 第133行用
+  List<DeptVO> list = deptSvc.getAll();
+  return list;
+ }
 
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Back廣咖樂論壇留言區</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/css/addPost.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- 響應式導航欄-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/forum">Back廣咖樂論壇</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 頁面內容-->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- 貼文內容-->
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1" th:text="${post.title}"></h1>
+                        
+                        <!-- 顯示貼文留言 -->
+                        <div>
+                            <div class="text-muted fst-italic mb-2">
+                                發佈於 <span th:text="${#dates.format(post.time, 'yyyy 年 MM 月 dd 日 ')}"></span>，作者：
+                                <span th:text="${post.memId}">作者名稱</span>
+                            </div>
+                            <p class="fs-5 mb-4" th:text="${post.content}">這裡是留言內容</p>
+                        </div>
+                    </header>
+                    
+                    <!-- 留言區 -->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- 留言表單 -->
+                                <form th:action="@{/post/{postId}/message(postId=${postId})}" method="post" id="commentForm">
+                                    <textarea class="form-control" name="mgContent" rows="3" placeholder="來一起發表評論吧！" id="commentContent" required></textarea>
+                                    <input type="hidden" name="memId" th:value="${currentMemberId}" />
+                                    <button class="btn btn-primary mt-2" type="button" id="submitBtn">發表評論</button>
+                                </form>
+
+                                <!-- 顯示留言 -->
+                                <div th:each="message : ${posts}">
+                                    <div class="d-flex mb-4">
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                        </div>
+                                        <div class="ms-3">
+                                            <span class="fw-bold" th:text="${message.memId}">留言者名稱</span>
+                                            <span class="text-muted fst-italic mb-2">
+                                                發佈於 <span th:text="${#dates.format(message.mgUpdate, 'yyyy 年 MM 月 dd 日 HH:mm')}"></span>
+                                            </span>
+                                            <p class="fs-5 mb-4" th:text="${message.mgContent}">這裡是留言內容</p>
+                                            <!-- 編輯留言 -->
+                                            <form th:action="@{/post/{postId}/message/{messageId}/edit(postId=${postId}, messageId=${message.postmgId})}" method="post" class="editForm">
+                                                <textarea name="mgContent" class="form-control" rows="3" th:value="${message.mgContent}" id="editContent-${message.postmgId}" required></textarea>
+                                                <button class="btn btn-primary mt-2" type="submit">變更留言</button>
+                                            </form>
+                                            <!-- 刪除留言 -->
+                                            <form th:action="@{/post/{postId}/message/{messageId}/delete(postId=${postId}, messageId=${message.postmgId})}" method="post">
+                                                <button class="btn btn-danger btn-sm mt-2" type="submit">刪除留言</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <footer class="py-5 bg-dark">
+        </footer>
+
+        <!-- Bootstrap 核心 JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- 核心主題 JS-->
+        <script src="js/scripts.js"></script>
+        
+        <!-- 自訂 JavaScript -->
+        <script>
+            // 當按下 Enter 鍵時提交留言
+            document.getElementById('commentContent').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // 防止預設行為 (換行)
+                    submitComment(); // 提交評論
+                }
+            });
+
+            // 點擊發表評論按鈕時提交留言
+            document.getElementById('submitBtn').addEventListener('click', function () {
+                submitComment();
+            });
+
+            // 提交評論的函數
+            function submitComment() {
+                var commentContent = document.getElementById('commentContent').value.trim(); // 去除空白字符
+                if (commentContent === "") {
+                    alert("留言內容不能為空！");
+                    return;
+                }
+
+                // 提交表單
+                document.getElementById('commentForm').submit();
+            }
+
+            // 編輯留言的檢查
+            document.querySelectorAll('.editForm').forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    var content = form.querySelector('textarea').value.trim(); // 獲取留言內容
+                    if (content === "") {
+                        alert("編輯的留言內容不能為空！");
+                        e.preventDefault(); // 阻止表單提交
+                    }
+                });
+            });
+
+            // 讓編輯留言的表單可以用 Enter 鍵提交
+            document.querySelectorAll('textarea[id^="editContent-"]').forEach(function(textarea) {
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault(); // 防止換行
+                        var form = textarea.closest('form'); // 找到對應的表單
+                        var content = textarea.value.trim(); // 確保內容不為空
+                        if (content === "") {
+                            alert("編輯的留言內容不能為空！");
+                            return;
+                        }
+                        form.submit(); // 提交表單
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
