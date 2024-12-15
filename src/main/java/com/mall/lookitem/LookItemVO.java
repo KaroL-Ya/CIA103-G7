@@ -66,8 +66,7 @@ public class LookItemVO implements java.io.Serializable {
     @Transient
     private String base64CoverImg; //非持久化字段
     
-//    private String categoryId; 
-//
+
     public LookItemVO() {
     }
 
