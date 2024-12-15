@@ -176,7 +176,7 @@ thead th {
 				<td th:text="${cafeVO.introduce}"></td>
 				<td><img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" width="100px"></td>
 			<td>
-			  <form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
+			  <form method="post" th:action="@{/cafe/getOne_Update}" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}"></form>
 			</td>

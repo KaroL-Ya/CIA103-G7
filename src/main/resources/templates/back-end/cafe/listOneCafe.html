@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,35 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>商家資料 - listOneCafe.html</title>
 
-<head th:insert="~{/back-end/cafe/included-fragment}"></head>
-<style type="text/css">
-    span {
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background-color: #28a745;
+        color: white;
+    }
+    .navbar h2, .navbar h3 {
+        margin: 0.5rem;
+    }
+    .navbar a {
+        color: white;
+        text-decoration: none;
+    }
+    .navbar img {
+        vertical-align: middle;
+        margin-right: 0.5rem;
+    }
+    .content {
+        margin: 6rem auto;
+        padding: 2rem;
+        max-width: 600px;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: left;
+    }
+    .content h3 {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .content span {
         display: inline-block;
         width: 150px;
         text-align: left;
         font-weight: bold;
     }
+    .content img {
+        margin-top: 0.5rem;
+    }
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-     <div align="center">
-         <h2>Cafe 個人資料 - listOneCafe.html</h2>
-         <h3><a class="navbar-brand" th:href="@{/cafe/select_page}">
-         <img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3>
-     </div>
+<nav class="navbar navbar-dark bg-success fixed-top">
+    <div>
+        <h2>Cafe 個人資料 - listOneCafe.html</h2>
+        <h3><a class="navbar-brand" th:href="@{/cafe/select_page}">
+            <img th:src="@{/images/back1.gif}" alt="Back">回查詢頁
+            <label th:text="${success}"></label>
+        </a></h3>
+    </div>
 </nav>
 
-<div align="center" th:fragment="listOneCafe-div"> <!-- 此div被select_page.html插入用 -->
-    <h3><span>查詢結果 :</span></h3>
-    <span>統一編號:</span><span th:text="${cafeVO.cafeId}"></span><br/>
-    <span>名稱:</span><span th:text="${cafeVO.name}"></span><br/>
-    <span>帳號:</span><span th:text="${cafeVO.ac}"></span><br/>
-    <span>密碼:</span><span th:text="${cafeVO.pw}"></span><br/>
-    <span>狀態:</span><span th:text="${cafeVO.state}"></span><br/>
-    <span>地址:</span><span th:text="${cafeVO.city} + '-' + ${cafeVO.disc} + '-' + ${cafeVO.address}"></span><br/>
-    <span>照片:</span><span><img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" width="100px"></span><br/>
+<div class="content" align="center" th:fragment="listOneCafe-div"> <!-- 此div被select_page.html插入用 -->
+    <h3>查詢結果 :</h3>
+    <div>
+        <span>統一編號:</span><span th:text="${cafeVO.cafeId}"></span>
+    </div>
+    <div>
+        <span>名稱:</span><span th:text="${cafeVO.name}"></span>
+    </div>
+    <div>
+        <span>帳號:</span><span th:text="${cafeVO.ac}"></span>
+    </div>
+    <div>
+        <span>密碼:</span><span th:text="${cafeVO.pw}"></span>
+    </div>
+    <div>
+        <span>狀態:</span><span th:text="${cafeVO.state}"></span>
+    </div>
+    <div>
+        <span>地址:</span><span th:text="${cafeVO.city} + '-' + ${cafeVO.disc} + '-' + ${cafeVO.address}"></span>
+    </div>
+    <div>
+        <span>照片:</span>
+        <span>
+            <img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" width="100px" alt="Cafe Image">
+        </span>
+    </div>
 </div>
 
 </body>

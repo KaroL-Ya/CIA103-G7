@@ -181,7 +181,7 @@ div.b {
             <form method="post" th:action="@{/cafe/getOne_For_Display}">
                 <label for="cafeIdSelect">選擇商家編號:</label>
                 <select id="cafeIdSelect" name="cafeId">
-                    <option th:each="cafeVO : ${CafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.cafeId}"></option>
+                    <option th:each="cafeVO : ${cafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.cafeId}"></option>
                 </select>
                 <input type="submit" value="送出">
             </form>
@@ -191,7 +191,7 @@ div.b {
             <form method="post" th:action="@{/cafe/getOne_For_Display}">
                 <label for="cafeNameSelect">選擇商家名稱:</label>
                 <select id="cafeNameSelect" name="cafeId">
-                    <option th:each="cafeVO : ${CafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}"></option>
+                    <option th:each="cafeVO : ${cafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}"></option>
                 </select>
                 <input type="submit" value="送出">
             </form>
