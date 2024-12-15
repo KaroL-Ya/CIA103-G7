@@ -1,104 +1,269 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+<!-- <title>平台優惠券修改 - update_pco_input.html</title> -->
+
+<!-- <!-- 引入 Bootstrap 和自定義 CSS --> 
+<!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/> -->
+<!-- <link rel="stylesheet" th:href="@{/css/index.css}"/> -->
+<!-- <link rel="stylesheet" th:href="@{/css/error.css}"/> -->
+
+<!-- <style type="text/css"> -->
+<!-- /*     button { */ -->
+<!-- /*         padding: 5px; */ -->
+<!-- /*     } */ -->
+<!-- /*     form { */ -->
+<!-- /*         display: table; */ -->
+<!-- /*     } */ -->
+<!-- /*     form div { */ -->
+<!-- /*         display: table-row; */ -->
+<!-- /*     } */ -->
+<!-- /*     label, input, span, select { */ -->
+<!-- /*         display: table-cell; */ -->
+<!-- /*         margin: 5px; */ -->
+<!-- /*         text-align: left;        */ -->
+<!-- /*     } */ -->
+<!-- /*     input[type=text], input[type=password], select, textarea { */ -->
+<!-- /*         width: 200px; */ -->
+<!-- /*         margin: 5px; */ -->
+<!-- /*     } */ -->
+<!-- /*     form div div { */ -->
+<!-- /*         display: table-cell; */ -->
+<!-- /*     } */ -->
+<!-- /*     .center { */ -->
+<!-- /*         margin-left: auto; */ -->
+<!-- /*         margin-right: auto; */ -->
+<!-- /*     } */ -->
+<!-- </style> -->
+<!-- </head> -->
+<!-- <body> -->
+
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center"> -->
+<!--          <div align="center"> <h2>平台優惠券修改 - update_pco_input.html</h2> -->
+<!--          <h3><a class="navbar-brand" th:href="@{/pco/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div> -->
+<!-- </nav> -->
+
+<!--     <div align="center"> -->
+<!--         <h3><b>所有欄位皆為必填欄位</b></h3> -->
+<!--        <form th:action="@{/pco/update}" method="post" th:object="${pcoVO}" enctype="multipart/form-data"> -->
+<!--             <div> -->
+<!--             <label>優惠券編號:</label> -->
+<!--             <input type="text" th:field="*{pcoId}" style="border:0px ; font-weight: bold;" readonly /><br/> -->
+<!--             </div> -->
+            
+<!--             <div> -->
+<!--             <label>優惠券名稱:</label> -->
+<!--             <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" /><br/> -->
+<!--             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span> -->
+<!--             </div> -->
+            
+<!--             <div> -->
+<!--             <label>折扣金額:</label> -->
+<!--             <input type="text" th:field="*{discount}" onclick="hideContent('discount.errors');" /><br/> -->
+<!--             <span th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}" class="error" id="discount.errors"></span> -->
+<!--             </div> -->
+            
+<!--             <div> -->
+<!--             <label>開始有效日期:</label> -->
+<!--             <input type="date" th:field="*{startDate}" onclick="hideContent('startDate.errors');" /><br/> -->
+<!--             <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="error" id="startDate.errors"></span> -->
+<!--             </div> -->
+
+<!--             <div> -->
+<!--             <label>結束有效日期:</label> -->
+<!--             <input type="date" th:field="*{endDate}" onclick="hideContent('endDate.errors');" /><br/> -->
+<!--             <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="error" id="endDate.errors"></span> -->
+<!--             </div> -->
+            
+<!--              新增 minSpend 欄位 -->
+<!--             <div> -->
+<!--                 <label>最小消費金額:</label> -->
+<!--                 <input type="text" th:field="*{minSpend}" onclick="hideContent('minSpend.errors');" /><br/> -->
+<!--                 <span th:if="${#fields.hasErrors('minSpend')}" th:errors="*{minSpend}" class="error" id="minSpend.errors"></span> -->
+<!--             </div> -->
+            
+<!--             <div> -->
+<!--                 <div></div> -->
+<!--                 <div><button type="submit" id="submit">送出修改</button></div> -->
+<!--                 <div></div> -->
+<!--             </div>       -->
+<!--         </form> -->
+<!--     </div> -->
+
+<!-- <!-- JavaScript part --> 
+<!-- <script type="text/javascript"> -->
+<!-- // //清除提示信息 -->
+<!-- // function hideContent(d) { -->
+<!-- //      document.getElementById(d).style.display = "none"; -->
+<!-- // } -->
+<!-- </script> -->
+
+<!-- </body> -->
+<!-- </html> -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>平台優惠券修改 - update_pco_input.html</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>修改平台優惠券</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* 全局樣式 */
+body {
+	font-family: Arial, sans-serif;
+	background-color: rosybrown;
+	color: cornsilk;
+	margin: 0;
+	padding: 0;
+}
 
-<!-- 引入 Bootstrap 和自定義 CSS -->
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-<link rel="stylesheet" th:href="@{/css/index.css}"/>
-<link rel="stylesheet" th:href="@{/css/error.css}"/>
+h1, h2 {
+	color: cornsilk;
+	margin: 20px 0;
+	background-color: #6c757d;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+}
 
-<style type="text/css">
-    button {
-        padding: 5px;
-    }
-    form {
-        display: table;
-    }
-    form div {
-        display: table-row;
-    }
-    label, input, span, select {
-        display: table-cell;
-        margin: 5px;
-        text-align: left;       
-    }
-    input[type=text], input[type=password], select, textarea {
-        width: 200px;
-        margin: 5px;
-    }
-    form div div {
-        display: table-cell;
-    }
-    .center {
-        margin-left: auto;
-        margin-right: auto;
-    }
+.container {
+	width: 80%;
+	margin: 20px auto;
+	background-color: #fff;
+	color: #555;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	text-align: left;
+}
+
+form {
+	margin: 0 auto;
+	width: 100%;
+	text-align: left;
+}
+
+form div {
+	margin-bottom: 15px;
+}
+
+form label {
+	display: inline-block;
+	width: 150px;
+	font-weight: bold;
+	text-align: left;
+}
+
+form input[type="text"], input[type="date"] {
+	width: 50%;
+	padding: 8px;
+	margin: 5px 0;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+form button {
+	background-color: #6c757d;
+	color: cornsilk;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+form button:hover {
+	background-color: #5a6268;
+	transform: scale(1.05);
+}
+
+.error {
+	color: red;
+	font-size: 0.9rem;
+	font-weight: bold;
+}
+
+/* 按鈕樣式 */
+nav {
+	background-color: #6c757d;
+	padding: 10px;
+	text-align: center;
+}
+
+nav .btn {
+	display: inline-block;
+	background-color: #6c757d;
+	color: cornsilk;
+	text-decoration: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+	border: none;
+}
+
+nav .btn:hover {
+	background-color: #5a6268;
+	transform: scale(1.05);
+}
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-         <div align="center"> <h2>平台優惠券修改 - update_pco_input.html</h2>
-         <h3><a class="navbar-brand" th:href="@{/pco/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
+<!-- 導覽列 -->
+<nav>
+	<a th:href="@{/pco/select_page}" class="btn">回查詢頁</a>
 </nav>
 
-    <div align="center">
-        <h3><b>所有欄位皆為必填欄位</b></h3>
-       <form th:action="@{/pco/update}" method="post" th:object="${pcoVO}" enctype="multipart/form-data">
-            <div>
-            <label>優惠券編號:</label>
-            <input type="text" th:field="*{pcoId}" style="border:0px ; font-weight: bold;" readonly /><br/>
-            </div>
-            
-            <div>
-            <label>優惠券名稱:</label>
-            <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" /><br/>
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
-            </div>
-            
-            <div>
-            <label>折扣金額:</label>
-            <input type="text" th:field="*{discount}" onclick="hideContent('discount.errors');" /><br/>
-            <span th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}" class="error" id="discount.errors"></span>
-            </div>
-            
-            <div>
-            <label>開始有效日期:</label>
-            <input type="date" th:field="*{startDate}" onclick="hideContent('startDate.errors');" /><br/>
-            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="error" id="startDate.errors"></span>
-            </div>
+<div class="container">
+	<h2>修改平台優惠券</h2>
+	<p><b>所有欄位皆為必填</b></p>
 
-            <div>
-            <label>結束有效日期:</label>
-            <input type="date" th:field="*{endDate}" onclick="hideContent('endDate.errors');" /><br/>
-            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="error" id="endDate.errors"></span>
-            </div>
-            
-             <!-- 新增 minSpend 欄位 -->
-            <div>
-                <label>最小消費金額:</label>
-                <input type="text" th:field="*{minSpend}" onclick="hideContent('minSpend.errors');" /><br/>
-                <span th:if="${#fields.hasErrors('minSpend')}" th:errors="*{minSpend}" class="error" id="minSpend.errors"></span>
-            </div>
-            
-            <div>
-                <div></div>
-                <div><button type="submit" id="submit">送出修改</button></div>
-                <div></div>
-            </div>      
-        </form>
-    </div>
+	<form th:action="@{/pco/update}" method="post" th:object="${pcoVO}">
+		<div>
+			<label for="pcoId">優惠券編號:</label>
+			<input type="text" id="pcoId" th:field="*{pcoId}" readonly style="background-color: #e9ecef; font-weight: bold;" />
+		</div>
 
-<!-- JavaScript part -->
-<script type="text/javascript">
-//清除提示信息
-function hideContent(d) {
-     document.getElementById(d).style.display = "none";
-}
-</script>
+		<div>
+			<label for="name">優惠券名稱:</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+		</div>
+
+		<div>
+			<label for="discount">折扣金額:</label>
+			<input type="text" id="discount" th:field="*{discount}" />
+			<span th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}" class="error"></span>
+		</div>
+
+		<div>
+			<label for="startDate">開始有效日期:</label>
+			<input type="date" id="startDate" th:field="*{startDate}" />
+			<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="error"></span>
+		</div>
+
+		<div>
+			<label for="endDate">結束有效日期:</label>
+			<input type="date" id="endDate" th:field="*{endDate}" />
+			<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="error"></span>
+		</div>
+
+		<div>
+			<label for="minSpend">最小消費金額:</label>
+			<input type="text" id="minSpend" th:field="*{minSpend}" />
+			<span th:if="${#fields.hasErrors('minSpend')}" th:errors="*{minSpend}" class="error"></span>
+		</div>
+
+		<div>
+			<button type="submit">送出修改</button>
+		</div>
+	</form>
+</div>
 
 </body>
 </html>

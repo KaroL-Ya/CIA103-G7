@@ -1,93 +1,187 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+<!-- <head> -->
+<!--     <meta charset="UTF-8"> -->
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+<!--     <title>index.html - Spring Boot - Maven - Spring MVC - Thymeleaf Demo</title> -->
+
+<!--     引入 Bootstrap 和自定義 CSS -->
+<!--     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" /> -->
+<!--     <link rel="stylesheet" th:href="@{/css/index.css}" /> -->
+<!--     <link rel="stylesheet" th:href="@{/out-statics/out-css/style.css}" /> -->
+<!--     <script th:src="@{/out-statics/out-js/app4.js}"></script> -->
+
+<!--     <style type="text/css"> -->
+<!-- /*         .menu { */ -->
+<!-- /*             margin-top: 30px; */ -->
+<!-- /*             text-align: center; */ -->
+<!-- /*         } */ -->
+<!-- /*         .menu a { */ -->
+<!-- /*             display: inline-block; */ -->
+<!-- /*             margin: 10px; */ -->
+<!-- /*             padding: 15px 30px; */ -->
+<!-- /*             font-size: 1.5em; */ -->
+<!-- /*             color: white; */ -->
+<!-- /*             background-color: #007bff; */ -->
+<!-- /*             border-radius: 5px; */ -->
+<!-- /*             text-decoration: none; */ -->
+<!-- /*         } */ -->
+<!-- /*         .menu a.cco { */ -->
+<!-- /*             background-color: #17a2b8; */ -->
+<!-- /*         } */ -->
+<!-- /*         .menu a:hover { */ -->
+<!-- /*             opacity: 0.9; */ -->
+<!-- /*         } */ -->
+<!--     </style> -->
+<!-- </head> -->
+<!-- <body> -->
+
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center" onclick="changeColor()" th:fragment="mynavbar"> -->
+<!--     <div align="center"> -->
+<!--         <h2 style="font-size: 30px; width: max-content;"> -->
+<!--             <span class="hello-color" th:text="'Hello, ' + ${message} + ' : '"></span>  -->
+<!--             Spring Boot + Spring MVC + Thymeleaf -->
+<!--             （ -->
+<!--             <img width="95px" height="80px" th:src="@{/images/spring boot.png}"> +  -->
+<!--             <img width="95px" height="80px" th:src="@{/images/spring mvc.png}"> +  -->
+<!--             <img width="110px" height="30px" th:src="@{/images/thymeleaf.png}"> -->
+<!--             ） -->
+<!--         </h2> -->
+<!--         <h3> -->
+<!--             <a class="navbar-brand" href="https://start.spring.io/"> -->
+<!--                 Spring Boot Quickstart 官網 : https://start.spring.io -->
+<!--             </a> -->
+<!--         </h3> -->
+<!--     </div> -->
+<!-- </nav> -->
+
+<!-- <div class="starter-template"> -->
+<!--     <span class="color1" id="title1">前端展示層(View) - 搭配Thymeleaf模板引擎 - 改用HTML</span> -->
+<!--     <h1> -->
+<!--         <a href="https://spring.io/projects/spring-boot" class="index-green" id="title2">Spring Boot</a>  -->
+<!--         <font color=black>+</font>  -->
+<!--         <a href="https://maven.apache.org/">Maven</a> ->   -->
+<!--         <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html" class="index-green" id="title3">Spring MVC</a>  -->
+<!--         <font color=black>+</font>  -->
+<!--         <a href="https://www.thymeleaf.org" class="index-green" id="title4">Thymeleaf</a> -> -->
+<!--         <a href="https://www.tibame.com/course/33">Java WebApp</a> -->
+<!--     </h1> -->
+<!--     <hr><br> -->
+<!--     <h3> -->
+<!--         <a th:href="@{/pco/select_page}" style="text-decoration: underline; color: black;"> -->
+<!--             Click here to Spring MVC + Thymeleaf Project -->
+<!--         </a> -->
+<!--     </h3> -->
+<!-- </div> -->
+
+<!-- <div class="menu"> -->
+<!--     <a th:href="@{/pco/select_page}">平台優惠券管理</a> -->
+<!--     <a class="cco" th:href="@{/cco/select_page}">商家優惠券管理</a> -->
+<!--     <a th:href="@{/uco/coupon_list}" style="background-color: #28a745;">我的優惠券</a> -->
+
+<!-- </div> -->
+
+<!-- <div style="float: right; left: -90%; position: relative;"> -->
+<!--     開發順序: -->
+<!--     <ol style="float: left; left: 100%; position: relative;"> -->
+<!--         <li th:each="myList : ${myList}" th:utext="${myList}"></li> -->
+<!--     </ol> -->
+<!-- </div> -->
+
+<!-- </body> -->
+<!-- </html> -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>index.html - Spring Boot - Maven - Spring MVC - Thymeleaf Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>優惠券管理</title>
 
     <!-- 引入 Bootstrap 和自定義 CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
-    <link rel="stylesheet" th:href="@{/out-statics/out-css/style.css}" />
-    <script th:src="@{/out-statics/out-js/app4.js}"></script>
 
     <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rosybrown; /* 柔和粉紅背景 */
+            color: cornsilk; /* 白米色文字 */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #6c757d; /* 中灰色導航欄 */
+            color: cornsilk; /* 白米色文字 */
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        nav h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            color: cornsilk;
+        }
+
         .menu {
             margin-top: 30px;
             text-align: center;
         }
+
         .menu a {
             display: inline-block;
             margin: 10px;
             padding: 15px 30px;
-            font-size: 1.5em;
-            color: white;
-            background-color: #007bff;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #5a6268; /* 統一使用深灰藍色按鈕 */
             border-radius: 5px;
             text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
         }
-        .menu a.cco {
-            background-color: #17a2b8;
-        }
+
         .menu a:hover {
-            opacity: 0.9;
+            background-color: #343a40; /* 懸停時變為深灰色 */
+            transform: scale(1.05); /* 懸停效果：放大 */
+        }
+
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #f8f9fa; /* 白色標題 */
+        }
+
+        hr {
+            border: 1px solid #e9ecef;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center" onclick="changeColor()" th:fragment="mynavbar">
-    <div align="center">
-        <h2 style="font-size: 30px; width: max-content;">
-            <span class="hello-color" th:text="'Hello, ' + ${message} + ' : '"></span> 
-            Spring Boot + Spring MVC + Thymeleaf
-            （
-            <img width="95px" height="80px" th:src="@{/images/spring boot.png}"> + 
-            <img width="95px" height="80px" th:src="@{/images/spring mvc.png}"> + 
-            <img width="110px" height="30px" th:src="@{/images/thymeleaf.png}">
-            ）
-        </h2>
-        <h3>
-            <a class="navbar-brand" href="https://start.spring.io/">
-                Spring Boot Quickstart 官網 : https://start.spring.io
-            </a>
-        </h3>
-    </div>
+<!-- 導覽列 -->
+<nav>
+    <h2>優惠券管理</h2>
 </nav>
 
+<!-- 頁面內容 -->
 <div class="starter-template">
-    <span class="color1" id="title1">前端展示層(View) - 搭配Thymeleaf模板引擎 - 改用HTML</span>
-    <h1>
-        <a href="https://spring.io/projects/spring-boot" class="index-green" id="title2">Spring Boot</a> 
-        <font color=black>+</font> 
-        <a href="https://maven.apache.org/">Maven</a> ->  
-        <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html" class="index-green" id="title3">Spring MVC</a> 
-        <font color=black>+</font> 
-        <a href="https://www.thymeleaf.org" class="index-green" id="title4">Thymeleaf</a> ->
-        <a href="https://www.tibame.com/course/33">Java WebApp</a>
-    </h1>
-    <hr><br>
-    <h3>
-        <a th:href="@{/pco/select_page}" style="text-decoration: underline; color: black;">
-            Click here to Spring MVC + Thymeleaf Project
-        </a>
-    </h3>
+    <h1>歡迎來到優惠券管理系統</h1>
+    <hr>
 </div>
 
+<!-- 功能選單 -->
 <div class="menu">
     <a th:href="@{/pco/select_page}">平台優惠券管理</a>
-    <a class="cco" th:href="@{/cco/select_page}">商家優惠券管理</a>
-    <a th:href="@{/uco/coupon_list}" style="background-color: #28a745;">我的優惠券</a>
-
-</div>
-
-<div style="float: right; left: -90%; position: relative;">
-    開發順序:
-    <ol style="float: left; left: 100%; position: relative;">
-        <li th:each="myList : ${myList}" th:utext="${myList}"></li>
-    </ol>
+    <a th:href="@{/cco/select_page}">商家優惠券管理</a>
+    <a th:href="@{/uco/coupon_list}">我的優惠券</a>
 </div>
 
 </body>
 </html>
-
