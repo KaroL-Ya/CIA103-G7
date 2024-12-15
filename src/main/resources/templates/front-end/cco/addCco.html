@@ -225,11 +225,12 @@ nav .btn:hover {
 	<p><b>所有欄位皆為必填</b></p>
 
 	<form th:action="@{insert}" method="post" th:object="${ccoVO}">
+		
 		<div>
-			<label for="cafeId">咖啡廳編號:</label>
-			<input type="text" id="cafeId" th:field="*{cafeId}" />
-			<span th:if="${#fields.hasErrors('cafeId')}" th:errors="*{cafeId}" class="error"></span>
-		</div>
+    <label for="cafeId">咖啡廳編號:</label>
+    <span th:text="${cafeId}"></span> <!-- 僅顯示商家 ID -->
+    <input type="hidden" id="cafeId" name="cafeId" th:value="${cafeId}" /> <!-- 隱藏欄位提交 -->
+</div>
 
 		<div>
 			<label for="name">優惠券名稱:</label>

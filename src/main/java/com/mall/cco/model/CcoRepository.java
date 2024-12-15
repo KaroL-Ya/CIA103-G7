@@ -15,4 +15,12 @@ public interface CcoRepository extends JpaRepository<CcoVO, Integer> {
 
     @Query(value = "FROM CcoVO WHERE ccoId = ?1 AND name LIKE ?2 AND startDate = ?3 ORDER BY ccoId") // 使用 JPQL 查詢符合條件的優惠券
     List<CcoVO> findByOthers(int ccoId, String name, java.sql.Date startDate);
+    
+    // 查詢所有 CCO 與其對應的 cafeId
+    @Query(value = "SELECT c FROM CcoVO c WHERE c.cafeId IS NOT NULL")
+    List<CcoVO> findAllWithCafeId();
+
+    // 查詢指定 cafeId 的所有優惠券
+    @Query(value = "SELECT c FROM CcoVO c WHERE c.cafeId = ?1")
+    List<CcoVO> findAllByCafeId(Integer cafeId);
 }
