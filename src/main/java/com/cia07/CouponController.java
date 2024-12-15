@@ -122,4 +122,4 @@ public class CouponController {
         model.addAttribute("ucoListData", ucoSvc.getAll());
         return "front-end/uco/coupon_list";
     }
-}
+} 
