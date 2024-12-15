@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.admin.model.AdminService;
 import com.admin.model.AdminVO;
+import com.dept.model.DeptVO;
 
 @Controller
 public class AdminLoginController {
@@ -19,6 +20,11 @@ public class AdminLoginController {
 	// 後台登入頁面
 	@GetMapping("/back-end")
 	public String backend_adminLogin() {
+		return "back-end/adminLogin";
+	}
+	
+	@GetMapping("/adminLogin")
+	public String adminLogin() {
 		return "back-end/adminLogin";
 	}
 
@@ -37,7 +43,7 @@ public class AdminLoginController {
 					session.setAttribute("admin_Id", adminVO.getAdmin_Id());
 					session.setAttribute("admin_Name", adminVO.getAdmin_Name());
 					session.setAttribute("role", "admin");
-					return "/back-end/admin/backend_index";
+					return "back-end/admin/backend_index";
 				} else {
 					// 登入失敗
 					model.addAttribute("error", "帳號尚未開通");
@@ -66,25 +72,15 @@ public class AdminLoginController {
 //		session.invalidate(); // 使 Session 無效
 		return "redirect:/back-end"; // 登出後，重新導向到登入頁面
 	}
-
-//  // 處理登入邏輯
-//  @PostMapping("/back-end/adminLogin")
-//  public String adminLogin(@RequestParam String admin_Ac,
-//                      @RequestParam String admin_Pw,
-//                      HttpSession session, Model model) {
-//  	String msg = (adminSvc.checkAdminLogin(admin_Ac, admin_Pw));
-//  	
-//		if(msg.equals("查無此帳號")) {
-//			if(msg.equals("密碼有錯")) {
-//				return "redirect:/back-end";
-//			}
-//			return "redirect:/back-end";
-//		}else { // 登入成功		
-//			session.setAttribute("admin_Ac",admin_Ac);
-////			session.setAttribute("admin_Name",admin_Pw);
-//			session.setAttribute("role", "admin");
-//			return "redirect:/admin/backend_index"; // 如果用redirect: 會去找所有controller的Mapping
-//		}
-//  }
+	
+	// 登出功能
+	@GetMapping("/logout")
+	public String getLogout(HttpSession session) {
+		session.removeAttribute("admin_Id");
+		session.removeAttribute("admin_Name");
+		session.removeAttribute("role");
+//		session.invalidate(); // 使 Session 無效
+		return "redirect:/back-end"; // 登出後，重新導向到登入頁面
+	}
 
 }

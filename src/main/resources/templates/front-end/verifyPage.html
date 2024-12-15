@@ -5,62 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>驗證信箱</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-    .container {
-        max-width: 400px;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    .container h2 {
-        text-align: center;
-        color: #333;
-    }
-    .container label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    .container input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    .container button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .container button:hover {
-        background-color: #45a049;
-    }
-    .error {
-        color: red;
-        font-size: 0.9em;
-    }
+            * {
+                box-sizing: border-box;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            body {
+                /* border:1px solid red; */
+                margin: 0;
+                background: #c28888;
+            }
+
+            /* html can replace :root */
+            html {
+                /* 根元素 */
+                /* font-size:62.5%; */
+                /* 10px */
+                /* 宣告一個header變數 高60px */
+                --header-height: 60px;
+                /* 宣告一個aside變數 寬為240px */
+                --aside-width: 240px;
+            }
+
+            header.header {
+                /*              border:1px solid black; */
+                /*             background-color: lightgray; */
+                /* height:60px; */
+                height: var(--header-height);
+                /* fixed | sticky */
+                position: sticky;
+                top: 0;
+            }
+
+            div.header-left {
+                display: inline-block;
+            }
+
+            div.header-right {
+                /*         	display:inline-block; */
+                float: right;
+                padding: 10px 20px;
+            }
+
+            label.title {
+                color: pink;
+                font-size: 28px;
+                float: left;
+            }
+
+            label.header-right {
+                color: black;
+            }
+
+            input[type="text"]{
+                padding: 10px;
+                width: 200px;
+            }
+
+            button {
+                padding: 5px;
+                width: 100%;
+                font-size: 16px;
+                margin: 15px 0px;
+            }
+
+            h2 {
+                border-bottom: 3px solid white;
+                width: 20%;
+                padding-bottom: 3px;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            span.error {
+                color: red;
+            }
 </style>
 </head>
 <body>
-    <div class="container">
+    <div align="center">
         <h2>驗證信箱</h2>
-        <form th:action="@{/verifyCode}" method="post">
-            <label>信箱:</label>
-            <input type="text" name="email" th:value="${email}" readonly />
-            <label>驗證碼:</label>
-            <input type="text" name="verificationCode" placeholder="請輸入驗證碼" required />
-            <span class="error" th:if="${error != null}" th:text="${error}"></span>
-
-            <button type="submit">驗證</button>
-        </form>
+      <form th:action="@{/verifyCode}" method="post">
+        <table>
+        	<tr>
+	            <td align="center">信箱</td>
+	            <td><input type="text" name="email" th:value="${email}" readonly /></td>
+            </tr>
+            <tr>
+            	<td>驗證碼</td>
+            	<td><input type="text" name="verificationCode" placeholder="請輸入驗證碼"/></td>
+            </tr>
+            <tr>
+            	<td colspan="2" align="center"><span class="error" th:if="${error != null}" th:text="${error}"></span></td>
+            </tr>
+			<tr>
+            	<td colspan="2"><button type="submit">驗證</button></td>
+            </tr>
+        </table>
+      </form>
     </div>
+    
 </body>
 </html>

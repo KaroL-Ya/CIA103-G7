@@ -15,7 +15,7 @@
 //
 //@Entity
 //@Table(name = "adminauth")
-//@IdClass(AdminAuthVO.CompositeDetail.class)
+////@IdClass(AdminAuthVO.CompositeDetail.class)
 //public class AdminAuthVO {
 //	
 ////	@ManyToOne

@@ -77,24 +77,4 @@ public class MemberLoginController {
 		return "redirect:/login";
 	}
 
-//	@PostMapping("/login")
-//	public String login(@RequestParam String ac
-//			,@RequestParam String pw,
-//			HttpSession session,ModelMap model) {
-////			System.out.println(ac + pw);
-////			System.out.println(memberSvc.checkLogin(ac, pw));
-//			String msg = (memberSvc.checkLogin(ac, pw));
-//			if(msg.equals("查無此帳號")) {
-//				if(msg.equals("密碼有錯")) {
-//					return "redirect:/login";
-//				}
-//				return "redirect:/login";
-//			}else { // 登入成功
-//				session.setAttribute("ac",ac);
-//				session.setAttribute("pw",pw);
-//				session.setAttribute("role", "member");
-//				return "redirect:/index"; // 如果用redirect: 會去找所有controller的Mapping
-//			}
-//	}
-
 }

@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.admin.model.AdminFuncVO;
 import com.admin.model.AdminService;
 import com.admin.model.AdminVO;
 import com.dept.model.DeptService;
 import com.dept.model.DeptVO;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/back-end/admin")
@@ -39,6 +42,21 @@ public class BackendIndexController {
  public String listAllAdmin(Model model) {
   return "back-end/admin/listAllAdmin";
  }
+    
+    @GetMapping("/listAllAdminAuth")
+    public String listAllAdminAuth(Model model) {
+    	return "back-end/admin/listAllAdminAuth";
+    }
+    
+    @GetMapping("/listAllDept")
+	public String listAllDept(Model model) {
+		return "back-end/admin/listAllDept";
+	}
+    
+    @ModelAttribute("adminAuthListData")
+    public List<AdminVO> getAdminAuthListData() {
+        return adminSvc.getAll(); // 直接返回所有 AdminVO 資料
+    }
     
     @ModelAttribute("adminListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
  protected List<AdminVO> referenceListData(Model model) {

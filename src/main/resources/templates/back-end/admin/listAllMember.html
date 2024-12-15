@@ -1,37 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>所有會員資料 - listAllMember.html</title>
-<link href="../images/222.png" rel="shortcut icon">
-<head th:insert="~{/back-end/admin/included-fragment}"></head>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
-
-
-<style type="text/css">
-body {
-margin: 1rem 12rem 2rem 12rem;
-}
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>所有會員資料 - listAllMember.html</title>
+<link th:href=@{/images/222.png} rel="shortcut icon">
+	<head th:insert="~{/back-end/admin/included-fragment}"></head>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+	<style type="text/css">
+	* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header.header {
+			background-color: pink;
+/*             color: #fff; */
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+        label.title {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+        div.header-right {
+            display: flex;
+            align-items: center;
+        }
+        div.header-right span {
+            margin-right: 15px;
+        }
+        div.header-right button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        div.header-right button:hover {
+            background-color: #e55b50;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form input[type="submit"] {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #e55b50;
+        }
+	</style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>所有會員資料 - listAllMember.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}">
-<!-- 		 <img th:src="@{/images/222.png}"> -->
-		 回查詢頁<label th:text="${success}"></label></a></h3></div>
-</nav>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">xxx</label>
+        </div>
+        <div class="header-right">
+            <span th:if="${session.admin_Name != null}">
+                管理員-<span th:text="${session.admin_Name}"></span>
+            </span>
+            <form th:action="@{/logout}" method="post" th:if="${session.admin_Name != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
+		<div align="center">
+		 	<h2>Back廣咖樂-所有會員資料</h2>
+		 	<h3><a th:href="@{/back-end/admin/admin_select_page}">回查詢頁<label th:text="${success}"></label></a></h3>
+		</div>
 
 <table id="example" class="display" style="width: 100%">
   <thead >
-	<tr style="background-color:#CCCCFF">
-		<th>計數</th>
+	<tr style="background-color:#F5DEB3">
 		<th>Member編號</th>
 		<th>帳號</th>
 		<th>密碼</th>
-		<th>Email</th>
+		<th>信箱</th>
 		<th>狀態</th>
 		<th>註冊時間</th>
 		<th>會員姓名</th>
@@ -48,13 +119,12 @@ margin: 1rem 12rem 2rem 12rem;
   <tbody>
 		<th:block th:each="memberVO : ${memberListData}">
 			<tr>
-				<td th:text="${memberVOStat.count}"></td>
 				<td th:text="${memberVO.mem_Id}"></td>
 				<td th:text="${memberVO.ac}"></td>
 				<td th:text="${memberVO.pw}"></td>
 				<td th:text="${memberVO.email}"></td>
 				<td th:text="${memberVO.getMemberStatusText}"></td>
-				<td th:text="${memberVO.registertime}"></td>
+				<td th:text="${memberVO.getFormattedRegistertime}"></td>
 				<td th:text="${memberVO.name}"></td>
 				<td th:text="${memberVO.birth}"></td>
 				<td th:text="${memberVO.sex}"></td>
@@ -76,7 +146,7 @@ margin: 1rem 12rem 2rem 12rem;
   </tbody>
 </table>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
-<!-- <script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              ●●js  for jquery datatables 用 -->
+<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
 	<!-- ●● jquery datatables 設定 -->
 <script>
 	$(document).ready(function() {

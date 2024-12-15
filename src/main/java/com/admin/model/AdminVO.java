@@ -44,17 +44,17 @@ public class AdminVO implements java.io.Serializable {
 	private DeptVO deptVO;
 	
 	@Column(name = "ADMIN_AC")
-	@NotEmpty(message="管理員帳號: 請勿空白")
+//	@NotEmpty(message="管理員帳號: 請勿空白")
 	@Size(min=2,max=10,message="管理員帳號: 長度必需在{min}到{max}之間")
 	private String admin_Ac;
 	
 	@Column(name = "ADMIN_PW")
-	@NotEmpty(message="管理員密碼: 請勿空白")
+//	@NotEmpty(message="管理員密碼: 請勿空白")
 	@Size(min=2,max=10,message="管理員密碼: 長度必需在{min}到{max}之間")
 	private String admin_Pw;
 	
 	@Column(name = "ADMIN_NAME")
-	@NotEmpty(message="管理員姓名: 請勿空白")
+//	@NotEmpty(message="管理員姓名: 請勿空白")
 	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
 	private String admin_Name;
 	

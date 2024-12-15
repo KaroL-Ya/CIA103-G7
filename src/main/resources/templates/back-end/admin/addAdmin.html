@@ -4,115 +4,235 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Admin資料新增 - addAdmin.html</title>
-
-<head th:insert="~{/back-end/admin/included-fragment}"></head>
+    <link th:href=@{/images/222.png} rel="shortcut icon">
 <style type="text/css">
-	
-	button {
-		padding: 5px;
-	}
-	form {
-		display: table;
-	}
-	form div {
-		display: table-row;
-	}
-	label, input, span, select {
-		display: table-cell;
-		margin: 5px;
-		text-align: left;		
-	}
-	input[type=text], input[type=password], select, textarea {
-		width: 200px;
-		margin: 5px;
-	}
-	form div div {
-		display: table-cell;
-	}
-	.center {
-        margin-left: auto;
-        margin-right: auto;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header.header {
+    background-color: pink;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+}
+
+label.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: pink;
+}
+
+div.header-right {
+    display: flex;
+    align-items: center;
+}
+
+div.header-right span {
+    margin-right: 15px;
+}
+
+div.header-right button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+div.header-right button:hover {
+    background-color: #e55b50;
+}
+
+button {
+    padding: 5px;
+}
+
+form {
+    display: table;
+}
+
+form div {
+    display: table-row;
+}
+
+label, input, span, select {
+/*     display: table-cell; */
+    margin: 2px;
+    text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+    width: 200px;
+    margin: 2px;
+}
+
+form div div {
+    display: table-cell;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span {
+    display: inline-block;
+    width: 250px;
+    text-align: left;
+    font-weight: bold;
+}
+
+div.a {
+    display: inline-block;
+    width: 50%;
+    height: auto;
+    padding: 5px;
+    border: 0px solid blue;
+    background-color: white;
+}
+
+div.b {
+    position: absolute;
+    bottom: 6%;
+    right: 2%;
+    width: 45%;
+    padding: 5px;
+    border: 1px solid pink;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #FFC0CB;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 0;
+}
+
+a:hover {
+    background-color: #FF7F50;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
 </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>Admin資料新增 - addAdmin.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
-</nav>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">xxx</label>
+        </div>
+        <div class="header-right">
+            管理員-<span th:if="${session.admin_Name != null}"
+                th:text="${session.admin_Name}"></span>
+            <form th:action="@{/logout}" method="post"
+                th:if="${session.admin_Name != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
+    	<div align="center">
+		 	<h2>Back廣咖樂-新增管理員資料</h2>
+		 	<h3><a th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/222.png}">回查詢頁<label th:text="${success}"></label></a></h3>
+		</div>
 
 	<div align="center">
 		<h3><b>所有欄位皆為必填欄位</b></h3>
 		<form th:action="@{insert}" method="post" th:object="${adminVO}" enctype="multipart/form-data">
-			
-			
-			
+			<table>
+				<tr>
+					<td>管理員帳號</td>
+					<td><input type="text" th:field="*{admin_Ac}" onclick="hideContent('admin_Ac.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('admin_Ac')}" th:errors="*{admin_Ac}" class="error" id="admin_Ac.errors"></span></td>
+				</tr>
+				<tr>
+					<td>管理員密碼</td>
+					<td><input type="text" th:field="*{admin_Pw}" onclick="hideContent('admin_Pw.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('admin_Pw')}" th:errors="*{admin_Pw}" class="error" id="admin_Pw.errors"></span></td>
+				</tr>				
+				<tr>
+					<td>管理員姓名</td>
+					<td><input type="text" th:field="*{admin_Name}" onclick="hideContent('admin_Name.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('admin_Name')}" th:errors="*{admin_Name}" class="error" id="admin_Name.errors"></span></td>
+				</tr>
+				<tr>
+					<td>狀態</td>
+					<td colspan="2">
+						<input type="radio" th:field="*{admin_Status}" value="1" onclick="hideContent('admin_Status.errors');" id="active"/><label for="active">啟用</label>
+						<input type="radio" th:field="*{admin_Status}" value="0" onclick="hideContent('admin_Status.errors');" id="inactive"/><label for="inactive">停用</label>
+					</td>
+					<td></td>
+					<td><span  th:if="${#fields.hasErrors('admin_Status')}" th:errors="*{admin_Status}" class="error" id="admin_Status.errors"></span></td>
+				</tr>
+				<tr>
+					<td>到職日</td>
+					<td><input type="date" th:field="*{hiredate}" onclick="hideContent('hiredate.errors');" /></td>
+					<td><span  th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}" class="error" id="hiredate.errors"></span></td>
+				</tr>
+				<tr>
+					<td>部門</td>
+					<td>
+						<select th:field="*{deptVO.deptno}">
+							<option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" />
+						</select>
+					</td>
+					<td><span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span></td>
+				</tr>
+				<tr>
+					<td>照片</td>
+					<td><input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" onchange="hideContent('admin_Img.errors');" /></td>
+					<td><span class="error" th:utext="${errorMessage}" id="admin_Img.errors">${errorMessage}</span></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><div id="blob_holder"></div></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><button type="submit" id="submit">送出新增</button></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
 			
 <!--             <div> -->
 <!--             <label>Admin編號:</label> -->
             <input type="hidden" th:field="*{admin_Id}" onclick="hideContent('admin_Id.errors');" readonly/><br/>
 <!--             <span  th:if="${#fields.hasErrors('admin_Id')}" th:errors="*{admin_Id}" class="error" id="admin_Id.errors"></span> -->
 <!--             </div> -->
-
-            <div>
-            <label>Admin帳號:</label>
-            <input type="text" th:field="*{admin_Ac}" onclick="hideContent('admin_Ac.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('admin_Ac')}" th:errors="*{admin_Ac}" class="error" id="admin_Ac.errors"></span>
-            </div>
-    
-            <div>
-            <label>Admin密碼:</label>
-            <input type="text" th:field="*{admin_Pw}" onclick="hideContent('admin_Pw.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('admin_Pw')}" th:errors="*{admin_Pw}" class="error" id="admin_Pw.errors"></span>
-            </div>
-			
-			<div>
-			<label>Admin姓名:</label>
-			<input type="text" th:field="*{admin_Name}" onclick="hideContent('admin_Name.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('admin_Name')}" th:errors="*{admin_Name}" class="error" id="admin_Name.errors"></span>
-            </div>
-
-			<div>
-			<label>狀態:</label>
-			<input type="radio" th:field="*{admin_Status}" value="1" onclick="hideContent('admin_Status.errors');" />
-   			<label for="active">啟用</label>
-			<input type="radio" th:field="*{admin_Status}" value="0" onclick="hideContent('admin_Status.errors');" />
-    		<label for="inactive">停用</label>
-<!-- 			<input type="text" th:field="*{admin_Status}" onclick="hideContent('admin_Status.errors');" /><br/> -->
-			<span  th:if="${#fields.hasErrors('admin_Status')}" th:errors="*{admin_Status}" class="error" id="admin_Status.errors"></span>
-			</div>
-
-            <div>
-            <label>到職日:</label>
-            <input type="date" th:field="*{hiredate}" onclick="hideContent('hiredate.errors');" /><br/>
-            <span  th:if="${#fields.hasErrors('hiredate')}" th:errors="*{hiredate}" class="error" id="hiredate.errors"></span>
-            </div>
-			
-			<div>
-			<label>部門:</label>
-			<select th:field="*{deptVO.deptno}">
-				<option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" />
-			</select>
-			<span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span>
-			</div>
-				
-			<div>
-			<label>照片:</label>
-			<input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" onchange="hideContent('admin_Img.errors');" />
-<!-- 			<span  th:if="${#fields.hasErrors('admin_Img')}" th:errors="*{admin_Img}" class="error" id="admin_Img.errors"></span> -->
-			<span class="error" th:utext="${errorMessage}" id="admin_Img.errors">${errorMessage}</span>
-<!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
-			<div id="blob_holder"></div>
-			</div>
-			
-			<div>
-				<div></div>
-				<div><button type="submit" id="submit"> 送出新增 </button></div>
-				<div></div>
-			</div>		
-		</form>
 	
+		</form>
 	</div>
 
 

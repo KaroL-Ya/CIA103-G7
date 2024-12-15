@@ -4,32 +4,128 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Admin資料 - listOneAdmin.html</title>
-
+<link th:href=@{/images/222.png} rel="shortcut icon">
 <head th:insert="~{/back-end/admin/included-fragment}"></head>
 <style type="text/css">
-	
+	* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: pink;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header h3 {
+            margin: 10px 0 0;
+        }
+        header a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header a img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        div.header-right button:hover {
+            background-color: #e55b50;
+        }
+        div {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     span {
 		display: inline-block;
 		width: 150px;
 		text-align: left;
 		font-weight: bold;
 	}
+	pan.label {
+            display: inline-block;
+            width: 150px;
+            text-align: left;
+            font-weight: bold;
+            color: #555;
+        }
+        span.value {
+            color: #333;
+        }
+                button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #e55b50;
+        }
+                        form input[type="submit"] {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #e55b50;
+        }
+        img {
+            border-radius: 8px;
+            margin-top: 10px;
+        }
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>admin個人資料 - listOneAdmin.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/back-end/admin/admin_select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
-</nav>
+    <header class="header">
+        <div class="header-left">
+            <label class="title">xxx</label>
+        </div>
+        <h3><a th:href="@{/back-end/admin/listAllAdmin}"><img th:src="@{/images/222.png}">回管理員<label th:text="${success}"></label></a></h3>
+        <div class="header-right">
+            <span th:if="${session.admin_Name != null}">
+                管理員-<span th:text="${session.admin_Name}" style="display:inline;"></span>
+            </span>
+            <form th:action="@{/logout}" method="post" th:if="${session.admin_Name != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </header>
 
 	<div align="center" th:fragment="listOneAdmin-div"> <!-- 此div被select_page.html第158行insert用 -->
 		<h3><span>查詢結果 :</span></h3>
-		<span>Admin編號:</span><span th:text="${adminVO.admin_Id}"></span><br/>
-		<span>Admin帳號:</span><span th:text="${adminVO.admin_Ac}"></span><br/>
-        <span>Admin密碼:</span><span th:text="${adminVO.admin_Pw}"></span><br/>
-        <span>Admin姓名:</span><span th:text="${adminVO.admin_Name}"></span><br/>
-        <span>Admin狀態碼:</span><span th:text="${adminVO.getAdminStatusText}"></span><br/>
+		<span>管理員編號:</span><span th:text="${adminVO.admin_Id}"></span><br/>
+		<span>管理員帳號:</span><span th:text="${adminVO.admin_Ac}"></span><br/>
+        <span>管理員密碼:</span><span th:text="${adminVO.admin_Pw}"></span><br/>
+        <span>管理員姓名:</span><span th:text="${adminVO.admin_Name}"></span><br/>
+        <span>管理員狀態:</span><span th:text="${adminVO.getAdminStatusText}"></span><br/>
         <span>到職日:</span><span th:text="${adminVO.hiredate}"></span><br/>
 		<span>部門:</span><span th:text="${adminVO.deptVO.deptno} + '-[' + ${adminVO.deptVO.dname} + ']'"></span><br/>
 		<span>照片:</span><span><img th:src="@{/back-end/admin/DBGifReader} + '?admin_Id=' + ${adminVO.admin_Id}" width="100px"></span><br/>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登入</title>
+    <title>會員登入</title>
     <style>
         *{
             box-sizing: border-box;
@@ -14,6 +14,7 @@
         body{
             /* border:1px solid red; */
             margin:0;
+            background: #c28888;
         }
         /* html can replace :root */
         html{ /* 根元素 */
@@ -49,6 +50,35 @@
         	color:black;
         }
 
+        input{
+            padding:10px;
+            width:200px;
+        }
+        
+        button{
+            padding:5px;
+            width:200px;
+            font-size: 16px;
+            margin: 15px 0px;
+        }
+
+        div.login{
+            width: 200px;
+        }
+
+        div.forgot{
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        h2{
+            border-bottom:3px solid white;
+            width:20%;
+            padding-bottom: 3px;
+            margin:0;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -57,50 +87,49 @@
 	    	<label class="title">Back廣咖樂</label>
 	    </div>
 	    <div class="header-right" align="right">
-			
+	    
 	    </div>
     </header>
     
-    <div align="center"> <h2>登入</h2>
-		 	<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3>
+    <div align="center">
+    	<h2>會員登入</h2>
 	</div>
     
-	<div align="center">
+	<div align="center" >
         <form th:action="@{/login}" method="post" name="login">
             <div>
-                <label>帳號:
-                    <input type="text" name="ac" id="ac" th:value="*{Ac}">
+                    <input type="text" name="ac" id="ac" th:value="*{Ac}" placeholder="帳號">
                     <p th:text="${error}" style=color:red></p>
-                </label>
-                
             </div>
             <div>
-                <label>密碼:
-                    <input type="password" name="pw" id="pw" th:value="*{Pw}">
-                </label>
+                    <input type="password" name="pw" id="pw" th:value="*{Pw}" placeholder="密碼">
             </div>
-            <div>
+            <div class="login">
                 <button type="submit" id="btn_submit">登入</button>
-                <a href="./register">註冊會員</a>
+            </div>
+            <div class="forgot">
+                <a th:href="@{/forgotPw}">忘記密碼</a>
+                <a th:href="@{/register}">註冊會員</a>
             </div>
         </form>
 	</div>
 	
+
+<hr>
+	<div align="center">
+    	<h2>補發驗證碼</h2>
+	</div>
+
 	<div align="center">
 		<form th:action="@{/verifyPage}" method="post" name="reVerifyPage">
-			<input type="text" name="email">
+			<input type="text" name="email" placeholder="電子郵件"><br/>
 			<button type="submit">信箱驗證</button>
 		</form>
 	</div>
 	
-	<div align="center">
-		<a th:href="@{/forgotPw}">忘記密碼</a>
+	<div align="right">
+		<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3>
 	</div>
-	
-	
-	
-      <script>
 
-      </script>
 </body>
 </html>
