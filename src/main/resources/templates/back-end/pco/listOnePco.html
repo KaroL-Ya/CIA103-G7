@@ -1,41 +1,156 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+<!-- <title>平台優惠券 - listOnePco.html</title> -->
+
+<!-- <!-- 引入 Bootstrap 和自定義 CSS --> 
+<!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/> -->
+<!-- <link rel="stylesheet" th:href="@{/css/index.css}"/> -->
+<!-- <link rel="stylesheet" th:href="@{/css/error.css}"/> -->
+
+<!-- <style type="text/css"> -->
+<!-- /*     span { */ -->
+<!-- /*         display: inline-block; */ -->
+<!-- /*         width: 150px; */ -->
+<!-- /*         text-align: left; */ -->
+<!-- /*         font-weight: bold; */ -->
+<!-- /*     } */ -->
+<!-- </style> -->
+<!-- </head> -->
+<!-- <body> -->
+
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center"> -->
+<!--          <div align="center"> <h2>平台優惠券資料 - listOnePco.html</h2> -->
+<!--          <h3><a class="navbar-brand" th:href="@{/pco/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div> -->
+<!-- </nav> -->
+
+<!--     <div align="center" th:fragment="listOnePco-div"> 此div被select_page.html第158行insert用 -->
+<!--         <h3><span>查詢結果 :</span></h3> -->
+<!--         <span>優惠券編號:</span><span th:text="${pcoVO.pcoId}"></span><br/> -->
+<!--         <span>優惠券名稱:</span><span th:text="${pcoVO.name}"></span><br/> -->
+<!--         <span>折扣金額:</span><span th:text="${pcoVO.discount}"></span><br/> -->
+<!--         <span>開始有效日期:</span><span th:text="${pcoVO.startDate}"></span><br/> -->
+<!--         <span>結束有效日期:</span><span th:text="${pcoVO.endDate}"></span><br/> -->
+<!--         <span>最低消費金額:</span><span th:text="${pcoVO.minSpend}"></span><br/> -->
+        
+<!--     </div> -->
+
+<!-- </body> -->
+<!-- </html> -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>平台優惠券 - listOnePco.html</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平台優惠券資料</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* 全局樣式 */
+body {
+	font-family: Arial, sans-serif;
+	background-color: rosybrown;
+	color: cornsilk;
+	margin: 0;
+	padding: 0;
+}
 
-<!-- 引入 Bootstrap 和自定義 CSS -->
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-<link rel="stylesheet" th:href="@{/css/index.css}"/>
-<link rel="stylesheet" th:href="@{/css/error.css}"/>
+h1, h2 {
+	color: cornsilk;
+	margin: 20px 0;
+	background-color: #6c757d;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+}
 
-<style type="text/css">
-    span {
-        display: inline-block;
-        width: 150px;
-        text-align: left;
-        font-weight: bold;
-    }
+.container {
+	width: 50%; /* 修改：容器寬度設為50%，使其置中顯示 */
+	margin: 20px auto; /* 修改：自動左右居中，並添加頂部間距 */
+	background-color: #fff;
+	color: #555;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	text-align: left; /* 修改：內容置左對齊 */
+}
+
+span.label {
+	display: inline-block;
+	width: 150px; /* 修改：標籤寬度統一為150px，讓內容對齊 */
+	font-weight: bold;
+	color: #333;
+	text-align: left; /* 修改：標籤內容置左對齊 */
+}
+
+span.value {
+	display: inline-block;
+	text-align: left;
+	color: #555;
+}
+
+nav {
+	background-color: #6c757d;
+	padding: 10px;
+	text-align: center;
+}
+
+nav .btn {
+	display: inline-block;
+	background-color: #6c757d;
+	color: cornsilk;
+	text-decoration: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+	border: none;
+}
+
+nav .btn:hover {
+	background-color: #5a6268;
+	transform: scale(1.05);
+}
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-         <div align="center"> <h2>平台優惠券資料 - listOnePco.html</h2>
-         <h3><a class="navbar-brand" th:href="@{/pco/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+<!-- 導覽列 -->
+<nav>
+	<!-- 修改：添加回查詢頁按鈕 -->
+	<a th:href="@{/pco/select_page}" class="btn">回查詢頁</a>
 </nav>
 
-    <div align="center" th:fragment="listOnePco-div"> <!-- 此div被select_page.html第158行insert用 -->
-        <h3><span>查詢結果 :</span></h3>
-        <span>優惠券編號:</span><span th:text="${pcoVO.pcoId}"></span><br/>
-        <span>優惠券名稱:</span><span th:text="${pcoVO.name}"></span><br/>
-        <span>折扣金額:</span><span th:text="${pcoVO.discount}"></span><br/>
-        <span>開始有效日期:</span><span th:text="${pcoVO.startDate}"></span><br/>
-        <span>結束有效日期:</span><span th:text="${pcoVO.endDate}"></span><br/>
-        <span>最低消費金額:</span><span th:text="${pcoVO.minSpend}"></span><br/>
-        
-    </div>
+<div class="container" th:fragment="listOnePco-div"> <!-- 此div被select_page.html第158行insert用 -->
+	<h2>查詢結果</h2>
+	<div>
+		<span class="label">優惠券編號:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.pcoId}"></span>
+	</div>
+	<div>
+		<span class="label">優惠券名稱:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.name}"></span>
+	</div>
+	<div>
+		<span class="label">折扣金額:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.discount}"></span>
+	</div>
+	<div>
+		<span class="label">開始有效日期:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.startDate}"></span>
+	</div>
+	<div>
+		<span class="label">結束有效日期:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.endDate}"></span>
+	</div>
+	<div>
+		<span class="label">最低消費金額:</span> <!-- 修改：標籤寬度和對齊方式 -->
+		<span class="value" th:text="${pcoVO.minSpend}"></span>
+	</div>
+</div>
 
 </body>
 </html>

@@ -1,15 +1,31 @@
+/* .error { */
+/* 	color: #ff0000; */
+/* 	font-style: italic; */
+/* 	font-weight: lighter; */
+/* } */
+
+/* .errorblock { */
+/* 	color: #000; */
+/* 	background-color: #ffEEEE; */
+/* 	border: 3px solid #ff0000; */
+/* 	padding: 5px; */
+/* 	margin: 5px; */
+/* 	width: 500px; */
+/* 	font-weight: normal; */
+/* } */
+
 .error {
-	color: #ff0000;
-	font-style: italic;
-	font-weight: lighter;
+  color: #ff0000;
+  font-weight: bold; /* 移除斜體，提升可讀性 */
 }
 
 .errorblock {
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 5px;
-	margin: 5px;
-	width: 500px;
-	font-weight: normal;
+  color: #000;
+  background-color: #fff3f3; /* 柔和粉紅 */
+  border: 3px solid #d9534f; /* 柔和紅色邊框 */
+  padding: 5px;
+  margin: 5px;
+  width: 80%;
+  max-width: 500px; /* 響應式設計 */
+  font-weight: normal;
 }
