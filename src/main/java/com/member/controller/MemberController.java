@@ -58,7 +58,7 @@ public class MemberController {
 			    String verificationCode = MailService.vCode(6);
 			    session.setAttribute("verificationCode", verificationCode);
 			    // 發送驗證碼郵件
-			    MailService.sendMail(memberVO.getEmail(), "驗證碼", "您的驗證碼為：" + verificationCode);
+			    MailService.sendMail(memberVO.getEmail(), "歡迎來到Back廣咖樂！", "感謝您註冊Back廣咖樂會員，以下是您的驗證碼\n" + verificationCode + "\n若您沒有進行此註冊，請忽略此郵件，您的帳號將不會被創建。\n\n祝您使用愉快！\n\nBack廣咖樂 團隊\n02-12345678");
 			}else {
 				model.addAttribute("errorMessage","該信箱已註冊過");
 				return "front-end/register";
@@ -87,7 +87,7 @@ public class MemberController {
 	public String reVerifyPage(@RequestParam String email, Model model) {
 		System.out.println(email);
 		if(memberSvc.checkVerifiedEmail(email)) {
-			model.addAttribute("error", "該信箱已完成驗證");
+			model.addAttribute("error2", "該信箱已完成驗證");
 			return "front-end/login";
 		}
 		if(memberSvc.checkEmail(email)) {
@@ -95,11 +95,11 @@ public class MemberController {
 		    String verificationCode = MailService.vCode(6);
 		    session.setAttribute("verificationCode", verificationCode);
 		    // 發送驗證碼郵件
-		    MailService.sendMail(email, "驗證碼", "您的驗證碼為：" + verificationCode);
+		    MailService.sendMail(email,  "歡迎來到Back廣咖樂！", "感謝您註冊Back廣咖樂會員，以下是您的驗證碼\n" + verificationCode + "\n若您沒有進行此註冊，請忽略此郵件，您的帳號將不會被創建。\n\n祝您使用愉快！\n\nBack廣咖樂 團隊\n02-12345678");
 			model.addAttribute("email", email);
 		    return "front-end/verifyPage"; // 對應前端頁面的名稱
 		}
-		model.addAttribute("error", "該信箱未註冊");
+		model.addAttribute("error2", "該信箱未註冊");
 		return "front-end/login";
 	}
 	
@@ -134,14 +134,17 @@ public class MemberController {
 	
 	@PostMapping("/sendPTPw")
 	public String sendPTPw(@RequestParam String email,Model model) {
-		if(memberSvc.checkVerifiedEmail(email)==true) {
+		if(memberSvc.checkVerifiedEmail(email)) {
 			int length = (int) ((Math.random()*12)+8);
 			// 生成臨時密碼寄給會員
 		    String PTPw = memberSvc.vCode(length);
 			memberSvc.updateForGotPw(PTPw, email);
 		    MailService.sendMail(email, "Back廣咖樂-忘記密碼", "您的臨時密碼為：" + PTPw + "收到此信請儘快登入做密碼修改，如非本人操作請儘快聯繫我們(02)1234-5678");
+		}else if(memberSvc.checkEmail(email)) {
+		    model.addAttribute("error", "該信箱未驗證，請先進行驗證！");
+		    return "front-end/forgotPw";
 		}else {
-		    model.addAttribute("error", "查無此信箱！");
+			model.addAttribute("error", "查無此信箱！");
 		    return "front-end/forgotPw";
 		}
 		return "redirect:/login";
@@ -203,9 +206,14 @@ public class MemberController {
 	
 	// -----------------------以下是 後台 會員管理的部分-------------------------------------------
 	
-    @GetMapping("/back-end/admin/listAllMember")
+    @GetMapping("/back-end/member/listAllMember")
 	public String listAllMember(Model model) {
-		return "back-end/admin/listAllMember";
+//    	Integer pm2 = (Integer) session.getAttribute("pm2");
+//      System.out.println("pm2: " + pm2);  // 用來檢查 pm3 是否存在
+		if(session.getAttribute("pm2")==null) {
+			return "back-end/adminLogin";
+		}
+		return "back-end/member/listAllMember";
 	}
     
     @ModelAttribute("MemberListData")  // for select_page.html 用 // for listAllMember.html 用
@@ -224,7 +232,7 @@ public class MemberController {
 		List<MemberVO> list2 = memberSvc.getAll();
 		model.addAttribute("memberListData", list2);
 		model.addAttribute("success", "- (刪除成功)");
-		return "back-end/admin/listAllMember"; // 刪除完成後轉交listAllMember.html
+		return "back-end/member/listAllMember"; // 刪除完成後轉交listAllMember.html
 	}
 
 	@PostMapping("adminGetOneMember_For_Update")
@@ -235,7 +243,7 @@ public class MemberController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("memberVO", memberVO);
-		return "back-end/admin/update_member_input"; // 查詢完成後轉交update_member_input.html
+		return "back-end/member/update_member_input"; // 查詢完成後轉交update_member_input.html
 	}
 
 	@PostMapping("adminUpdateMember")
@@ -256,7 +264,7 @@ public class MemberController {
 			}
 		}
 		if (result.hasErrors()) {
-			return "back-end/admin/update_member_input";
+			return "back-end/member/update_member_input";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
 		memberSvc.updateMember(memberVO);
@@ -264,7 +272,7 @@ public class MemberController {
 		model.addAttribute("success", "- (修改成功)");
 		memberVO = memberSvc.getOneMember(Integer.valueOf(memberVO.getMem_Id()));
 		model.addAttribute("memberVO", memberVO);
-		return "back-end/admin/listOneMember"; // 修改成功後轉交listOneMember.html
+		return "back-end/member/listOneMember"; // 修改成功後轉交listOneMember.html
 	}
 
 }

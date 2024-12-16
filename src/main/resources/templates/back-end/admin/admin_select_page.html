@@ -146,6 +146,19 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+
+        form input[type="submit"] {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form input[type="submit"]:hover {
+            background-color: #e55b50;
+        }
 </style>
 </head>
 <body>
@@ -170,11 +183,11 @@ footer {
 
         <div class="query-section">
             <div class="a">
-                <a th:href='@{/back-end/admin/listAllMember}'>會員管理</a>
                 <a th:href="@{/back-end/admin/listAllAdmin}">管理員</a>
                 <a th:href="@{/back-end/admin/addAdmin}">新增管理員</a>
                 <a th:href="@{/back-end/admin/listAllDept}">部門管理</a>
                 <a th:href="@{/back-end/admin/addDept}">新增部門</a>
+                <a th:href="@{/back-end/admin/backend_index}">回後台首頁</a>
 				<h4 style="color: #F5DEB3;">管理員查詢</h4>
                 <div>
                     <form method="post" th:action="@{getOne_For_Display}">

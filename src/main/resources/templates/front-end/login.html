@@ -56,10 +56,14 @@
         }
         
         button{
-            padding:5px;
-            width:200px;
-            font-size: 16px;
-            margin: 15px 0px;
+                padding: 5px;
+                width: 200px;
+                font-size: 16px;
+                margin: 15px 0px;
+                background-color:#ff6f91;
+                color:white;
+                border-radius: 8px;
+                cursor: pointer;
         }
 
         div.login{
@@ -98,8 +102,8 @@
 	<div align="center" >
         <form th:action="@{/login}" method="post" name="login">
             <div>
-                    <input type="text" name="ac" id="ac" th:value="*{Ac}" placeholder="帳號">
-                    <p th:text="${error}" style=color:red></p>
+                    <input type="text" name="ac" id="ac" th:value="*{Ac}" placeholder="帳號"><br/>
+                    <span th:text="${error}" style=color:red></span>
             </div>
             <div>
                     <input type="password" name="pw" id="pw" th:value="*{Pw}" placeholder="密碼">
@@ -123,6 +127,7 @@
 	<div align="center">
 		<form th:action="@{/verifyPage}" method="post" name="reVerifyPage">
 			<input type="text" name="email" placeholder="電子郵件"><br/>
+			<span th:text="${error2}" style=color:red></span><br/>
 			<button type="submit">信箱驗證</button>
 		</form>
 	</div>
