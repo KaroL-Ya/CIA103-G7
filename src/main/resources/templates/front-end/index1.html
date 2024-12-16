@@ -86,6 +86,9 @@
 				th:text="${session.ac}"></span></span> <a th:href="@{/cafe/cafeProfile}"
 				th:if="${session.ac != null}">會員中心</a>
 
+			<form th:action="@{/}" method="get">
+				<button type="submit" class="HOME_manage">首頁</button>
+			</form>
 			<form th:action="@{/item}" method="get">
 				<button type="submit" class="item_manage">商品管理</button>
 			</form>
