@@ -9,7 +9,7 @@
 	<header>
 		<h1>購物車</h1>
 		<div class="header-buttons">
-			<a th:href="@{/}"><img th:src="@{/images/back.jpg}" alt="返回"></a>
+			<a th:href="@{/lookItem}"><img th:src="@{/images/back.jpg}" alt="返回商城"></a>
 			<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
 				th:src="@{/images/cart.png}" alt="購物車">
 			</a>
@@ -37,7 +37,7 @@
 
 		<!-- 顯示購物車項目 -->
 		<div class="cart-wrapper">
-			<div class="select-all" style=" margin-left: 140px; ">
+			<div class="select-all" style="margin-left: 140px;">
 				<input type="checkbox" id="select-all-cart" class="select_all"
 					onclick="selectAllCart(this)"> <label for="select-all-cart">全選</label>
 			</div>
@@ -63,9 +63,10 @@
 							<td>
 								<div class="item-container">
 									<input type="checkbox" class="item-checkbox"
-										th:attr="data-item-id=${item.itemId}"> <img
+										th:attr="data-item-id=${item.itemId}"> <a
+										th:href="@{/lookItem/oneItem/{itemId}(itemId=${item.itemId})}"><img
 										th:src="@{/coverImg(itemId=${item.itemId})}"
-										th:alt="${item.name}" class="item-image">
+										th:alt="${item.name}" class="item-image"></a>
 									<div style="width: 205px; text-align: left;" class="item-name"
 										th:text="${item.name}"></div>
 								</div>

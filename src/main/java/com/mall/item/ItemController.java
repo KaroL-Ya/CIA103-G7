@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,14 @@ public class ItemController {
 	// 新增商品
 	// 點擊新增商品按鈕
 	@GetMapping("/addItem")
-	public String addItem(ModelMap model) {
+	public String addItem(ModelMap model, HttpSession session) {
+		// 從 Session 獲取 cafeId
+		Integer cafeId = (Integer) session.getAttribute("cafeId");
+		if (cafeId == null) {
+			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
+		}
+
 		Item item = new Item();
 		model.addAttribute("item", item);
 		return "back-end/item/addItem";

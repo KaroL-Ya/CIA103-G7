@@ -20,10 +20,8 @@
 
 
 		<div>
-			<label>咖啡廳編號:</label> <input type="text" th:field="*{cafeId}"
-				onclick="hideContent('cafeId.errors');" /><br /> <span
-				th:if="${#fields.hasErrors('cafeId')}" th:errors="*{cafeId}"
-				class="error" id="cafeId.errors"></span>
+			<label>咖啡廳編號:</label> <input type="text" th:value="${session.cafeId}"
+				readonly style="font-weight: bold; border: 0;" />
 		</div>
 
 		<div>
