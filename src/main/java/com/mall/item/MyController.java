@@ -51,7 +51,7 @@ public class MyController {
 	@GetMapping("/")
 	public String home(ModelMap model) {
 		model.addAttribute("itemList", itemService.getAll());
-		return "home"; // Thymeleaf 頁面名稱
+		return "Home_Page"; // Thymeleaf 頁面名稱
 	}
 
 //	@GetMapping("/cart")
