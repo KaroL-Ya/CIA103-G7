@@ -96,10 +96,7 @@
 				<button type="submit" class="money_manage">檢視營收</button>
 			</form>
 			<form th:action="@{/cco/select_page}" method="get">
-				<input type="hidden" name="cafe_Id" th:value="${session.cafe_Id}">
-				<div class="uco">
-					<button type="submit">商家優惠券</button>
-				</div>
+				<button type="submit" class="uco_manage">商家優惠券</button>
 			</form>
 
 			<form th:action="@{/cafe/cafe_logout}" method="get"
