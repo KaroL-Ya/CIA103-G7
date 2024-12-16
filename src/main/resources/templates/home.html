@@ -13,6 +13,29 @@
 	margin-left: 5px;
 	text-align: left;
 }
+
+/* 圖標的外部容器樣式 */
+.cart-icon-container {
+	position: fixed;
+	bottom: 40px;
+	right: 50px;
+	z-index: 1000;
+	width: 50px;
+	height: 50px;
+}
+
+/* 購物車圖標的樣式 */
+.cart-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	transition: transform 0.3s;
+	cursor: pointer;
+}
+
+.cart-icon:hover {
+	transform: scale(1.15);
+}
 </style>
 </head>
 <body>
@@ -20,31 +43,24 @@
 		<h1>CAFE</h1>
 
 		<div>
-			<h4
-				style="margin-left: 400px; position: relative; display: inline-block;">
+			<h4 class="cart-icon-container">
 				<!-- 購物車超連結 -->
-				<a th:href="@{/cart}"><img th:src="@{/images/cart.png}"
-					style="width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s;"
-					alt="購物車" /></a>
+				<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
+					th:src="@{/images/cart.png}" class="cart-icon" alt="購物車" />
+				</a>
 			</h4>
 		</div>
 
 		<form th:action="@{/}" method="get" style="margin-left: auto;">
 			<button type="submit" class="home">首頁</button>
 		</form>
-		<form action="#" method="get">
+		<form th:action="@{/lookItem}" method="get">
 			<button type="submit" class="mall">商城</button>
-		</form>
-		<form action="#" method="get">
-			<button type="submit" class="event">活動</button>
-		</form>
-		<form action="#" method="get">
-			<button type="submit" class="event">論壇</button>
 		</form>
 		<form th:action="@{/index}" method="get">
 			<button type="submit" class="mem_log_in">會員</button>
 		</form>
-		<form action="#" method="get">
+		<form th:action="@{/cafe}" method="get">
 			<button type="submit" class="cafe_log_in">咖啡廳</button>
 		</form>
 		<form th:action="@{/back-end}" method="get">

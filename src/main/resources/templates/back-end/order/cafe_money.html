@@ -8,12 +8,10 @@
 <body>
 	<header>
 		<h1>CAFE</h1>
-		<form th:action="@{/}" method="get" style="margin-left: auto;">
-			<button type="submit" class="index">首頁</button>
+		<form th:action="@{/cafe/cafeProfile}" method="get" style="margin-left: auto;">
+			<button type="submit" class="index">會員中心</button>
 		</form>
-		<form action="#" method="get">
-			<button type="submit" class="my_cafe">我的CAFE</button>
-		</form>
+
 		<form th:action="@{/item}" method="get">
 			<button type="submit" class="item_manage">商品管理</button>
 		</form>
@@ -23,7 +21,7 @@
 		<form th:action="@{/cafe_money}" method="get">
 			<button type="submit" class="money_manage">檢視營收</button>
 		</form>
-		<form action="#" method="post">
+		<form th:action="@{/cafe/cafe_logout}" method="get">
 			<button type="submit" class="log_out">登出</button>
 		</form>
 	</header>

@@ -1,302 +1,287 @@
 <!DOCTYPE HTML>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Back廣咖樂</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" th:href="@{css/HomePage.css}" />
+<title>Back廣咖樂</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" th:href="@{css/HomePage.css}" />
 </head>
 
 <body class="is-preload">
-    <!-- Wrapper -->
-    <div id="wrapper">
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-        <!-- Header -->
-        <header id="header">
-            <div class="inner">
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
 
-                <!-- Logo -->
-                <a href="#" class="logo">
-                    <span class="symbol"><img src="images/coffee-beans.png" alt="" /></span><span class="title">Logo在此</span>
-                </a>
+				<!-- Logo -->
+				<a href="#" class="logo"> <span class="symbol"><img
+						src="images/coffee-beans.png" alt="" /></span><span class="title">Logo在此</span>
+				</a>
 
-                <!-- Nav -->
-                <nav>
-                    <ul>
-                        <li><a href="#menu">Menu</a></li>
-                    </ul>
-                </nav>
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
 
-            </div>
-        </header>
+			</div>
+		</header>
 
-        <!-- Menu -->
-        <nav id="menu">
-            <h2>Menu</h2>
-            <ul>
-                <li><a href="#">連結放這裡</a></li>
-                <li><a href="#">連結放這裡</a></li>
-                <li><a href="#">連結放這裡</a></li>
-                <li><a href="#">連結放這裡</a></li>
-                <li><a href="#menu">關閉選單</a></li>
-            </ul>
-        </nav>
+		<!-- Menu -->
+		<nav id="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a th:href="@{/}">首頁</a></li>
+				<li><a th:href="@{/lookItem}">商城</a></li>
+				<li><a href="#">活動</a></li>
+				<li><a href="#">論壇</a></li>
+				<li><a th:href="@{/index}">會員</a></li>
+				<li><a th:href="@{/cafe}">咖啡廳</a></li>
+				<li><a href="#menu">關閉選單</a></li>
+			</ul>
+		</nav>
 
-        <!-- Main -->
-        <div id="main">
-            <div class="inner">
-                <header>
-                    <h1>文字輸入模板<br />
-                        圖片為暫存檔，預計整合後用咖啡廳圖片<a href="#">連結輸入模板</a>文字輸入</h1>
-                    <p>文字輸入模板(小)</p>
-                </header>
-                <section class="tiles">
-                    <article class="style1">
-                        <span class="image">
-                            <img src="images/pic01.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style2">
-                        <span class="image">
-                            <img src="images/pic02.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style3">
-                        <span class="image">
-                            <img src="images/pic03.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style4">
-                        <span class="image">
-                            <img src="images/pic04.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style5">
-                        <span class="image">
-                            <img src="images/pic05.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style6">
-                        <span class="image">
-                            <img src="images/pic06.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style2">
-                        <span class="image">
-                            <img src="images/pic07.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style3">
-                        <span class="image">
-                            <img src="images/pic08.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="style1">
-                        <span class="image">
-                            <img src="images/pic09.jpg" alt="" />
-                        </span>
-                        <a href="#">
-                            <h2>咖啡廳介紹標題</h2>
-                            <div class="content">
-                                <p>咖啡廳介紹內文</p>
-                            </div>
-                        </a>
-                    </article>
-                </section>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer id="footer">
-            <div class="inner">
-                <section>
-
-                    <div class="pagination">
-                        <a href="#" class="prev">Previous</a>
-                        <a href="#" class="page-number">1</a>
-                        <a href="#" class="page-number">2</a>
-                        <a href="#" class="page-number">3</a>
-                        <a href="#" class="next">Next</a>
-                    </div>
-                </section>
-                <ul class="copyright">
-                    <li>網頁底下說明文字</li>
-                </ul>
-            </div>
-        </footer>
-
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/browser.min.js"></script>
-    <script src="js/util.js"></script>
-    <script>
-
-        (function ($) {
+		<div>
+			<h4 class="cart-icon-container">
+				<!-- 購物車超連結 -->
+				<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
+					th:src="@{/images/cart.png}" class="cart-icon" alt="購物車" />
+				</a>
+			</h4>
+		</div>
 
 
-            var $window = $(window),
-                $body = $('body');
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<header>
+					<h1>
+						文字輸入模板<br /> 圖片為暫存檔，預計整合後用咖啡廳圖片<a href="#">連結輸入模板</a>文字輸入
+					</h1>
+					<p>文字輸入模板(小)</p>
+				</header>
+				<section class="tiles">
+					<article class="style1">
+						<span class="image"> <img src="images/pic01.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style2">
+						<span class="image"> <img src="images/pic02.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style3">
+						<span class="image"> <img src="images/pic03.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style4">
+						<span class="image"> <img src="images/pic04.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style5">
+						<span class="image"> <img src="images/pic05.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style6">
+						<span class="image"> <img src="images/pic06.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style2">
+						<span class="image"> <img src="images/pic07.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style3">
+						<span class="image"> <img src="images/pic08.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+					<article class="style1">
+						<span class="image"> <img src="images/pic09.jpg" alt="" />
+						</span> <a href="#">
+							<h2>咖啡廳介紹標題</h2>
+							<div class="content">
+								<p>咖啡廳介紹內文</p>
+							</div>
+						</a>
+					</article>
+				</section>
+			</div>
+		</div>
 
-            // 初始loading
-            $window.on('load', function () {
-                window.setTimeout(function () {
-                    $body.removeClass('is-preload');
-                }, 100);
-            });
-
-            //RWD
-            if (browser.mobile)
-			$body.addClass('is-touch');
 
 
-            // Menu.
-            var $menu = $('#menu');
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
 
-            $menu.wrapInner('<div class="inner"></div>');
+					<div class="pagination">
+						<a href="#" class="prev">Previous</a> <a href="#"
+							class="page-number">1</a> <a href="#" class="page-number">2</a> <a
+							href="#" class="page-number">3</a> <a href="#" class="next">Next</a>
+					</div>
+				</section>
+				<ul class="copyright">
+					<li>網頁底下說明文字</li>
+				</ul>
+			</div>
+		</footer>
 
-            $menu._locked = false;
+	</div>
 
-            $menu._lock = function () {
+	<!-- Scripts -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/browser.min.js"></script>
+	<script src="js/util.js"></script>
+	<script>
+		(function($) {
 
-                if ($menu._locked)
-                    return false;
+			var $window = $(window), $body = $('body');
 
-                $menu._locked = true;
+			// 初始loading
+			$window.on('load', function() {
+				window.setTimeout(function() {
+					$body.removeClass('is-preload');
+				}, 100);
+			});
 
-                window.setTimeout(function () {
-                    $menu._locked = false;
-                }, 350);
+			//RWD
+			if (browser.mobile)
+				$body.addClass('is-touch');
 
-                return true;
+			// Menu.
+			var $menu = $('#menu');
 
-            };
+			$menu.wrapInner('<div class="inner"></div>');
 
-            $menu._show = function () {
+			$menu._locked = false;
 
-                if ($menu._lock())
-                    $body.addClass('is-menu-visible');
+			$menu._lock = function() {
 
-            };
+				if ($menu._locked)
+					return false;
 
-            $menu._hide = function () {
+				$menu._locked = true;
 
-                if ($menu._lock())
-                    $body.removeClass('is-menu-visible');
+				window.setTimeout(function() {
+					$menu._locked = false;
+				}, 350);
 
-            };
+				return true;
 
-            $menu._toggle = function () {
+			};
 
-                if ($menu._lock())
-                    $body.toggleClass('is-menu-visible');
+			$menu._show = function() {
 
-            };
+				if ($menu._lock())
+					$body.addClass('is-menu-visible');
 
-            $menu
-                .appendTo($body)
-                .on('click', function (event) {
-                    event.stopPropagation();
-                })
-                .on('click', 'a', function (event) {
+			};
 
-                    var href = $(this).attr('href');
+			$menu._hide = function() {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+				if ($menu._lock())
+					$body.removeClass('is-menu-visible');
 
-                    // Hide.
-                    $menu._hide();
+			};
 
-                    // Redirect.
-                    if (href == '#menu')
-                        return;
+			$menu._toggle = function() {
 
-                    window.setTimeout(function () {
-                        window.location.href = href;
-                    }, 350);
+				if ($menu._lock())
+					$body.toggleClass('is-menu-visible');
 
-                })
-            // .append('<a class="close" href="#menu">關閉</a>');
+			};
 
-            $body
-                .on('click', 'a[href="#menu"]', function (event) {
+			$menu.appendTo($body).on('click', function(event) {
+				event.stopPropagation();
+			}).on('click', 'a', function(event) {
 
-                    event.stopPropagation();
-                    event.preventDefault();
+				var href = $(this).attr('href');
 
-                    // Toggle.
-                    $menu._toggle();
+				event.preventDefault();
+				event.stopPropagation();
 
-                })
-                .on('click', function (event) {
+				// Hide.
+				$menu._hide();
 
-                    // Hide.
-                    $menu._hide();
+				// Redirect.
+				if (href == '#menu')
+					return;
 
-                })
-                .on('keydown', function (event) {
+				window.setTimeout(function() {
+					window.location.href = href;
+				}, 350);
 
-                    // Hide on escape.
-                    if (event.keyCode == 27)
-                        $menu._hide();
+			})
+			// .append('<a class="close" href="#menu">關閉</a>');
 
-                });
+			$body.on('click', 'a[href="#menu"]', function(event) {
 
-        })(jQuery);
+				event.stopPropagation();
+				event.preventDefault();
 
-    </script>
+				// Toggle.
+				$menu._toggle();
+
+			}).on('click', function(event) {
+
+				// Hide.
+				$menu._hide();
+
+			}).on('keydown', function(event) {
+
+				// Hide on escape.
+				if (event.keyCode == 27)
+					$menu._hide();
+
+			});
+
+		})(jQuery);
+	</script>
 </body>
 
 </html>
