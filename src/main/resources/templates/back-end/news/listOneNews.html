@@ -4,34 +4,112 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>新聞資料 - listOneNews.html</title>
-<head th:insert="~{/back-end/news/included-fragment}"></head>
-<style type="text/css">
-	
-    span {
-		display: inline-block;
-		width: 150px;
-		text-align: left;
-		font-weight: bold;
-	}
+<style>
+    /* 全局樣式 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 導航欄樣式 */
+    nav {
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav h2, nav h3 {
+        margin: 5px 0;
+    }
+
+    nav h3 a {
+        color: white;
+        text-decoration: none;
+    }
+
+    nav h3 a img {
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 20px;
+    }
+
+    /* 主體內容區 */
+    .container {
+        margin: 100px auto 20px;
+        padding: 20px;
+        max-width: 600px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    h3 {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    span.label {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    span.value {
+        color: #333;
+    }
+
+    br {
+        margin-bottom: 10px;
+    }
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-    <div align="center">
-        <h2>單筆消息資料 - listOneNews.html</h2>
-        <h3><a class="navbar-brand" th:href="@{/news/selectNews}"><img th:src="@{/images/back1.gif}">回列表頁</a></h3>
-    </div>
+<nav>
+    <h2>單筆消息資料 - listOneNews.html</h2>
+    <h3>
+        <a class="navbar-brand" th:href="@{/news/selectNews}">
+            <img th:src="@{/images/back1.gif}" alt="返回">
+            回列表頁
+        </a>
+    </h3>
 </nav>
 
-<div align="center" th:fragment="listOneNews-div"> <!-- 此div被select_page.html第128行insert用 -->
-		<h3><span>查詢結果 :</span></h3>
-		<span>消息序號:</span><span th:text="${newsVO.newsId}"></span><br/>
-		<span>消息標題:</span><span th:text="${newsVO.title}"></span><br/>
-		<span>發送日期:</span><span th:text="${newsVO.time}"></span><br/>
-		<span>消息狀態:</span><span th:text="${newsVO.status}"></span><br/>
-		<span>消息內容:</span><span th:text="${newsVO.content}"></span><br/>
-	</div>
+<div class="container" th:fragment="listOneNews-div"> <!-- 此div被select_page.html第128行insert用 -->
+    <h3>查詢結果 :</h3>
+    <div>
+        <span class="label">消息序號:</span>
+        <span class="value" th:text="${newsVO.newsId}"></span>
+    </div>
+    <div>
+        <span class="label">消息標題:</span>
+        <span class="value" th:text="${newsVO.title}"></span>
+    </div>
+    <div>
+        <span class="label">發送日期:</span>
+        <span class="value" th:text="${newsVO.time}"></span>
+    </div>
+    <div>
+        <span class="label">消息狀態:</span>
+        <span class="value" th:text="${newsVO.status}"></span>
+    </div>
+    <div>
+        <span class="label">消息內容:</span>
+        <span class="value" th:text="${newsVO.content}"></span>
+    </div>
+</div>
 
 </body>
 </html>

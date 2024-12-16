@@ -2,139 +2,191 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>新聞資料管理 - selectNews.html</title>
-<head th:insert="~{/back-end/news/included-fragment}"></head>
-<!-- 使用included-fragment.html網頁的全部 -->
-<style type="text/css">
-button {
-	padding: 5px;
-}
+<style>
+    /* 全局樣式 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
 
-form {
-	display: table;
-}
+    /* 導航欄樣式 */
+    nav {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-form div {
-	display: table-row;
-}
+    nav h2, nav h3 {
+        margin: 5px 0;
+    }
 
-label, input, span, select {
-	display: table-cell;
-	margin: 2px;
-	text-align: left;
-}
+    nav h3 a {
+        color: white;
+        text-decoration: none;
+    }
 
-input[type=text], select, textarea {
-	width: 200px;
-	margin: 2px;
-}
+    nav h3 a img {
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 20px;
+    }
 
-.center {
-	margin-left: auto;
-	margin-right: auto;
-}
+    /* 主體內容區 */
+    h4 {
+        margin: 100px auto 20px;
+        font-size: 18px;
+        text-align: left;
+        max-width: 800px;
+        color: #333;
+    }
 
-span {
-	display: inline-block;
-	width: 150px;
-	text-align: left;
-	font-weight: bold;
-}
+    .errorblock {
+        color: red;
+        margin: 10px auto;
+        max-width: 800px;
+        text-align: left;
+    }
 
-div.a {
-	display: inline-block;
-	width: 50%;
-	height: auto;
-	padding: 5px;
-	background-color: white;
-}
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-div.b {
-	display: inline-block;
-	width: 45%;
-	height: auto;
-	padding: 5px;
-	border: 1px solid blue;
-	background-color: white;
-}
+    li {
+        margin-bottom: 15px;
+    }
+
+    li a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    li a:hover {
+        text-decoration: underline;
+    }
+
+    form {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    form input[type="text"], form select {
+        margin: 0 10px;
+        padding: 5px;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    form input[type="submit"] {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* 左右佈局區域 */
+    .a, .b {
+        display: inline-block;
+        vertical-align: top;
+        margin: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .a {
+        width: 48%;
+    }
+
+    .b {
+        width: 80%;
+        border: 1px solid #007bff;
+    }
+
+    .b th:if {
+        display: none;
+    }
 </style>
 </head>
 <body>
 
-	<nav
-		class="navbar navbar-expand-md navbar-dark bg-primary fixed-top justify-content-center">
-		<div align="center">
-			<h2>新聞管理 - selectNews.html</h2>
-			<h3>
-				<a class="navbar-brand" th:href="@{/}"> <img
-					th:src="@{/images/back1.gif}">回首頁
-				</a>
-			</h3>
-		</div>
-	</nav>
+<nav>
+    <h2>新聞管理 - selectNews.html</h2>
+    <h3>
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/back1.gif}" alt="返回">
+            回首頁
+        </a>
+    </h3>
+</nav>
 
-	<h4>
-		<span>新聞查詢:</span>
-	</h4>
-	<!-- 錯誤訊息 -->
-	<div class="errorblock" th:utext="${errorMessage}" style="color: red;">${errorMessage}</div>
-	<br>
+<h4><span>新聞查詢:</span></h4>
 
-	<div class="a">
-		<ul>
-			<!-- 列出所有新聞 -->
-			<li><h5>
-					<a href='listAllNews'>列出所有新聞</a>
-				</h5>
-				<br></li>
+<div class="errorblock" th:utext="${errorMessage}"></div>
 
-			<!-- 依新聞編號查詢 -->
-			<li>
-				<form method="post" th:action="@{getOne_For_Display}">
-					輸入新聞編號: <input type="text" name="newsId" th:value="${param.newsId}"
-						required> <input type="submit" value="查詢">(例如輸入:
-					1)
-				</form>
-				<br>
-			</li>
+<div class="a">
+    <ul>
+        <!-- 列出所有新聞 -->
+        <li>
+            <h5><a th:href="@{/news/listAllNews}">列出所有新聞</a></h5>
+        </li>
 
-			<!-- 從下拉選單選擇新聞編號 -->
-			<li>
-        <form method="post" th:action="@{getOne_For_Display}">
-            選擇新聞編號: 
-            <select name="newsId" required>
-                <!-- 生成每個選項 -->
-                <option th:each="newsVO : ${newsListData}" 
-                        th:value="${newsVO.newsId}" 
-                        th:text="${newsVO.newsId}">
-                </option>
-            </select>
-            <input type="submit" value="查詢">
-        </form>
-        <br>
-    </li>
+        <!-- 依新聞編號查詢 -->
+        <li>
+            <form method="post" th:action="@{/news/getOne_For_Display}">
+                輸入新聞編號:
+                <input type="text" name="newsId" th:value="${param.newsId}" required>
+                <input type="submit" value="查詢">
+            </form>
+        </li>
 
-		</ul>
+        <!-- 從下拉選單選擇新聞編號 -->
+        <li>
+            <form method="post" th:action="@{/news/getOne_For_Display}">
+                選擇新聞編號:
+                <select name="newsId" required>
+                    <option th:each="newsVO : ${newsListData}" 
+                            th:value="${newsVO.newsId}" 
+                            th:text="${newsVO.newsId}">
+                    </option>
+                </select>
+                <input type="submit" value="查詢">
+            </form>
+        </li>
+    </ul>
 
-		<h4>
-			<span>新聞管理:</span>
-		</h4>
-		<ul>
-			<!-- 新增新聞 -->
-			<li><h5>
-					<a href='addNews'>新增新聞</a>
-				</h5></li>
-		</ul>
-	</div>
+    <h4><span>新聞管理:</span></h4>
+    <ul>
+        <li>
+            <h5><a th:href="@{/news/addNews}">新增新聞</a></h5>
+        </li>
+    </ul>
+</div>
 
-	<!-- 顯示查詢結果 -->
-	<div class="b" th:if="${getOne_For_Display}">
-		<!-- 使用 listOneNews.html 的片段 -->
-		<div th:insert="~{/back-end/news/listOneNews :: listOneNews-div}"></div>
-
-	</div>
+<!-- 顯示查詢結果 -->
+<div class="b" th:if="${getOne_For_Display}">
+    <div th:insert="~{/back-end/news/listOneNews :: listOneNews-div}"></div>
+</div>
 
 </body>
 </html>
