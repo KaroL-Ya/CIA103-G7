@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活動詳情</title>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+</head>
+<body>
+<header>
+放連結
+</header>
+     <div class= "event-info">
+         活動詳細資訊
+     </div>
+     <div class="card-body text-center">
+         <div class="mb-2 d-flex align-items-center justify-content-center">
+         </div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+             <div class="mb-2"><span>活動狀態:</span>
+             <span class="value" id="actStatus" th:switch="${actVO.actStatus}">
+                 <span th:case="0">揪團中</span>
+                 <span th:case="1">已成團</span>
+                 <span th:case="2">活動已完成</span>
+                 <span th:case="3">活動已取消</span>
+             </span>
+         </div>
+         <div class="action-buttons">
+             <a th:if="${actVO.actStatus == 0}" th:href="@{/participant/addParticipant(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a>
+        </div>
+     </div>
+
+
+    <a class="btn btn-secondary back-button" th:href="@{/event/list}">
+        <i class="fa-solid fa-person-walking-arrow-loop-left"></i> 返回活動列表
+    </a>
+ 
+</body>
+</html>

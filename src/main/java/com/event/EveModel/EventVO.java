@@ -48,8 +48,8 @@ public class EventVO implements java.io.Serializable {
 	
 //	待整合，商家會員創建
 //  @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "business_id", referencedColumnName = "id")
-//  private BusinessMember businessMember;
+//  @JoinColumn(name = "cafe_id", referencedColumnName = "cafe_id")
+//  private cafeVO cafeVO;
 	
 	
 	@Column(name = "cafe_id")

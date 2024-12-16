@@ -1,6 +1,7 @@
 package com.event.EveController;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.event.EveModel.EventService;
 import com.event.EveModel.EventVO;
+import com.mall.lookitem.LookItemVO;
 
 @Controller
 	@RequestMapping("/events")
@@ -78,7 +80,7 @@ session放在mem_id
 				Debug1.setEveImg(eveImg.getBytes());
 			} catch (IOException e) {
 				model.addAttribute("ImgError", "圖片上傳失敗，請重新嘗試");
-				return "events/new";
+				return "event/new";
 			}
 		}
     	esvc.addEvent(Debug1);
@@ -86,7 +88,7 @@ session放在mem_id
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("Debug1", list);
 		model.addAttribute("success", "- (新增成功)");
-        return "redirect:/events/list"; // Redirect to event list
+        return "redirect:/event/list"; // Redirect to event list
     }
     
 
@@ -117,29 +119,18 @@ session放在mem_id
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("EventList", list);
 		model.addAttribute("success", "- (刪除成功)");
-		return "redirect:/events/list"; // 刪除完成後轉交其他
+		return "redirect:/events"; // 刪除完成後轉交其他
 	}
 	
-/*	// 活動細節
-	@PostMapping("details")
-    public String getDetails(@RequestParam("eveID") String actNo, Model model, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-        MemberVO loggedInMember = (MemberVO) session.getAttribute("loggedInMember");
-        
-        ActVO actVO = actSvc.getOneAct(Integer.valueOf(actNo));
-         
-        //如果活動存在，則通過getDetailsActPic方法根據活動編號 actNo 載入該活動的所有圖片
-        if (actVO != null) {
-            List<ActPictureVO> pictures = actPictureSvc.getDetailsActPic(Integer.valueOf(actNo));
-            actVO.setActPictures(pictures);
-        }
-        //添加包含圖片的活動跟留言到model
-        model.addAttribute("actVO", actVO);
-        model.addAttribute("messageVO", new MessageVO());
-        return "front-end/act/listOneAct";
-    }
-    */
+    	
+	
+	// 詳細資訊
+	@GetMapping("/ShowDetails/{eventID}")
+	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model) {
+		EventVO eveThis = esvc.findById(eventID);
+		model.addAttribute("eveThis", eveThis);
+		return "event/EventDetails";
+	}
 	//不需要這個
 //    @GetMapping("delete")
 //    public String deleteEvent(@PathVariable Integer eveID) {

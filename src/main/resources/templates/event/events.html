@@ -21,7 +21,13 @@
 				<td th:text="${event.eveName}"></td>
 				<td th:text="${event.dat}"></td>
 				<td th:text="${event.loc}"></td>
-				<td > </td>
+				<td th:text="${event.eveID}"></td>
+				<td >
+				<form method="get" th:action="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">
+							<button type="submit">查看詳情</button>
+						</form>
+				 </td>
+			
 				<td>
 					<form method="post" th:action="@{delete}"
 						style="margin-bottom: 0px;">

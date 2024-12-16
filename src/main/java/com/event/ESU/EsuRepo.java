@@ -12,5 +12,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface EsuRepo extends JpaRepository<EsuVO, Integer> {
-	    List<EsuVO> findByMemberId(Integer memberId);
+//	    List<EsuVO> findByMemberId(Integer memberId);
 }
