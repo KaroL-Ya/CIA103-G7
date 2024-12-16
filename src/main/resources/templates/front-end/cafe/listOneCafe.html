@@ -7,18 +7,17 @@
 <style type="text/css">
 /* 全局樣式 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #c28888;
+    color: #fff;
 }
 
 /* 導航欄樣式 */
 nav {
-    background-color: #f8c02d;
-    padding: 20px;
-    color: white;
+    background-color: #f2d5d5;
+    padding: 0.5rem;
     text-align: center;
     position: fixed;
     width: 100%;
@@ -28,21 +27,19 @@ nav {
 }
 
 nav h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
     margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
+    color: #c28888;
 }
 
 /* 歡迎區域 */
 .welcome {
-    background-color: #f8c02d;
+    background-color: #f2d5d5;
     padding: 20px;
     margin-top: 80px;
     border-radius: 8px;
     text-align: center;
-    color: white;
-    font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -67,11 +64,12 @@ nav h2 {
     padding: 20px;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
 }
 
 h3 {
-    color: #333;
+    color: #c28888;
     font-size: 20px;
     margin-bottom: 15px;
     text-align: center;
@@ -122,12 +120,12 @@ h3 {
 </head>
 <body>
 <nav>
-<h2>修改結果</h2>
+    <h2>修改結果</h2>
 </nav>
 <div class="welcome">
     歡迎 <strong th:text="${cafeVO.ac}"></strong>, <strong th:text="${cafeVO.name}"></strong>
     <div>
-        <a th:href="@{/cafe/cafeProfile}">回所咖啡廳中心</a>
+        <a th:href="@{/cafe/cafeProfile}">回咖啡廳中心</a>
     </div>
 </div>
 <div class="container">

@@ -1,183 +1,173 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>咖啡廳資料</title>
-<style>
-/* 全局樣式 */
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
-	color: #333;
-	margin: 0;
-	padding: 0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡廳資料</title>
+    <style>
+        /* 引用模板的樣式規則 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-/* 頁面頭部 */
-header {
-	background-color: #f4b400;
-	padding: 15px 20px;
-	color: white;
-	text-align: center;
-}
+        header {
+            background-color: #f4b400;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
 
-header .title {
-	font-size: 26px;
-	font-weight: bold;
-	margin: 0;
-}
+        header .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
 
-/* 主內容區域 */
-div {
-	margin: 20px auto;
-	max-width: 800px;
-	padding: 20px;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        .header-right {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f4b400;
+            color: white;
+        }
 
-/* 表格樣式 */
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
+        .header-right span {
+            font-size: 14px;
+        }
 
-table td {
-	padding: 12px;
-	border-bottom: 1px solid #e0e0e0;
-	vertical-align: top;
-}
+        .header-right .buttons {
+            display: flex;
+            gap: 10px;
+        }
 
-table td:first-child {
-	font-weight: bold;
-	color: #555;
-	width: 30%;
-}
+        .header-right .buttons form {
+            margin: 0;
+        }
 
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
+        .header-right button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
 
-/* 表單按鈕樣式 */
-form input[type="submit"], button {
-	background-color: #007bff;
-	color: white;
-	border: none;
-	padding: 10px 15px;
-	cursor: pointer;
-	border-radius: 4px;
-	font-size: 14px;
-	transition: background-color 0.3s ease;
-}
+        .header-right button:hover {
+            background-color: #0056b3;
+        }
 
-form input[type="submit"]:hover, button:hover {
-	background-color: #0056b3;
-}
+        .content-container {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-button {
-	margin-left: 10px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-/* 彈性佈局樣式 */
-.header-right {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 20px;
-	background-color: #f4b400;
-	color: white;
-}
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
 
-.header-right span {
-	font-size: 14px;
-}
+        table td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 30%;
+        }
 
-.header-right .buttons {
-	display: flex;
-	gap: 10px;
-}
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
 
-.header-right .buttons form {
-	margin: 0;
-}
+        form input[type="submit"], button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
 
-.header-right button {
-	background-color: #007bff;
-	color: white;
-	border: none;
-	padding: 8px 12px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
-	transition: background-color 0.3s ease;
-}
-
-.header-right button:hover {
-	background-color: #0056b3;
-}
-</style>
+        form input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-	<header>
-		<span class="title">咖啡廳中心</span>
-	</header>
-	<div class="header-right">
-		<span th:if="${session.ac != null}"> 歡迎, 商家 <span
-			th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
-		</span>
-		<div class="buttons">
-			<form th:action="@{/cafe/cafe_logout}" method="get"
-				th:if="${session.ac != null}">
-				<button type="submit">登出</button>
-			</form>
-			<form th:action="@{/cafe}" method="get" th:if="${session.ac != null}">
-				<button type="submit">回首頁</button>
-			</form>
-		</div>
-	</div>
+    <header>
+        <span class="title">咖啡廳中心</span>
+    </header>
+    <div class="header-right">
+        <span th:if="${session.ac != null}">
+            歡迎, 商家 <span th:text="${session.ac}"></span>, <span th:text="${session.name}"></span>
+        </span>
+        <div class="buttons">
+            <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
+                <button type="submit">登出</button>
+            </form>
+            <form th:action="@{/cafe}" method="get" th:if="${session.ac != null}">
+                <button type="submit">回首頁</button>
+            </form>
+        </div>
+    </div>
 
-	<div>
-		<table>
-			<tr>
-				<td>名稱:</td>
-				<td><span th:text="${cafeVO.name}"></span></td>
-			</tr>
-			<tr>
-				<td>統一編號:</td>
-				<td><span th:text="${cafeVO.taxId}"></span></td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td><span th:text="${cafeVO.email}"></span></td>
-			</tr>
-			<tr>
-				<td>電話:</td>
-				<td><span th:text="${cafeVO.phone}"></span></td>
-			</tr>
-			<tr>
-				<td>地址:</td>
-				<td><span th:text="${cafeVO.address}"></span></td>
-			</tr>
-			<tr>
-				<td>介紹:</td>
-				<td><span th:text="${cafeVO.introduce}"></span></td>
-			</tr>
-			<tr>
-				<td>照片:</td>
-				<td><img
-					th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}"
-					alt="咖啡廳照片" style="max-width: 300px; height: auto;"></td>
-			</tr>
-		</table>
-		<form method="post" th:action="@{/cafe/getOne_For_Update}">
-			<input type="submit" value="修改"> <input type="hidden"
-				name="cafeId" th:value="${cafeVO.cafeId}">
-		</form>
-	</div>
+    <div class="content-container">
+        <table>
+            <tr>
+                <td>名稱:</td>
+                <td><span th:text="${cafeVO.name}"></span></td>
+            </tr>
+            <tr>
+                <td>統一編號:</td>
+                <td><span th:text="${cafeVO.taxId}"></span></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><span th:text="${cafeVO.email}"></span></td>
+            </tr>
+            <tr>
+                <td>電話:</td>
+                <td><span th:text="${cafeVO.phone}"></span></td>
+            </tr>
+            <tr>
+                <td>地址:</td>
+                <td><span th:text="${cafeVO.address}"></span></td>
+            </tr>
+            <tr>
+                <td>介紹:</td>
+                <td><span th:text="${cafeVO.introduce}"></span></td>
+            </tr>
+            <tr>
+                <td>照片:</td>
+                <td>
+                    <img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片">
+                </td>
+            </tr>
+        </table>
+        <form method="post" th:action="@{/cafe/getOne_For_Update}">
+            <input type="submit" value="修改">
+            <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}">
+        </form>
+    </div>
 </body>
 </html>

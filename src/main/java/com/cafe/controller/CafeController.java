@@ -103,6 +103,32 @@ public class CafeController {
 
 		return "front-end/cafe/listOneCafe";
 	}
+	
+	// 後台更新咖啡廳資料
+		@PostMapping("/backupdateCafe")
+		public String backupdateCafe(@Valid CafeVO cafeVO, BindingResult result, ModelMap model,
+				@RequestParam("img") MultipartFile[] parts) throws IOException {
+			result = removeFieldError(cafeVO, result, "img");
+
+			if (parts[0].isEmpty()) {
+				byte[] existingImg = cafeSvc.getOneCafe(cafeVO.getCafeId()).getImg();
+				cafeVO.setImg(existingImg);
+			} else {
+				for (MultipartFile multipartFile : parts) {
+					byte[] buf = multipartFile.getBytes();
+					cafeVO.setImg(buf);
+				}
+			}
+			if (result.hasErrors()) {
+				return "back-end/cafe/update_cafe_input";
+			}
+			cafeSvc.updateCafe(cafeVO);
+			model.addAttribute("success", "- (修改成功)");
+			cafeVO = cafeSvc.getOneCafe(Integer.valueOf(cafeVO.getCafeId()));
+			model.addAttribute("cafeVO", cafeVO);
+
+			return "back-end/cafe/listOneCafe";
+		}
 
 	// 刪除咖啡廳
 	@PostMapping("/deleteCafe")

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,25 +6,70 @@
     <title>咖啡廳首頁</title>
     <link href="./images/cafe_icon.png" rel="shortcut icon">
     <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
         * {
             box-sizing: border-box;
         }
+
         body {
             margin: 0;
+            font-family: "Source Sans Pro", Arial, sans-serif;
+            background-color: #f9f9f9;
         }
+
         header {
             height: 60px;
             position: sticky;
             top: 0;
-            background-color: lightblue;
+            background-color: #c28888;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        header .header-left {
-            float: left;
-            padding: 10px 20px;
+
+        .header-left .title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
         }
-        header .header-right {
-            float: right;
-            padding: 10px 20px;
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-right a, .header-right button {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background-color: #a06a6a;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover, .header-right button:hover {
+            background-color: #7bd0c1;
+        }
+
+        .header-right form {
+            margin: 0;
+        }
+
+        .header-right .uco button {
+            background-color: #007bff;
+        }
+
+        .header-right .uco button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -35,18 +79,19 @@
             <label class="title">咖啡廳首頁</label>
         </div>
         <div class="header-right">
-            <span th:if="${session.ac == null}"><a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a></span><br>
-            <span th:if="${session.ac != null}">歡迎, <span th:text="${session.ac}"></span></span>
-            <a th:href="@{/cafe/cafeProfile}" th:if="${session.ac != null}">會員中心</a>
-            
+            <span th:if="${session.ac == null}">
+                <a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a>
+            </span>
+            <span th:if="${session.ac != null}">
+                歡迎, <span th:text="${session.ac}"></span>
+                <a th:href="@{/cafe/cafeProfile}">會員中心</a>
+            </span>
+            <form th:action="@{/cco/select_page}" method="get">
+                <input type="hidden" name="cafe_Id" th:value="${session.cafe_Id}">
+                <div class="uco">
+                    <button type="submit">商家優惠券</button>
+                </div>
             </form>
-			<form th:action="@{/cco/select_page}" method="get">
-			<input type="hidden" name="cafe_Id" th:value="${session.cafe_Id}">
-				<div class="uco">
-					<button type="submit">商家優惠券</button>
-				</div>
-			</form>
-			
             <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
                 <button type="submit">登出</button>
             </form>

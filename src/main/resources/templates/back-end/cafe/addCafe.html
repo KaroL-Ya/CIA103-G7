@@ -7,35 +7,42 @@
 <style>
 /* 全局樣式 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #c28888;
+    color: #fff;
 }
 
 /* 導航欄樣式 */
 .navbar {
-    background-color: #4CAF50;
-    padding: 1rem;
-    color: white;
+    background-color: #f2d5d5;
+    padding: 0.5rem;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.navbar h2, .navbar h3 {
-    margin: 0.5rem 0;
+.navbar h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0;
+    color: #c28888;
 }
 
-.navbar a {
-    text-decoration: none;
-    color: white;
+.navbar h3 a {
+    color: #c28888;
     font-weight: bold;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
-.navbar a img {
+.navbar h3 a img {
     vertical-align: middle;
-    width: 20px;
-    margin-right: 8px;
+    margin-right: 0.5rem;
+}
+
+.navbar h3 a:hover {
+    text-decoration: underline;
 }
 
 /* 表單容器樣式 */
@@ -43,8 +50,9 @@ form {
     margin: 2rem auto;
     padding: 1rem;
     max-width: 600px;
-    background-color: white;
+    background-color: #fff;
     border-radius: 8px;
+    color: #333;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -56,6 +64,7 @@ form label {
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+    color: #c28888;
 }
 
 form input, form textarea, form select {
@@ -90,8 +99,8 @@ button {
     padding: 0.7rem 1rem;
     cursor: pointer;
     border-radius: 4px;
-    width: 100%;
     font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -109,10 +118,14 @@ button:hover {
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+<nav class="navbar">
     <div align="center">
         <h2>商家資料新增 - addCafe.html</h2>
-        <h3><a class="navbar-brand" th:href="@{/cafe/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3>
+        <h3>
+            <a th:href="@{/cafe/select_page}">
+                <img th:src="@{/images/back1.gif}" alt="返回查詢">回查詢頁
+            </a>
+        </h3>
     </div>
 </nav>
 
@@ -124,68 +137,57 @@ button:hover {
             <input type="text" th:field="*{taxId}" onclick="hideContent('taxId.errors');" />
             <span th:if="${#fields.hasErrors('taxId')}" th:errors="*{taxId}" class="error" id="taxId.errors"></span>
         </div>
-
         <div>
             <label>商家名稱:</label>
             <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" />
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
         </div>
-
         <div>
             <label>帳號:</label>
             <input type="text" th:field="*{ac}" onclick="hideContent('ac.errors');" />
             <span th:if="${#fields.hasErrors('ac')}" th:errors="*{ac}" class="error" id="ac.errors"></span>
         </div>
-
         <div>
             <label>密碼:</label>
             <input type="password" th:field="*{pw}" onclick="hideContent('pw.errors');" />
             <span th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="error" id="pw.errors"></span>
         </div>
-
         <div>
             <label>電子郵件:</label>
             <input type="email" th:field="*{email}" onclick="hideContent('email.errors');" />
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
         </div>
-
         <div>
             <label>聯絡電話:</label>
             <input type="text" th:field="*{phone}" onclick="hideContent('phone.errors');" />
             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error" id="phone.errors"></span>
         </div>
-
         <div>
             <label>城市:</label>
             <input type="text" th:field="*{city}" onclick="hideContent('city.errors');" />
             <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error" id="city.errors"></span>
         </div>
-
         <div>
             <label>地區:</label>
             <input type="text" th:field="*{disc}" onclick="hideContent('disc.errors');" />
             <span th:if="${#fields.hasErrors('disc')}" th:errors="*{disc}" class="error" id="disc.errors"></span>
         </div>
-
         <div>
             <label>地址:</label>
             <input type="text" th:field="*{address}" onclick="hideContent('address.errors');" />
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span>
         </div>
-
         <div>
             <label>商家介紹:</label>
             <textarea th:field="*{introduce}" onclick="hideContent('introduce.errors');"></textarea>
             <span th:if="${#fields.hasErrors('introduce')}" th:errors="*{introduce}" class="error" id="introduce.errors"></span>
         </div>
-
         <div>
             <label>圖片:</label>
             <input type="file" th:field="*{img}" onclick="previewImage()" onchange="hideContent('img.errors');" />
             <span class="error" th:utext="${errorMessage}" id="img.errors">${errorMessage}</span>
             <div id="blob_holder"></div>
         </div>
-
         <div>
             <button type="submit" id="submit">送出新增</button>
         </div>
@@ -199,46 +201,16 @@ function hideContent(d) {
 }
 
 // 照片上傳-預覽用
-var filereader_support = typeof FileReader != 'undefined';
-if (!filereader_support) {
-    alert("No FileReader support");
-}
-acceptedTypes = {
-    'image/png': true,
-    'image/jpeg': true,
-    'image/gif': true
-};
 function previewImage() {
-    var upfile1 = document.getElementById("upFiles");
-    upfile1.addEventListener("change", function(event) {
-        var files = event.target.files || event.dataTransfer.files;
-        for (var i = 0; i < files.length; i++) {
-            previewfile(files[i])
-        }
-    }, false);
-}
-function previewfile(file) {
-    if (filereader_support === true && acceptedTypes[file.type] === true) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var image = new Image();
-            image.src = event.target.result;
-            image.width = 100;
-            image.height = 75;
-            image.border = 2;
-            if (blob_holder.hasChildNodes()) {
-                blob_holder.removeChild(blob_holder.childNodes[0]);
-            }
-            blob_holder.appendChild(image);
+    const upfile = document.getElementById('img');
+    const blobHolder = document.getElementById('blob_holder');
+    const file = upfile.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            blobHolder.innerHTML = `<img src="${event.target.result}" alt="圖片預覽">`;
         };
         reader.readAsDataURL(file);
-        document.getElementById('submit').disabled = false;
-    } else {
-        blob_holder.innerHTML = "<div style='text-align: left;'>" + "● filename: " + file.name
-            + "<br>" + "● ContentType: " + file.type
-            + "<br>" + "● size: " + file.size + "bytes"
-            + "<br>● 上傳ContentType限制: <b><font color=red>image/png、image/jpeg、image/gif</font></b></div>";
-        document.getElementById('submit').disabled = true;
     }
 }
 </script>
