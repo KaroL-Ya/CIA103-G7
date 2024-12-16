@@ -75,62 +75,6 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-left">
-            <label class="title">咖啡廳首頁</label>
-        </div>
-        <div class="header-right">
-            <span th:if="${session.ac == null}">
-                <a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a>
-            </span>
-            <span th:if="${session.ac != null}">
-                歡迎, <span th:text="${session.ac}"></span>
-                <a th:href="@{/cafe/cafeProfile}">會員中心</a>
-            </span>
-            <form th:action="@{/cco/select_page}" method="get">
-                <input type="hidden" name="cafe_Id" th:value="${session.cafe_Id}">
-                <div class="uco">
-                    <button type="submit">商家優惠券</button>
-                </div>
-            </form>
-            <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
-                <button type="submit">登出</button> 
-            </form>
-        </div>
-    </header>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>咖啡廳首頁</title>
-<link href="./images/cafe_icon.png" rel="shortcut icon">
-<style>
-* {
-	box-sizing: border-box;
-}
-
-body {
-	margin: 0;
-}
-
-header {
-	height: 60px;
-	position: sticky;
-	top: 0;
-	background-color: lightblue;
-}
-
-header .header-left {
-	float: left;
-	padding: 10px 20px;
-}
-
-header .header-right {
-	float: right;
-	padding: 10px 20px;
-}
-</style>
-</head>
-<body>
 	<header>
 		<div class="header-left">
 			<label class="title">咖啡廳首頁</label>
