@@ -1,38 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>咖啡廳首頁</title>
-<link href="./images/cafe_icon.png" rel="shortcut icon">
-<style>
-* {
-	box-sizing: border-box;
-}
-
-body {
-	margin: 0;
-}
-
-header {
-	height: 60px;
-	position: sticky;
-	top: 0;
-	background-color: lightblue;
-}
-
-header .header-left {
-	float: left;
-	padding: 10px 20px;
-}
-
-header .header-right {
-	float: right;
-	padding: 10px 20px;
-}
-</style>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>咖啡廳首頁</title>
@@ -104,44 +72,8 @@ header .header-right {
             background-color: #0056b3;
         }
     </style>
-
 </head>
 <body>
-
-	<header>
-		<div class="header-left">
-			<label class="title">咖啡廳首頁</label>
-		</div>
-		<div class="header-right">
-			<span th:if="${session.ac == null}"><a
-				th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a></span><br> <span
-				th:if="${session.ac != null}">歡迎, <span
-				th:text="${session.ac}"></span></span> <a th:href="@{/cafe/cafeProfile}"
-				th:if="${session.ac != null}">會員中心</a>
-
-			<form th:action="@{/item}" method="get">
-				<button type="submit" class="item_manage">商品管理</button>
-			</form>
-			<form th:action="@{/cafe_order}" method="get">
-				<button type="submit" class="order_manage">訂單管理</button>
-			</form>
-			<form th:action="@{/cafe_money}" method="get">
-				<button type="submit" class="money_manage">檢視營收</button>
-			</form>
-			<form th:action="@{/cco/select_page}" method="get">
-				<input type="hidden" name="cafe_Id" th:value="${session.cafe_Id}">
-				<div class="uco">
-					<button type="submit">商家優惠券</button>
-				</div>
-			</form>
-
-			<form th:action="@{/cafe/cafe_logout}" method="get"
-				th:if="${session.ac != null}">
-				<button type="submit">登出</button>
-			</form>
-		</div>
-	</header>
-
     <header>
         <div class="header-left">
             <label class="title">咖啡廳首頁</label>
@@ -165,6 +97,5 @@ header .header-right {
             </form>
         </div>
     </header>
-
 </body>
 </html>
