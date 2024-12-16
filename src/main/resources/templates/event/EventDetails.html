@@ -18,27 +18,27 @@
          <div class="mb-2 d-flex align-items-center justify-content-center">
          </div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
+         <div class="event-content"><span>活動名稱:</span><span class="value" th:text="${eveThis.eveName}"></span></div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
              <div class="mb-2"><span>活動狀態:</span>
-             <span class="value" id="actStatus" th:switch="${actVO.actStatus}">
-                 <span th:case="0">揪團中</span>
-                 <span th:case="1">已成團</span>
-                 <span th:case="2">活動已完成</span>
-                 <span th:case="3">活動已取消</span>
-             </span>
-         </div>
-         <div class="action-buttons">
-             <a th:if="${actVO.actStatus == 0}" th:href="@{/participant/addParticipant(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a>
-        </div>
-     </div>
+<!--              <span class="value" id="actStatus" th:switch="${actVO.actStatus}"> -->
+<!--                  <span th:case="0">揪團中</span> -->
+<!--                  <span th:case="1">已成團</span> -->
+<!--                  <span th:case="2">活動已完成</span> -->
+<!--                  <span th:case="3">活動已取消</span> -->
+<!--              </span> -->
+<!--          </div> -->
+<!--          <div class="action-buttons"> -->
+<!--              <a th:if="${actVO.actStatus == 0}" th:href="@{/participant/addParticipant(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a> -->
+<!--         </div> -->
+<!--      </div> -->
 
 
-    <a class="btn btn-secondary back-button" th:href="@{/event/list}">
+    <a class="btn btn-secondary back-button" th:href="@{/events/list}">
         <i class="fa-solid fa-person-walking-arrow-loop-left"></i> 返回活動列表
     </a>
  
