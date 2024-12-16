@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,28 +36,30 @@ public class PostController {
     @Autowired
     private HttpSession session;
 
- // 顯示論壇首頁，支持分頁
+//
+    @GetMapping("")
+    public String forum(Model model, 
+                        @RequestParam(defaultValue = "1") int page, 
+                        @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size); // 設定分頁參數，頁數從 0 開始
+        Page<PostVO> postPage = postService.getAllPosts(pageable);
+
+        model.addAttribute("posts", postPage); // 將當前頁面的貼文傳遞給視圖
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages()); // 總頁數
+        model.addAttribute("size", size); // 總條目數
+        model.addAttribute("mem_Id", session.getAttribute("mem_Id"));// 將會員 ID 傳遞到模型
+        return "forum/forum"; // 返回論壇頁面
+    }
+
 //    @GetMapping("")
-//    public String forum(Model model, 
-//                        @RequestParam(defaultValue = "1") int page, 
-//                        @RequestParam(defaultValue = "5") int size) {
-//        Pageable pageable = PageRequest.of(page - 1, size); // 設定分頁參數，頁數從 0 開始
-//        Page<PostVO> postPage = postService.getAllPosts(pageable);
-//
-//        model.addAttribute("posts", postPage.getContent()); // 將當前頁面的貼文傳遞給視圖
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", postPage.getTotalPages()); // 總頁數
-//        model.addAttribute("totalItems", postPage.getTotalElements()); // 總條目數
-//
-//        return "forum/forum"; // 返回論壇頁面
+//    public String forum(Model model) {
+//        List<PostVO> posts = postService.getAllPosts(); // 獲取所有貼文
+//        model.addAttribute("posts", posts);
+//        model.addAttribute("mem_Id", session.getAttribute("mem_Id")); // 將會員 ID 傳遞到模型
+//        return "forum/forum"; 
 //    }
 
-    @GetMapping("") // 查詢所有貼文
-    public String forum(Model model) {
-        List<PostVO> posts = postService.getAllPosts(); // 獲取所有貼文
-        model.addAttribute("posts", posts);
-        return "forum/forum"; 
-    }
         
     @GetMapping("/postManage") // 查詢論壇管理
     public String postManage(Model model) {
@@ -122,6 +125,17 @@ public class PostController {
 
         return "forward:/forum";
     }
+    
+    @GetMapping("/update/{id}")
+    public String toUpdatePost(@PathVariable("id") Integer postId, Model model) {
+    	PostVO post = postService.getPostById(postId);
+    	model.addAttribute("post", post);
+    	
+    	
+    	return "forward:/WEB-INF/views/postList.jsp";
+    }
+    
+    
 
     
     @PostMapping("/update")

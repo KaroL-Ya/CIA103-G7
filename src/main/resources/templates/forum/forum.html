@@ -82,7 +82,7 @@
 
 		                   <!-- 修改貼文按鈕，僅顯示給貼文的作者 -->
 				<div th:if="${post.memId == mem_Id}">
-		    <a class="btn btn-warning" th:href="@{/forum/edit/{id}(id=${post.postId})}">修改貼文</a>
+		    <a class="btn btn-warning" th:href="@{/forum/update/{id}(id=${post.postId})}">修改貼文</a>
 		</div>
 
 
@@ -91,43 +91,48 @@
             </div>
         </div>
 
-        <!-- Pagination-->
-        <nav aria-label="Pagination">
-            <hr class="my-0" />
-          <ul class="pagination justify-content-center my-4">
-  
-    <li th:class="${currentPage == 1 ? 'page-item disabled' : 'page-item'}">
-        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=1}" tabindex="-1" aria-disabled="true">第一頁</a>
+        <div class="pagination-wrapper">
+    <nav aria-label="Page navigation">
+      <ul class="custom-pagination">
+        <!-- Previous Button -->
+        <li>
+          <a class="page-link"
+             th:href="@{/forum(sortBy=${sortBy}, page=${currentPage - 1}, size=${size})}"
+             th:classappend="${currentPage == 0} ? 'disabled'">
+            上一頁
+          </a>
+        </li>
 
-    </li>
-    <li th:class="${currentPage == 1 ? 'page-item disabled' : 'page-item'}">
-    <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${currentPage - 1}}" aria-disabled="true">上一頁</a>
-</li>
+        <!-- Page Numbers -->
+        <li th:if="${totalPages > 1}" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+          <a class="page-link"
+             th:href="@{/forum(sortBy=${sortBy}, page=${pageNum}, size=${size})}"
+             th:classappend="${pageNum == currentPage} ? 'active'"
+             th:text="${pageNum + 1}">
+          </a>
+        </li>
+        <li th:if="${totalPages == 1}">
+          <span class="page-link active">1</span>
+        </li>
+
+        <!-- Next Button -->
+        <li>
+          <a class="page-link"
+             th:href="@{/forum(sortBy=${sortBy}, page=${currentPage + 1}, size=${size})}"
+             th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+            下一頁
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  </div>
 
 
-<!--     分頁頁碼 -->
-<li th:each="pageNum : ${#numbers.sequence(1, totalPages != null ? totalPages : 1)}" th:class="page-item">
-    <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${pageNum}}" th:text="${pageNum}"></a>
-</li>
-
-
-<!--     下一頁按鈕 -->
-    <li th:class="${currentPage == totalPages ? 'page-item disabled' : 'page-item'}">
-        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${currentPage + 1}}">下一頁</a>
-    </li>
-
-<!--     尾頁按鈕 -->
-    <li th:class="${currentPage == totalPages ? 'page-item disabled' : 'page-item'}">
-        <a class="page-link" th:href="@{/forum/postsByMemId?mem_Id=${mem_Id}&page=${totalPages}}">尾頁</a>
-    </li>
-</ul>
 
 
 
 
-
-        </nav>
-    </div>
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
