@@ -35,6 +35,21 @@ public class PostController {
     @Autowired
     private HttpSession session;
 
+ // 顯示論壇首頁，支持分頁
+//    @GetMapping("")
+//    public String forum(Model model, 
+//                        @RequestParam(defaultValue = "1") int page, 
+//                        @RequestParam(defaultValue = "5") int size) {
+//        Pageable pageable = PageRequest.of(page - 1, size); // 設定分頁參數，頁數從 0 開始
+//        Page<PostVO> postPage = postService.getAllPosts(pageable);
+//
+//        model.addAttribute("posts", postPage.getContent()); // 將當前頁面的貼文傳遞給視圖
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", postPage.getTotalPages()); // 總頁數
+//        model.addAttribute("totalItems", postPage.getTotalElements()); // 總條目數
+//
+//        return "forum/forum"; // 返回論壇頁面
+//    }
 
     @GetMapping("") // 查詢所有貼文
     public String forum(Model model) {
@@ -57,14 +72,17 @@ public class PostController {
                                    Model model) {
         Pageable pageable = PageRequest.of(page - 1, 5); // 每頁顯示 5 筆資料
         Page<PostVO> postPage = postService.getPostsByMemId(mem_Id, pageable);
-        
+
         model.addAttribute("posts", postPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", postPage.getTotalPages());
+        model.addAttribute("totalPages", postPage.getTotalPages());  // 確保傳遞 totalPages
         model.addAttribute("mem_Id", mem_Id);
         
-        return "forward:/forum"; 
+        return "forum/forum";  // 返回模板
     }
+
+
+
 
 
     @GetMapping("/create") // 顯示新增貼文頁面

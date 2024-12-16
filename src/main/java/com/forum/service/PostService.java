@@ -27,6 +27,12 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    // 查詢所有貼文，並支持分頁
+    public Page<PostVO> getAllPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
+    }
+
+
     public void deletePost(Integer postId) {
         postRepository.deleteById(postId);
     }
@@ -40,6 +46,7 @@ public class PostService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	
 
 
