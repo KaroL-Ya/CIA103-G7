@@ -3,6 +3,8 @@ package com.event.EveController;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,7 @@ import com.event.EveModel.EventVO;
 @RequestMapping("/events")
 public class EventController {
 /*需要功能:各網頁、活動插入
-已完成:查詢全部活動，剩下前端/暫時不用
+已完成:查詢全部活動，確認CRUD可用
 活動列表放首頁，創建活動放在不同會員or商家的個人頁面，直接從session取會員or商家ID
 不用特別做商家or會員分割，不同名稱function和參數即可
 活動編輯和刪除用網頁分，直接登入-中心頁-我的活動去編輯，用登入後的session抓
@@ -46,6 +48,7 @@ session放在mem_id
     // 2. 網頁-新增活動
     @GetMapping("/new")
     public String addEventForm(Model model) {
+    	//model.addAttribute(memID)
         model.addAttribute("Debug1", new EventVO());
         return "event/newEvent"; // newEvent.html 
     }
@@ -66,22 +69,18 @@ session放在mem_id
 */
     @PostMapping("/insert")
     public String addEvent(@ModelAttribute("Debug1") EventVO Debug1, BindingResult result, @RequestParam("eveImg") MultipartFile eveImg, Model model) {
-    	System.out.println("read1");
     	if (eveImg.isEmpty()) {
-    		System.out.println("read2");
 			model.addAttribute("coverImgError", "請上傳封面圖片"); // 自定義錯誤訊息
 			return "item/addItem";
 		} else {
 			try {
 				// 將圖片轉換為 byte[]
-				System.out.println("read3");
 				Debug1.setEveImg(eveImg.getBytes());
 			} catch (IOException e) {
 				model.addAttribute("ImgError", "圖片上傳失敗，請重新嘗試");
 				return "events/new";
 			}
 		}
-    	System.out.println("read4");
     	esvc.addEvent(Debug1);
 		//*************************** 3.新增完成,準備轉交(Send the Success view) **************
 		List<EventVO> list = esvc.getAllEvents();
@@ -90,48 +89,7 @@ session放在mem_id
         return "redirect:/events/list"; // Redirect to event list
     }
     
-/*
-    @PostMapping("insert")
-	public String insert(@Valid EventVO Debug1, Model model,
-			@RequestParam("eveImg") MultipartFile[] parts) throws IOException {
 
-
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
-			model.addAttribute("errorMessage", "圖片: 請上傳圖片");
-		} else {
-			for (MultipartFile multipartFile : parts) {
-				byte[] buf = multipartFile.getBytes();
-				Debug1.setEveImg(buf);
-			}
-		}
-		if ( parts[0].isEmpty()) {
-			return "/events/list";
-		}
-		//*************************** 2.開始新增資料 ****************************************
-		// EmpService empSvc = new EmpService();
-		esvc.addEvent(Debug1);
-		//*************************** 3.新增完成,準備轉交(Send the Success view) *************
-		List<EventVO> list = esvc.getAllEvents();
-		model.addAttribute("events", list);
-		model.addAttribute("success", "- (新增成功)");
-        return "redirect:/events/list"; 
-        }// Redirect to event list	}
-        
-       
-   /*
-    @PostMapping("/insert")
-    public String addEvent(@ModelAttribute EventVO event, @RequestParam("eveImg") MultipartFile eveImg) {
-        try {
-            if (!eveImg.isEmpty()) {
-                event.setEveImg(eveImg.getBytes());
-            }
-            esvc.addEvent(event);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/events/list"; // Redirect to event list
-    }
-   */ 
     
     // 3. 網頁-活動編輯-從我的活動過去，通常不需要新建
     @GetMapping("/edit")
@@ -139,6 +97,7 @@ session放在mem_id
     	model.addAttribute("event", new EventVO());
     	return "event/newEvent";
     }
+    
     
     // 更新活動
 
@@ -168,6 +127,18 @@ session放在mem_id
 //    }
     
     // 查詢活動
-    
+	// 查看自己發布的所有活動
+//		@GetMapping("/MyPostedEvent")
+//		public String myPostedEvent(HttpSession session, Model model) {
+//			BusinessMember businessMember = (BusinessMember) session.getAttribute("presentBusinessMember");
+//			if(businessMember==null||businessMember.getId()==null) {
+//				return "redirect:/business_login";
+//			}
+//			String bMemberId = Integer.toString(businessMember.getId());
+//			PageRequest pr=PageRequest.of(0, 10, Sort.by("id").descending());
+//			Page<Event> eventPage = eventService.searchEvents(Map.of("businessId", bMemberId), pr);
+//			model.addAttribute("page",eventPage);
+//			return "event/event_myPostedEvent";
+//		}
     
 }

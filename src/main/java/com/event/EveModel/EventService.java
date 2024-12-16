@@ -22,108 +22,78 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.event.EveModel.EventVO;
+import com.event.Participate.ParticipateVO;
+import com.event.Participate.ParticipateService;
 
 //import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_Emp3;
 
+@Transactional
 @Service
 public class EventService {
 
     @Autowired
-    private EventRepository eventRepository;
+    private EventRepository eveRepo;
 
-    // Create or update event
-    public void addEvent(EventVO event) {
-         eventRepository.save(event);
+    // Get event by ID
+    public EventVO findById(Integer eventID) {
+        return eveRepo.findById(eventID).orElse(null);
     }
     
-    public EventVO updateEvent(EventVO event) {
-        return eventRepository.save(event);
+    // Create event
+    public void addEvent(EventVO eventID) {
+         eveRepo.save(eventID);
     }
 
     // Read all events
     public List<EventVO> getAllEvents() {
-        return eventRepository.findAll();
+        return eveRepo.findAll();
     }
     
-    // Get event by ID
-    public Optional<EventVO> getEventById(Integer event) {
-        return eventRepository.findById(event);
+    // Update event status
+    public EventVO updateEventStatus(EventVO eventID) {
+    	EventVO e = findById(eventID.getEveID());
+    	e.setStat(eventID.getStat());
+    	eveRepo.save(e);
+    	return eveRepo.save(eventID);
     }
     
-//    // Search for Event(Condition)
+    // Update event attendance
+    public EventVO updateEvent(EventVO eventID) {
+    	EventVO e = findById(eventID.getEveID());
+    	e.setNum(eventID.getNum());
+    	return eveRepo.save(eventID);
+    }
+  
+    // Delete event by ID
+    public void deleteEvent(Integer eventID) {
+//    	eveRepo.existsById(event))
+    	eveRepo.deleteById(eventID);
+    }
+    
+    
+    public void attendEvent(Integer eventID) {
+    	
+        EventVO event = findById(eventID);
+        // 檢查報名人數
+        int participant = event.getNum();
+        if (participant > event.getLim()) {
+            throw new IllegalArgumentException("名額已滿");
+        }
+
+        // 更新活動人數
+        event.setNum(participant+1);
+        updateEvent(event);        
+    }
+ 
+    // Search for Event(Condition)
 //    public List<EventVO> searchEvents(LocalDateTime startDate, LocalDateTime endDate,Integer status) {
 //        if (searchTerm == null || searchTerm.isEmpty()) {
-//            return eventRepository.findAll();
+//            return eveRepo.findAll();
 //        } else {
-//            return eventRepository.findByDateRangeAndStatus(searchTerm);
+//            return eveRepo.findByDateRangeAndStatus(searchTerm);
 //        }
-        
+//    }
     
     
 
-    // Delete event by ID
-    public void deleteEvent(Integer event) {
-//    	eventRepository.existsById(event))
-			eventRepository.deleteById(event);
-    }
 }
-
-/*
-@Transactional
-@Service("eventService")
-public class EventService {
-
-	@Autowired
-	EventRepository repository;
-
-	@Autowired
-    private SessionFactory sessionFactory;
-	
-
-	
-	//新增
-	public void addEvent(EventVO eventVO) {
-		repository.save(eventVO);
-	}
-	//修改
-	public void updateEvent(EventVO eventVO) {
-		repository.save(eventVO);
-	}
-	//刪除
-	public void deleteEvent(Integer eveID) {
-		if (repository.existsById(eveID))
-			repository.deleteByEve_ID(eveID);
-
-	}
-	//查一
-	public EventVO getOneEvent(Integer eveID) {
-		Optional<EventVO> optional = repository.findById(eveID);
-//		return optional.get();
-		return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值，簡化if語法
-	}
-	
-	
-	public List<EventVO> getAll() {
-		return repository.findAll();
-	}
-
-	//依會員編號查詢活動(包含已舉辦)
-	public List<EventVO> getActsByMem(Integer memID) {
-		return repository.findEveByMem(memID);
-	}
-	//萬用複合查詢
-//	public List<EventVO> getAll(Map<String, String[]> map) {
-//		return HiberUtil.getAllC(map,sessionFactory.openSession());
-//	}
-	
-	//查找自己正在舉辦的活動rm6
-	public List<EventVO> findMyEvent(Integer memID) {
-		return repository.findMyEvent(memID);
-	}
-	//修改活動狀態
-	public void updateActStatus(Integer eveID, Integer newStatus) {
-		  repository.updateEveState(eveID, newStatus);
-	}
-	
-}
-*/

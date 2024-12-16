@@ -1,4 +1,5 @@
-package com.event.Participate;
+package com.event.ESU;
+
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -9,10 +10,10 @@ import com.event.EveModel.EventVO;
 //用不到複合主鍵。可能會重複報名.....管他的
 @Entity
 @Table(name = "event_register")
-public class ParticipateVO implements java.io.Serializable {
+public class EsuVO implements java.io.Serializable {
     private static final long serialVersionUID = 11L;
 
-    public ParticipateVO() { }
+    public EsuVO() { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +65,7 @@ public class ParticipateVO implements java.io.Serializable {
 		this.esuStat = esuStat;
 	}
 
-	public ParticipateVO(Integer esuID, EventVO eveID, MemberVO memID, Integer esuStat) {
+	public EsuVO(Integer esuID, EventVO eveID, MemberVO memID, Integer esuStat) {
 		this.esuID = esuID;
 		this.eveID = eveID;
 		this.memID = memID;
