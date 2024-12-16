@@ -75,7 +75,7 @@ public class ParticipateController {
 
         psvc.addParticipant(participateVO);
 
-        model.addAttribute("participantListData", participantSvc.getAll());
+        model.addAttribute("participantListData", psvc.getAll());
         model.addAttribute("success", "- (新增成功)");
         return "redirect:/participant/listMyAllParticipant";
     }

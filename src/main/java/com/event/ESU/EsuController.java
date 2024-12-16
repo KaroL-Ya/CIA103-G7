@@ -48,7 +48,7 @@ public class EsuController {
         //報名
         EsuVO savedEsuVO = esuService.saveEsuVO(esuVO); 
         //人數
-        eventService.attendEvent(eventId);
+        eventService.attendEvent(eventService.findById(eventId));
         
         model.addAttribute("savedEsuVO", savedEsuVO);
         
