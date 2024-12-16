@@ -8,6 +8,7 @@ import java.util.Set;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_Admin;
 
@@ -63,6 +64,7 @@ public class AdminService {
 	public void deleteAdminAuth(Integer admin_Id) {
 		repository.deleteAdminAuth(admin_Id);
 	}
+
 	
 	public void addAdminAuth(Integer adminId, Set<String> func_Id) {
 		for(String bo12 : func_Id) {

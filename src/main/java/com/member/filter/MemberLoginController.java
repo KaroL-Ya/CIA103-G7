@@ -54,8 +54,8 @@ public class MemberLoginController {
 				return "front-end/login"; // 重新導向到登入頁面
 			}
 		} else {
-			// 登入失敗 因為空值
-			model.addAttribute("error", "帳號或密碼空白");
+			// 登入失敗
+			model.addAttribute("error", "帳號或密碼錯誤");
 			return "front-end/login"; // 重新導向到登入頁面
 		}
 	}

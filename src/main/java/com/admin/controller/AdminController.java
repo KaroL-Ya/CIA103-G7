@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -188,7 +189,7 @@ public class AdminController {
 
 	@PostMapping("update2")
 	@Transactional
-	public String update2(@Valid AdminVO adminVO,BindingResult result,@RequestParam(required = false) Set<String> admin_Func, ModelMap model) throws IOException {
+	public String update2(@Valid AdminVO adminVO,BindingResult result,@RequestParam(required = false, defaultValue = "") Set<String> admin_Func, ModelMap model) throws IOException {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		if(admin_Func==null) {
 			return "redirect:/back-end/admin/listAllAdminAuth";
@@ -201,6 +202,7 @@ public class AdminController {
 		}
 		/*************************** 2.開始修改資料 *****************************************/
 		adminSvc.deleteAdminAuth(adminVO.getAdmin_Id());
+		
 		adminSvc.addAdminAuth(adminVO.getAdmin_Id(), admin_Func);
 
 		return "redirect:/back-end/admin/listAllAdminAuth"; // 修改成功後轉交listOneAdmin.html

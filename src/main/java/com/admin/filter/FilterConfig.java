@@ -14,7 +14,7 @@ public class FilterConfig {
         FilterRegistrationBean<AdminLoginFilter> login = new FilterRegistrationBean<>();
         login.setFilter(new AdminLoginFilter());  // 註冊自定義的 Filter
         login.setName("AdminFilter");
-        login.addUrlPatterns("/back-end/admin/*"); 
+        login.addUrlPatterns("/back-end/*"); 
         login.setOrder(2);
         return login;
     }
