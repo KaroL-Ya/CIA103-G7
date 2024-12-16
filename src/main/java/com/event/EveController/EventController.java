@@ -22,10 +22,10 @@ import com.event.EveModel.EventService;
 import com.event.EveModel.EventVO;
 
 @Controller
-@RequestMapping("/events")
+	@RequestMapping("/events")
 public class EventController {
 /*需要功能:各網頁、活動插入
-已完成:查詢全部活動，確認CRUD可用
+已完成:全部活動，確認CRUD可用
 活動列表放首頁，創建活動放在不同會員or商家的個人頁面，直接從session取會員or商家ID
 不用特別做商家or會員分割，不同名稱function和參數即可
 活動編輯和刪除用網頁分，直接登入-中心頁-我的活動去編輯，用登入後的session抓
@@ -119,6 +119,27 @@ session放在mem_id
 		model.addAttribute("success", "- (刪除成功)");
 		return "redirect:/events/list"; // 刪除完成後轉交其他
 	}
+	
+/*	// 活動細節
+	@PostMapping("details")
+    public String getDetails(@RequestParam("eveID") String actNo, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+        MemberVO loggedInMember = (MemberVO) session.getAttribute("loggedInMember");
+        
+        ActVO actVO = actSvc.getOneAct(Integer.valueOf(actNo));
+         
+        //如果活動存在，則通過getDetailsActPic方法根據活動編號 actNo 載入該活動的所有圖片
+        if (actVO != null) {
+            List<ActPictureVO> pictures = actPictureSvc.getDetailsActPic(Integer.valueOf(actNo));
+            actVO.setActPictures(pictures);
+        }
+        //添加包含圖片的活動跟留言到model
+        model.addAttribute("actVO", actVO);
+        model.addAttribute("messageVO", new MessageVO());
+        return "front-end/act/listOneAct";
+    }
+    */
 	//不需要這個
 //    @GetMapping("delete")
 //    public String deleteEvent(@PathVariable Integer eveID) {

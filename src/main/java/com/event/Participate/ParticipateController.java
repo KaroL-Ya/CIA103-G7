@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/participate")
 public class ParticipateController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class ParticipateController {
 //        return "register_form"; // HTML form view name
 //    }
     //報名頁面
-    @GetMapping("addParticipant")
+    @GetMapping("/join_test1")
     // actNo EveId
     public String addParticipant(@RequestParam("t13") Integer eveID, ModelMap model, HttpSession session) {
         MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
@@ -55,18 +55,18 @@ public class ParticipateController {
 
         ParticipateVO PartVO = new ParticipateVO();
         EventVO eventVO = esvc.findById(eveID);
-        PartVO.setEveID(eveID);
+        PartVO.setEveID(eventVO);
         PartVO.setMemID(loggedInMember);
 
         model.addAttribute("participateVO", PartVO);
         model.addAttribute("eveName", eventVO.getEveName());
         model.addAttribute("memName", loggedInMember.getMem_Id());
-        return "front-end/participant/addParticipant";
+        return "participate/join_test1";
     }
 
     
     
-    @PostMapping("insert")
+    @PostMapping("enroll")
     public String insert(@Valid ParticipateVO participateVO, BindingResult result, ModelMap model,
                          MultipartFile[] parts, HttpSession session) throws IOException {
         if (result.hasErrors()) {
@@ -75,9 +75,9 @@ public class ParticipateController {
 
         psvc.addParticipant(participateVO);
 
-        model.addAttribute("participantListData", psvc.getAll());
+        model.addAttribute("participantListData", psvc.getall());
         model.addAttribute("success", "- (新增成功)");
-        return "redirect:/participant/listMyAllParticipant";
+        return "redirect:/participate/listMyAllParticipant";
     }
     
   
