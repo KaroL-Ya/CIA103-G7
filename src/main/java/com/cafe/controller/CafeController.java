@@ -103,6 +103,32 @@ public class CafeController {
 
 		return "front-end/cafe/listOneCafe";
 	}
+	
+	// 後台更新咖啡廳資料
+		@PostMapping("/backupdateCafe")
+		public String backupdateCafe(@Valid CafeVO cafeVO, BindingResult result, ModelMap model,
+				@RequestParam("img") MultipartFile[] parts) throws IOException {
+			result = removeFieldError(cafeVO, result, "img");
+
+			if (parts[0].isEmpty()) {
+				byte[] existingImg = cafeSvc.getOneCafe(cafeVO.getCafeId()).getImg();
+				cafeVO.setImg(existingImg);
+			} else {
+				for (MultipartFile multipartFile : parts) {
+					byte[] buf = multipartFile.getBytes();
+					cafeVO.setImg(buf);
+				}
+			}
+			if (result.hasErrors()) {
+				return "back-end/cafe/update_cafe_input";
+			}
+			cafeSvc.updateCafe(cafeVO);
+			model.addAttribute("success", "- (修改成功)");
+			cafeVO = cafeSvc.getOneCafe(Integer.valueOf(cafeVO.getCafeId()));
+			model.addAttribute("cafeVO", cafeVO);
+
+			return "back-end/cafe/listOneCafe";
+		}
 
 	// 刪除咖啡廳
 	@PostMapping("/deleteCafe")
@@ -121,7 +147,7 @@ public class CafeController {
 		model.addAttribute("cafeVO", cafeVO);
 		return "front-end/cafe/update_cafe_input";
 	}
-
+ 
 	// 後台查詢單一咖啡廳
 	@PostMapping("/getOne_Update")
 	public String getOneCafeUpdate(@RequestParam("cafeId") String cafeId, ModelMap model) {
@@ -167,13 +193,11 @@ public class CafeController {
 		model.addAttribute("cafeVO", cafeVO);
 		return "back-end/cafe/listOneCafe"; // 返回顯示商家詳情的頁面
 	}
-
+ 
 	// 提供所有咖啡廳資料使用
 	@ModelAttribute("CafeListData")
 	public List<CafeVO> referenceCafeListData(Model model) {
 		List<CafeVO> list = cafeSvc.getAll();
-		System.out.println("CafeListData: " + list.size());
-		list.forEach(cafe -> System.out.println("商家ID: " + cafe.getCafeId() + ", 商家名稱: " + cafe.getName()));
 		model.addAttribute("cafeListData", list);
 		return list;
 	}

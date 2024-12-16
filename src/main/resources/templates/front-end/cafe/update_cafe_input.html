@@ -3,176 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>咖啡廳資料修改 - update_cafe_input.html</title>
+<title>商家資料修改</title>
 <style>
 /* 全局樣式 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    background-color: #f2d5d5; /* 匹配模板背景色 */
+    color: #333;
     margin: 0;
     padding: 0;
-    color: #333;
 }
 
-h3 {
-    color: #007BFF;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* 導航欄 */
-.navbar {
-    background-color: #28a745;
+/* 導航欄樣式 */
+nav {
+    background-color: #c28888;
     color: white;
-    padding: 10px 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
-    text-align: center;
 }
 
-.navbar a {
+nav h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav .btn-container {
+    margin-top: 10px;
+}
+
+nav button {
+    background-color: #007BFF;
     color: white;
-    text-decoration: none;
-    font-weight: bold;
+    border: none;
+    padding: 8px 15px; /* 縮小按鈕 */
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
 }
 
-.navbar a:hover {
-    text-decoration: underline;
+nav button:hover {
+    background-color: #0056b3;
 }
 
 /* 表單樣式 */
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #fff;
-    max-width: 500px;
-    margin: 30px auto;
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 form label {
     font-weight: bold;
-    margin-bottom: 5px;
-    width: 100%;
-    text-align: left;
+    margin-top: 10px;
 }
 
-form input, form textarea {
+form input, form textarea, form select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
 }
 
 form textarea {
-    height: 100px;
     resize: none;
+    height: 100px;
 }
 
-form input[type="file"] {
-    padding: 5px;
-}
-
-/* 錯誤訊息樣式 */
-.errormessage {
-    color: red;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    text-align: left;
+form button {
     width: 100%;
-}
-
-/* 按鈕樣式 */
-button {
+    margin-top: 20px;
+    padding: 10px;
     background-color: #007BFF;
     color: white;
     border: none;
-    padding: 10px 15px;
     border-radius: 4px;
-    cursor: pointer;
     font-size: 16px;
-    width: 100%;
+    cursor: pointer;
 }
 
-button:hover {
+form button:hover {
     background-color: #0056b3;
 }
 
-.error {
+.errormessage {
     color: red;
     font-size: 12px;
+    margin-top: 5px;
+}
+
+.image-preview {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
 }
 </style>
 </head>
 <body>
-<div class="navbar">
-    <h3>
-        <a th:href="@{/cafe/cafeProfile}">
-            <img th:src="@{/images/cafe_icon.png}" alt="咖啡圖標" style="vertical-align: middle; width: 20px;">
-            回咖啡廳中心
-        </a>
-    </h3>
-</div>
 
-<h3>所有欄位皆為必填欄位</h3>
+<nav>
+    <h2>商家資料修改</h2>
+    <div class="btn-container">
+        <form th:action="@{/cafe/cafeProfile}" method="get" style="display: inline;">
+            <button type="submit">回咖啡廳中心</button>
+        </form>
+    </div>
+</nav>
 
 <form th:action="@{/cafe/updateCafe}" method="post" th:object="${cafeVO}" enctype="multipart/form-data">
     <input type="hidden" th:field="*{cafeId}" />
     <input type="hidden" th:field="*{state}" />
 
-    <label>統一編號:</label>
+    <label for="taxId">統一編號:</label>
     <input type="text" th:field="*{taxId}" placeholder="請輸入8位數字">
     <div th:if="${#fields.hasErrors('taxId')}" class="errormessage" th:errors="*{taxId}"></div>
 
-    <label>名稱:</label>
+    <label for="name">名稱:</label>
     <input type="text" th:field="*{name}">
     <div th:if="${#fields.hasErrors('name')}" class="errormessage" th:errors="*{name}"></div>
 
-    <label>帳號:</label>
+    <label for="ac">帳號:</label>
     <input type="text" th:field="*{ac}" placeholder="6-20位英文字母或數字">
     <div th:if="${#fields.hasErrors('ac')}" class="errormessage" th:errors="*{ac}"></div>
 
-    <label>密碼:</label>
+    <label for="pw">密碼:</label>
     <input type="password" th:field="*{pw}" placeholder="6-20位英文字母或數字">
     <div th:if="${#fields.hasErrors('pw')}" class="errormessage" th:errors="*{pw}"></div>
 
-    <label>信箱:</label>
+    <label for="email">信箱:</label>
     <input type="email" th:field="*{email}">
     <div th:if="${#fields.hasErrors('email')}" class="errormessage" th:errors="*{email}"></div>
 
-    <label>電話:</label>
+    <label for="phone">電話:</label>
     <input type="text" th:field="*{phone}" placeholder="09XXXXXXXX">
     <div th:if="${#fields.hasErrors('phone')}" class="errormessage" th:errors="*{phone}"></div>
 
-    <label>城市:</label>
+    <label for="city">城市:</label>
     <input type="text" th:field="*{city}">
     <div th:if="${#fields.hasErrors('city')}" class="errormessage" th:errors="*{city}"></div>
 
-    <label>地區:</label>
+    <label for="disc">地區:</label>
     <input type="text" th:field="*{disc}">
     <div th:if="${#fields.hasErrors('disc')}" class="errormessage" th:errors="*{disc}"></div>
 
-    <label>地址:</label>
+    <label for="address">地址:</label>
     <input type="text" th:field="*{address}">
     <div th:if="${#fields.hasErrors('address')}" class="errormessage" th:errors="*{address}"></div>
 
-    <label>商家介紹:</label>
-    <textarea th:field="*{introduce}" name="introduce"></textarea>
+    <label for="introduce">商家介紹:</label>
+    <textarea th:field="*{introduce}" placeholder="商家介紹"></textarea>
     <div th:if="${#fields.hasErrors('introduce')}" class="errormessage" th:errors="*{introduce}"></div>
 
-    <label>圖片:</label>
-    <input type="file" th:field="*{img}" name="img" accept="image/*">
+    <label for="img">圖片:</label>
+    <input type="file" th:field="*{img}" accept="image/*" onchange="previewImage(this)">
+    <div class="image-preview" id="imagePreview"></div>
     <span class="error" th:utext="${errorMessage}" id="img.errors">${errorMessage}</span>
 
     <button type="submit">送出修改</button>
 </form>
+
+<script>
+function previewImage(input) {
+    const previewContainer = document.getElementById('imagePreview');
+    previewContainer.innerHTML = '';
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
 </body>
 </html>

@@ -3,71 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>商家資料 - listOneCafe.html</title>
-
+<title>商家資料 </title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f9f9f9;
-    }
-    .navbar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        background-color: #28a745;
-        color: white;
-    }
-    .navbar h2, .navbar h3 {
-        margin: 0.5rem;
-    }
-    .navbar a {
-        color: white;
-        text-decoration: none;
-    }
-    .navbar img {
-        vertical-align: middle;
-        margin-right: 0.5rem;
-    }
-    .content {
-        margin: 6rem auto;
-        padding: 2rem;
-        max-width: 600px;
-        background-color: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        text-align: left;
-    }
-    .content h3 {
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-    .content span {
-        display: inline-block;
-        width: 150px;
-        text-align: left;
-        font-weight: bold;
-    }
-    .content img {
-        margin-top: 0.5rem;
-    }
+/* 全局樣式 */
+body {
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* 導航欄樣式 */
+.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f2d5d5;
+    color: #c28888;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h2 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.navbar h3 {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.navbar a {
+    color: #c28888;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar img {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+/* 內容樣式 */
+.content {
+    margin: 6rem auto;
+    padding: 2rem;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.content h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #c28888;
+}
+
+.content div {
+    margin-bottom: 1rem;
+}
+
+.content span {
+    display: inline-block;
+    font-weight: bold;
+    color: #555;
+}
+
+.content img {
+    margin-top: 0.5rem;
+    max-width: 150px;
+    border-radius: 8px;
+    display: block;
+    margin: 10px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-success fixed-top">
-    <div>
-        <h2>Cafe 個人資料 - listOneCafe.html</h2>
-        <h3><a class="navbar-brand" th:href="@{/cafe/select_page}">
+<nav class="navbar">
+    <h2>Cafe 個人資料 </h2>
+    <h3>
+        <a th:href="@{/cafe/select_page}">
             <img th:src="@{/images/back1.gif}" alt="Back">回查詢頁
-            <label th:text="${success}"></label>
-        </a></h3>
-    </div>
+        </a>
+    </h3>
 </nav>
 
-<div class="content" align="center" th:fragment="listOneCafe-div"> <!-- 此div被select_page.html插入用 -->
+<div class="content" th:fragment="listOneCafe-div">
     <h3>查詢結果 :</h3>
     <div>
         <span>統一編號:</span><span th:text="${cafeVO.cafeId}"></span>
@@ -85,13 +118,12 @@
         <span>狀態:</span><span th:text="${cafeVO.state}"></span>
     </div>
     <div>
-        <span>地址:</span><span th:text="${cafeVO.city} + '-' + ${cafeVO.disc} + '-' + ${cafeVO.address}"></span>
+        <span>地址:</span>
+        <span th:text="${cafeVO.city} + '-' + ${cafeVO.disc} + '-' + ${cafeVO.address}"></span>
     </div>
     <div>
         <span>照片:</span>
-        <span>
-            <img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" width="100px" alt="Cafe Image">
-        </span>
+        <img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片">
     </div>
 </div>
 
