@@ -5,70 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>咖啡廳登入</title>
 <style>
+    @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700");
+
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+        font-family: "Source Sans Pro", Arial, sans-serif;
+        background-color: #c28888;
         margin: 0;
         padding: 0;
         color: #333;
     }
+
     header {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #f2d5d5;
+        color: #c28888;
         text-align: center;
-        padding: 15px 0;
-        margin-bottom: 20px;
+        padding: 20px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
     h1 {
         margin: 0;
-        font-size: 24px;
+        font-size: 28px;
+        font-weight: 700;
     }
+
     .form-container {
         background-color: #fff;
         max-width: 400px;
-        margin: auto;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 50px auto;
+        padding: 30px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: #555;
     }
+
     label {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-weight: bold;
         color: #555;
     }
+
     input[type="text"],
     input[type="password"] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 15px;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+        color: #aaa;
         font-size: 14px;
     }
+
     button {
         width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
+        padding: 12px;
+        background-color: #c28888;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
     }
+
     button:hover {
-        background-color: #45a049;
+        background-color: #a06a6a;
     }
+
     a {
         display: block;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 20px;
         text-decoration: none;
-        color: #4CAF50;
+        color: #c28888;
         font-weight: bold;
+        font-size: 14px;
+        transition: color 0.3s ease;
     }
+
     a:hover {
-        color: #007BFF;
+        color: #7bd0c1;
     }
 </style>
 </head>
@@ -78,10 +101,10 @@
     </header>
     <div class="form-container">
         <form th:action="@{/cafe/cafe_Login}" method="post">
-            <label>帳號:</label>
-            <input type="text" name="ac" th:value="*{ac}" placeholder="請輸入帳號">
-            <label>密碼:</label>
-            <input type="password" name="pw" th:value="*{pw}" placeholder="請輸入密碼">
+            <label for="ac">帳號:</label>
+            <input type="text" id="ac" name="ac" th:value="*{ac}" placeholder="請輸入帳號">
+            <label for="pw">密碼:</label>
+            <input type="password" id="pw" name="pw" th:value="*{pw}" placeholder="請輸入密碼">
             <button type="submit">登入</button>
             <a th:href="@{/cafe/cafeRegister}">註冊咖啡廳</a>
         </form>

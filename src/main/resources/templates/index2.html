@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>管理員 - 商家資訊管理</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>管理員 - 商家資訊管理</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
+        /* 基本樣式 */
+        body {
+            background: #c28888;
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 頁面容器 */
+        .container {
+            text-align: center;
+            margin-top: 20vh;
+        }
+
+        /* 標題樣式 */
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-block;
+            background-color: #585858;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #a06a6a;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 
-    導向商家資訊管理
-    <h3>
-        <a th:href="@{/cafe/listAllCafe}" style="text-decoration:underline;color: black;">顯示所有咖啡廳</a>
-    </h3>
+    <div class="container">
+        <h3>導向商家資訊管理</h3>
+        <a th:href="@{/cafe/listAllCafe}" class="btn">顯示所有咖啡廳</a>
+    </div>
 
 </body>
 </html>

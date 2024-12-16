@@ -1,217 +1,179 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>商家管理 - 選擇頁面</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f9f9f9;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家管理 - 選擇頁面</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
-button {
-	padding: 8px 16px;
-	border: none;
-	background-color: #28a745;
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
-	transition: background-color 0.3s ease;
-}
+        /* 基本樣式 */
+        body {
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c28888;
+            color: #fff;
+        }
 
-button:hover {
-	background-color: #218838;
-}
+        /* 導覽列樣式 */
+        .navbar {
+            background-color: #f2d5d5;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-form {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin-bottom: 20px;
-}
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #c28888;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
 
-label, input, select {
-	margin-bottom: 10px;
-	font-size: 14px;
-	color: #333;
-}
+        .navbar h3 a {
+            color: #c28888;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
 
-input[type="text"], input[type="password"], select, textarea {
-	width: 100%;
-	padding: 8px;
-	font-size: 14px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
+        .navbar h3 a:hover {
+            text-decoration: underline;
+        }
 
-input[type="submit"] {
-	padding: 8px 16px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
+        .navbar h3 img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
 
-input[type="submit"]:hover {
-	background-color: #0056b3;
-}
+        /* 表單樣式 */
+        form {
+            margin: 1rem 0;
+        }
 
-.center {
-	margin: 0 auto;
-	text-align: center;
-}
+        label, input, select {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin: 0.5rem 0;
+        }
 
-span {
-	display: inline-block;
-	margin-bottom: 8px;
-	font-weight: bold;
-	color: #555;
-}
+        input[type="text"], select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
 
-.errorblock {
-	color: red;
-	font-size: 14px;
-	margin-bottom: 20px;
-	text-align: center;
-}
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.navbar {
-	background-color: #28a745;
-	padding: 10px 20px;
-	color: white;
-	text-align: center;
-}
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
 
-.navbar h2, .navbar h3 a {
-	margin: 0;
-	color: white;
-	text-decoration: none;
-}
+        /* 容器樣式 */
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.navbar h3 a:hover {
-	text-decoration: underline;
-}
+        .container h4, .container h5 {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #c28888;
+        }
 
-ul {
-	list-style: none;
-	padding: 0;
-}
+        .container h5 a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-ul li {
-	margin-bottom: 10px;
-	font-size: 16px;
-}
+        .container h5 a:hover {
+            text-decoration: underline;
+        }
 
-ul li h5 {
-	margin: 0;
-	color: #007bff;
-	cursor: pointer;
-}
-
-ul li h5 a {
-	color: #007bff;
-	text-decoration: none;
-}
-
-ul li h5 a:hover {
-	text-decoration: underline;
-}
-
-div.a {
-	margin: 20px auto;
-	padding: 20px;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	background-color: white;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	max-width: 600px;
-}
-
-div.b {
-	margin-top: 20px;
-	padding: 10px;
-	border: 1px solid #007bff;
-	border-radius: 8px;
-	background-color: #f1f9ff;
-}
-</style>
+        /* 錯誤訊息樣式 */
+        .errorblock {
+            color: red;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar">
+        <h2>商家管理 - 選擇頁面</h2>
+        <h3>
+            <a th:href="@{/cafe/index2}">
+                <img th:src="@{/images/back1.gif}" alt="返回首頁">回首頁
+            </a>
+        </h3>
+    </nav>
 
-	<nav class="navbar">
-		<div align="center">
-			<h2>商家管理 - 選擇頁面</h2>
-			<h3>
-				<a th:href="@{/cafe/index2}"> <img th:src="@{/images/back1.gif}"
-					alt="返回首頁">回首頁
-				</a>
-			</h3>
-		</div>
-	</nav>
+    <div class="container">
+        <h4>資料查詢</h4>
+        <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
 
-	<h4 class="center">
-		<span>資料查詢:</span>
-	</h4>
+        <ul>
+            <li>
+                <h5>
+                    <a href="listAllCafe">檢視所有商家</a>
+                </h5>
+            </li>
 
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+            <li>
+                <form method="post" th:action="@{/cafe/getOne_For_Display}">
+                    <label for="cafeIdInput">輸入商家編號:</label>
+                    <input type="text" id="cafeIdInput" name="cafeId" th:value="${param.cafeId}">
+                    <input type="submit" value="送出">
+                </form>
+            </li>
 
-	<div class="a">
-		<ul>
-			<li>
-				<h5>
-					<a href="listAllCafe">檢視所有商家</a>
-				</h5>
-			</li>
+            <li>
+                <form method="post" th:action="@{/cafe/getOne_For_Display}">
+                    <label for="cafeIdSelect">選擇商家編號:</label>
+                    <select id="cafeIdSelect" name="cafeId">
+                        <option th:each="cafeVO : ${cafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.cafeId}"></option>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+            </li>
 
-			<li>
-				<form method="post" th:action="@{/cafe/getOne_For_Display}">
-					<label for="cafeIdInput">輸入商家編號:</label> <input type="text"
-						id="cafeIdInput" name="cafeId" th:value="${param.cafeId}">
-					<input type="submit" value="送出">
-				</form>
-			</li>
+            <li>
+                <form method="post" th:action="@{/cafe/getOne_For_Display}">
+                    <label for="cafeNameSelect">選擇商家名稱:</label>
+                    <select id="cafeNameSelect" name="cafeId">
+                        <option th:each="cafeVO : ${cafeListData}" th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}"></option>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+            </li>
+        </ul>
 
-			<li>
-				<form method="post" th:action="@{/cafe/getOne_For_Display}">
-					<label for="cafeIdSelect">選擇商家編號:</label> 
-					<select id="cafeIdSelect" name="cafeId">
-						<option th:each="cafeVO : ${cafeListData}"
-							th:value="${cafeVO.cafeId}" th:text="${cafeVO.cafeId}"></option>
-					</select> <input type="submit" value="送出">
-				</form>
-			</li>
-
-			<li>
-				<form method="post" th:action="@{/cafe/getOne_For_Display}">
-					<label for="cafeNameSelect">選擇商家名稱:</label> <select
-						id="cafeNameSelect" name="cafeId">
-						<option th:each="cafeVO : ${cafeListData}"
-							th:value="${cafeVO.cafeId}" th:text="${cafeVO.name}"></option>
-					</select> <input type="submit" value="送出">
-				</form>
-			</li>
-		</ul>
-
-		<h4>
-			<span>商家管理</span>
-		</h4>
-		<ul>
-			<li><h5>
-					<a th:href="@{/cafe/addCafe}">新增商家</a>
-				</h5></li>
-		</ul>
-	</div>
-
-	 
+        <h4>商家管理</h4>
+        <ul>
+            <li>
+                <h5>
+                    <a th:href="@{/cafe/addCafe}">新增商家</a>
+                </h5>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
