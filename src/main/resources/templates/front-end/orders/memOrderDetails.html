@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂單詳細資訊</title>
+<style>
+/* 整體表格樣式 */
+table {
+	width: 70%;
+	border-collapse: collapse; /* 合併邊框 */
+	margin-bottom: 20px;
+	margin: 20px auto; /* 讓表格居中顯示 */
+}
+
+/* 表頭的樣式 */
+th {
+	background-color: #f2f2f2;
+	text-align: left;
+	padding: 12px;
+	font-weight: bold;
+	border: 1px solid #ddd; /* 添加邊框 */
+}
+
+/* 表格內容的樣式 */
+td {
+	padding: 12px;
+	border: 1px solid #ddd; /* 添加邊框 */
+	text-align: left;
+}
+	
+tr:hover {
+	background-color: #f1f1f1;
+}
+
+/* 標題樣式 */
+h1 {
+	text-align: center;
+	color: #333;
+}
+
+h2 {
+	text-align: center;
+	color: #333;
+}
+/* 總計行樣式 */
+.total-row {
+	font-weight: bold;
+	background-color: #f2f2f2;
+}
+
+/* 返回按鈕樣式 */
+.back-link {
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 16px;
+	text-decoration: none;
+	color: #007bff;
+}
+
+.back-link:hover {
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<!-- <b th:text="${memOrderVO}"></b> -->
+  <!--??                   -->
+
+
+	<h1>訂單詳細資訊</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>訂單編號</th>
+				<th>下單時間</th>				
+				<th>咖啡廳優惠券</th>
+				<th>平台優惠券</th>
+				<th>備註</th>
+				<th>付款金額</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${memOrderVO.orderId}"></td>
+				<td th:text="${memOrderVO.date}"></td>
+				<td th:text="${memOrderVO.ccoId}"></td>
+				<td th:text="${memOrderVO.pcoId}"></td>
+				<td th:text="${memOrderVO.memo}"></td>
+				<td th:text="${memOrderVO.Amount}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<h2>我買的商品~</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>商品編號</th>
+				<th>購買數量</th>
+				<th>商品金額</th>
+				<th>小計:</th>
+
+			</tr>
+		</thead>
+		<tbody>
+		   <th:block  th:each="orderDetailVO :${details}">
+			<tr>
+				<td th:text="${orderDetailVO.itemId}"></td>
+				<td th:text="${orderDetailVO.salesNum}"></td>
+				<td th:text="${orderDetailVO.price}"></td>
+				<td th:text="${orderDetailVO.salesNum*orderDetailVO.price}"></td>
+			</tr>
+		 </th:block>
+		</tbody>
+	</table>
+
+<!-- 	<a href="##">會員資料</a> -->
+
+</body>
+</html>
