@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商家首頁</title>
-    <link href="./images/cafe_icon.png" rel="shortcut icon">
+    <title>後台管理首頁</title>
     <style>
         @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
@@ -31,13 +30,6 @@
             font-weight: 900;
             color: #c28888;
             margin-bottom: 30px;
-        }
-
-        .welcome {
-            font-size: 48px; /* 與標題一致 */
-            font-weight: 900;
-            color: #c28888;
-            margin-bottom: 20px;
         }
 
         .button-container {
@@ -68,35 +60,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">商家首頁</div>
-        <div class="welcome">
-            <span th:if="${session.ac != null}">歡迎, <span th:text="${session.ac}"></span></span>
-        </div>
+        <div class="title">後台管理首頁</div>
         <div class="button-container">
-            <span th:if="${session.ac == null}">
-                <a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a>
-            </span>
-            <span th:if="${session.ac != null}">
-                <a th:href="@{/cafe/cafeProfile}">會員中心</a>
-            </span>
-            <br>
             <form th:action="@{/}" method="get">
-                <button type="submit" class="HOME_manage">首頁</button>
+                <button type="submit">平台管理</button>
             </form>
-            <form th:action="@{/item}" method="get">
-                <button type="submit" class="item_manage">商品管理</button>
+            <form th:action="@{/}" method="get">
+                <button type="submit">會員管理</button>
             </form>
-            <form th:action="@{/cafe_order}" method="get">
-                <button type="submit" class="order_manage">訂單管理</button>
+            <form th:action="@{/}" method="get">
+                <button type="submit">商城管理</button>
             </form>
-            <form th:action="@{/cafe_money}" method="get">
-                <button type="submit" class="money_manage">檢視營收</button>
+            <form th:action="@{/}" method="get">
+                <button type="submit">活動管理</button>
             </form>
-            <form th:action="@{/cco/select_page}" method="get">
-                <button type="submit" class="uco_manage">商家優惠券</button>
+            <form th:action="@{/}" method="get">
+                <button type="submit">論壇管理</button>
             </form>
-            <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
-                <button type="submit">登出</button>
+            <form th:action="@{/}" method="get">
+                <button type="submit">最新消息管理</button>
             </form>
         </div>
     </div>

@@ -47,6 +47,18 @@
             vertical-align: middle;
             margin-right: 0.5rem;
         }
+        
+        .navbar .btn {
+            margin-top: 0.5rem;
+            background-color: #c28888;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
         /* 表單樣式 */
         form {
@@ -120,9 +132,7 @@
     <nav class="navbar">
         <h2>商家管理 - 選擇頁面</h2>
         <h3>
-            <a th:href="@{/cafe/index2}">
-                <img th:src="@{/images/back1.gif}" alt="返回首頁">回首頁
-            </a>
+        <button class="btn" onclick="location.href='/cafe/index2'">回後台首頁</button>
         </h3>
     </nav>
 

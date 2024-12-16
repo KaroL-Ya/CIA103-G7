@@ -53,6 +53,12 @@ public class MyController {
 		return "Home_Page"; // Thymeleaf 頁面名稱
 	}
 
+//春澔加的後台首頁
+	@GetMapping("/backhome")
+	public String backhome(ModelMap model) {
+		return "back-end/BackHome"; // Thymeleaf 頁面名稱
+	}
+	
 	@GetMapping("/myTestAll")
 	public String myTestAll(ModelMap model) {
 		model.addAttribute("itemList", itemService.getAll());
@@ -247,5 +253,6 @@ public class MyController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 
 }
