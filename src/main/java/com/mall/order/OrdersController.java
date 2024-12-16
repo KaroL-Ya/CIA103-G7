@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class OrdersController {
@@ -61,17 +62,16 @@ public class OrdersController {
 
 	// 賣家管理
 	@PostMapping("listOrders_ByCompositeQuery")
-	public String orderListAll(HttpServletRequest req, Model model) {
-//		, HttpSession session) {
+	public String orderListAll(HttpServletRequest req, Model model, HttpSession session) {
 
 		// 從 Session 獲取 cafeId
-//		Integer cafeId = (Integer) session.getAttribute("cafeId");
-//		if (cafeId == null) {
-//			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
-//			return "redirect:/login"; // 假設登錄頁面是 /login
-//		}
+		Integer cafeId = (Integer) session.getAttribute("cafeId");
+		if (cafeId == null) {
+			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
+		}
 		
-		Integer cafeId = 5;
+//		Integer cafeId = 5;
 
 		String orderIdStr = req.getParameter("orderId");
 		String statusStr = req.getParameter("status");

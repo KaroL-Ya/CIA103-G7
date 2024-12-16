@@ -50,8 +50,13 @@ public class MyController {
 
 	@GetMapping("/")
 	public String home(ModelMap model) {
-		model.addAttribute("itemList", itemService.getAll());
 		return "Home_Page"; // Thymeleaf 頁面名稱
+	}
+
+	@GetMapping("/myTestAll")
+	public String myTestAll(ModelMap model) {
+		model.addAttribute("itemList", itemService.getAll());
+		return "home"; // Thymeleaf 頁面名稱
 	}
 
 //	@GetMapping("/cart")
@@ -95,15 +100,29 @@ public class MyController {
 	}
 
 	@GetMapping("/item")
-	public String selectPage(ModelMap model) {
-		Integer cafeId = 5;
+	public String selectPage(ModelMap model, HttpSession session) {
+		// 從 Session 獲取 cafeId
+		Integer cafeId = (Integer) session.getAttribute("cafeId");
+		if (cafeId == null) {
+			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
+		}
+
+//		Integer cafeId = 5;
 		model.addAttribute("itemList", itemService.getAllByCafe(cafeId));
 		return "back-end/item/select_page"; // Thymeleaf 頁面名稱
 	}
 
 	@GetMapping("/cafe_order")
-	public String cafe_orderManagement(ModelMap model) {
-		Integer cafeId = 5;
+	public String cafe_orderManagement(ModelMap model, HttpSession session) {
+
+		// 從 Session 獲取 cafeId
+		Integer cafeId = (Integer) session.getAttribute("cafeId");
+		if (cafeId == null) {
+			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
+		}
+//		Integer cafeId = 5;
 //		model.addAttribute("cafeOrderList", ordersService.getAll());
 		model.addAttribute("cafeOrderList", ordersService.getAllByCafe(cafeId));
 		return "back-end/order/orderManagement_cafe"; // Thymeleaf 頁面名稱
@@ -111,9 +130,16 @@ public class MyController {
 
 	@GetMapping("/cafe_money")
 	public String getCafeMoney(@RequestParam(required = false) Integer year,
-			@RequestParam(required = false) Integer month, Model model) {
+			@RequestParam(required = false) Integer month, Model model, HttpSession session) {
+
+		// 從 Session 獲取 cafeId
+		Integer cafeId = (Integer) session.getAttribute("cafeId");
+		if (cafeId == null) {
+			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
+			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
+		}
 		// 預設咖啡廳 ID
-		Integer cafeId = 5;
+//		Integer cafeId = 5;
 
 		// 設置標題
 		String monthlyTitle = (year != null && month != null) ? year + "年" + month + "月營收" : "總營收";

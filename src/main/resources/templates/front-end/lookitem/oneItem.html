@@ -7,13 +7,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
 body {
-	font-family: Arial, sans-serif; 
-	margin: 0; 
+	font-family: Arial, sans-serif;
+	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-        .container {
+.container {
 	max-width: 1000px;
 	margin: 20px auto;
 	padding: 20px;
@@ -22,7 +22,6 @@ body {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	display: flex;
 	gap: 20px;
-
 }
 
 .product-image {
@@ -70,8 +69,7 @@ body {
 	font-size: 18px;
 }
 
-.product-quantity, 
-        .product-stock {
+.product-quantity, .product-stock {
 	margin-bottom: 15px;
 }
 
@@ -99,6 +97,13 @@ body {
 .btn-add-cart {
 	background-color: #2a9d8f;
 	color: white;
+	height: 50px;
+	border: none; /* 移除邊框 */
+	border-radius: 10px; /* 圓角效果 */
+	padding: 8px 20px; /* 上下8px，左右20px 內邊距 */
+	font-size: 16px; /* 文字大小 */
+	cursor: pointer; /* 滑鼠變為手型 */
+	transition: background-color 0.3s ease; /* 平滑過渡效果 */
 }
 
 .btn-add-favorite {
@@ -106,14 +111,12 @@ body {
 	color: white;
 }
 
-.btn-add-report{
-
-font-size: 12px;
-padding: 10px 10px;  /* 控制橢圓形的長寬 */
-        background-color: #ddd;
-        border-radius: 50px;     
-        margin-left: auto;  /*靠右 */
-        
+.btn-add-report {
+	font-size: 12px;
+	padding: 10px 10px; /* 控制橢圓形的長寬 */
+	background-color: #ddd;
+	border-radius: 50px;
+	margin-left: auto; /*靠右 */
 }
 
 .btn:hover {
@@ -130,82 +133,107 @@ padding: 10px 10px;  /* 控制橢圓形的長寬 */
 	height: auto;
 	margin-right: 10px;
 }
+
 .product-id {
-	font-size: 12px;	
+	font-size: 12px;
 	color: rgba(131, 90, 8, 0.966);
 	position: absolute;
 	top: 40px;
 	right: 150px;
 }
 
- .quantity-btn {
-            width: 30px;
-            height: 30px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            text-align: center;
-            font-size: 25px;
-            cursor: pointer;
-        }
-        .quantity-input {
-            width: 40px;
-            height: 20px;
-            text-align: center;
-            border: 1px solid #ccc;
-            font-size: 18px;
-            margin: 0 10px;
-        }
+.quantity-btn {
+	width: 30px;
+	height: 30px;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	text-align: center;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.quantity-input {
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	border: 1px solid #ccc;
+	font-size: 18px;
+	margin: 0 10px;
+}
+
+/* 圖標的外部容器樣式 */
+.cart-icon-container {
+	position: fixed;
+	bottom: 40px;
+	right: 50px;
+	z-index: 1000;
+	width: 50px;
+	height: 50px;
+}
+
+/* 購物車圖標的樣式 */
+.cart-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	transition: transform 0.3s;
+	cursor: pointer;
+}
+
+.cart-icon:hover {
+	transform: scale(1.15);
+}
 </style>
 </head>
 <body>
 
 	<div class="container">
-		<div >
-            <img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}" alt="Cover Image" width="300px"/>
+		<div>
+			<img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
+				alt="Cover Image" width="300px" />
 		</div>
-		
+
 		<div class="product-info">
 			<div>
-			<div class="product-id">
-			商品編號：<span th:text="${item.itemId}"></span>
-		</div>
+				<div class="product-id">
+					商品編號：<span th:text="${item.itemId}"></span>
+				</div>
 				<span
 					style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;">
-					商品名稱:
-				</span> <span style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;" th:text="${item.name}"></span> 
-					<br> <br>
-				<span
-					style="color:rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-					商品價格:
-				</span> 
-					<span style="color: rgb(230, 117, 12); font-weight: bold; font-size: 25px;" th:text="${item.price}"></span> <br> <br>
-				 <span
+					商品名稱: </span> <span
+					style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;"
+					th:text="${item.name}"></span> <br> <br> <span
 					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-					商品敘述:
-				</span> 
-				<span style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"th:text="${item.content}"></span> <br>
+					商品價格: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 25px;"
+					th:text="${item.price}"></span> <br> <br> <span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					商品敘述: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.content}"></span> <br>
 
 				<hr>
 
 				<span
-					style="color:  rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-					商品評分:
-				</span> <span style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;" th:text="${item.stars}"></span> <span
-					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
-					&nbsp(
-					</span> <span style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px"; th:text="${item.comments}"></span> 
-					
-					<span style="color:  rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
-					)</span> <br> <br>
-				<span
 					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-					剩餘數量：</span>
-				<span style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;" th:text="${item.num}"></span>
+					商品評分: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.stars}"></span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
+					&nbsp( </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px"
+					; th:text="${item.comments}"></span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
+					)</span> <br> <br> <span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					剩餘數量：</span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.num}"></span>
 				<hr>
 				<div>
 					<span
-					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;">
-					結帳方式：信用卡</span>
+						style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;">
+						結帳方式：信用卡</span>
 				</div>
 
 
@@ -213,19 +241,34 @@ padding: 10px 10px;  /* 控制橢圓形的長寬 */
 
 			</div>
 			<div class="buttons">
-			
+
 				<button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-       			<input type="text" id="quantity" class="quantity-input" value="1" readonly>
-        		<button class="quantity-btn" onclick="increaseQuantity()">+</button>
-        
-				<button id="addToCart" class="btn btn-add-cart">加入購物車</button>
-				
-				<button id="addFavorite" class="btn btn-add-favorite">加入收藏 
-				
-				<button id="report" class="btn btn-add-report">檢舉</button>	
+				<input type="text" id="quantity" class="quantity-input" value="1"
+					readonly>
+				<button class="quantity-btn" onclick="increaseQuantity()">+</button>
+
+				<form th:action="@{/cart/addCart}" method="post">
+					<input type="hidden" name="itemId" th:value="${item.itemId}">
+					<input type="hidden" class="form-quantity" name="num" value="1">
+					<button type="submit" class="btn-add-cart">加入購物車</button>
+				</form>
+
+				<button id="addFavorite" class="btn btn-add-favorite">
+					加入收藏
+
+					<button id="report" class="btn btn-add-report">檢舉</button>
 			</div>
 
 		</div>
+	</div>
+
+	<div>
+		<h4 class="cart-icon-container">
+			<!-- 購物車超連結 -->
+			<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
+				th:src="@{/images/cart.png}" class="cart-icon" alt="購物車" />
+			</a>
+		</h4>
 	</div>
 
 	<script>
@@ -235,8 +278,7 @@ padding: 10px 10px;  /* 控制橢圓形的長寬 */
 				addToCartBtn.disabled = true; // 禁用按鈕
 				addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
 				alert("商品已加入購物車");
-			
-			
+
 			});
 		});
 		document.addEventListener("DOMContentLoaded", function() {
@@ -246,22 +288,22 @@ padding: 10px 10px;  /* 控制橢圓形的長寬 */
 				addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
 				alert("商品已加入收藏");
 				addFavoriteBtn.innerText = "已加入收藏";
-			
+
 			});
 		});
-		 function increaseQuantity() {
-	            var quantityInput = document.getElementById('quantity');
-	            var currentQuantity = parseInt(quantityInput.value);
-	            quantityInput.value = currentQuantity + 1;
-	        }
+		function increaseQuantity() {
+			var quantityInput = document.getElementById('quantity');
+			var currentQuantity = parseInt(quantityInput.value);
+			quantityInput.value = currentQuantity + 1;
+		}
 
-	        function decreaseQuantity() {
-	            var quantityInput = document.getElementById('quantity');
-	            var currentQuantity = parseInt(quantityInput.value);
-	            if (currentQuantity > 1) {
-	                quantityInput.value = currentQuantity - 1;
-	            }
-	        }
+		function decreaseQuantity() {
+			var quantityInput = document.getElementById('quantity');
+			var currentQuantity = parseInt(quantityInput.value);
+			if (currentQuantity > 1) {
+				quantityInput.value = currentQuantity - 1;
+			}
+		}
 	</script>
 
 </body>

@@ -44,7 +44,7 @@ public class CartController {
 		// 驗證數量是否有效
 		if (num == null || num <= 0) {
 			model.addAttribute("error", "購買數量必須大於 0！");
-			return "redirect:/"; // 返回商品列表頁面
+			return "redirect:/cart"; // 返回商品列表頁面
 		}
 
 		// 添加商品到購物車，接收返回的提示信息
@@ -53,7 +53,7 @@ public class CartController {
 		// 將提示信息返回到前端
 		model.addAttribute("message", resultMessage);
 
-		return "redirect:/"; // 返回商品列表頁面
+		return "redirect:/cart"; // 返回商品列表頁面
 	}
 
 //	@GetMapping("/cart")
