@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -67,6 +68,9 @@ public class CafeVO implements Serializable {
 
     @Column(name = "IMG", columnDefinition = "longblob")
     private byte[] img;
+    
+    @Transient
+    private String base64Img; //非持久化字段
 
     public CafeVO() {
         super();
@@ -192,8 +196,18 @@ public class CafeVO implements Serializable {
     public void setImg(byte[] img) {
         this.img = img;
     }
+    
+    
 
-    @Override
+    public String getBase64Img() {
+		return base64Img;
+	}
+
+	public void setBase64Img(String base64Img) {
+		this.base64Img = base64Img;
+	}
+
+	@Override
     public String toString() {
         return "CafeVO [cafeId=" + cafeId + ", taxid=" + taxId + ", name=" + name + ", ac=" + ac + ", pw=" + pw +
                 ", email=" + email + ", state=" + state + ", phone=" + phone + ", city=" + city + ", disc=" + disc +

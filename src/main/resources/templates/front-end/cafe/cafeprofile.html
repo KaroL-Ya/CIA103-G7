@@ -132,7 +132,7 @@ button {
             <span th:text="${session.name}"></span>
         </span>
         <div class="buttons">
-            <form th:action="@{/logout}" method="get" th:if="${session.ac != null}">
+            <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
                 <button type="submit">登出</button>
             </form>
             <form th:action="@{/cafe}" method="get" th:if="${session.ac != null}">
