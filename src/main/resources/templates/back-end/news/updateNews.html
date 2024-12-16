@@ -4,59 +4,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>新聞資料修改 - updateNews.html</title>
+<style>
+    /* 全局樣式 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
 
-<head th:insert="~{/back-end/news/included-fragment}"></head>
-<style type="text/css">
-    button {
-        padding: 5px;
+    /* 導航欄樣式 */
+    nav {
+        background-color: #28a745;
+        padding: 15px;
+        color: white;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    nav h2, nav h3 {
+        margin: 5px 0;
+    }
+
+    nav h3 a {
+        color: white;
+        text-decoration: none;
+    }
+
+    nav h3 a img {
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 20px;
+    }
+
+    /* 表單樣式 */
     form {
-        display: table;
+        margin-top: 100px;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     form div {
-        display: table-row;
+        margin-bottom: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
     }
-    label, input, span, select, textarea {
-        display: table-cell;
-        margin: 5px;
-        text-align: left;
+
+    form label {
+        width: 120px;
+        font-weight: bold;
     }
-    input[type=text], select, textarea {
-        width: 300px;
-        margin: 5px;
+
+    form input[type="text"], form input[type="date"], form select, form textarea {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
     }
-    textarea {
+
+    form textarea {
+        resize: vertical;
         height: 100px;
     }
+
+    form span.error {
+        color: red;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    /* 按鈕樣式 */
+    button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* 居中樣式 */
     .center {
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+        text-align: center;
     }
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-    <div align="center">
-        <h2>新聞資料修改 - updateNews.html</h2>
-        <h3><a class="navbar-brand" th:href="@{/news/listAllNews}"><img th:src="@{/images/back1.gif}">返回新聞列表</a></h3>
-    </div>
+<nav>
+    <h2>新聞資料修改 - updateNews.html</h2>
+    <h3>
+        <a th:href="@{/news/listAllNews}">
+            <img th:src="@{/images/back1.gif}" alt="返回">
+            返回新聞列表
+        </a>
+    </h3>
 </nav>
 
-<div align="center">
+<div class="center">
     <h3><b>所有欄位皆為必填欄位</b></h3>
     <form th:action="@{update}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
         <div>
             <label>新聞編號:</label>
-            <input type="text" th:field="*{newsId}" style="border:0px; font-weight: bold;" readonly /><br/>
+            <input type="text" th:field="*{newsId}" readonly style="border: none; font-weight: bold;" />
         </div>
 
         <div>
             <label>新聞標題:</label>
-            <input type="text" th:field="*{title}" onclick="hideContent('title.errors');" /><br/>
+            <input type="text" th:field="*{title}" onclick="hideContent('title.errors');" />
             <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error" id="title.errors"></span>
         </div>
-        
+
         <div>
             <label>新聞狀態:</label>
             <select th:field="*{status}">
@@ -68,31 +141,23 @@
 
         <div>
             <label>內容:</label>
-            <textarea th:field="*{content}" onclick="hideContent('content.errors');"></textarea><br/>
+            <textarea th:field="*{content}" onclick="hideContent('content.errors');"></textarea>
             <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error" id="content.errors"></span>
         </div>
 
         <div>
             <label>發布日期:</label>
-            <input type="date" th:field="*{time}" onclick="hideContent('time.errors');" /><br/>
+            <input type="date" th:field="*{time}" onclick="hideContent('time.errors');" />
             <span th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="error" id="time.errors"></span>
         </div>
 
-<!--         <div> -->
-<!--             <label>封面圖片:</label> -->
-<!--             <input type="file" th:field="*{coverImage}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             <div id="blob_holder"><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></div> -->
-<!--         </div> -->
-
-        <div>
-            <div>
-            	<button type="submit" id="submit"> 送出修改 </button>
-            </div>
+        <div class="center">
+            <button type="submit" id="submit">送出修改</button>
         </div>
     </form>
 </div>
 
-<script type="text/javascript">
+<script>
     function hideContent(d) {
         document.getElementById(d).style.display = "none";
     }
