@@ -6,7 +6,7 @@ public class Image {
     public static void main(String[] args) {
         String URL = "jdbc:mysql://localhost:3306/cia103-7?serverTimezone=Asia/Taipei"; // 資料庫 URL
         String User = "root"; // 資料庫使用者
-        String Password = "1234"; // 資料庫密碼
+        String Password = "Jason_841214"; // 資料庫密碼
         
         // 圖片檔案夾路徑
         String imageFolderPath = "src/main/resources/templates/front-end/lookitem/img/"; // 這裡指定資料夾路徑

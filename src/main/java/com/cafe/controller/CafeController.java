@@ -121,7 +121,7 @@ public class CafeController {
 		model.addAttribute("cafeVO", cafeVO);
 		return "front-end/cafe/update_cafe_input";
 	}
-
+ 
 	// 後台查詢單一咖啡廳
 	@PostMapping("/getOne_Update")
 	public String getOneCafeUpdate(@RequestParam("cafeId") String cafeId, ModelMap model) {
@@ -167,13 +167,11 @@ public class CafeController {
 		model.addAttribute("cafeVO", cafeVO);
 		return "back-end/cafe/listOneCafe"; // 返回顯示商家詳情的頁面
 	}
-
+ 
 	// 提供所有咖啡廳資料使用
 	@ModelAttribute("CafeListData")
 	public List<CafeVO> referenceCafeListData(Model model) {
 		List<CafeVO> list = cafeSvc.getAll();
-		System.out.println("CafeListData: " + list.size());
-		list.forEach(cafe -> System.out.println("商家ID: " + cafe.getCafeId() + ", 商家名稱: " + cafe.getName()));
 		model.addAttribute("cafeListData", list);
 		return list;
 	}
