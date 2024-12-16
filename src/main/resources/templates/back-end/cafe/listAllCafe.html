@@ -3,71 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>所有商家資料 - listAllCafe.html</title>
+<title>所有咖啡廳資料</title>
 <link href="../images/cafe_icon.png" rel="shortcut icon">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
-<script>
-	$(document).ready(function() {
-		$('#example').DataTable({
-			"lengthMenu": [3, 5, 10, 20, 50, 100],
-			"searching": true,
-			"paging": true,
-			"ordering": true,
-			"language": {
-				"processing": "處理中...",
-				"loadingRecords": "載入中...",
-				"lengthMenu": "顯示 _MENU_ 筆結果",
-				"zeroRecords": "沒有符合的結果",
-				"info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-				"infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-				"infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-				"search": "搜尋:",
-				"paginate": {
-					"first": "第一頁",
-					"previous": "上一頁",
-					"next": "下一頁",
-					"last": "最後一頁"
-				},
-				"aria": {
-					"sortAscending": ": 升冪排列",
-					"sortDescending": ": 降冪排列"
-				}
-			}
-		});
-	});
-</script>
 <style>
-/* 全局樣式 */
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+@import url(fontawesome-all.min.css);
+
+/* 基本樣式 */
 body {
-    margin: 1rem 12rem 2rem 12rem;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background: #c28888;
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    margin: 0;
+    color: #0e0d0d;
 }
 
-/* 導航欄樣式 */
+/* 頁面導航 */
 .navbar {
     background-color: #4CAF50;
     padding: 1rem;
     text-align: center;
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar h2, .navbar h3 {
     margin: 0.5rem 0;
+    font-weight: 700;
+    letter-spacing: 0.1em;
 }
 
 .navbar a {
     text-decoration: none;
     color: white;
     font-weight: bold;
+    display: inline-flex;
+    align-items: center;
 }
 
 .navbar a img {
     vertical-align: middle;
-    width: 20px;
+    width: 24px;
     margin-right: 8px;
 }
 
@@ -75,14 +59,17 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: 1rem auto;
     background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 thead tr {
-    background-color: #CCCCFF;
-    color: #333;
+    background-color: #f2849e;
+    color: #fff;
 }
 
 thead th, tbody td {
@@ -92,17 +79,19 @@ thead th, tbody td {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
 }
 
 tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* 表格內部圖片 */
+/* 圖片樣式 */
 table img {
-    max-width: 100px;
+    max-width: 80px;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 /* 表單按鈕樣式 */
@@ -120,7 +109,6 @@ form input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* 字體和間距優化 */
 th, td {
     font-size: 0.9rem;
 }
@@ -129,65 +117,124 @@ thead th {
     font-size: 1rem;
     font-weight: bold;
 }
+
+/* RWD */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+        margin: 0 1rem;
+    }
+
+    .navbar h2 {
+        font-size: 1.5rem;
+    }
+
+    .navbar h3 {
+        font-size: 1rem;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
 </style>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable({
+        "lengthMenu": [3, 5, 10, 20, 50, 100],
+        "searching": true,
+        "paging": true,
+        "ordering": true,
+        "language": {
+            "processing": "處理中...",
+            "loadingRecords": "載入中...",
+            "lengthMenu": "顯示 _MENU_ 筆結果",
+            "zeroRecords": "沒有符合的結果",
+            "info": "顯示第 _START_ 至 _END_ 筆結果，共 <font color=red>_TOTAL_</font> 筆",
+            "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+            "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+            "search": "搜尋:",
+            "paginate": {
+                "first": "第一頁",
+                "previous": "上一頁",
+                "next": "下一頁",
+                "last": "最後一頁"
+            },
+            "aria": {
+                "sortAscending": ": 升冪排列",
+                "sortDescending": ": 降冪排列"
+            }
+        }
+    });
+});
+</script>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>所有咖啡廳資料 - listAllCafe.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/cafe/select_page}"><img th:src="@{/images/cafe_icon.png}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+<nav class="navbar">
+    <div align="center">
+        <h2>所有咖啡廳資料</h2>
+        <h3>
+            <a class="navbar-brand" th:href="@{/cafe/select_page}">
+                <img th:src="@{/images/cafe_icon.png}" alt="返回查詢">
+            </a>
+        </h3>
+    </div>
 </nav>
 
 <table id="example" class="display" style="width: 100%">
-  <thead >
-	<tr style="background-color:#CCCCFF">
-		<th>計數</th>
-		<th>咖啡廳編號</th>
-		<th>咖啡廳名稱</th>
-		<th>統一編號</th>
-		<th>帳號</th>
-		<th>Email</th>
-		<th>電話</th>
-		<th>狀態</th>
-		<th>城市</th>
-		<th>地區</th>
-		<th>地址</th>
-		<th>商家介紹</th>
-		<th>照片</th>
-		<th>修改</th>
-		<th>刪除</th>
-	</tr>
-  </thead>
-	
-  <tbody>
-		<th:block th:each="cafeVO : ${cafeListData}">
-			<tr>
-				<td th:text="${cafeVOStat.count}"></td>
-				<td th:text="${cafeVO.cafeId}"></td>
-				<td th:text="${cafeVO.name}"></td>
-				<td th:text="${cafeVO.taxId}"></td>
-				<td th:text="${cafeVO.ac}"></td>
-				<td th:text="${cafeVO.email}"></td>
-				<td th:text="${cafeVO.phone}"></td>
-				<td th:text="${cafeVO.state}"></td>
-				<td th:text="${cafeVO.city}"></td>
-				<td th:text="${cafeVO.disc}"></td>
-				<td th:text="${cafeVO.address}"></td>
-				<td th:text="${cafeVO.introduce}"></td>
-				<td><img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" width="100px"></td>
-			<td>
-			  <form method="post" th:action="@{/cafe/getOne_Update}" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}"></form>
-			</td>
-			<td>
-			  <form method="post" th:action="@{/cafe/deleteCafe}" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}"></form>
-			</td>
-			</tr>
-		</th:block>
-  </tbody>
+    <thead>
+        <tr>
+            <th>計數</th>
+            <th>咖啡廳編號</th>
+            <th>咖啡廳名稱</th>
+            <th>統一編號</th>
+            <th>帳號</th>
+            <th>Email</th>
+            <th>電話</th>
+            <th>狀態</th>
+            <th>城市</th>
+            <th>地區</th>
+            <th>地址</th>
+            <th>商家介紹</th>
+            <th>照片</th>
+            <th>修改</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="cafeVO : ${cafeListData}">
+            <tr>
+                <td th:text="${cafeVOStat.count}"></td>
+                <td th:text="${cafeVO.cafeId}"></td>
+                <td th:text="${cafeVO.name}"></td>
+                <td th:text="${cafeVO.taxId}"></td>
+                <td th:text="${cafeVO.ac}"></td>
+                <td th:text="${cafeVO.email}"></td>
+                <td th:text="${cafeVO.phone}"></td>
+                <td th:text="${cafeVO.state}"></td>
+                <td th:text="${cafeVO.city}"></td>
+                <td th:text="${cafeVO.disc}"></td>
+                <td th:text="${cafeVO.address}"></td>
+                <td th:text="${cafeVO.introduce}"></td>
+                <td>
+                    <img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片">
+                </td>
+                <td>
+                    <form method="post" th:action="@{/cafe/getOne_Update}" style="margin-bottom: 0px;">
+                        <input type="submit" value="修改">
+                        <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}">
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{/cafe/deleteCafe}" style="margin-bottom: 0px;">
+                        <input type="submit" value="刪除">
+                        <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}">
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+    </tbody>
 </table>
 
 </body>

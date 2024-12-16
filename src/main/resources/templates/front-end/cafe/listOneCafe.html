@@ -95,8 +95,10 @@ h3 {
 }
 
 .table img {
-    max-width: 100px;
+    max-width: 150px;
     border-radius: 8px;
+    display: block;
+    margin: 10px auto;
 }
 
 /* 修改按鈕 */
@@ -173,7 +175,9 @@ h3 {
         </tr>
         <tr>
             <th>照片:</th>
-            <td><img th:src="@{/cafe/DBGifReader} + '?cafeId=' + ${cafeVO.cafeId}" alt="咖啡廳照片"></td>
+            <td>
+                <img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片">
+            </td>
         </tr>
     </table>
 </div>
