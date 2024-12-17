@@ -35,19 +35,31 @@ nav .btn-container {
     margin-top: 10px;
 }
 
-nav button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 8px 15px; /* 縮小按鈕 */
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    text-transform: uppercase;
+.navbar .btn {
+	margin-top: 0.5rem;
+	background-color: #c28888;
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
-nav button:hover {
-    background-color: #0056b3;
+ nav button { 
+     background-color: #f2d5d5; 
+     color: purple; 
+     border: none; 
+     padding: 8px 15px; /* 縮小按鈕 */ 
+     border-radius: 4px; 
+     font-size: 14px; 
+     cursor: pointer; 
+     text-transform: uppercase; 
+}
+
+ nav button:hover { 
+     background-color: #f2d5d5; 
 }
 
 /* 表單樣式 */
@@ -79,21 +91,21 @@ form textarea {
     height: 100px;
 }
 
-form button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
+/* form button { */
+/*     width: 100%; */
+/*     margin-top: 20px; */
+/*     padding: 10px; */
+/*     background-color: #007BFF; */
+/*     color: white; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     font-size: 16px; */
+/*     cursor: pointer; */
+/* } */
 
-form button:hover {
-    background-color: #0056b3;
-}
+/* form button:hover { */
+/*     background-color: #0056b3; */
+/* } */
 
 .errormessage {
     color: red;
@@ -119,9 +131,7 @@ form button:hover {
 <nav>
     <h2>商家資料修改</h2>
     <div class="btn-container">
-        <form th:action="@{/cafe/listAllCafe}" method="get" style="display: inline;">
-            <button type="submit">回所有資料</button>
-        </form>
+        <button class="btn" onclick="location.href='/cafe/listAllCafe'">回所有資料</button>
     </div>
 </nav>
 

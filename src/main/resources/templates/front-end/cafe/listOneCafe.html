@@ -2,182 +2,167 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>咖啡廳資料</title>
 <style type="text/css">
 /* 全局樣式 */
 body {
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #c28888;
-    color: #fff;
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #c28888;
+	color: #fff;
 }
 
 /* 導航欄樣式 */
 nav {
-    background-color: #f2d5d5;
-    padding: 0.5rem;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	background-color: #f2d5d5;
+	padding: 0.5rem;
+	text-align: center;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav h2 {
-    font-size: 1.5rem;
-    font-weight: 900;
-    margin: 0;
-    color: #c28888;
+	font-size: 1.5rem;
+	font-weight: 900;
+	margin: 0;
+	color: #c28888;
 }
 
 /* 歡迎區域 */
 .welcome {
-    background-color: #f2d5d5;
-    padding: 20px;
-    margin-top: 80px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	background-color: #c28888;
+	padding: 20px;
+	margin-top: 80px;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.welcome a {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 5px;
-    display: inline-block;
+.navbar .btn {
+	margin-top: 0.5rem;
+	background-color: #c28888;
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
-.welcome a:hover {
-    background-color: #0056b3;
+.navbar .btn:hover {
+	background-color: #a06a6a;
 }
 
 /* 主體內容 */
 .container {
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #333;
+	margin: 20px auto;
+	max-width: 600px;
+	padding: 20px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	color: #333;
 }
 
 h3 {
-    color: #c28888;
-    font-size: 20px;
-    margin-bottom: 15px;
-    text-align: center;
+	color: #c28888;
+	font-size: 20px;
+	margin-bottom: 15px;
+	text-align: center;
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
 .table th, .table td {
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+	text-align: left;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
 }
 
 .table th {
-    font-weight: bold;
-    color: #555;
+	font-weight: bold;
+	color: #555;
 }
 
 .table img {
-    max-width: 150px;
-    border-radius: 8px;
-    display: block;
-    margin: 10px auto;
-}
-
-/* 修改按鈕 */
-.button-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.button-container a {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.button-container a:hover {
-    background-color: #0056b3;
+	max-width: 150px;
+	border-radius: 8px;
+	display: block;
+	margin: 10px;
 }
 </style>
 </head>
 <body>
-<nav>
-    <h2>修改結果</h2>
-</nav>
-<div class="welcome">
-    歡迎 <strong th:text="${cafeVO.ac}"></strong>, <strong th:text="${cafeVO.name}"></strong>
-    <div>
-        <a th:href="@{/cafe/cafeProfile}">回咖啡廳中心</a>
-    </div>
-</div>
-<div class="container">
-    <h3>咖啡廳資料</h3>
-    <table class="table">
-        <tr>
-            <th>名稱:</th>
-            <td th:text="${cafeVO.name}"></td>
-        </tr>
-        <tr>
-            <th>統一編號:</th>
-            <td th:text="${cafeVO.taxId}"></td>
-        </tr>
-        <tr>
-            <th>帳號:</th>
-            <td th:text="${cafeVO.ac}"></td>
-        </tr>
-        <tr>
-            <th>密碼:</th>
-            <td th:text="${cafeVO.pw}"></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td th:text="${cafeVO.email}"></td>
-        </tr>
-        <tr>
-            <th>電話:</th>
-            <td th:text="${cafeVO.phone}"></td>
-        </tr>
-        <tr>
-            <th>城市:</th>
-            <td th:text="${cafeVO.city}"></td>
-        </tr>
-        <tr>
-            <th>地區:</th>
-            <td th:text="${cafeVO.disc}"></td>
-        </tr>
-        <tr>
-            <th>地址:</th>
-            <td th:text="${cafeVO.address}"></td>
-        </tr>
-        <tr>
-            <th>介紹:</th>
-            <td th:text="${cafeVO.introduce}"></td>
-        </tr>
-        <tr>
-            <th>照片:</th>
-            <td>
-                <img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片">
-            </td>
-        </tr>
-    </table>
-</div>
+	<nav class="navbar">
+		<h2>修改結果</h2>
+		<button class="btn" onclick="location.href='/cafe/cafeProfile'">回咖啡廳中心</button>
+	</nav>
+	<br>
+
+	<div class="welcome">
+		歡迎 <strong th:text="${cafeVO.ac}"></strong>, <strong
+			th:text="${cafeVO.name}"></strong>
+	</div>
+	<div class="container">
+		<h3>咖啡廳資料</h3>
+		<table class="table">
+			<tr>
+				<th>名稱:</th>
+				<td th:text="${cafeVO.name}"></td>
+			</tr>
+			<tr>
+				<th>統一編號:</th>
+				<td th:text="${cafeVO.taxId}"></td>
+			</tr>
+			<tr>
+				<th>帳號:</th>
+				<td th:text="${cafeVO.ac}"></td>
+			</tr>
+			<tr>
+				<th>密碼:</th>
+				<td th:text="${cafeVO.pw}"></td>
+			</tr>
+			<tr>
+				<th>Email:</th>
+				<td th:text="${cafeVO.email}"></td>
+			</tr>
+			<tr>
+				<th>電話:</th>
+				<td th:text="${cafeVO.phone}"></td>
+			</tr>
+			<tr>
+				<th>城市:</th>
+				<td th:text="${cafeVO.city}"></td>
+			</tr>
+			<tr>
+				<th>地區:</th>
+				<td th:text="${cafeVO.disc}"></td>
+			</tr>
+			<tr>
+				<th>地址:</th>
+				<td th:text="${cafeVO.address}"></td>
+			</tr>
+			<tr>
+				<th>介紹:</th>
+				<td th:text="${cafeVO.introduce}"></td>
+			</tr>
+			<tr>
+				<th>照片:</th>
+				<td><img th:src="'data:image/jpeg;base64,' + ${cafeVO.base64Img}" alt="咖啡廳照片"></td>
+			</tr>
+
+		</table>
+	</div>
 </body>
 </html>

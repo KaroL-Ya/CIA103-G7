@@ -1,148 +1,172 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>新聞資料新增 - addNews.html</title>
-<style>
-    /* 全局樣式 */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增最新消息</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
-    /* 導航欄樣式 */
-    nav {
-        background-color: #28a745;
-        color: white;
-        text-align: center;
-        padding: 15px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        /* 基本樣式 */
+        body {
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c28888;
+            color: #fff;
+        }
 
-    nav h2, nav h3 {
-        margin: 5px 0;
-    }
+        /* 導覽列樣式 */
+        .navbar {
+            background-color: #f2d5d5;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    nav h3 a {
-        color: white;
-        text-decoration: none;
-    }
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #c28888;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
 
-    nav h3 a img {
-        vertical-align: middle;
-        margin-right: 5px;
-        width: 20px;
-    }
+        .navbar h3 a {
+            color: #c28888;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
 
-    /* 主體樣式 */
-    .container {
-        margin: 100px auto 20px;
-        padding: 20px;
-        max-width: 600px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        text-align: left;
-    }
+        .navbar h3 a:hover {
+            text-decoration: underline;
+        }
 
-    h3 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .navbar h3 img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        
+        .navbar .btn {
+            margin-top: 0.5rem;
+            background-color: #c28888;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    form div {
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+        /* 主體內容區 */
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    form label {
-        width: 120px;
-        font-weight: bold;
-        color: #555;
-    }
+        .container h3 {
+            text-align: center;
+            color: #c28888;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    form input[type="text"], form input[type="date"], form textarea {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-    }
+        form div {
+            margin-bottom: 15px;
+        }
 
-    form textarea {
-        resize: vertical;
-        height: 100px;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    form .error {
-        color: red;
-        font-size: 12px;
-        margin-top: 5px;
-    }
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
 
-    /* 按鈕樣式 */
-    button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-    }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
 
-    button:hover {
-        background-color: #0056b3;
-    }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
 
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-</style>
+        /* 按鈕樣式 */
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-    <h2>新聞資料新增 - addNews.html</h2>
+<nav class="navbar">
+    <h2>新增最新消息</h2>
     <h3>
-        <a th:href="@{/news/selectNews}">
-            <img th:src="@{/images/back1.gif}" alt="返回">
-            回新聞列表
-        </a>
+        <button class="btn" onclick="location.href='/news/selectNews'">回新聞管理</button>
     </h3>
 </nav>
 
 <div class="container">
     <h3><b>所有欄位皆為必填欄位</b></h3>
-    <form th:action="@{insert}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
+    <form th:action="@{/news/insert}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
         <div>
-            <label>新聞標題:</label>
-            <input type="text" th:field="*{title}" onclick="hideContent('title.errors');" />
+            <label for="title">新聞標題:</label>
+            <input type="text" id="title" th:field="*{title}" onclick="hideContent('title.errors');" />
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error" id="title.errors"></span>
         </div>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error" id="title.errors"></span>
 
         <div>
-            <label>新聞內容:</label>
-            <textarea th:field="*{content}" onclick="hideContent('content.errors');"></textarea>
+            <label for="content">新聞內容:</label>
+            <textarea id="content" th:field="*{content}" onclick="hideContent('content.errors');"></textarea>
+            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error" id="content.errors"></span>
         </div>
-        <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error" id="content.errors"></span>
+        
+        <div>
+            <label>狀態:</label>
+            <select th:field="*{status}">
+                <option value="0" th:selected="*{status == 0}">未發布</option>
+                <option value="1" th:selected="*{status == 1}">已發布</option>
+            </select>
+            <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error" id="status.errors"></span>
+        </div>
 
         <div>
-            <label>發布日期:</label>
-            <input type="date" th:field="*{time}" onclick="hideContent('time.errors');" />
+            <label for="time">發布日期:</label>
+            <input type="date" id="time" th:field="*{time}" onclick="hideContent('time.errors');" />
+            <span th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="error" id="time.errors"></span>
         </div>
-        <span th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="error" id="time.errors"></span>
 
         <div class="button-container">
             <button type="submit">送出新增</button>
