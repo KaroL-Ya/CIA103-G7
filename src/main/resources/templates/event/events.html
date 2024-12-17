@@ -101,9 +101,9 @@
             </thead>
             <tbody>
                 <tr th:each="event : ${events}">
-                    <td th:text="${event.title}"></td>
-                    <td th:text="${event.location}"></td>
-                    <td th:text="${event.date}"></td>
+                    <td th:text="${event.evename}"></td>
+                    <td th:text="${event.loc}"></td>
+                    <td th:text="${event.dat}"></td>
                     <td class="actions">
                         <form th:action="@{/events/details/{id}(id=${event.id})}" method="get">
                             <button type="submit">查看詳情</button>
