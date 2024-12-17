@@ -95,17 +95,16 @@ public class LookCafeController {
         return "front-end/lookcafe/lookCafe";
     }
 
-}
-
-	
-
 // ============查詢
-//    @PostMapping("/listCafe_ByCompositeQuery")
-//    public String listAllCafe(HttpServletRequest req, Model model) {
-//        Map<String, String[]> map = req.getParameterMap();
-//        List<LookCafeVO> list = lookCafeService.getAll(map);
+    @PostMapping("/listCafe_ByCompositeQuery")
+    public String listAllCafe(HttpServletRequest req, Model model) {
+        Map<String, String[]> map = req.getParameterMap();
+        List<LookCafeVO> list = lookCafeService.getAll(map);
 
-//        convertImgToBase64(list);
-//
-//        model.addAttribute("cafes", list);
-//        return "front-end/cafe/lookCafe"; 
+        convertImgToBase64(list);
+
+        model.addAttribute("cafes", list);
+        return "front-end/lookcafe/lookCafe"; 
+    }
+}
+    
