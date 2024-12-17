@@ -72,9 +72,9 @@
 		<form th:action="@{/admin_money}" method="get">
 			<button type="submit" class="money_manage">檢視營收</button>
 		</form>
-		<form action="#" method="post">
-			<button type="submit" class="log_out">登出</button>
-		</form>
+		<form th:action="@{/logout}" method="post" th:if="${session.admin_Name != null}">
+             <button type="submit" class="log_out">登出</button>
+        </form>
 	</header>
 
 

@@ -81,6 +81,7 @@ public class AdminController {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始查詢資料 *****************************************/
 		AdminVO adminVO = adminSvc.getOneAdmin(Integer.valueOf(admin_Id));
+//		System.out.println(adminVO.getAdmin_Func());
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("adminVO", adminVO);
 		return "back-end/admin/update_admin_input"; // 查詢完成後轉交update_admin_input.html
@@ -93,7 +94,7 @@ public class AdminController {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
 		result = removeFieldError(adminVO, result, "admin_Img");
-
+//		System.out.println(adminVO.getAdmin_Func());
 		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
 			byte[] upFiles = adminSvc.getOneAdmin(adminVO.getAdmin_Id()).getAdmin_Img();
 			adminVO.setAdmin_Img(upFiles);
@@ -106,6 +107,7 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "back-end/admin/update_admin_input";
 		}
+		
 		/*************************** 2.開始修改資料 *****************************************/
 		adminSvc.updateAdmin(adminVO);
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
@@ -201,6 +203,7 @@ public class AdminController {
 			return "back-end/admin/update_adminauth_input";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
+		
 		adminSvc.deleteAdminAuth(adminVO.getAdmin_Id());
 		
 		adminSvc.addAdminAuth(adminVO.getAdmin_Id(), admin_Func);

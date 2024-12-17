@@ -88,7 +88,7 @@ public class AdminLoginFilter implements Filter {
             return 3; // 商家管理
         }
         // 商城管理頁面
-        else if (uri.matches(".*/back-end/shop/.*")) {
+        else if (uri.matches(".*/back-end/mall/.*")) {
             return 4; // 商城管理
         }
         // 活動管理頁面
@@ -96,8 +96,12 @@ public class AdminLoginFilter implements Filter {
             return 5; // 活動管理
         }
         // 論壇管理頁面
-        else if (uri.matches(".*/back-end/news/.*")) {
+        else if (uri.matches(".*/back-end/forum/.*")) {
             return 6; // 論壇管理
+        }
+        
+        else if (uri.matches(".*/back-end/news/.*")) {
+            return 7; // 最新消息管理
         }
         
         // 若沒有對應功能 ID，則返回 null

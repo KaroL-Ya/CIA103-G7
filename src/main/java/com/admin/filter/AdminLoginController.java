@@ -59,7 +59,7 @@ public class AdminLoginController {
 						funcIds.add(auth.getFunc_Id());
 					}
 					// 定義所有功能編號
-	                List<Integer> allFuncIds = Arrays.asList(1, 2, 3, 4, 5, 6);
+	                List<Integer> allFuncIds = Arrays.asList(1, 2, 3, 4, 5, 6,7);
 	                //
 	                for(Integer funcId : funcIds) {
 	                	if(allFuncIds.contains(funcId)) {
@@ -70,7 +70,7 @@ public class AdminLoginController {
 	                		session.setAttribute("pm"+funcId, funcId);
 	                	}
 	                }
-					return "back-end/admin/backend_index";
+					return "back-end/backhome";
 				} else {
 					// 登入失敗
 					model.addAttribute("error", "帳號尚未開通");
@@ -102,6 +102,7 @@ public class AdminLoginController {
 		session.removeAttribute("pm4");
 		session.removeAttribute("pm5");
 		session.removeAttribute("pm6");
+		session.removeAttribute("pm7");
 //		session.invalidate(); // 使 Session 無效
 		return "redirect:/back-end"; // 登出後，重新導向到登入頁面
 	}
@@ -118,6 +119,7 @@ public class AdminLoginController {
 		session.removeAttribute("pm4");
 		session.removeAttribute("pm5");
 		session.removeAttribute("pm6");
+		session.removeAttribute("pm7");
 //		session.invalidate(); // 使 Session 無效
 		return "redirect:/back-end"; // 登出後，重新導向到登入頁面
 	}

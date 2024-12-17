@@ -52,12 +52,12 @@ public class MyController {
 	public String home(ModelMap model) {
 		return "Home_Page"; // Thymeleaf 頁面名稱
 	}
-
-//春澔加的後台首頁
-	@GetMapping("/backhome")
-	public String backhome(ModelMap model) {
-		return "back-end/BackHome"; // Thymeleaf 頁面名稱
-	}
+	
+	//春澔加的後台首頁    // 柏改的
+		@GetMapping("/back-end/backhome")
+		public String backhome(ModelMap model) {
+			return "back-end/BackHome"; // Thymeleaf 頁面名稱
+		}
 	
 	@GetMapping("/myTestAll")
 	public String myTestAll(ModelMap model) {
@@ -189,7 +189,7 @@ public class MyController {
 	}
 
 	// 後台管理
-	@GetMapping("/admin_order")
+	@GetMapping("/back-end/mall/admin_order")
 	public String admin_orderManagement(ModelMap model) {
 		model.addAttribute("OrderList", ordersService.getAll());
 //		model.addAttribute("cafeOrderList", ordersService.getAllByCafe());

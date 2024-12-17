@@ -24,7 +24,7 @@ import com.forum.service.PostMessageService;
 import com.forum.service.PostService;
 
 @Controller
-@RequestMapping("/forum")
+//@RequestMapping("/forum")
 public class PostController {
     
     @Autowired
@@ -37,7 +37,7 @@ public class PostController {
     private HttpSession session;
 
 
-    @GetMapping("")
+    @GetMapping("/forum")
     public String forum(Model model, 
                         @RequestParam(defaultValue = "0") int page, 
                         @RequestParam(defaultValue = "5") int size) {
@@ -66,7 +66,7 @@ public class PostController {
 //    }
 
         
-    @GetMapping("/postManage") // 查詢論壇管理
+    @GetMapping("/back-end/forum/postManage") // 查詢論壇管理
     public String postManage(Model model) {
         List<PostVO> posts = postService.getAllPosts(); // 
         model.addAttribute("posts", posts);
@@ -93,7 +93,7 @@ public class PostController {
 
 
 
-    @GetMapping("/create") // 顯示新增貼文頁面
+    @GetMapping("/forum/create") // 顯示新增貼文頁面
     public String createPostPage(Model model) {
 //        Integer cafeId = (Integer) session.getAttribute("cafeId"); // 從 session 中獲取咖啡廳編號
 //        model.addAttribute("cafeId", cafeId);
@@ -108,7 +108,7 @@ public class PostController {
         return "forward:/WEB-INF/views/createPost.jsp"; // 返回新增貼文頁面
     }
     
-    @GetMapping("/post")
+    @GetMapping("/forum/post")
     public String getPost(@RequestParam(required = false) Integer id, Model model) {
         if (id == null) {
             return "redirect:/error"; // 假設有一個錯誤頁面
@@ -131,7 +131,7 @@ public class PostController {
         return "forward:/forum";
     }
     
-    @GetMapping("/update/{id}")
+    @GetMapping("/forum/update/{id}")
     public String toUpdatePost(@PathVariable("id") Integer postId, Model model) {
     	PostVO post = postService.getPostById(postId);
     	model.addAttribute("post", post);
@@ -143,7 +143,7 @@ public class PostController {
     
 
     
-    @PostMapping("/update")
+    @PostMapping("/forum/update")
     public String updatePost(@RequestParam Integer id, @RequestParam String title, @RequestParam String content) {
         PostVO post = postService.getPostById(id);
         if (post == null) {
@@ -163,7 +163,7 @@ public class PostController {
         return "redirect:/forum"; // 重定向到更新後的貼文頁面
     }
     
-    @PostMapping("/create") // 創建貼文
+    @PostMapping("/forum/create") // 創建貼文
     public String createPost(@ModelAttribute PostVO post) {
     	System.out.println((Integer)session.getAttribute("mem_Id"));
 //    	System.out.println((Integer)session.getAttribute("cafe_Id"));
@@ -174,13 +174,13 @@ public class PostController {
         return "redirect:/forum"; // 重定向到首頁
     }
 
-    @PostMapping("/delete") // 刪除貼文
+    @PostMapping("/forum/delete") // 刪除貼文
     public String deletePost(Integer id) {
         postService.deletePost(id);
         return "redirect:/forum/postManage"; // 重定向到首頁
     }
     
-    @PostMapping("/like") // 按讚功能
+    @PostMapping("/forum/like") // 按讚功能
     public String likePost(@RequestParam Integer postId) {
         // 取得目前的會員 ID
         Integer memId = (Integer) session.getAttribute("mem_Id");

@@ -110,7 +110,7 @@
    <th>照片</th>
    <th>部門</th>
    <th>修改</th>
-   <th>刪除</th>
+<!--    <th>刪除</th> -->
 </tr>
 </thead>
 
@@ -130,11 +130,11 @@
             <input type="submit" value="修改">
             <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form>
        </td>
-       <td>
-         <form method="post" th:action="@{/back-end/admin/delete}" style="margin-bottom: 0px;">
-            <input type="submit" value="刪除">
-            <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form>
-       </td>
+<!--        <td> -->
+<!--          <form method="post" th:action="@{/back-end/admin/delete}" style="margin-bottom: 0px;"> -->
+<!--             <input type="submit" value="刪除"> -->
+<!--             <input type="hidden" name="admin_Id" th:value="${adminVO.admin_Id}"></form> -->
+<!--        </td> -->
        </tr>
    </th:block>
 </tbody>
