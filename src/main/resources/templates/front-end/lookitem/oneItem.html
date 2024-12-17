@@ -242,10 +242,10 @@ body {
 			</div>
 			<div class="buttons">
 
-				<button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-				<input type="text" id="quantity" class="quantity-input" value="1"
-					readonly>
-				<button class="quantity-btn" onclick="increaseQuantity()">+</button>
+<!-- 				<button class="quantity-btn" onclick="decreaseQuantity()">-</button> -->
+<!-- 				<input type="text" id="quantity" class="quantity-input" value="1" -->
+<!-- 					readonly> -->
+<!-- 				<button class="quantity-btn" onclick="increaseQuantity()">+</button> -->
 
 				<form th:action="@{/cart/addCart}" method="post">
 					<input type="hidden" name="itemId" th:value="${item.itemId}">
