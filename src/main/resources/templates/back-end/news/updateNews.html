@@ -1,118 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>新聞資料修改 - updateNews.html</title>
-<style>
-    /* 全局樣式 */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息修改</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
-    /* 導航欄樣式 */
-    nav {
-        background-color: #28a745;
-        padding: 15px;
-        color: white;
-        text-align: center;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        /* 全局樣式 */
+        body {
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c28888;
+            color: #fff;
+        }
 
-    nav h2, nav h3 {
-        margin: 5px 0;
-    }
+        /* 導航欄樣式 */
+        .navbar {
+            background-color: #f2d5d5;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    nav h3 a {
-        color: white;
-        text-decoration: none;
-    }
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #c28888;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
 
-    nav h3 a img {
-        vertical-align: middle;
-        margin-right: 5px;
-        width: 20px;
-    }
+        .navbar h3 a {
+            color: #c28888;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
 
-    /* 表單樣式 */
-    form {
-        margin-top: 100px;
-        max-width: 600px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .navbar h3 a:hover {
+            text-decoration: underline;
+        }
 
-    form div {
-        margin-bottom: 15px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-    }
+        .navbar h3 img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        
+        .navbar .btn {
+            margin-top: 0.5rem;
+            background-color: #c28888;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    form label {
-        width: 120px;
-        font-weight: bold;
-    }
+        /* 表單樣式 */
+        form {
+            margin: 2rem auto;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
 
-    form input[type="text"], form input[type="date"], form select, form textarea {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-    }
+        form div {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
 
-    form textarea {
-        resize: vertical;
-        height: 100px;
-    }
+        form label {
+            width: 120px;
+            font-weight: bold;
+        }
 
-    form span.error {
-        color: red;
-        font-size: 12px;
-        margin-left: 10px;
-    }
+        form input[type="text"],
+        form input[type="date"],
+        form select,
+        form textarea {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-    /* 按鈕樣式 */
-    button {
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-    }
+        form textarea {
+            resize: vertical;
+            height: 100px;
+        }
 
-    button:hover {
-        background-color: #0056b3;
-    }
+        form span.error {
+            color: red;
+            font-size: 12px;
+            margin-left: 10px;
+        }
 
-    /* 居中樣式 */
-    .center {
-        margin: 0 auto;
-        text-align: center;
-    }
-</style>
+        /* 按鈕樣式 */
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 標題區域 */
+        .center h3 {
+            font-size: 1.5rem;
+            color: #c28888;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-    <h2>新聞資料修改 - updateNews.html</h2>
+<nav class="navbar">
+    <h2>最新消息修改</h2>
     <h3>
-        <a th:href="@{/news/listAllNews}">
-            <img th:src="@{/images/back1.gif}" alt="返回">
-            返回新聞列表
-        </a>
+        <button class="btn" onclick="location.href='/news/listAllNews'">回所有消息列表</button>
     </h3>
 </nav>
 
@@ -120,21 +146,21 @@
     <h3><b>所有欄位皆為必填欄位</b></h3>
     <form th:action="@{update}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
         <div>
-            <label>新聞編號:</label>
+            <label>消息編號:</label>
             <input type="text" th:field="*{newsId}" readonly style="border: none; font-weight: bold;" />
         </div>
 
         <div>
-            <label>新聞標題:</label>
+            <label>消息標題:</label>
             <input type="text" th:field="*{title}" onclick="hideContent('title.errors');" />
             <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error" id="title.errors"></span>
         </div>
 
         <div>
-            <label>新聞狀態:</label>
+            <label>狀態:</label>
             <select th:field="*{status}">
-                <option value="0" th:text="'未發布'" th:if="*{status == 0}"></option>
-                <option value="1" th:text="'已發布'" th:if="*{status == 1}"></option>
+                <option value="0" th:selected="*{status == 0}">未發布</option>
+                <option value="1" th:selected="*{status == 1}">已發布</option>
             </select>
             <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error" id="status.errors"></span>
         </div>
@@ -158,8 +184,11 @@
 </div>
 
 <script>
-    function hideContent(d) {
-        document.getElementById(d).style.display = "none";
+    function hideContent(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = "none";
+        }
     }
 </script>
 

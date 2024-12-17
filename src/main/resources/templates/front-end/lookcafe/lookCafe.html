@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>咖啡廳瀏覽</title>
+
+<!-- 引入CSS和JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
+
+<!-- jquery datatables 設定 -->
+
+
+
+<style type="text/css">
+/*  CSS  */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.nav-bar {
+	background-color: #c28888;
+	color: rgb(117, 88, 9);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+}
+
+nav ul li {
+	margin: 0 15px;
+}
+
+nav ul li a {
+	text-decoration: none;
+}
+
+.product-list {
+	padding: 60px;
+}
+
+/* 商品容器 */
+.products {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 三列 */
+	grid-gap: 10px; /* 商品間距 */
+	flex-wrap: wrap; /* 如果螢幕較窄會自動換行 */
+	justify-content: space-around; /* 平均分配空間 */
+}
+
+.product {
+	border: 1px solid #ccc;
+	padding: 20px;
+	text-align: center;
+	box-sizing: border-box;
+	width: 270px;  /* 設置合理寬度 */
+    height: 370px;  /* 自動調整高度 */
+	
+}
+
+/* 商品圖片 */
+.product img {
+	width: 240px;
+	height: 180px;
+	object-fit: cover; /* 保持比例 */
+}
+
+/* 商品名稱、詳情 */
+.product h3 {
+	font-size: 25px;
+	color: brown;
+}
+
+.product-list {
+	max-height: 80vh;
+	overflow-y: auto; /* 垂直滾動 */
+}
+
+button {
+	background-color: #6F4F28;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px; /* 圓角 */
+}
+
+button:hover {
+	background-color: #e60012; /* 滑鼠懸停時顏色變換 */
+}
+
+* {
+	box-sizing: border-box;
+}
+
+ul.list>li>a.link_title button.switch_btn span.-minus {
+	display: none;
+}
+
+ul.list>li>div.inner_block {
+	font-size: 18px;
+	color: #4a4a4a;
+	margin-top: 8px;
+	padding: 0 40px;
+	line-height: 1.6;
+	display: none;
+}
+
+ul.list>li.-on>a.link_title button.switch_btn span.-plus {
+	display: none;
+}
+
+ul.list>li.-on>a.link_title button.switch_btn span.-minus {
+	display: inline-blrgb(202, 101, 0)
+}
+
+/* 去掉列表的黑點並使其水平排列 */
+.nav_list {
+	display: flex; /* 水平排列 */
+	padding: 0; /* 去掉內邊距 */
+	margin: 0; /* 去掉外邊距 */
+	list-style-type: none; /* 去掉黑點 */
+}
+
+/* 每個列表項目的間距 */
+.nav_list li {
+	margin-right: 20px; /* 控制列表項目的間距 */
+}
+
+/* 連結文字樣式 */
+.nav-link {
+	color: #f2d5d5;
+	font-size: 20px;
+	padding: 10px;
+	text-decoration: none;
+	transition: font-size 0.5s ease; /* 平滑過渡效果 */
+}
+
+/* 滑鼠懸停時字體變大 */
+.nav-link:hover {
+	font-size: 24px;
+	color: rgb(255, 255, 0);
+}
+
+/* 圖標容器 (水平排列) */
+.container {
+	display: flex;
+	align-items: center; /* 垂直置中 */
+	gap: 15px; /* 控制間距 */
+}
+
+/* 搜尋圖示及購物車圖示樣式 */
+.container a svg, .search-container button svg {
+	width: 30px; /* 圖示寬度 */
+	height: 30px; /* 圖示高度 */
+	fill: black; /* 預設顏色 */
+	transition: fill 0.3s ease; /* 平滑變色效果 */
+	cursor: pointer; /* 鼠標變為可點擊手勢 */
+}
+
+/* 滑鼠懸停時的變色效果 */
+.container a:hover svg, .search-container button:hover svg {
+	fill: #ff9900;
+}
+
+/* 搜尋按鈕樣式 (透明背景) */
+.search-container button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0; /* 移除內邊距 */
+}
+/* 搜尋容器樣式 (靠右對齊) */
+.search-container {
+	display: flex;
+	justify-content: flex-end; /* 內容靠右 */
+	align-items: center;
+	gap: 10px; /* 搜尋框和按鈕間距 */
+	width: 100%; /* 保證容器撐滿寬度 */
+	box-sizing: border-box;
+	padding-right: 0px; /* 靠右的邊距調整 */
+}
+
+/* 搜尋框樣式 */
+.search-container input {
+	padding: 8px 12px; /* 內邊距 */
+	border-radius: 15px; /* 圓角 */
+	outline: none; /* 點擊時移除預設外框 */
+	width: 150px; /* 搜尋框寬度，可調整 */
+	transition: border-color 0.5s ease;
+	align-items: center;
+}
+
+</style>
+</head>
+
+<body>
+	<header>
+		<div class="nav-bar">
+			<a href="/lookCafe">
+				<h1>咖啡廳瀏覽</h1>
+			</a>
+
+			<ul class="nav_list">
+				<li><a href="/" class="nav-link">首頁</a></li>
+				<li><a href="#" class="nav-link">最新消息</a></li>
+				<li><a href="/lookItem" class="nav-link">商城</a></li>
+				<li><a href="#" class="nav-link">活動列表</a></li>
+				<li><a href="/forum" class="nav-link">論壇</a></li>
+
+			</ul>
+
+			<!-- 			放入 SVG 圖示 -->
+
+			<form method="post"
+				th:action="@{/lookCafe/listCafe_ByCompositeQuery}"
+				onsubmit="return validateForm()">
+				<div class="search-container">
+					<input type="text" name="name" id="name" placeholder="搜尋商品名稱">
+					<button type="submit">
+
+						<!-- 放入 SVG 圖示 -->
+						<svg xmlns="http://www.w3.org/2000/svg" height="20px"
+							viewBox="0 -960 960 960" width="24px" fill="#000000">
+            <path
+								d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+        			</svg>
+					</button>
+
+
+				</div>
+			</form>
+
+			<div class="container">
+				<a href="/login"> <svg xmlns="http://www.w3.org/2000/svg"
+						height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+        <path
+							d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+   			</svg>
+
+				</a>
+			</div>
+	</header>
+
+	<main>
+		<section class="product-list">
+			<h2>咖啡廳瀏覽</h2>
+
+			<!-- 商品 -->
+			<div class="products">
+
+				<!-- 				用 Thymeleaf 迴圈顯示商品列表 -->
+
+				<div th:each="cafe : ${cafes}" class="product">
+
+					<img th:src="'data:image/jpeg;base64,' + ${cafe.base64Img}"
+						alt=" Image" />
+
+					<h3 th:text="${cafe.name}"></h3>
+
+					<p th:text="${cafe.city}"></p>
+					<!-- <p class="price" th:text="'$' + ${item.price}"></p> -->
+					
+					<form
+							th:action="@{lookCafe/oneCafe/{cafeId}(cafeId=${cafe.cafeId})}"
+							method="get">
+							<button type="submit">查看詳情</button>
+						</form>
+					
+
+				</div>
+			</div>
+
+		</section>
+	</main>
+	
+		<script>
+
+		//搜尋不搜尋彈窗
+		function validateForm() {
+			var name = document.getElementById('name').value;
+			if (name === "") {
+				alert("請輸入店名或地區！");
+				return false;
+			}
+			return true;
+		}
+	</script>
+
+
+
+</body>
+</html>

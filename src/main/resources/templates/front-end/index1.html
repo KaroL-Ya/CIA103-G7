@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>咖啡廳首頁</title>
+    <title>商家首頁</title>
     <link href="./images/cafe_icon.png" rel="shortcut icon">
     <style>
         @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
@@ -16,95 +15,90 @@
         body {
             margin: 0;
             font-family: "Source Sans Pro", Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #f2d5d5; /* 背景顏色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        header {
-            height: 60px;
-            position: sticky;
-            top: 0;
+        .container {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 48px; /* 字體大小 */
+            font-weight: 900;
+            color: #c28888;
+            margin-bottom: 30px;
+        }
+
+        .welcome {
+            font-size: 48px; /* 與標題一致 */
+            font-weight: 900;
+            color: #c28888;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .button-container button, .button-container a {
             background-color: #c28888;
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-left .title {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-right a, .header-right button {
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            background-color: #a06a6a;
             border: none;
-            padding: 5px 10px;
+            font-size: 18px; /* 統一按鈕字體大小 */
+            font-weight: bold;
+            padding: 15px 40px; /* 確保按鈕大小一致 */
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
+            width: 250px; /* 固定按鈕寬度 */
         }
 
-        .header-right a:hover, .header-right button:hover {
-            background-color: #7bd0c1;
-        }
-
-        .header-right form {
-            margin: 0;
-        }
-
-        .header-right .uco button {
-            background-color: #007bff;
-        }
-
-        .header-right .uco button:hover {
-            background-color: #0056b3;
+        .button-container button:hover, .button-container a:hover {
+            background-color: #a06a6a;
         }
     </style>
 </head>
 <body>
-	<header>
-		<div class="header-left">
-			<label class="title">咖啡廳首頁</label>
-		</div>
-		<div class="header-right">
-			<span th:if="${session.ac == null}"><a
-				th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a></span><br> <span
-				th:if="${session.ac != null}">歡迎, <span
-				th:text="${session.ac}"></span></span> <a th:href="@{/cafe/cafeProfile}"
-				th:if="${session.ac != null}">會員中心</a>
-
-			<form th:action="@{/item}" method="get">
-				<button type="submit" class="item_manage">商品管理</button>
-			</form>
-			<form th:action="@{/cafe_order}" method="get">
-				<button type="submit" class="order_manage">訂單管理</button>
-			</form>
-			<form th:action="@{/cafe_money}" method="get">
-				<button type="submit" class="money_manage">檢視營收</button>
-			</form>
-			<form th:action="@{/cco/select_page}" method="get">
-				<button type="submit" class="uco_manage">商家優惠券</button>
-			</form>
-
-			<form th:action="@{/cafe/cafe_logout}" method="get"
-				th:if="${session.ac != null}">
-				<button type="submit">登出</button>
-			</form>
-		</div>
-	</header>
-
+    <div class="container">
+        <div class="title">商家首頁</div>
+        <div class="welcome">
+            <span th:if="${session.ac != null}">歡迎, <span th:text="${session.ac}"></span></span>
+        </div>
+        <div class="button-container">
+            <span th:if="${session.ac == null}">
+                <a th:href="@{/cafe/cafeLogin}">商家登入 | 註冊</a>
+            </span>
+            <span th:if="${session.ac != null}">
+                <a th:href="@{/cafe/cafeProfile}">會員中心</a>
+            </span>
+            <br>
+            <form th:action="@{/}" method="get">
+                <button type="submit" class="HOME_manage">首頁</button>
+            </form>
+            <form th:action="@{/item}" method="get">
+                <button type="submit" class="item_manage">商品管理</button>
+            </form>
+            <form th:action="@{/cafe_order}" method="get">
+                <button type="submit" class="order_manage">訂單管理</button>
+            </form>
+            <form th:action="@{/cafe_money}" method="get">
+                <button type="submit" class="money_manage">檢視營收</button>
+            </form>
+            <form th:action="@{/cco/select_page}" method="get">
+                <button type="submit" class="uco_manage">商家優惠券</button>
+            </form>
+            <form th:action="@{/cafe/cafe_logout}" method="get" th:if="${session.ac != null}">
+                <button type="submit">登出</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

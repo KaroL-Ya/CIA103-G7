@@ -86,5 +86,10 @@ public class NewsVO implements java.io.Serializable {
 		this.content = content;
 	}
 
+//	@Override
+//    public String toString() {
+//        return "NewsVO [newsId=" + newsId + ", title=" + title + ", time=" + time + ", status=" + status + ", content=" + content +
+//                 "]";
+//    }
 
 }

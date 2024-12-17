@@ -110,26 +110,5 @@ public class MemberService {
     public void updateForGotPw(String pw,String email) {
     	repository.updateForGotPw(pw, email);
     }
-    
-//  public String checkLogin(String ac,String pw) {
-//	String msg = "";
-//    List<String> allAc = repository.findByAc();
-//    String getOnePw = repository.findGetOneByPw(ac);
-//    MemberVO memberVO = repository.useAcFindId(ac);
-//    System.out.println(memberVO);
-//    for(String pk : allAc) {
-//    	if(pk.equals(ac)) {
-//    		if(pw.equals(getOnePw)) {
-//    			return "符合";
-//    		}else {
-//    			return "密碼有錯";
-//    		}
-//    	}else {
-//    		return "查無此帳號";
-//    	}
-//    }
-//	return null;	
-//
-//}
 
 }

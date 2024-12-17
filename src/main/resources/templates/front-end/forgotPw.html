@@ -69,6 +69,11 @@
                 width: 200px;
                 font-size: 16px;
                 margin: 15px 0px;
+                background-color:#ff6f91;
+                color:white;
+                border-radius: 8px;
+                cursor: pointer;
+/*                 border:none;  */
             }
 
             h2 {
@@ -99,7 +104,7 @@
 	<div align="center">
 		<form th:action="@{/sendPTPw}" method="post" name="forgotPw">
 			<input type="text" name="email" placeholder="請輸入已經驗證過的電子郵件"><br>
-			<button type="submit">信箱驗證</button>
+			<button type="submit">提交</button>
 			<p th:text="${error}" style=color:red></p>
 		</form>
 	</div>

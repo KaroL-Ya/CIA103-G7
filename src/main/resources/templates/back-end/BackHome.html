@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理首頁</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Source Sans Pro", Arial, sans-serif;
+            background-color: #f2d5d5; /* 背景顏色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 48px; /* 字體大小 */
+            font-weight: 900;
+            color: #c28888;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .button-container button, .button-container a {
+            background-color: #c28888;
+            color: white;
+            border: none;
+            font-size: 18px; /* 統一按鈕字體大小 */
+            font-weight: bold;
+            padding: 15px 40px; /* 確保按鈕大小一致 */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            width: 250px; /* 固定按鈕寬度 */
+        }
+
+        .button-container button:hover, .button-container a:hover {
+            background-color: #a06a6a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">後台管理首頁</div>
+        <div class="button-container">
+            <form th:action="@{/}" method="get">
+                <button type="submit">平台管理</button>
+            </form>
+            <form th:action="@{/}" method="get">
+                <button type="submit">會員管理</button>
+            </form>
+            <form th:action="@{/}" method="get">
+                <button type="submit">商城管理</button>
+            </form>
+            <form th:action="@{/}" method="get">
+                <button type="submit">活動管理</button>
+            </form>
+            <form th:action="@{/}" method="get">
+                <button type="submit">論壇管理</button>
+            </form>
+            <form th:action="@{/}" method="get">
+                <button type="submit">最新消息管理</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
