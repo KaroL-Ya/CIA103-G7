@@ -184,7 +184,14 @@ a:hover {
         </form>
     </div>
     <div>
-    	<a th:href="@{memOrder/memOrder}">查看我的訂單</a>
+
+
+<a th:href="@{/memOrder/memOrder/{memId}(memId=${memId})}">查看我的訂單</a>
+
+
+
+
+
     </div>
 </body>
 </html>

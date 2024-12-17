@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @Service
 public class ItemReportService {
 
@@ -37,4 +39,6 @@ public class ItemReportService {
 
 		return repository.findAll();
 	}
+	
+
 }
