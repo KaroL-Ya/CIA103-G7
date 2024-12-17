@@ -10,6 +10,51 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/forum.css}" rel="stylesheet" />
+    
+    <style>
+        @charset "UTF-8";
+        /* 自訂的論壇 CSS 修改 */
+
+        :root {
+            --bs-primary: #007bff; /* 主要顏色 */
+            --bs-success: #28a745; /* 成功顏色 */
+            --bs-danger: #dc3545; /* 危險顏色 */
+            --bs-warning: #ffc107; /* 警告顏色 */
+            --bs-info: #17a2b8; /* 資訊顏色 */
+            --bs-light: #f8f9fa; /* 淺色 */
+            --bs-dark: #343a40; /* 深色 */
+            --bs-light-brown: #d7c4b1; /* 淺咖啡色 */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* 更新的字型 */
+            background-color: var(--bs-light-brown); /* 淺咖啡色背景 */
+            color: var(--bs-dark); /* 深色文字 */
+        }
+
+        .navbar {
+            background-color: var(--bs-dark); /* 導航欄顏色 */
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--bs-light); /* 導航欄文字顏色 */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--bs-warning); /* 導航欄連結懸停顏色 */
+        }
+
+        .card {
+            border: 1px solid var(--bs-dark); /* 卡片邊框顏色 */
+        }
+
+        .card-header {
+            background-color: var(--bs-primary); /* 卡片標題背景 */
+            color: var(--bs-light); /* 卡片標題文字顏色 */
+        }
+
+        /* 其他樣式... */
+    </style>
 </head>
 <body>
     <!-- Responsive navbar-->
@@ -31,8 +76,11 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/">首頁</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">登出</a></li>
+                 
                 </ul>
+                 <form th:action="@{/mlogout}" method="post" th:if="${session.mem_Id != null}"th:href="forum">
+                <button type="submit">登出</button>
+            </form>
             </div>
         </div>
     </nav>
@@ -91,10 +139,10 @@
             </div>
         </div>
 
-        <div class="pagination-wrapper">
+       <div class="pagination-wrapper">
     <nav aria-label="Page navigation">
       <ul class="custom-pagination">
-        <!-- Previous Button -->
+        <!-- 上一頁按鈕 -->
         <li>
           <a class="page-link"
              th:href="@{/forum(sortBy=${sortBy}, page=${currentPage - 1}, size=${size})}"
@@ -103,19 +151,22 @@
           </a>
         </li>
 
-        <!-- Page Numbers -->
-        <li th:if="${totalPages > 1}" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+        <!-- 頁碼 -->
+        <li th:if="${totalPages > 1}" th:each="pageNum : ${#numbers.sequence(0, totalPages-1 )}">
           <a class="page-link"
              th:href="@{/forum(sortBy=${sortBy}, page=${pageNum}, size=${size})}"
-             th:classappend="${pageNum == currentPage} ? 'active'"
-             th:text="${pageNum + 1}">
+             th:classappend="${pageNum == currentPage} ? 'active'">
+             <!-- 顯示頁碼 -->
+             <span th:text="${pageNum + 1}"></span>
           </a>
         </li>
+
+        <!-- 只有一頁時顯示 -->
         <li th:if="${totalPages == 1}">
           <span class="page-link active">1</span>
         </li>
 
-        <!-- Next Button -->
+        <!-- 下一頁按鈕 -->
         <li>
           <a class="page-link"
              th:href="@{/forum(sortBy=${sortBy}, page=${currentPage + 1}, size=${size})}"
@@ -125,7 +176,8 @@
         </li>
       </ul>
     </nav>
-  </div>
+</div>
+
   </div>
 
 

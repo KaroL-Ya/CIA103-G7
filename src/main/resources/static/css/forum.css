@@ -3,7 +3,7 @@
 * Start Bootstrap - Blog Home v5.0.9 (https://startbootstrap.com/template/blog-home)
 * Copyright 2013-2023 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-blog-home/blob/master/LICENSE)
-*/
+*/t
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -77,6 +77,80 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+}
+.custom-pagination {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-link {
+    margin: 0 12px; /* 增加按鈕間的間距 */
+    padding: 16px 24px; /* 調整按鈕的內邊距，讓按鈕變大 */
+    background-color: #007bff; /* 按鈕背景為藍色 */
+    border: 1px solid #007bff; /* 邊框也為藍色 */
+    color: white; /* 按鈕文字顏色為白色 */
+    text-decoration: none;
+    border-radius: 8px; /* 按鈕圓角更大 */
+    cursor: pointer;
+    font-size: 16px; /* 調整字體大小 */
+    font-weight: 600; /* 調整字體加粗，讓文字更突出 */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+}
+
+.page-link:hover {
+    background-color: #0056b3; /* 懸停時變深藍色 */
+    color: white;
+    transform: translateY(-3px); /* 按鈕上浮效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 強化陰影 */
+}
+
+.page-link.disabled {
+    color: #6c757d; /* 禁用狀態文字顏色為灰色 */
+    pointer-events: none;
+    background-color: #e9ecef; /* 禁用狀態背景顏色 */
+    border: 1px solid #e0e0e0; /* 禁用狀態邊框顏色 */
+}
+
+.page-link.active {
+    background-color: #0056b3; /* 活躍頁碼背景為深藍色 */
+    color: white;
+    font-weight: bold; /* 激活頁碼文字加粗 */
+}
+
+.custom-pagination li {
+    display: inline-block;
+}
+
+.custom-pagination li:first-child .page-link {
+    border-top-left-radius: 12px; /* 調整圓角半徑 */
+    border-bottom-left-radius: 12px; /* 調整圓角半徑 */
+}
+
+.custom-pagination li:last-child .page-link {
+    border-top-right-radius: 12px; /* 調整圓角半徑 */
+    border-bottom-right-radius: 12px; /* 調整圓角半徑 */
+}
+
+/* 下一頁與上一頁按鈕 */
+.page-link.prev, .page-link.next {
+    background-color: #343a40; /* 上一頁和下一頁按鈕的背景為黑色 */
+    border-color: #343a40; /* 邊框為黑色 */
+}
+
+.page-link.prev:hover, .page-link.next:hover {
+    background-color: #212529; /* 懸停時變為更深的黑色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 強化陰影 */
+}
+
+/* 聚焦效果 */
+.custom-pagination .page-link:focus {
+    outline: none;
+    border-color: #0056b3; /* 聚焦時顯示藍色邊框 */
 }
 
 *,

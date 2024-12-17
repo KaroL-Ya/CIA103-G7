@@ -36,12 +36,15 @@ public class PostController {
     @Autowired
     private HttpSession session;
 
-//
+
     @GetMapping("")
     public String forum(Model model, 
-                        @RequestParam(defaultValue = "1") int page, 
+                        @RequestParam(defaultValue = "0") int page, 
                         @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size); // 設定分頁參數，頁數從 0 開始
+    	 // 確保頁碼大於等於 0
+        if (page < 0) {page = 0;  }// 頁碼不能小於 0 
+        
+        Pageable pageable = PageRequest.of(page,size); // 設定分頁參數，頁數從 0 開始
         Page<PostVO> postPage = postService.getAllPosts(pageable);
 
         model.addAttribute("posts", postPage); // 將當前頁面的貼文傳遞給視圖
@@ -52,6 +55,8 @@ public class PostController {
         return "forum/forum"; // 返回論壇頁面
     }
 
+  
+    
 //    @GetMapping("")
 //    public String forum(Model model) {
 //        List<PostVO> posts = postService.getAllPosts(); // 獲取所有貼文
@@ -69,20 +74,20 @@ public class PostController {
     }
     
 
-    @GetMapping("/postsByMemId")
-    public String getPostsByMemId(@RequestParam Integer mem_Id, 
-                                   @RequestParam(defaultValue = "1") int page, 
-                                   Model model) {
-        Pageable pageable = PageRequest.of(page - 1, 5); // 每頁顯示 5 筆資料
-        Page<PostVO> postPage = postService.getPostsByMemId(mem_Id, pageable);
-
-        model.addAttribute("posts", postPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", postPage.getTotalPages());  // 確保傳遞 totalPages
-        model.addAttribute("mem_Id", mem_Id);
-        
-        return "forum/forum";  // 返回模板
-    }
+//    @GetMapping("/postsByMemId")
+//    public String getPostsByMemId(@RequestParam Integer mem_Id, 
+//                                   @RequestParam(defaultValue = "1") int page, 
+//                                   Model model) {
+//        Pageable pageable = PageRequest.of(page - 1, 5); // 每頁顯示 5 筆資料
+//        Page<PostVO> postPage = postService.getPostsByMemId(mem_Id, pageable);
+//
+//        model.addAttribute("posts", postPage.getContent());
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", postPage.getTotalPages());  // 確保傳遞 totalPages
+//        model.addAttribute("mem_Id", mem_Id);
+//        
+//        return "forum/forum";  // 返回模板
+//    }
 
 
 
