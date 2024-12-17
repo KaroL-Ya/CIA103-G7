@@ -3,30 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>檢舉列表~</title>
+<title>檢舉列表~</title>
 </head>
 <body>
-    <h1>檢舉列表</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>商品編號</th>
-                <th>檢舉事由</th>
-                <th>檢舉時間</th>
-                <th>檢舉狀態</th>
-            </tr>
-        </thead>
-        <tbody>
-            <th:block th:each="report : ${reports}">
-                <tr>
-                    <td th:text="${report.itemId}"></td>
-                    <td th:text="${report.reason}"></td>
-                    <td th:text="${#dates.format(report.time, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${report.state == 0 ? '未處理' : report.state == 1 ? '檢舉通過' : '檢舉未通過'}"></td>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
+	<h1>檢舉列表</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>商品編號</th>
+				<th>檢舉事由</th>
+				<th>檢舉時間</th>
+				<th>檢舉狀態</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th:block th:each="itemReportVO: ${reports}">
+				<tr>
+					<td th:text="${itemReportVO.itemId}"></td>
+					<td th:text="${itemReportVO.reason}"></td>
+					<td th:text="${itemReportVO.time}"></td>
+					<td th:text="${itemReportVO.state}"></td>
+
+				</tr>
+			</th:block>
+		</tbody>
+	</table>
 
 </body>
 </html>
