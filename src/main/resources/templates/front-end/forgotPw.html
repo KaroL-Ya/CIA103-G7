@@ -9,7 +9,7 @@
             }
 
             img {
-                max-width: 100%;
+                width:50px;
             }
 
             body {
@@ -87,15 +87,18 @@
             span.error {
                 color: red;
             }
+            
 </style>
 </head>
 <body>
 	<header class="header">
         <div class="header-left">
-            <label class="title">Back廣咖樂</label>
+            	<a th:href="@{/}" class="logo"><span class="symbol"><img
+						src="images/coffee-beans.png" alt="" /></span><span class="title">回首頁</span>
+				</a>
         </div>
         <div class="header-right" align="right">
-			<a th:href="@{/login}">回上一頁</a>
+			<h3><a th:href="@{/login}">回登入</a></h3>
         </div>
     </header>
 	<div align="center">
@@ -103,7 +106,7 @@
 	</div>
 	<div align="center">
 		<form th:action="@{/sendPTPw}" method="post" name="forgotPw">
-			<input type="text" name="email" placeholder="請輸入已經驗證過的電子郵件"><br>
+			<input type="text" name="email" class="email" placeholder="請輸入已經驗證過的電子郵件"><br>
 			<button type="submit">提交</button>
 			<p th:text="${error}" style=color:red></p>
 		</form>
