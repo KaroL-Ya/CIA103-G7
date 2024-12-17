@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+/*
 @Controller
 @RequestMapping("/participate")
 public class ParticipateController {
@@ -44,28 +44,28 @@ public class ParticipateController {
 //        model.addAttribute("memVO", memID);
 //        return "register_form"; // HTML form view name
 //    }
+    
+    
     //報名頁面
-    @GetMapping("/join_test1")
+    @GetMapping("/join")
     // actNo EveId
-    public String addParticipant(@RequestParam("t13") Integer eveID, ModelMap model, HttpSession session) {
-        MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
-        if (loggedInMember == null) {
-            return "redirect:/member/loginMem";
-        }
+    public String addParticipant(@RequestParam("eveID") Integer eveID, ModelMap model, HttpSession session) {
+//        MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
+//        if (loggedInMember == null) {
+//            return "redirect:/member/loginMem";
+//        }
 
         ParticipateVO PartVO = new ParticipateVO();
         EventVO eventVO = esvc.findById(eveID);
         PartVO.setEveID(eventVO);
-        PartVO.setMemID(loggedInMember);
+//        PartVO.setMemID(loggedInMember);
 
         model.addAttribute("participateVO", PartVO);
         model.addAttribute("eveName", eventVO.getEveName());
-        model.addAttribute("memName", loggedInMember.getMem_Id());
+//        model.addAttribute("memName", loggedInMember.getMem_Id());
         return "participate/join_test1";
     }
-
-    
-    
+  
     @PostMapping("enroll")
     public String insert(@Valid ParticipateVO participateVO, BindingResult result, ModelMap model,
                          MultipartFile[] parts, HttpSession session) throws IOException {
@@ -82,3 +82,4 @@ public class ParticipateController {
     
   
 }
+*/

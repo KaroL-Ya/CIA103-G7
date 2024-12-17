@@ -2,8 +2,6 @@ package com.event.Participate;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,7 @@ import org.springframework.data.domain.Sort;
 //
 
 @Service
-public class ParticipateService {
+public class ParticipateServiceBackUp {
 
     @Autowired
     private ParticipateRepository PartRepo;
@@ -29,55 +27,22 @@ public class ParticipateService {
     @Autowired
     private MemberRepository MemRepo;
     
-    @Autowired
-    private MemberService memberService;
-    
     //預設
     public ParticipateVO saveParticipate(ParticipateVO participateVO) {
     	
         return PartRepo.save(participateVO);
     }
-    
-    //活動報名 (傳值PartVO)
-    public void addParticipant1(ParticipateVO participantVO) {
+    //活動報名
+    public void addParticipant(ParticipateVO participantVO) {
 		EventVO attend = EveRepo.findById(participantVO.getEveID().getEveID()).orElseThrow();
         participantVO.setEveID(attend);
 		PartRepo.save(participantVO);
 	}
     
-    //活動報名 (傳值EveVO)
-    public void addParticipant2(EventVO eventVO) {
-		EventVO attend = EveRepo.findById(eventVO.getEveID()).orElseThrow();
-		ParticipateVO participantVO = new ParticipateVO();
-        participantVO.setEveID(attend);
-		PartRepo.save(participantVO);
-	}
-    
-    //活動報名 現在使用
-@Transactional
-//    public String addParticipant(Integer eventID, HttpSession session) {
-    public String addParticipant(Integer eventID) {
-        // Retrieve the current event
-        EventVO eventVO = EveRepo.findById(eventID).orElseThrow(() -> new IllegalArgumentException(""));
-
-        // 會員獲取session
-//        Integer memberId = (Integer) session.getAttribute("mem_id"); 
-//        MemberVO memberVO = memberService.getOneMember(memberId); 
-
-        // ID創VO轉存
-        ParticipateVO partVO = new ParticipateVO();
-        partVO.setEveID(eventVO);
-//        partVO.setMemID(memberVO);
-        PartRepo.save(partVO);
-
-        // 會員更新
-        eventVO.setNum(eventVO.getNum() + 1);
-        EveRepo.save(eventVO);
-
-        return "redirect:/event/ShowDetails/" ; // Redirect with success message
-//        return "redirect:/event/ShowDetails/" + eventID + "?success=true"; // Redirect with success message
-    }
-
+    //活動報名 人數無法更新
+//    public ParticipateVO attendEvent(ParticipateVO participateVO) {
+//        return PartRepo.save(participateVO);
+//    }
     //所有活動
     public List<ParticipateVO> getall() {
         return PartRepo.findAll();

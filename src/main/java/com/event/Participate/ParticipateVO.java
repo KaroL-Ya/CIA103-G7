@@ -8,7 +8,7 @@ import com.event.EveModel.EventVO;
 
 //用不到複合主鍵。可能會重複報名.....管他的
 @Entity
-@Table(name = "event_register")
+@Table(name = "event_enroll")
 public class ParticipateVO implements java.io.Serializable {
     private static final long serialVersionUID = 11L;
 
@@ -19,17 +19,17 @@ public class ParticipateVO implements java.io.Serializable {
     @Column(name ="ESU_ID")
     private Integer esuID;
 
-    @ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-    @JoinColumn(name = "evt_id", referencedColumnName = "EVE_ID")
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "eve_id", referencedColumnName = "EVE_ID")
     private EventVO eveID;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id", referencedColumnName = "MEM_ID")
+    @JoinColumn(name = "mem_id", referencedColumnName = "MEM_ID")
     private MemberVO memID;
     
-    
-    private Integer esuStat;
-    //報名狀態，更新或取消
+//    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
+//    private Integer esuStat;
+//    //報名狀態，更新或取消
     
     // Getters and Setters
     public Integer getEsuID() {
@@ -56,19 +56,19 @@ public class ParticipateVO implements java.io.Serializable {
         this.memID = memID;
     }
 
-	public Integer getEsuStat() {
-		return esuStat;
-	}
-
-	public void setEsuStat(Integer esuStat) {
-		this.esuStat = esuStat;
-	}
+//	public Integer getEsuStat() {
+//		return esuStat;
+//	}
+//
+//	public void setEsuStat(Integer esuStat) {
+//		this.esuStat = esuStat;
+//	}
 
 	public ParticipateVO(Integer esuID, EventVO eveID, MemberVO memID, Integer esuStat) {
 		this.esuID = esuID;
 		this.eveID = eveID;
 		this.memID = memID;
-		this.esuStat = esuStat;
+//		this.esuStat = esuStat;
 	}
     
 	

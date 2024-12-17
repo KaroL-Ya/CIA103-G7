@@ -72,19 +72,20 @@ session放在mem_id
     @PostMapping("/insert")
     public String addEvent(@ModelAttribute("Debug1") EventVO Debug1, BindingResult result, @RequestParam("eveImg") MultipartFile eveImg, Model model) {
     	if (eveImg.isEmpty()) {
-			model.addAttribute("coverImgError", "請上傳封面圖片"); // 自定義錯誤訊息
+			model.addAttribute("ImgError", "請上傳圖片"); 
 			return "item/addItem";
 		} else {
 			try {
 				// 將圖片轉換為 byte[]
 				Debug1.setEveImg(eveImg.getBytes());
 			} catch (IOException e) {
-				model.addAttribute("ImgError", "圖片上傳失敗，請重新嘗試");
+				model.addAttribute("UpdateError", "圖片上傳失敗，請重新嘗試");
 				return "event/new";
 			}
 		}
     	esvc.addEvent(Debug1);
-		//*************************** 3.新增完成,準備轉交(Send the Success view) **************
+    	
+    	
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("Debug1", list);
 		model.addAttribute("success", "- (新增成功)");
@@ -131,6 +132,9 @@ session放在mem_id
 		model.addAttribute("eveThis", eveThis);
 		return "event/EventDetails";
 	}
+	
+	//活動報名
+	
 	//不需要這個
 //    @GetMapping("delete")
 //    public String deleteEvent(@PathVariable Integer eveID) {

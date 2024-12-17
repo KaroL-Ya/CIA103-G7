@@ -31,11 +31,21 @@
 <!--                  <span th:case="2">活動已完成</span> -->
 <!--                  <span th:case="3">活動已取消</span> -->
 <!--              </span> -->
+
 <!--          </div> -->
-<!--          <div class="action-buttons"> -->
-<!--              <a th:if="${actVO.actStatus == 0}" th:href="@{/participant/addParticipant(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a> -->
-<!--         </div> -->
-<!--      </div> -->
+<!--          <div class="attend"> -->
+<!--              <a  th:href="@{/participate/join(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a> -->
+<!--                     <input type="hidden" name="eveID" value="${participateVO.eveID.eveID}"/> -->
+<!--             <form th:action="@{/participate/enroll}" method="post"> -->
+<!--         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" /> -->
+<!--         <button type="submit">Sign Up</button> -->
+<!--     </form> -->
+            <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post">
+        <input type="hidden" name="eveID" th:value="${eveThis.eveID}" />
+        <button type="submit">Sign Up</button>
+    </form>
+        </div>
+     </div>
 
 
     <a class="btn btn-secondary back-button" th:href="@{/events/list}">
