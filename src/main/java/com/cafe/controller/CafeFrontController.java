@@ -65,12 +65,6 @@ public class CafeFrontController {
         return "front-end/cafe/cafeprofile";
     }
 
-    // 後台首頁
-    @GetMapping("/cafe/index2")
-    public String backendIndex(Model model) {
-        return "/index2";
-    }
-
     // 後台新增商家
     @GetMapping("/cafe/select_page")
     public String backendSelect(Model model) {
