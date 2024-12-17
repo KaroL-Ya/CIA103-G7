@@ -90,17 +90,13 @@ body {
     float: right;
 }
 .btn-warning:hover {
-    background-color: red; /* 鼠标悬停时背景颜色变化 */
+    background-color: red;  /* 滑鼠停改變 */
 }
-/* .checkout-methods { */
-/* 	margin-top: 20px; */
-/* } */
+.checkout-methods { 
+	margin-top: 20px; 
+} 
 
-/* .checkout-methods img { */
-/* 	width: 50px; */
-/* 	height: auto; */
-/* 	margin-right: 10px; */
-/* } */
+
 
 .product-id {
 	font-size: 12px;
@@ -182,9 +178,10 @@ body {
 						
 				</div>
 				<!--  修改連結 -->
-	<form th:action="@{/lookCafe/updateCafe/{id}(id=${cafe.cafeId})}">
-    <button type="submit" class="btn btn-warning">修改介紹</button>
-</form>
+	<!-- 只有当当前用户是商家的咖啡厅并且cafeId匹配时，才显示修改按钮 -->
+<div th:if="${cafe.cafeId == cafeId}">
+                <a class="btn btn-warning" th:href="@{/lookCafe/updateCafe/{id}(id=${cafe.cafeId})}">修改介紹</a>
+            </div>
     </div>
  </div>
 
