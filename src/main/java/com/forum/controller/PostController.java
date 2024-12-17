@@ -66,7 +66,10 @@ public class PostController {
 //    }
 
         
-    @GetMapping("/forum/postManage") // 查詢論壇管理
+
+
+    @GetMapping("/back-end/forum/postManage") // 查詢論壇管理
+
     public String postManage(Model model) {
         List<PostVO> posts = postService.getAllPosts(); // 
         model.addAttribute("posts", posts);

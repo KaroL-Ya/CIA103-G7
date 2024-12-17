@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有消息資料</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+        /* 全局樣式 */
+        body {
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c28888;
+            color: black;
+        }
+
+        /* 導航欄樣式 */
+        .navbar {
+            background-color: #f2d5d5;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #c28888;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
+
+        .navbar h3 a {
+            color: #c28888;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .navbar h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar h3 img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        
+        .navbar .btn {
+            margin-top: 0.5rem;
+            background-color: #c28888;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* 分頁訊息 */
+        .info {
+            margin: 2rem auto 1rem;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .info b {
+            color: #fff;
+        }
+
+        .info font {
+            font-weight: bold;
+            color: red;
+        }
+
+        /* 表格樣式 */
+        table {
+            background-color: #fff;
+            width: 90%;
+            margin: 1rem auto;
+            border-collapse: collapse;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2d5d5;
+            color: #c28888;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* 分頁按鈕樣式 */
+        .page {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .page a {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: 0 5px;
+            background-color: #fff;
+            color: #c28888;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .page a:hover {
+            background-color: #c28888;
+            color: #fff;
+        }
+
+        .page a.active {
+            background-color: #c28888;
+            color: #fff;
+        }
+
+        /* 按鈕樣式 */
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script>
+        // 分頁顯示
+        $(function () {
+            var $table = $("table");
+            var currentPage = 0;
+            var pageSize = 5;
+            $table.bind('paging', function () {
+                $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+            });
+
+            var sumRows = $table.find('tbody tr').length;
+            var sumPages = Math.ceil(sumRows / pageSize);
+            $("#pageNumber").text(sumPages);
+
+            var $pager = $('<div class="page"></div>');
+            for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+                $('<a href="#" class="page-link">' + (pageIndex + 1) + '</a>')
+                    .bind("click", { newPage: pageIndex }, function (event) {
+                        currentPage = event.data["newPage"];
+                        $("#currentPage").text(currentPage + 1);
+                        $table.trigger("paging");
+                        $(".page a").removeClass("active");
+                        $(this).addClass("active");
+                    })
+                    .appendTo($pager);
+            }
+            $pager.insertAfter($table);
+            $table.trigger("paging");
+
+            $(".page a:first").addClass("active");
+        });
+    </script>
+</head>
+<body>
+
+<nav class="navbar">
+    <h2>所有消息資料</h2>
+    
+</nav>
+
+<div class="info">
+    <b>第 <span id="currentPage">1</span>/<span id="pageNumber"></span> 頁</b>
+    ● 符合查詢條件如下所示：共 <font color="red" th:text="${newsListData.size}"></font> 筆
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>計數</th>
+            <th>最新消息序號</th>
+            <th>最新消息標題</th>
+            <th>發送日期</th>
+            <th>消息狀態</th>
+            <th>消息內容</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="newsVO : ${newsListData}">
+            <tr>
+                <td th:text="${newsVOStat.count}"></td>
+                <td th:text="${newsVO.newsId}"></td>
+                <td th:text="${newsVO.title}"></td>
+                <td th:text="${#dates.format(newsVO.time, 'yyyy-MM-dd')}"></td>
+                <td th:text="${newsVO.status}"></td>
+                <td th:text="${newsVO.content}"></td>
+                
+            </tr>
+        </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>
