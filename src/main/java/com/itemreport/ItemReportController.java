@@ -1,5 +1,5 @@
 package com.itemreport;
-
+//
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +32,7 @@ public class ItemReportController {
 	  return "front-end/lookitem/itemReport"; 
 	}
     
-//    // 提交檢舉表單
+//    // 提交檢舉表單.
     @PostMapping("/itemReport")
     public String postReportForm(@ModelAttribute ItemReportVO itemReportVO) {
         itemReportService.reportItem(itemReportVO);  
