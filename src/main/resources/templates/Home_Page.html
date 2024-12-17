@@ -8,6 +8,18 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" th:href="@{css/HomePage.css}" />
+<style>
+	        button{
+                padding: 5px;
+                width: 50px;
+                font-size: 16px;
+                margin: 15px 0px;
+                background-color:#ff6f91;
+                color:white;
+                border-radius: 8px;
+                cursor: pointer;
+        }
+</style>
 </head>
 
 <body class="is-preload">
@@ -19,13 +31,24 @@
 			<div class="inner">
 
 				<!-- Logo -->
-				<a href="#" class="logo"> <span class="symbol"><img
+				<a th:href="@{/}" class="logo"><span class="symbol"><img
 						src="images/coffee-beans.png" alt="" /></span><span class="title">Logo在此</span>
 				</a>
 
 				<!-- Nav -->
 				<nav>
 					<ul>
+<li><a th:if="${session.mem_Id == null}" th:href="@{/login}">登入 || 註冊</a></li>
+<li><span th:if="${session.ac != null}" style="border:1px solid blcak">歡迎,會員
+		<span th:text="${session.name}"></span>
+	</span>
+</li>
+
+<li>
+	<form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
+		  <button type="submit">登出</button>
+	</form>
+</li>
 						<li><a href="#menu">Menu</a></li>
 					</ul>
 				</nav>
@@ -37,15 +60,16 @@
 		<nav id="menu">
 			<h2>Menu</h2>
 			<ul>
-				<li><a th:href="@{/backhome}">後台首頁</a></li>
+				<li><a th:href="@{/profile}">會員</a></li>
+				<li><a th:href="@{/cafe}">咖啡廳</a></li>
 				<li><a th:href="@{/lookItem}">商城</a></li>
 				<li><a href="#">活動</a></li>
 				<li><a th:href="@{/forum}">論壇</a></li>
-				<li><a th:href="@{/index}">會員</a></li>
-				<li><a th:href="@{/cafe}">咖啡廳</a></li>
 				<li><a href="#menu">關閉選單</a></li>
 			</ul>
 		</nav>
+
+
 
 		<div>
 			<h4 class="cart-icon-container">
