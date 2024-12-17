@@ -66,7 +66,7 @@ public class CafeFrontController {
     }
 
     // 後台新增商家
-    @GetMapping("/cafe/select_page")
+    @GetMapping("/back-end/cafe/select_page")
     public String backendSelect(Model model) {
         List<CafeVO> list = cafeSvc.getAll();
 
