@@ -44,7 +44,7 @@
 
 		<div>
 			<label>數量:</label> <select class="num_select" th:field="*{num}">
-				<option th:each="i : ${#numbers.sequence(0, 20)}" th:value="${i}"
+				<option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}"
 					th:text="${i}"></option>
 			</select>
 		</div>

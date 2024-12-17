@@ -13,7 +13,8 @@
             }
 
             img {
-                max-width: 100%;
+/*                 max-width: 100%; */
+			width:50px;
             }
 
             body {
@@ -119,10 +120,12 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <label class="title">Back廣咖樂</label>
+            	<a th:href="@{/}" class="logo"><span class="symbol"><img
+						src="images/coffee-beans.png" alt="" /></span><span class="title">回首頁</span>
+				</a>
         </div>
         <div class="header-right" align="right">
-			<a th:href="@{/login}">回上一頁</a>
+			<h3><a th:href="@{/login}"><img th:src="@{/images/222.png}">回登入</a></h3>
         </div>
     </header>
 
@@ -221,7 +224,7 @@
                 </div>
 
                 <div>
-                    <div><button type="submit" id="submit" onclick="showLoading()">送出新增</button></div>
+                    <div><button type="submit" id="submit" onclick="showLoading()">註冊</button></div>
                 </div>
             </div>
         </form>

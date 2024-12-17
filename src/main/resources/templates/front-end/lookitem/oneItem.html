@@ -187,6 +187,7 @@ body {
 </head>
 <body>
 
+
  <div class="container">
   <div>
    <img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
@@ -305,6 +306,126 @@ body {
    }
   }
  </script>
+
+	<div class="container">
+		<div>
+			<img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
+				alt="Cover Image" width="300px" />
+		</div>
+
+		<div class="product-info">
+			<div>
+				<div class="product-id">
+					商品編號：<span th:text="${item.itemId}"></span>
+				</div>
+				<span
+					style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;">
+					商品名稱: </span> <span
+					style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;"
+					th:text="${item.name}"></span> <br> <br> <span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					商品價格: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 25px;"
+					th:text="${item.price}"></span> <br> <br> <span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					商品敘述: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.content}"></span> <br>
+
+				<hr>
+
+				<span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					商品評分: </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.stars}"></span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
+					&nbsp( </span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px"
+					; th:text="${item.comments}"></span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
+					)</span> <br> <br> <span
+					style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
+					剩餘數量：</span> <span
+					style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
+					th:text="${item.num}"></span>
+				<hr>
+				<div>
+					<span
+						style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;">
+						結帳方式：信用卡</span>
+				</div>
+
+
+
+
+			</div>
+			<div class="buttons">
+
+<!-- 				<button class="quantity-btn" onclick="decreaseQuantity()">-</button> -->
+<!-- 				<input type="text" id="quantity" class="quantity-input" value="1" -->
+<!-- 					readonly> -->
+<!-- 				<button class="quantity-btn" onclick="increaseQuantity()">+</button> -->
+
+				<form th:action="@{/cart/addCart}" method="post">
+					<input type="hidden" name="itemId" th:value="${item.itemId}">
+					<input type="hidden" class="form-quantity" name="num" value="1">
+					<button type="submit" class="btn-add-cart">加入購物車</button>
+				</form>
+
+				<button id="addFavorite" class="btn btn-add-favorite">
+					加入收藏
+
+					<button id="report" class="btn btn-add-report">檢舉</button>
+			</div>
+
+		</div>
+	</div>
+
+	<div>
+		<h4 class="cart-icon-container">
+			<!-- 購物車超連結 -->
+			<a th:href="@{/cart(memId=${session.mem_Id})}"> <img
+				th:src="@{/images/cart.png}" class="cart-icon" alt="購物車" />
+			</a>
+		</h4>
+	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var addToCartBtn = document.getElementById("addToCart");
+			addToCartBtn.addEventListener("click", function() {
+				addToCartBtn.disabled = true; // 禁用按鈕
+				addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+				alert("商品已加入購物車");
+
+			});
+		});
+		document.addEventListener("DOMContentLoaded", function() {
+			var addFavoriteBtn = document.getElementById("addFavorite");
+			addFavoriteBtn.addEventListener("click", function() {
+				addFavoriteBtn.disabled = true;// 禁用按鈕
+				addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+				alert("商品已加入收藏");
+				addFavoriteBtn.innerText = "已加入收藏";
+
+			});
+		});
+		function increaseQuantity() {
+			var quantityInput = document.getElementById('quantity');
+			var currentQuantity = parseInt(quantityInput.value);
+			quantityInput.value = currentQuantity + 1;
+		}
+
+		function decreaseQuantity() {
+			var quantityInput = document.getElementById('quantity');
+			var currentQuantity = parseInt(quantityInput.value);
+			if (currentQuantity > 1) {
+				quantityInput.value = currentQuantity - 1;
+			}
+		}
+	</script>
+
 
 </body>
 </html>

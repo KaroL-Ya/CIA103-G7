@@ -1,183 +1,204 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>註冊咖啡廳</title>
-    <style>
-        /* 引入模板風格 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.75;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>註冊咖啡廳</title>
+<style>
+/* 引入模板風格 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	color: #333;
+	line-height: 1.75;
+}
 
-        header {
-            text-align: center;
-            background-color: #c28888;
-            color: #fff;
-            padding: 20px 0;
-        }
+header {
+	text-align: center;
+	background-color: #c28888;
+	color: #fff;
+	padding: 20px 0;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
+header h1 {
+	margin: 0;
+	font-size: 2rem;
+}
 
-        header h2 a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            display: inline-block;
-            margin-top: 10px;
-        }
+header h2 a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 1rem;
+	display: inline-block;
+	margin-top: 10px;
+}
 
-        header h2 a:hover {
-            text-decoration: underline;
-        }
+header h2 a:hover {
+	text-decoration: underline;
+}
 
-        header h2 img {
-            vertical-align: middle;
-            width: 20px;
-            margin-right: 8px;
-        }
+header h2 img {
+	vertical-align: middle;
+	width: 20px;
+	margin-right: 8px;
+}
 
-        .form-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border: 1px solid #e0e0e0;
-        }
+.form-container {
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border: 1px solid #e0e0e0;
+}
 
-        label {
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: block;
-            color: #555;
-        }
+label {
+	font-weight: bold;
+	margin-bottom: 8px;
+	display: block;
+	color: #555;
+}
 
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
+input, textarea, select {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
 
-        input:focus, textarea:focus, select:focus {
-            border-color: #c28888;
-            outline: none;
-        }
+input:focus, textarea:focus, select:focus {
+	border-color: #c28888;
+	outline: none;
+}
 
-        textarea {
-            resize: none;
-            height: 120px;
-        }
+textarea {
+	resize: none;
+	height: 120px;
+}
 
-        .error-message {
-            color: red;
-            font-size: 12px;
-            margin-top: -10px;
-            margin-bottom: 10px;
-        }
+.error-message {
+	color: red;
+	font-size: 12px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
 
-        button {
-            width: 100%;
-            padding: 10px 15px;
-            background-color: #c28888;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+button {
+	width: 100%;
+	padding: 10px 15px;
+	background-color: #c28888;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
 
-        button:hover {
-            background-color: #a06a6a;
-        }
+.navbar .btn {
+	margin-top: 0.5rem;
+	background-color: #c28888;
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
 
-        @media screen and (max-width: 480px) {
-            .form-container {
-                padding: 15px;
-            }
-            input, textarea, select {
-                font-size: 14px;
-                padding: 8px;
-            }
-            button {
-                padding: 10px;
-                font-size: 14px;
-            }
-        }
-    </style>
+button:hover {
+	background-color: #a06a6a;
+}
+
+@media screen and (max-width: 480px) {
+	.form-container {
+		padding: 15px;
+	}
+	input, textarea, select {
+		font-size: 14px;
+		padding: 8px;
+	}
+	button {
+		padding: 10px;
+		font-size: 14px;
+	}
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>商家註冊</h1>
-        <h2>
-            <a th:href="@{/cafe/cafeLogin}">
-                <img th:src="@{/images/cafe_icon.png}" alt="咖啡圖標">
-                回咖啡廳中心
-            </a>
-        </h2>
-    </header>
-    <div class="form-container">
-        <form th:action="@{/cafe/insertCafe}" method="post" th:object="${cafeVO}" enctype="multipart/form-data">
-            <label for="taxId">統一編號:</label>
-            <input id="taxId" type="text" th:field="*{taxId}" placeholder="請輸入8位數字">
-            <div th:if="${#fields.hasErrors('taxId')}" class="error-message" th:errors="*{taxId}"></div>
+	<header>
+		<h1>商家註冊</h1>
+		<h2>
+			<button class="btn" onclick="location.href='/cafe/cafeLogin'">回登入</button>
+		</h2>
+	</header>
+	<div class="form-container">
+		<form th:action="@{/cafe/insertCafe}" method="post"
+			th:object="${cafeVO}" enctype="multipart/form-data">
+			<label for="taxId">統一編號:</label> <input id="taxId" type="text"
+				th:field="*{taxId}" placeholder="請輸入8位數字">
+			<div th:if="${#fields.hasErrors('taxId')}" class="error-message"
+				th:errors="*{taxId}"></div>
 
-            <label for="name">名稱:</label>
-            <input id="name" type="text" th:field="*{name}">
-            <div th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></div>
+			<label for="name">名稱:</label> <input id="name" type="text"
+				th:field="*{name}">
+			<div th:if="${#fields.hasErrors('name')}" class="error-message"
+				th:errors="*{name}"></div>
 
-            <label for="ac">帳號:</label>
-            <input id="ac" type="text" th:field="*{ac}" placeholder="6-20位英文字母或數字">
-            <div th:if="${#fields.hasErrors('ac')}" class="error-message" th:errors="*{ac}"></div>
+			<label for="ac">帳號:</label> <input id="ac" type="text"
+				th:field="*{ac}" placeholder="6-20位英文字母或數字">
+			<div th:if="${#fields.hasErrors('ac')}" class="error-message"
+				th:errors="*{ac}"></div>
 
-            <label for="pw">密碼:</label>
-            <input id="pw" type="password" th:field="*{pw}" placeholder="6-20位英文字母或數字">
-            <div th:if="${#fields.hasErrors('pw')}" class="error-message" th:errors="*{pw}"></div>
+			<label for="pw">密碼:</label> <input id="pw" type="password"
+				th:field="*{pw}" placeholder="6-20位英文字母或數字">
+			<div th:if="${#fields.hasErrors('pw')}" class="error-message"
+				th:errors="*{pw}"></div>
 
-            <label for="email">信箱:</label>
-            <input id="email" type="email" th:field="*{email}">
-            <div th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}"></div>
+			<label for="email">信箱:</label> <input id="email" type="email"
+				th:field="*{email}">
+			<div th:if="${#fields.hasErrors('email')}" class="error-message"
+				th:errors="*{email}"></div>
 
-            <label for="phone">電話:</label>
-            <input id="phone" type="text" th:field="*{phone}" placeholder="09XXXXXXXX">
-            <div th:if="${#fields.hasErrors('phone')}" class="error-message" th:errors="*{phone}"></div>
+			<label for="phone">電話:</label> <input id="phone" type="text"
+				th:field="*{phone}" placeholder="09XXXXXXXX">
+			<div th:if="${#fields.hasErrors('phone')}" class="error-message"
+				th:errors="*{phone}"></div>
 
-            <label for="city">城市:</label>
-            <input id="city" type="text" th:field="*{city}">
-            <div th:if="${#fields.hasErrors('city')}" class="error-message" th:errors="*{city}"></div>
+			<label for="city">城市:</label> <input id="city" type="text"
+				th:field="*{city}">
+			<div th:if="${#fields.hasErrors('city')}" class="error-message"
+				th:errors="*{city}"></div>
 
-            <label for="disc">地區:</label>
-            <input id="disc" type="text" th:field="*{disc}">
-            <div th:if="${#fields.hasErrors('disc')}" class="error-message" th:errors="*{disc}"></div>
+			<label for="disc">地區:</label> <input id="disc" type="text"
+				th:field="*{disc}">
+			<div th:if="${#fields.hasErrors('disc')}" class="error-message"
+				th:errors="*{disc}"></div>
 
-            <label for="address">地址:</label>
-            <input id="address" type="text" th:field="*{address}">
-            <div th:if="${#fields.hasErrors('address')}" class="error-message" th:errors="*{address}"></div>
+			<label for="address">地址:</label> <input id="address" type="text"
+				th:field="*{address}">
+			<div th:if="${#fields.hasErrors('address')}" class="error-message"
+				th:errors="*{address}"></div>
 
-            <label for="introduce">商家介紹:</label>
-            <textarea id="introduce" th:field="*{introduce}" name="introduce"></textarea>
-            <div th:if="${#fields.hasErrors('introduce')}" class="error-message" th:errors="*{introduce}"></div>
+			<label for="introduce">商家介紹:</label>
+			<textarea id="introduce" th:field="*{introduce}" name="introduce"></textarea>
+			<div th:if="${#fields.hasErrors('introduce')}" class="error-message"
+				th:errors="*{introduce}"></div>
 
-            <label for="img">圖片:</label>
-            <input id="img" type="file" th:field="*{img}" name="img" accept="image/*">
-            <div class="error-message" th:if="${errorMessage}" th:utext="${errorMessage}"></div>
+			<label for="img">圖片:</label> <input id="img" type="file"
+				th:field="*{img}" name="img" accept="image/*">
+			<div class="error-message" th:if="${errorMessage}"
+				th:utext="${errorMessage}"></div>
 
-            <button type="submit">送出新增</button>
-        </form>
-    </div>
+			<button type="submit">送出新增</button>
+		</form>
+	</div>
 </body>
 </html>

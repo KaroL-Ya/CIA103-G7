@@ -79,7 +79,8 @@
             width: 30%;
         }
         img {
-            max-width: 100%;
+/*             max-width: 100%; */
+width:50px;
             border-radius: 8px;
         }
         form {
@@ -118,7 +119,9 @@ a:hover {
 <body>
     <header class="header">
         <div class="header-left">
-            <label class="title">Back廣咖樂</label>
+            	<a th:href="@{/}" class="logo"><span class="symbol"><img
+						src="images/coffee-beans.png" alt="" />回首頁</span><span class="title"></span>
+				</a>
         </div>
         <div class="header-right">
             <span th:if="${session.mem_Id != null}">
