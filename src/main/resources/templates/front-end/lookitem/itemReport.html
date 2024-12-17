@@ -3,107 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品檢舉</title>
-
-    <style>
-        body {
-            display: flex;
-            justify-content: center; /* 水平居中 */
-            align-items: center; /* 垂直居中 */
-        }
-
-        /* div1 樣式 */
-        div.div1 { 
-            background-color: #cce5ff;
-            padding: 20px 40px;
-            border-radius: 8px;
-            width: 400px; /* 設定寬度 */
-            text-align: center; /* 文字居中 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 加入陰影效果 */
-        }
-
-        /* 表單樣式 */
-        form {
-            display: inline-block;
-            flex-direction: column;
-        }
-
-        /* 文字區域 */
-        textarea {
-            width: 100%; /* 寬度為父容器寬度 */
-            height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        /* 按鈕樣式 */
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            border-color: #0056b3; /* 改變邊框顏色 */
-            background-color: #f7ff03c5; /* 背景設為白色 */
-            color: #0056b3; /* 文字顏色變藍 */
-        }
-    </style>
+    <title>檢舉列表~</title>
 </head>
 <body>
-    <div class="div1">
-        <h1>檢舉申請</h1>
-        <form th:action="@{/submit}" method="post" th:object="${reportForm}">
-            <input type="checkbox" th:field="*{checkbox1}" value="1"> 破損瑕疵盜版品
-            <br>
-            <input type="checkbox" th:field="*{checkbox2}" value="2"> 破損瑕疵
-            <br>
-            <input type="checkbox" th:field="*{checkbox3}" value="3"> 尺寸與標示不符
-            <br>
-            <input type="checkbox" th:field="*{checkbox4}" value="4"> 與照片差距太大
-            <br>
-            <input type="checkbox" th:field="*{checkbox5}" value="5"> 其他 (請下方填寫理由)
-            <br>
-            <textarea th:field="*{reason}" placeholder="選其他，請輸入理由"></textarea>
-            <br><br>
-            <input type="file" th:field="*{theFile}">
-            <br>
-            <button type="submit">確定送出</button>
-        </form>
-    </div>
+    <h1>檢舉列表</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>商品編號</th>
+                <th>檢舉事由</th>
+                <th>檢舉時間</th>
+                <th>檢舉狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="report : ${reports}">
+                <tr>
+                    <td th:text="${report.itemId}"></td>
+                    <td th:text="${report.reason}"></td>
+                    <td th:text="${#dates.format(report.time, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${report.state == 0 ? '未處理' : report.state == 1 ? '檢舉通過' : '檢舉未通過'}"></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function(e) {
-            var isChecked = false;
-            var checkboxes = document.querySelectorAll("input[type='checkbox']");
-            var reason = document.querySelector("textarea").value.trim();
-            var otherChecked = document.querySelector("input[type='checkbox'][value='5']").checked;
-            
-            // 檢查是否有勾選框選中
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    isChecked = true;
-                }
-            });
-            
-            // 如果沒勾選任何項目
-            if (!isChecked) {
-                e.preventDefault();
-                alert("請選擇至少一個檢舉項目。");
-            }
-            // 如果選擇了 "其他" 但理由框未填寫
-            else if (otherChecked && reason === "") {
-                e.preventDefault();
-                alert("若選擇 '其他'，請填寫理由。");
-            }
-            else {
-                alert("送出成功");
-            }
-        });
-    </script>
 </body>
 </html>

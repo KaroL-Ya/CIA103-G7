@@ -177,8 +177,9 @@ body {
 					</span>
 						
 				</div>
-				<!--  修改連結 -->
-	<!-- 只有当当前用户是商家的咖啡厅并且cafeId匹配时，才显示修改按钮 -->
+				
+				<!--  商家介紹修改連結 -->
+	
 <div th:if="${cafe.cafeId == cafeId}">
                 <a class="btn btn-warning" th:href="@{/lookCafe/updateCafe/{id}(id=${cafe.cafeId})}">修改介紹</a>
             </div>
