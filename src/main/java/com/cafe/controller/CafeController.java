@@ -198,6 +198,7 @@ public class CafeController {
 	@ModelAttribute("CafeListData")
 	public List<CafeVO> referenceCafeListData(Model model) {
 		List<CafeVO> list = cafeSvc.getAll();
+		convertImgToBase64(list);
 		model.addAttribute("cafeListData", list);
 		return list;
 	}

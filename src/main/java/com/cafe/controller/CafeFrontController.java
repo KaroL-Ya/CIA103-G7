@@ -79,9 +79,6 @@ public class CafeFrontController {
         // 將每個商家的圖片轉換為 Base64
         convertImgToBase64(list);
 
-        System.out.println("CafeListData: " + list.size());
-        list.forEach(cafe -> System.out.println("商家ID: " + cafe.getCafeId() + ", 商家名稱: " + cafe.getName()));
-
         model.addAttribute("cafeListData", list);
         return "back-end/cafe/select_page";
     }

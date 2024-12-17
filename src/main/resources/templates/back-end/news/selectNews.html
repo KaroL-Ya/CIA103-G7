@@ -1,192 +1,189 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>新聞資料管理 - selectNews.html</title>
-<style>
-    /* 全局樣式 */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息管理 - 選擇頁面</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
-    /* 導航欄樣式 */
-    nav {
-        background-color: #007bff;
-        color: white;
-        text-align: center;
-        padding: 15px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        /* 基本樣式 */
+        body {
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c28888;
+            color: #fff;
+        }
 
-    nav h2, nav h3 {
-        margin: 5px 0;
-    }
+        /* 導覽列樣式 */
+        .navbar {
+            background-color: #f2d5d5;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    nav h3 a {
-        color: white;
-        text-decoration: none;
-    }
+        .navbar h2 {
+            font-size: 1.5rem;
+            color: #c28888;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
 
-    nav h3 a img {
-        vertical-align: middle;
-        margin-right: 5px;
-        width: 20px;
-    }
+        .navbar h3 a {
+            color: #c28888;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+        }
 
-    /* 主體內容區 */
-    h4 {
-        margin: 100px auto 20px;
-        font-size: 18px;
-        text-align: left;
-        max-width: 800px;
-        color: #333;
-    }
+        .navbar h3 a:hover {
+            text-decoration: underline;
+        }
 
-    .errorblock {
-        color: red;
-        margin: 10px auto;
-        max-width: 800px;
-        text-align: left;
-    }
+        .navbar h3 img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        
+        .navbar .btn {
+            margin-top: 0.5rem;
+            background-color: #c28888;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
+        /* 表單樣式 */
+        form {
+            margin: 1rem 0;
+        }
 
-    li {
-        margin-bottom: 15px;
-    }
+        label, input, select {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin: 0.5rem 0;
+        }
 
-    li a {
-        text-decoration: none;
-        color: #007bff;
-    }
+        input[type="text"], select {
+            width: 95%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
 
-    li a:hover {
-        text-decoration: underline;
-    }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    form {
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-    }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
 
-    form input[type="text"], form select {
-        margin: 0 10px;
-        padding: 5px;
-        width: 200px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-    }
+        /* 容器樣式 */
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    form input[type="submit"] {
-        padding: 5px 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .container h4, .container h5 {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #c28888;
+        }
 
-    form input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
+        .container h5 a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-    /* 左右佈局區域 */
-    .a, .b {
-        display: inline-block;
-        vertical-align: top;
-        margin: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #fff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .container h5 a:hover {
+            text-decoration: underline;
+        }
 
-    .a {
-        width: 48%;
-    }
-
-    .b {
-        width: 80%;
-        border: 1px solid #007bff;
-    }
-
-    .b th:if {
-        display: none;
-    }
-</style>
+        /* 錯誤訊息樣式 */
+        .errorblock {
+            color: red;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar">
+        <h2>最新消息管理 - 選擇頁面</h2>
+        <h3>
+            <button class="btn" onclick="location.href='/news/index'">回新聞首頁</button>
+        </h3>
+    </nav>
 
-<nav>
-    <h2>新聞管理 - selectNews.html</h2>
-    <h3>
-        <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/images/back1.gif}" alt="返回">
-            回首頁
-        </a>
-    </h3>
-</nav>
+    <div class="container">
+        <h4>最新消息查詢</h4>
+        <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
 
-<h4><span>新聞查詢:</span></h4>
+        <ul>
+            <li>
+                <h5>
+                    <a th:href="@{/news/listAllNews}">列出所有新聞</a>
+                </h5>
+            </li>
 
-<div class="errorblock" th:utext="${errorMessage}"></div>
+            <li>
+                <form method="post" th:action="@{/news/getOne_For_Display}">
+                    <label for="newsIdInput">輸入消息編號:</label>
+                    <input type="text" id="newsIdInput" name="newsId" th:value="${param.newsId}">
+                    <input type="submit" value="送出">
+                </form>
+            </li>
 
-<div class="a">
-    <ul>
-        <!-- 列出所有新聞 -->
-        <li>
-            <h5><a th:href="@{/news/listAllNews}">列出所有新聞</a></h5>
-        </li>
+            <li>
+                <form method="post" th:action="@{/news/getOne_For_Display}">
+                    <label for="newsIdSelect">選擇消息編號:</label>
+                    <select id="newsIdSelect" name="newsId">
+                        <option th:each="newsVO : ${newsListData}" th:value="${newsVO.newsId}" th:text="${newsVO.newsId}"></option>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+            </li>
 
-        <!-- 依新聞編號查詢 -->
-        <li>
-            <form method="post" th:action="@{/news/getOne_For_Display}">
-                輸入新聞編號:
-                <input type="text" name="newsId" th:value="${param.newsId}" required>
-                <input type="submit" value="查詢">
-            </form>
-        </li>
+            <li>
+                <form method="post" th:action="@{/news/getOne_For_Display}">
+                    <label for="newsTitleSelect">選擇標題:</label>
+                    <select id="newsTitleSelect" name="newsId">
+                        <option th:each="newsVO : ${newsListData}" th:value="${newsVO.newsId}" th:text="${newsVO.title}"></option>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+            </li>
+        </ul>
 
-        <!-- 從下拉選單選擇新聞編號 -->
-        <li>
-            <form method="post" th:action="@{/news/getOne_For_Display}">
-                選擇新聞編號:
-                <select name="newsId" required>
-                    <option th:each="newsVO : ${newsListData}" 
-                            th:value="${newsVO.newsId}" 
-                            th:text="${newsVO.newsId}">
-                    </option>
-                </select>
-                <input type="submit" value="查詢">
-            </form>
-        </li>
-    </ul>
-
-    <h4><span>新聞管理:</span></h4>
-    <ul>
-        <li>
-            <h5><a th:href="@{/news/addNews}">新增新聞</a></h5>
-        </li>
-    </ul>
-</div>
-
-<!-- 顯示查詢結果 -->
-<div class="b" th:if="${getOne_For_Display}">
-    <div th:insert="~{/back-end/news/listOneNews :: listOneNews-div}"></div>
-</div>
-
+        <h4>最新消息管理</h4>
+        <ul>
+            <li>
+                <h5>
+                    <a th:href="@{/news/addNews}">最新消息新增</a>
+                </h5>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

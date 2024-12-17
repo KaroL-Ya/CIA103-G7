@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cafe.model.CafeVO;
 import com.news.model.NewsService;
 import com.news.model.NewsVO;
 
@@ -28,8 +30,18 @@ public class NewsController {
     NewsService newsSvc;
     
     
+    @GetMapping("/")
+    public String showPage(ModelMap model) {
+    	// 假設這裡是查詢新聞列表的邏輯
+    	List<NewsVO> newsList = newsSvc.getAll();
+    	model.addAttribute("newsList", newsList);
+    	return "back-end/news/listAllNews";
+    }
+    
     @GetMapping("/selectNews")
     public String selectNews(ModelMap model) {
+    	List<NewsVO> newsList = newsSvc.getAll();
+        model.addAttribute("newsListData", newsList);
         return "back-end/news/selectNews";
     }
     
@@ -65,12 +77,12 @@ public class NewsController {
         return "back-end/news/listAllNews";
     }
     
-    @GetMapping("/")
-    public String showPage(ModelMap model) {
-    	// 假設這裡是查詢新聞列表的邏輯
-    	List<NewsVO> newsList = newsSvc.getAll();
-    	model.addAttribute("newsList", newsList);
-    	return "back-end/news/listAllNews";
+    // 提供所有新聞資料以供使用
+    @ModelAttribute("NewsListData")
+    public List<NewsVO> referenceNewsListData(Model model) {
+    	List<NewsVO> list = newsSvc.getAll();
+    	model.addAttribute("newsListData", list);
+    	return list;
     }
 
     // 查詢單筆新聞資料以供更新
@@ -80,6 +92,7 @@ public class NewsController {
         model.addAttribute("newsVO", newsVO);
         return "back-end/news/updateNews"; // 返回更新頁面
     }
+    
     
 
     // 更新新聞資料
