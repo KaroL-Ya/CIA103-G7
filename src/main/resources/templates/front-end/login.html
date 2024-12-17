@@ -9,7 +9,8 @@
             box-sizing: border-box;
         }
         img{
-            max-width:100%;
+/*             max-width:100%; */
+				width:50px;
         }
         body{
             /* border:1px solid red; */
@@ -88,7 +89,9 @@
 <body>
 	<header class="header">
 		<div class="header-left">
-	    	<label class="title">Back廣咖樂</label>
+	    		<a th:href="@{/}" class="logo"><span class="symbol"><img
+						src="images/coffee-beans.png" alt="" /></span><span class="title">回首頁</span>
+				</a>
 	    </div>
 	    <div class="header-right" align="right">
 	    
@@ -132,9 +135,9 @@
 		</form>
 	</div>
 	
-	<div align="right">
-		<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3>
-	</div>
+<!-- 	<div align="right"> -->
+<!-- 		<h3><a th:href="@{/index}"><img th:src="@{/images/222.png}">回首頁</a></h3> -->
+<!-- 	</div> -->
 
 </body>
 </html>

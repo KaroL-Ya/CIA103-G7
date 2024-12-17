@@ -43,7 +43,7 @@ public class MemberLoginController {
 					session.setAttribute("disc", memberVO.getDisc());
 					session.setAttribute("address", memberVO.getAddress());
 					session.setAttribute("memberRole", "member");
-					return "redirect:/index";
+					return "redirect:/";
 				} else {
 					model.addAttribute("error", "請先信箱驗證成功再登入");
 					return "front-end/login"; // 重新導向到登入頁面
