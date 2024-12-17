@@ -13,6 +13,8 @@
         margin: 0;
         padding: 0;
         color: #333;
+        position: relative;
+        min-height: 100vh;
     }
 
     header {
@@ -93,6 +95,24 @@
     a:hover {
         color: #7bd0c1;
     }
+
+    .back-to-home {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-to-home:hover {
+        background-color: #0056b3;
+    }
 </style>
 </head>
 <body>
@@ -109,5 +129,6 @@
             <a th:href="@{/cafe/cafeRegister}">註冊咖啡廳</a>
         </form>
     </div>
+    <a th:href="@{/}" class="back-to-home">回首頁</a>
 </body>
 </html>
