@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>報名頁面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+</head>
+<body>
+<div class="container">報名頁面</div>
+
+<div>
+</div>
+
+<div >
+  <form class="add" th:action="@{/participate/enroll}" method="post" th:object="${participantVO}" enctype="multipart/form-data">
+    
+<!--        <input type="hidden" th:field="*{eveID}" th:value="${eveID}" /> -->
+        <input type="text" name="eveID" value="${eventVO.eveID.eveID}"/>
+   
+   
+<!--     <div> -->
+<!--       <label for="eveName">活動名稱:</label> -->
+<!--       <input type="text" id="eveName" th:value="${eveName}" readonly /> -->
+<!--     </div> -->
+
+    <div>
+      <button type="submit" id="submit">送出新增</button>
+    </div>
+  </form>
+</div>
+
+
+</body>
+</html>

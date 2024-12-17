@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>開團列表</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/de9b92a469.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+</head>
+        <!-- 
+        plan
+        創建活動輸入
+        用JS直接在前端擋掉無效輸入
+       CSS設定在無效輸入時會顯示錯誤訊息 -->
+       
+<body>
+   <div class="container">
+    <div class="card shadow">
+        <div class="card-header text-center">
+            <h2>活動資料新增</h2>
+        </div>
+        <div class="card-body">
+    <form th:action="@{insert}" method="post" th:object="${Debug1}" enctype="multipart/form-data">
+   	<div class="mb-3">
+        <label class="form-label">活動標題:</label>
+        <input type="text" class="form-control" th:field="*{eveName}" required>
+        <div class="invalid-feedback">請填寫活動標題</div>
+    </div> 
+    <div class="mb-3">
+        <label class="form-label">活動地點:</label>
+        <input type="text" class="form-control" th:field="*{loc}" required>
+        <div class="invalid-feedback">請填寫活動地點</div>
+   	</div>
+  
+  	<div class="mb-3">
+        <label class="form-label">活動圖片:</label>
+        <input type="file" class="form-control" th:field="*{eveImg}" >
+        <div class="invalid-feedback">圖片</div>
+   	</div>
+   	
+  <div class="mb-3">
+        <label class="form-label">活動內容:</label>
+        <textarea class="form-control" th:field="*{detail}" rows="6" required></textarea>
+        <div class="invalid-feedback">請填寫活動內容</div>
+    </div>
+    
+        <div class="mb-3">
+        <label class="form-label">活動日期:</label>
+        <input type="date" class="form-control small-date-input" th:field="*{dat}" required>
+        <div class="invalid-feedback">請選擇活動日期</div>
+    </div>
+    
+
+  
+   <div class="mb-3">
+        <label class="form-label">活動人數上限:</label>
+        <input type="number" class="form-control" th:field="*{lim}" required>
+        <div class="invalid-feedback">請填寫活動人數上限</div>
+    </div>
+    
+        <div class="mb-3">
+        <label class="form-label">報名開始日:</label>
+        <input type="date" class="form-control" th:field="*{opd}" required>
+        <div class="invalid-feedback">請選擇報名開始日</div>
+    </div>
+    
+      <div class="mb-3">
+        <label class="form-label">報名結束日:</label>
+        <input type="date" class="form-control" th:field="*{trm}" required>
+        <div class="invalid-feedback">請選擇報名結束日</div>
+    </div>
+    
+
+	<div class="mb-3">
+        <label class="form-label">是否收費:</label>
+        <input type="radio" class="form-control" id="cost1" th:field="*{cost}" value="1" required>
+        <label for="cost1">是</label><br> 
+        <input type="radio" class="form-control" id="cost2" th:field="*{cost}" value="0" required>
+        <label for="cost2">否</label><br> 
+        <div class="invalid-feedback">請選擇活動日期</div>
+    </div>
+    
+ <div class="text-center">
+        <button type="submit" id="submit" class="btn btn-primary">送出新增</button>
+       
+    </div>      
+      
+  
+    </form>
+        <a href="/events">Back to Event List</a>
+    
+        </div>
+    </div>
+</div>
+    <script></script>
+</body>
+
+
+</html>

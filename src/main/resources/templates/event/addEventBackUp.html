@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>開團列表</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/de9b92a469.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+</head>
+        <!-- 
+        plan
+        創建活動輸入
+        用JS直接在前端擋掉無效輸入
+        CSS設定在無效輸入時會顯示錯誤訊息 -->
+<body>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header text-center">
+                <h2>創建活動</h2>
+            </div>
+            <div class="card-body">
+                <form  method="post"  enctype="multipart/form-data" class="form-all">
+                    <div class="ArtDiv">
+                        <label >活動標題:</label>
+                        <input type="text" class="form-control"  required>
+                        <div class="error_message">請填寫活動標題</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >活動地點:</label>
+                        <input type="text" class="form-control"  required>
+                        <div class="error_message">請填寫活動地點</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >活動內容:</label>
+                        <textarea class="form-control"  rows="6" required></textarea>
+                        <div class="error_message">請填寫活動內容</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label for="actPic" >活動圖片:</label> 
+                        <input class="form-control" type="file" name="picSet" id="actPic" multiple>
+                        <div class="error_message">請上傳活動圖片</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >活動人數上限:</label>
+                        <input type="number" class="up_lim"  required>
+                        <div class="error_message">請填寫活動人數上限</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >活動人數下限:</label>
+                        <input type="number" class="low_lim"  required>
+                        <div class="error_message">請填寫活動最少人數</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >報名開放日:</label>
+                        <input type="date" class="form-control small-date-input"  required>
+                        <div class="error_message">請輸入報名開放日</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >報名結束日:</label>
+                        <input type="date" class="form-control small-date-input"  required>
+                        <div class="error_message">請輸入報名結束日</div>
+                    </div>
+                    
+                    <div class="ArtDiv">
+                        <label >活動日期:</label>
+                        <input type="date" class="form-control small-date-input"  required>
+                        <div class="error_message">請輸入活動日期</div>
+                    </div>
+                    <div class="ArtDiv">
+                        <label >是否收費:</label>
+                        <input type="radio" name="cost" value=0 required>是
+                        <input type="radio" name="cost" value=1 required>否
+                        <div class="error_message">請輸入活動日期</div>
+                    </div>                           
+                    
+                    <div class="text-center">
+                        <button type="submit" id="submit" class="btn btn-primary">送出新增</button>
+                    </div>      
+                </form>
+            </div>
+        </div>
+    </div>
+    <script></script>
+</body>
+</html>
