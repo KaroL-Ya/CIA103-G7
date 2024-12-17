@@ -10,7 +10,8 @@
             }
 
             img {
-                max-width: 100%;
+/*                 max-width: 100%; */
+width:50px;
             }
 
             body {
@@ -90,6 +91,17 @@
 </style>
 </head>
 <body>
+    <header class="header">
+        <div class="header-left">
+            	<a th:href="@{/}" class="logo"><span class="symbol"><img
+						src="images/coffee-beans.png" alt="" /></span><span class="title">回首頁</span>
+				</a>
+				<a th:href="@{/login}"><img th:src="@{/images/222.png}">回登入</a>
+        </div>
+        <div class="header-right" align="right">
+			
+        </div>
+    </header>
     <div align="center">
         <h2>驗證信箱</h2>
       <form th:action="@{/verifyCode}" method="post">
@@ -106,7 +118,7 @@
             	<td colspan="2" align="center"><span class="error" th:if="${error != null}" th:text="${error}"></span></td>
             </tr>
 			<tr>
-            	<td colspan="2"><button type="submit">驗證</button></td>
+            	<td colspan="2" align="center"><button type="submit">驗證</button></td>
             </tr>
         </table>
       </form>
