@@ -20,10 +20,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">登出</a></li>
-                    </ul>
                 </div>
+                    <form th:action="@{/mlogout}" method="post" th:if="${session.mem_Id != null}"th:href="forum">
+                <button type="submit">登出</button>
+            </form>
             </div>
         </nav>
 
