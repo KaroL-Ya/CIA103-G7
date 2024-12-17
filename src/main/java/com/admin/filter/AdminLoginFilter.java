@@ -101,6 +101,7 @@ public class AdminLoginFilter implements Filter {
         }
         
         else if (uri.matches(".*/back-end/news/.*")) {
+//        else if (uri.matches(".*/news/.*")) {
             return 7; // 最新消息管理
         }
         
