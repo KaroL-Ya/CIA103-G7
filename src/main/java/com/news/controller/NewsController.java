@@ -38,6 +38,14 @@ public class NewsController {
     	return "back-end/news/listAllNews";
     }
     
+    @GetMapping("/front-end/news")
+    public String showFrontendPage(ModelMap model) {
+    	// 假設這裡是查詢新聞列表的邏輯
+    	List<NewsVO> newsList = newsSvc.getAll();
+    	model.addAttribute("newsList", newsList);
+    	return "front-end/newsIndex";
+    }
+
     @GetMapping("/back-end/news/selectNews")
     public String selectNews(ModelMap model) {
     	List<NewsVO> newsList = newsSvc.getAll();

@@ -180,7 +180,7 @@
                 <th>商家介紹</th>
                 <th>照片</th>
                 <th>修改</th>
-                <th>刪除</th>
+<!--                 <th>刪除</th> -->
             </tr>
         </thead>
         <tbody>
@@ -207,12 +207,12 @@
                             <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}">
                         </form>
                     </td>
-                    <td>
-                        <form method="post" th:action="@{/cafe/deleteCafe}" onsubmit="return confirm('確定要刪除這筆資料嗎？');">
-                            <input type="submit" value="刪除">
-                            <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}">
-                        </form>
-                    </td>
+<!--                     <td> -->
+<!--                         <form method="post" th:action="@{/cafe/deleteCafe}" onsubmit="return confirm('確定要刪除這筆資料嗎？');"> -->
+<!--                             <input type="submit" value="刪除"> -->
+<!--                             <input type="hidden" name="cafeId" th:value="${cafeVO.cafeId}"> -->
+<!--                         </form> -->
+<!--                     </td> -->
                 </tr>
             </th:block>
         </tbody>

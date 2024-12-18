@@ -46,7 +46,12 @@ public class PostService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	public void updatePostStatus(Integer postId, Byte status) {
+	    PostVO post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+	    post.setStatus(status);
+	    postRepository.save(post);
+	}
+
 	
 
 
