@@ -51,10 +51,10 @@ public class ParticipateControllerBackUp {
     @GetMapping("/join")
     // actNo EveId
     public String addParticipant(@RequestParam("eveID") Integer eveID, ModelMap model, HttpSession session) {
-//        MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
-//        if (loggedInMember == null) {
-//            return "redirect:/member/loginMem";
-//        }
+        MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
+        if (loggedInMember == null) {
+            return "redirect:/member/loginMem";
+        }
 
         ParticipateVO PartVO = new ParticipateVO();
         EventVO eventVO = esvc.findById(eveID);

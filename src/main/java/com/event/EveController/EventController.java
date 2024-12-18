@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.event.EveModel.EventService;
 import com.event.EveModel.EventVO;
 import com.mall.lookitem.LookItemVO;
+import com.member.model.MemberVO;
 import com.event.Participate.ParticipateService;
 
 @Controller
@@ -43,10 +44,16 @@ public class EventController {
 
     // 2. 網頁-新增活動
     @GetMapping("/new")
-    public String addEventForm(Model model) {
+    public String addEventForm(Model model, HttpSession session) {
     	//model.addAttribute(memID)
-        model.addAttribute("Debug1", new EventVO());
-        return "event/newEvent"; // newEvent.html 
+    	 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+         if (memberId != null) {
+        	 model.addAttribute("Debug1", new EventVO());
+        	 return "event/newEvent"; // newEvent.html 
+         	}else{
+           return "redirect:/member/loginMem";
+         	}
+         
     }
     
     // 2. 功能-新增活動
@@ -83,7 +90,7 @@ public class EventController {
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("Debug1", list);
 		model.addAttribute("success", "- (新增成功)");
-        return "redirect:/event/list"; // Redirect to event list
+        return "events/list"; // Redirect to event list
     }
     
 
@@ -114,7 +121,7 @@ public class EventController {
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("EventList", list);
 		model.addAttribute("success", "- (刪除成功)");
-		return "redirect:/events"; // 刪除完成後轉交其他
+		return "redirect:/events/list"; // 刪除完成後轉交其他
 	}
 	
     	
@@ -122,7 +129,7 @@ public class EventController {
 	// 詳細資訊
 	@GetMapping("/ShowDetails/{eventID}")
 	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model, HttpSession session) {
-      //報名盼度安
+      //報名判斷
 		Integer memberId = (Integer) session.getAttribute("mem_Id"); 
          boolean repeat = psvc.RepeatRegister(memberId, eventID);
 		EventVO eveThis = esvc.findById(eventID);
@@ -131,12 +138,26 @@ public class EventController {
 		return "event/EventDetails";
 	}
 	
-	// 春澔測試
-		@GetMapping("/addEventBackUp")
-		public String addEventBackUp() {
-			return "event/addEventBackUp";
-		}
-	
+	//我創的活動
+//	@GetMapping("MyHost")
+//	public String MyEvent(HttpSession session, Model model) {
+//		
+//		 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+//         if (memberId == null) {
+//        	 model.addAttribute("Debug1", new EventVO());
+//        	 return "event/newEvent"; // newEvent.html 
+//         	}else{
+//           return "redirect:/member/loginMem";
+//         	}
+//	}
+//	  @GetMapping("/myEvents/{memID}")
+//	    public String getEventsForMember(@PathVariable("memID") Integer memberId, Model model) {
+//		  MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
+//	        if (loggedInMember == null) {
+//	            return "redirect:/member/loginMem";
+//	        }
+//	        System.out.println(1);
+//	    }
 	//活動報名
 	
 	//不需要這個
