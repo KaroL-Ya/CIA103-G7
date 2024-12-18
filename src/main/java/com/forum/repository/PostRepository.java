@@ -3,6 +3,9 @@ package com.forum.repository;
 import com.forum.model.PostVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,4 +13,5 @@ import org.springframework.data.domain.Pageable;
 public interface PostRepository extends JpaRepository<PostVO, Integer> {
     // 查詢所有貼文並支持分頁
     Page<PostVO> findAll(Pageable pageable);
+    List<PostVO> findByMemId(Integer memId);
 }

@@ -43,7 +43,7 @@ public class PostController {
         if (post == null) {
             return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
         }
-        
+
         model.addAttribute("post", post); // 將貼文對象添加到模型中，傳遞給視圖頁面
         model.addAttribute("currentMemberId", session.getAttribute("mem_Id")); // 當前用戶ID
         
@@ -69,19 +69,33 @@ public class PostController {
     public String forum(Model model, 
                         @RequestParam(defaultValue = "0") int page, 
                         @RequestParam(defaultValue = "5") int size) {
-    	 // 確保頁碼大於等於 0
-        if (page < 0) {page = 0;  }// 頁碼不能小於 0 
+        Integer memId = (Integer) session.getAttribute("mem_Id");
         
-        Pageable pageable = PageRequest.of(page,size); // 設定分頁參數，頁數從 0 開始
+        // 檢查用戶是否已被停權
+        if (memId != null) {
+            // 假設有一個方法可以檢查用戶狀態
+            boolean isBanned = postService.isUserBanned(memId);
+            if (isBanned) {
+                model.addAttribute("message", "您的帳號已被停權，無法進入論壇。");
+                return "forum/banned"; // 返回停權頁面
+            }
+        }
+
+        // 確保頁碼大於等於 0
+        if (page < 0) { page = 0; } // 頁碼不能小於 0 
+        
+        Pageable pageable = PageRequest.of(page, size); // 設定分頁參數，頁數從 0 開始
         Page<PostVO> postPage = postService.getAllPosts(pageable);
 
         model.addAttribute("posts", postPage); // 將當前頁面的貼文傳遞給視圖
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postPage.getTotalPages()); // 總頁數
         model.addAttribute("size", size); // 總條目數
-        model.addAttribute("mem_Id", session.getAttribute("mem_Id"));// 將會員 ID 傳遞到模型
+        model.addAttribute("mem_Id", session.getAttribute("mem_Id")); // 將會員 ID 傳遞到模型
+        
         return "forum/forum"; // 返回論壇頁面
     }
+
 
  
      

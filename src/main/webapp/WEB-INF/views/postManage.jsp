@@ -109,7 +109,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="<%= request.getContextPath() %>/" class="button">返回首頁</a>
+        <a href="<%= request.getContextPath() %>/back-end/forum/postManage" class="button">返回首頁</a>
         <h1>貼文管理</h1>
 
         <table>

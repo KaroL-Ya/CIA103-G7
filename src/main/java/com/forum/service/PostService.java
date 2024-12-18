@@ -52,6 +52,15 @@ public class PostService {
 	    postRepository.save(post);
 	}
 
+	public boolean isUserBanned(Integer memId) {
+	    List<PostVO> posts = postRepository.findByMemId(memId);
+	    // 檢查是否有任何貼文的狀態為 0（停權）
+	    return posts.stream().anyMatch(post -> post.getStatus() == 0);
+	}
+
+
+
+
 	
 
 
