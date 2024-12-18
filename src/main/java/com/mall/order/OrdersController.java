@@ -115,7 +115,7 @@ public class OrdersController {
 	}
 
 	// 後台管理
-	@PostMapping("listAllOrders_ByCompositeQuery")
+	@PostMapping("/back-end/mall/listAllOrders_ByCompositeQuery")
 	public String adminOrderListAll(HttpServletRequest req, Model model) {
 		String orderIdStr = req.getParameter("orderId");
 		String statusStr = req.getParameter("status");

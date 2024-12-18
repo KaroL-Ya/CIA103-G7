@@ -196,7 +196,7 @@ public class MyController {
 		return "back-end/order/orderManagement_admin"; // Thymeleaf 頁面名稱
 	}
 
-	@GetMapping("/admin_money")
+	@GetMapping("/back-end/mall/admin_money")
 	public String getAdminMoney(@RequestParam(required = false) Integer year,
 			@RequestParam(required = false) Integer month, Model model) {
 

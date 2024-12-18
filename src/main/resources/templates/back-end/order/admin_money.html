@@ -8,21 +8,24 @@
 <body>
 	<header>
 		<h1>CAFE</h1>
-		<form th:action="@{/}" method="get" style="margin-left: auto;">
-			<button type="submit" class="index">首頁</button>
+		<form th:action="@{/back-end/backhome}" method="get" style="margin-left: auto;">
+			<button type="submit" class="index">後台首頁</button>
 		</form>
-		<form th:action="@{/admin_order}" method="get">
+		<form th:action="@{/pco/select_page}" method="get">
+			<button type="submit" class="index">平台優惠券</button>
+		</form>
+		<form th:action="@{/back-end/mall/admin_order}" method="get">
 			<button type="submit" class="order_manage">訂單管理</button>
 		</form>
-		<form th:action="@{/admin_money}" method="get">
+		<form th:action="@{/back-end/mall/admin_money}" method="get">
 			<button type="submit" class="money_manage">檢視營收</button>
 		</form>
-		<form action="#" method="post">
-			<button type="submit" class="log_out">登出</button>
-		</form>
+		<form th:action="@{/logout}" method="post" th:if="${session.admin_Name != null}">
+             <button type="submit" class="log_out">登出</button>
+        </form>
 	</header>
 
-	<form id="search-form" method="GET" th:action="@{/admin_money}"
+	<form id="search-form" method="GET" th:action="@{/back-end/mall/admin_money}"
 		class="search-form">
 		<label for="year">年份：</label> <select id="year" name="year"
 			class="custom-select">

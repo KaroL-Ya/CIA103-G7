@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+/* 
 @Controller
 @RequestMapping("/Esu")
 public class EsuController {
@@ -60,4 +60,4 @@ public class EsuController {
 
     // Add more controller methods if needed for handling other requests
 }
-
+*/

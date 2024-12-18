@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.event.EveModel.EventVO;
 import com.event.Participate.ParticipateVO;
+import com.event.Participate.ParticipateRepository;
 import com.event.Participate.ParticipateService;
 
 //import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_Emp3;
@@ -33,7 +34,10 @@ public class EventService {
 
     @Autowired
     private EventRepository eveRepo;
-
+    
+    @Autowired
+    private ParticipateRepository partRepo;
+    
     // Get event by ID
     public EventVO findById(Integer eventID) {
         return eveRepo.findById(eventID).orElse(null);
@@ -85,6 +89,17 @@ public class EventService {
         updateEvent(event);        
     }
  
+    // 清單創活動
+    public List<EventVO> getEventsForMember(Integer memberId) {
+        List<ParticipateVO> participations = partRepo.findByMemID_MemId(memberId);
+        List<EventVO> events = new ArrayList<>();
+        
+        for (ParticipateVO participate : participations) {
+            events.add(participate.getEveID());
+        }
+        
+        return events;
+    }
     // Search for Event(Condition)
 //    public List<EventVO> searchEvents(LocalDateTime startDate, LocalDateTime endDate,Integer status) {
 //        if (searchTerm == null || searchTerm.isEmpty()) {

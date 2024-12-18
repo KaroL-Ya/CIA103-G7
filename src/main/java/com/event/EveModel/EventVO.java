@@ -64,7 +64,7 @@ public class EventVO implements java.io.Serializable {
 	private String eveName; 	//活動名稱
 	
 	@Column(name="dat")
-	@Future(message="日期必須是在今日(不含)之後")
+//	@Future(message="日期必須是在今日(不含)之後")
 	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private LocalDate dat;		//活動日期
 	
@@ -80,7 +80,7 @@ public class EventVO implements java.io.Serializable {
 	private Integer lim;	//人數上限
 	
 	@Column(name="opd")
-	@Future(message="日期必須是在今日(不含)之後")
+//	@Future(message="日期必須是在今日(不含)之後")
 	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private LocalDate opd;		//報名日期
 	

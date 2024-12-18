@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.mail.FetchProfile.Item;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LookItemController {
  
- 
- 
+
  @Autowired
  private LookItemService lookItemService;
+ 
+ @Autowired
+	private HttpSession session;
 
 // Base64
  private void convertCoverImgToBase64(List<LookItemVO> items) {
@@ -54,6 +57,9 @@ public class LookItemController {
    item.setBase64CoverImg(base64CoverImg);
   }
   model.addAttribute("item", item);
+  
+//  model.addAttribute("itemId", session.getAttribute("itemId"));  //加加加加
+  
   return "front-end/lookitem/oneItem";
  }
  
@@ -72,8 +78,6 @@ public class LookItemController {
          model.addAttribute("items", list); // 加到模型   
      } 
   return "front-end/lookitem/lookItem"; 
-  }
-         
-  
+  } 
   
 }

@@ -38,7 +38,6 @@ public class MemOrderVO implements java.io.Serializable {
         this.orderId = orderId;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "MEM_ID")
     @JoinColumn(name = "MEM_ID", referencedColumnName = "MEM_ID")
     public Integer getMemId() {
@@ -49,7 +48,6 @@ public class MemOrderVO implements java.io.Serializable {
         this.memId = memId;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "CAFE_ID")
     @JoinColumn(name = "CAFE_ID", referencedColumnName = "CAFE_ID")
     public Integer getCafeId() {

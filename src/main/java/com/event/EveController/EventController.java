@@ -22,23 +22,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.event.EveModel.EventService;
 import com.event.EveModel.EventVO;
 import com.mall.lookitem.LookItemVO;
+import com.member.model.MemberVO;
+import com.event.Participate.ParticipateService;
 
 @Controller
 	@RequestMapping("/events")
 public class EventController {
-/*需要功能:各網頁、活動插入
-已完成:全部活動，確認CRUD可用
-活動列表放首頁，創建活動放在不同會員or商家的個人頁面，直接從session取會員or商家ID
-不用特別做商家or會員分割，不同名稱function和參數即可
-活動編輯和刪除用網頁分，直接登入-中心頁-我的活動去編輯，用登入後的session抓
-活動參加只准一般會員，商家不用做
-活動創建也要求登入，登入後導向不同頁面?不可。登入後還是用session存商家or會員
-還是需要做活動創建的不同implement
-session放在mem_id
-我的活動要從會員ID找活動
-*/
+
     @Autowired
     private EventService esvc;
+    
+    @Autowired
+    private ParticipateService psvc;
 
     // 1. 網頁-活動列表
     @GetMapping("/list")
@@ -49,10 +44,16 @@ session放在mem_id
 
     // 2. 網頁-新增活動
     @GetMapping("/new")
-    public String addEventForm(Model model) {
+    public String addEventForm(Model model, HttpSession session) {
     	//model.addAttribute(memID)
-        model.addAttribute("Debug1", new EventVO());
-        return "event/newEvent"; // newEvent.html 
+    	 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+         if (memberId != null) {
+        	 model.addAttribute("Debug1", new EventVO());
+        	 return "event/newEvent"; // newEvent.html 
+         	}else{
+           return "redirect:/member/loginMem";
+         	}
+         
     }
     
     // 2. 功能-新增活動
@@ -89,7 +90,7 @@ session放在mem_id
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("Debug1", list);
 		model.addAttribute("success", "- (新增成功)");
-        return "redirect:/event/list"; // Redirect to event list
+        return "events/list"; // Redirect to event list
     }
     
 
@@ -120,19 +121,43 @@ session放在mem_id
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("EventList", list);
 		model.addAttribute("success", "- (刪除成功)");
-		return "redirect:/events"; // 刪除完成後轉交其他
+		return "redirect:/events/list"; // 刪除完成後轉交其他
 	}
 	
     	
 	
 	// 詳細資訊
 	@GetMapping("/ShowDetails/{eventID}")
-	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model) {
+	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model, HttpSession session) {
+      //報名判斷
+		Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+         boolean repeat = psvc.RepeatRegister(memberId, eventID);
 		EventVO eveThis = esvc.findById(eventID);
 		model.addAttribute("eveThis", eveThis);
+		model.addAttribute("repeat",repeat);
 		return "event/EventDetails";
 	}
 	
+	//我創的活動
+//	@GetMapping("MyHost")
+//	public String MyEvent(HttpSession session, Model model) {
+//		
+//		 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+//         if (memberId == null) {
+//        	 model.addAttribute("Debug1", new EventVO());
+//        	 return "event/newEvent"; // newEvent.html 
+//         	}else{
+//           return "redirect:/member/loginMem";
+//         	}
+//	}
+//	  @GetMapping("/myEvents/{memID}")
+//	    public String getEventsForMember(@PathVariable("memID") Integer memberId, Model model) {
+//		  MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
+//	        if (loggedInMember == null) {
+//	            return "redirect:/member/loginMem";
+//	        }
+//	        System.out.println(1);
+//	    }
 	//活動報名
 	
 	//不需要這個
@@ -143,7 +168,7 @@ session放在mem_id
 //    }
     
     // 查詢活動
-	// 查看自己發布的所有活動
+	// 查看自己參加的所有活動
 //		@GetMapping("/MyPostedEvent")
 //		public String myPostedEvent(HttpSession session, Model model) {
 //			BusinessMember businessMember = (BusinessMember) session.getAttribute("presentBusinessMember");

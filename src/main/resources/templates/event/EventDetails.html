@@ -5,52 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>活動詳情</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+    }
 
+    header {
+        text-align: center;
+        background-color: #c28888;
+        color: #fff;
+        padding: 20px 0;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .details-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid #e0e0e0;
+    }
+
+    .details-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .details-container p {
+        margin-bottom: 10px;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #c28888;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 <header>
-放連結
+活動詳情
 </header>
-     <div class= "event-info">
-         活動詳細資訊
-     </div>
-     <div class="card-body text-center">
-         <div class="mb-2 d-flex align-items-center justify-content-center">
-         </div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動名稱:</span><span class="value" th:text="${eveThis.eveName}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-         <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div>
-             <div class="mb-2"><span>活動狀態:</span>
-<!--              <span class="value" id="actStatus" th:switch="${actVO.actStatus}"> -->
-<!--                  <span th:case="0">揪團中</span> -->
-<!--                  <span th:case="1">已成團</span> -->
-<!--                  <span th:case="2">活動已完成</span> -->
-<!--                  <span th:case="3">活動已取消</span> -->
-<!--              </span> -->
-
+<!--      <div class="card-body text-center"> -->
+<!--          <div class="mb-2 d-flex align-items-center justify-content-center"> -->
 <!--          </div> -->
-<!--          <div class="attend"> -->
-<!--              <a  th:href="@{/participate/join(eveID=${eveThis.eveID})}" class="btn btn-primary">我要報名</a> -->
-<!--                     <input type="hidden" name="eveID" value="${participateVO.eveID.eveID}"/> -->
-<!--             <form th:action="@{/participate/enroll}" method="post"> -->
-<!--         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" /> -->
-<!--         <button type="submit">Sign Up</button> -->
-<!--     </form> -->
-            <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post">
+<!--          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div> -->
+<!--          <div class="event-content"><span>活動名稱:</span><span class="value" th:text="${eveThis.eveName}"></span></div> -->
+  
+<!--          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div> -->
+<!--          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div> -->
+<!--          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div> -->
+<!--          <div class="event-content"><span>活動編號:</span><span class="value" th:text="${eveThis.eveID}"></span></div> -->
+<!--              <div class="mb-2"><span>活動狀態:</span> -->
+<div class="details-container">
+        <h2 th:text="${eveThis.eveName}">活動標題</h2>
+        <p><strong>地點:</strong> <span th:text="${eveThis.loc}"></span></p>
+        <p><strong>日期:</strong> <span th:text="${eveThis.dat}"></span></p>
+        <p><strong>內容:</strong></p>
+  <p th:text="${eveThis.detail}"></p> 
+  <p><strong>現在報名人數:</strong> <span th:text="${eveThis.num}"></span></p>
+        <p><strong>人數上限:</strong> <span th:text="${eveThis.lim}"></span></p>
+        <p><strong>報名開始日:</strong> <span th:text="${eveThis.opd}"></span></p>
+        <p><strong>報名結束日:</strong> <span th:text="${eveThis.trm}"></span></p>
+        <p><strong>是否收費:</strong> <span th:if="${eveThis.cost == 1}">是</span><span th:if="${eveThis.cost == 0}">否</span></p>
+ <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post">
         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" />
-        <button type="submit">Sign Up</button>
+<!--         <button type="submit">報名</button> -->
+    <button type="submit" th:if="${not repeat}">報名</button>
+
     </form>
-        </div>
-     </div>
+    
+    <form th:action="@{/participate/cancel/{eveID}(eveID=${eveThis.eveID})}" method="post">
+        <input type="hidden" name="eveID" th:value="${eveThis.eveID}" />
+<!--         <button type="submit">報名</button> -->
+    <button type="submit" th:if="${repeat}">取消報名</button>
 
-
-    <a class="btn btn-secondary back-button" th:href="@{/events/list}">
-        <i class="fa-solid fa-person-walking-arrow-loop-left"></i> 返回活動列表
+    </form>
+    
+    </div>
+<!--             <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post"> -->
+<!--         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" /> -->
+<!--         <button type="submit">報名</button> -->
+<!--     </form> -->
+<!--         </div> -->
+<!--      </div> -->
+ <a class="back-link" th:href="@{/events/list}"> 我的活動
     </a>
- 
+
+    <a class="back-link" th:href="@{/events/list}"> 返回活動列表
+    </a>
+<!--  <div th:if="${session.user != null}"> -->
+<!--         只有登入的用戶才會看到此按鈕 -->
+<!--         <a href="/my-profile">我的資料</a> -->
+<!--         <a href="/logout">登出</a> -->
+<!--     </div> -->
+
+    <div th:if="${session.mem_id == null}">
+        <!-- 未登入的用戶顯示登入選項 -->
+        <a href="/login">登入</a>
+        <a href="/register">註冊</a>
+    </div>
 </body>
 </html>

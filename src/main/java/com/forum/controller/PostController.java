@@ -36,6 +36,34 @@ public class PostController {
     @Autowired
     private HttpSession session;
 
+    // GetMapping 用於顯示帖文更新頁面
+    @GetMapping("/forum/updateStatus/{id}")
+    public String showUpdateStatusPage(@PathVariable Integer id, Model model) {
+        PostVO post = postService.getPostById(id);
+        if (post == null) {
+            return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
+        }
+        
+        model.addAttribute("post", post); // 將貼文對象添加到模型中，傳遞給視圖頁面
+        model.addAttribute("currentMemberId", session.getAttribute("mem_Id")); // 當前用戶ID
+        
+        return "redirect:/forum"; // 返回更新頁面
+    }
+    
+    // PostMapping 用於處理貼文狀態更新
+    @PostMapping("/forum/updateStatus")
+    public String updatePostStatus(@RequestParam Integer id, @RequestParam Byte status) {
+        PostVO post = postService.getPostById(id);
+        if (post == null) {
+            return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
+        }
+
+        // 更新貼文狀態
+        post.setStatus(status);
+        postService.savePost(post); // 假設有一個方法可以更新貼文
+       
+        return  "forward:/WEB-INF/views/postManage.jsp"; // 更新成功後重定向到貼文列表頁
+    }
 
     @GetMapping("/forum")
     public String forum(Model model, 
@@ -55,18 +83,8 @@ public class PostController {
         return "forum/forum"; // 返回論壇頁面
     }
 
-  
-    
-//    @GetMapping("")
-//    public String forum(Model model) {
-//        List<PostVO> posts = postService.getAllPosts(); // 獲取所有貼文
-//        model.addAttribute("posts", posts);
-//        model.addAttribute("mem_Id", session.getAttribute("mem_Id")); // 將會員 ID 傳遞到模型
-//        return "forum/forum"; 
-//    }
-
-        
-
+ 
+     
 
     @GetMapping("/back-end/forum/postManage") // 查詢論壇管理
 
@@ -75,31 +93,12 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "forward:/WEB-INF/views/postManage.jsp"; 
     }
-    
-
-//    @GetMapping("/postsByMemId")
-//    public String getPostsByMemId(@RequestParam Integer mem_Id, 
-//                                   @RequestParam(defaultValue = "1") int page, 
-//                                   Model model) {
-//        Pageable pageable = PageRequest.of(page - 1, 5); // 每頁顯示 5 筆資料
-//        Page<PostVO> postPage = postService.getPostsByMemId(mem_Id, pageable);
-//
-//        model.addAttribute("posts", postPage.getContent());
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", postPage.getTotalPages());  // 確保傳遞 totalPages
-//        model.addAttribute("mem_Id", mem_Id);
-//        
-//        return "forum/forum";  // 返回模板
-//    }
-
-
-
+   
 
 
     @GetMapping("/forum/create") // 顯示新增貼文頁面
     public String createPostPage(Model model) {
-//        Integer cafeId = (Integer) session.getAttribute("cafeId"); // 從 session 中獲取咖啡廳編號
-//        model.addAttribute("cafeId", cafeId);
+        Integer cafeId = (Integer) session.getAttribute("cafeId"); // 從 session 中獲取咖啡廳編號
         Integer memId =(Integer)session.getAttribute("mem_Id"); // 從 session 中獲取會員編號
     	
         if (memId == null) {
@@ -108,6 +107,7 @@ public class PostController {
         
         
         model.addAttribute("memberId", memId);
+        model.addAttribute("cafeId", cafeId);
         return "forward:/WEB-INF/views/createPost.jsp"; // 返回新增貼文頁面
     }
     
@@ -153,13 +153,18 @@ public class PostController {
             return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
         }
 
+        Integer currentMemberId = (Integer) session.getAttribute("mem_Id");
+        Integer cafeId = (Integer) session.getAttribute("cafeId");
+
+        // 檢查當前用戶是否是貼文的擁有者或商家
+        if (!post.getMemId().equals(currentMemberId) && !post.getCafeId().equals(cafeId)) {
+            return "redirect:/error"; // 如果不是擁有者，重定向到錯誤頁面
+        }
+
+        
         // 更新標題和內容
         post.setTitle(title);
         post.setContent(content);
-        
-        // 設置會員 ID
-        post.setMemId((Integer) session.getAttribute("mem_Id"));
-        
         // 保存更新
         postService.savePost(post);
         
@@ -169,19 +174,43 @@ public class PostController {
     @PostMapping("/forum/create") // 創建貼文
     public String createPost(@ModelAttribute PostVO post) {
     	System.out.println((Integer)session.getAttribute("mem_Id"));
-//    	System.out.println((Integer)session.getAttribute("cafe_Id"));
+    	System.out.println((Integer)session.getAttribute("cafe_Id"));
     	
-        post.setMemId((Integer) session.getAttribute("mem_Id")); // 設置會員 ID
-//        post.setCafeId((Integer) session.getAttribute("cafeId"));
+    	   Integer memId = (Integer) session.getAttribute("mem_Id");
+    	    Integer cafeId = (Integer) session.getAttribute("cafeId");
+    	
+    	    post.setMemId(memId); // 設置會員 ID
+    	    post.setCafeId(cafeId); // 設置咖啡廳 ID
+        
         postService.createPost(post);
         return "redirect:/forum"; // 重定向到首頁
     }
 
     @PostMapping("/forum/delete") // 刪除貼文
-    public String deletePost(Integer id) {
+    public String deletePost(@RequestParam Integer id) {
+        
+        Integer memId = (Integer) session.getAttribute("mem_Id");// 取得當前會員 ID
+       
+         if (memId == null) {
+            return "redirect:/login"; // 如果沒登入則跳轉到登入頁
+        }
+
+        PostVO post = postService.getPostById(id); // 根據 ID 獲取貼文
+        if (post == null) {
+            return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
+        }
+
+        // 檢查該貼文是否為當前會員所擁有
+        if (!post.getMemId().equals(memId)) {
+            return "redirect:/error"; // 如果不是該會員的貼文，重定向到錯誤頁面
+        }
+
+        // 刪除該貼文
         postService.deletePost(id);
-        return "redirect:/forum/postManage"; // 重定向到首頁
+
+        return "redirect:/forum"; // 刪除後重定向回論壇頁面
     }
+
     
     @PostMapping("/forum/like") // 按讚功能
     public String likePost(@RequestParam Integer postId) {

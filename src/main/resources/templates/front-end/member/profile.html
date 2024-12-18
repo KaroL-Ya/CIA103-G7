@@ -141,9 +141,6 @@ button.coupon{
             </form>
         </div>
     </header>
-<!-- 				<div> -->
-<!--                 	<a th:href='@{/profile/addCreditCard}'>我的信用卡</a> -->
-<!--                 </div> -->
     <hr>
     <div>
         <table>
@@ -195,6 +192,7 @@ button.coupon{
             <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}">
         </form>
     </div>
+
     
     <div>
     	<form method="get" th:action="@{/uco/listCoupons}">
@@ -202,6 +200,9 @@ button.coupon{
             <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}">
         </form>
     </div>
-    
+
+    <div>
+    	<a th:href="@{/memOrder/memOrder}">查看我的訂單</a>
+    </div>
 </body>
 </html>
