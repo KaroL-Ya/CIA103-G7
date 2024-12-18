@@ -127,7 +127,7 @@ body {
 	margin-top: 20px;
 }
 
-* /
+
 .checkout-methods img {
 	width: 50px;
 	height: auto;
@@ -204,12 +204,26 @@ body {
 .btn-add-report:active {
 	background-color: #1f7462; /* 按下時的背景顏色 */
 }
+.btn-warning {
+    background-color: orange;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;  
+    float: right;
+}
+.btn-warning:hover {
+    background-color: red;  /* 滑鼠停改變 */
+    }
+    
 </style>
 </head>
 <body>
 
 
 	<div class="container">
+	<a th:href="@{/lookItem}"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#992B15"><path d="m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z"/></svg> </a>
 		<div>
 			<img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
 				alt="Cover Image" width="300px" />
@@ -272,7 +286,9 @@ body {
 				<form th:action="@{/cart/addCart}" method="post">
 					<input type="hidden" name="itemId" th:value="${item.itemId}">
 					<input type="hidden" class="form-quantity" name="num" value="1">
-					<button type="submit" class="btn-add-cart">加入購物車</button>
+				
+					<button type="button" id="addToCart" class="btn-add-cart">加入購物車</button>
+					
 				</form>
 
 				<button id="addFavorite" class="btn btn-add-favorite">
@@ -280,7 +296,11 @@ body {
 
 					<!--      <button id="report" class="btn btn-add-report">檢舉</button> -->
 			</div>
-				
+			
+			
+<!-- 				<div th:if="${item.itemId == itemId}"> -->
+<!--                 <a class="btn btn-warning" th:href="@{/lookitem/formReport/{id}(id=${item.itemId})}">檢舉</a> -->
+<!--             </div> -->
 				<form
 							th:action="@{/itemReport/itemReport/{itemId}(itemId=${item.itemId})}"
 							method="get">
@@ -299,25 +319,36 @@ body {
 	</div>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var addToCartBtn = document.getElementById("addToCart");
-			addToCartBtn.addEventListener("click", function() {
-				addToCartBtn.disabled = true; // 禁用按鈕
-				addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-				alert("商品已加入購物車");
+	
+	document.addEventListener("DOMContentLoaded", function() {
+	    
+	    var addToCartBtn = document.getElementById("addToCart");
+	    var addFavoriteBtn = document.getElementById("addFavorite");
 
-			});
-		});
-		document.addEventListener("DOMContentLoaded", function() {
-			var addFavoriteBtn = document.getElementById("addFavorite");
-			addFavoriteBtn.addEventListener("click", function() {
-				addFavoriteBtn.disabled = true;// 禁用按鈕
-				addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-				alert("商品已加入收藏");
-				addFavoriteBtn.innerText = "已加入收藏";
+	    // 檢查 addToCart 按鈕是否存在
+	    if (addToCartBtn) {
+	        addToCartBtn.addEventListener("click", function() {
+	            addToCartBtn.disabled = true; // 禁用按鈕
+	            addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+	            alert("商品已加入購物車");
+	        });
+	    } else {
+	        console.error("找不到 'addToCart' 按鈕元素");
+	    }
 
-			});
-		});
+	    // 檢查 addFavorite 按鈕是否存在
+	    if (addFavoriteBtn) {
+	        addFavoriteBtn.addEventListener("click", function() {
+	            addFavoriteBtn.disabled = true; // 禁用按鈕
+	            addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+	            alert("商品已加入收藏");
+	            addFavoriteBtn.innerText = "已加入收藏";
+	        });
+	    } else {
+	        console.error("找不到 'addFavorite' 按鈕元素");
+	    }
+	});
+
 		function increaseQuantity() {
 			var quantityInput = document.getElementById('quantity');
 			var currentQuantity = parseInt(quantityInput.value);

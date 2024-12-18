@@ -32,9 +32,11 @@ public class MemOrderController {
 	//會員本人訂單
 	@GetMapping("/memOrder/{memId}")
 	public String getOneMemOrder(@PathVariable("memId") Integer memId, Model model) {
+		 System.out.println("memId: " + memId);  // 确保 memId 有值
 		List<MemOrderVO> orders = memOrderService.getOrdersByMemId(memId);
 		model.addAttribute("orders",orders); 
-		return "front-end/orders/memOrder"; 
+		 model.addAttribute("memId", memId);
+		return "front-end/orders/memOrder";  //加detials
 	}
   
    

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品檢舉表單~</title>
 
     <style>
@@ -13,7 +13,7 @@
         }
 
         /* div1 樣式 */
-        div.div1 { 
+        div.div1 {
             background-color: #cce5ff;
             padding: 20px 40px;
             border-radius: 8px;
@@ -54,69 +54,59 @@
         }
     </style>
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>檢舉表單</title>
-</head>
 
 <body>
- <div class="div1">
- 
-    <h1>檢舉表單</h1>
-    
-    <form id="myForm" action="#" method="post">
-    
-    <input type="checkbox" id="checkbox1" value="1"> 破損瑕疵盜版品
-    <br>
-    <input type="checkbox" id="checkbox2" value="2"> 破損瑕疵
-    <br>
-    <input type="checkbox" id="checkbox3" value="3"> 尺寸與標示不符
-    <br>
-    <input type="checkbox" id="checkbox4" value="4"> 與照片差距太大
-    <br>
-    <input type="checkbox" id="checkbox5" value="5"> 其他 (請下方填寫理由)
-    <br>
-    <textarea id="Reason" placeholder="選其他，請輸入理由"></textarea>
-    <br><br>
-    <input type="file" id="the_file">
-    <br>
-    
+    <div class="div1">
+        <h1>檢舉表單</h1>
 
-    <button type="submit" id="the_btn">確定送出</button>
-</form>
+        <!-- 表單提交路徑，使用 Thymeleaf 的 th:action 動態傳遞 itemId -->
+        <form id="myForm" th:action="@{/itemReport/{itemId}(itemId=${itemReportVO.itemId})}" method="POST">
 
+            <!-- 檢舉項目 -->
+            <input type="checkbox" id="checkbox1" name="reportType" value="1"> 破損瑕疵盜版品 <br>
+            <input type="checkbox" id="checkbox2" name="reportType" value="2"> 破損瑕疵 <br>
+            <input type="checkbox" id="checkbox3" name="reportType" value="3"> 尺寸與標示不符 <br>
+            <input type="checkbox" id="checkbox4" name="reportType" value="4"> 與照片差距太大 <br>
+            <input type="checkbox" id="checkbox5" name="reportType" value="5"> 其他 (請下方填寫理由)
+            <br>
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function(e) {
-            var isChecked = false;
-            var checkboxes = document.querySelectorAll("input[type='checkbox']");
-            var reason = document.querySelector("textarea").value.trim();
-            var otherChecked = document.querySelector("input[type='checkbox'][value='5']").checked;
-            
-            // 檢查是否有勾選框選中
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    isChecked = true;
+            <!-- 如果選擇了 '其他'，請填寫理由 -->
+            <textarea id="Reason" name="reason" placeholder="選其他，請輸入理由"></textarea>
+            <br><br>
+       
+            <!-- 提交按鈕 -->
+            <input type="submit" value="送出">
+        </form>
+
+        <!-- 表單驗證的 JavaScript -->
+        <script>
+            document.querySelector("form").addEventListener("submit", function(e) {
+                var isChecked = false;
+                var checkboxes = document.querySelectorAll("input[type='checkbox']");
+                var reason = document.querySelector("textarea").value.trim();
+                var otherChecked = document.querySelector("input[type='checkbox'][value='5']").checked;
+
+                // 檢查是否有勾選框選中
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isChecked = true;
+                    }
+                });
+
+                // 如果沒勾選任何項目
+                if (!isChecked) {
+                    e.preventDefault();
+                    alert("請選擇至少一個檢舉項目。");
+                }
+                // 如果選擇了 "其他" 但理由框未填寫
+                else if (otherChecked && reason === "") {
+                    e.preventDefault();
+                    alert("若選擇 '其他'，請填寫理由。");
+                } else {
+                    alert("送出成功");
                 }
             });
-            
-            // 如果沒勾選任何項目
-            if (!isChecked) {
-                e.preventDefault();
-                alert("請選擇至少一個檢舉項目。");
-            }
-            // 如果選擇了 "其他" 但理由框未填寫
-            else if (otherChecked && reason === "") {
-                e.preventDefault();
-                alert("若選擇 '其他'，請填寫理由。");
-            }
-            else {
-                alert("送出成功");
-            }
-        });
-  </script>
+        </script>
+    </div>
 </body>
 </html>

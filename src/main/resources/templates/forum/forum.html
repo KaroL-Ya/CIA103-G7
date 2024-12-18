@@ -72,7 +72,9 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="login">登入/註冊</a></li>
-                            <li><a class="dropdown-item" href="#!">貼文收藏</a></li>
+                           <li th:if="${session.mem_Id != null}">
+                                <a class="dropdown-item" href="profile">會員管理</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/">首頁</a></li>
@@ -132,7 +134,13 @@
 				<div th:if="${post.memId == mem_Id}">
 		    <a class="btn btn-warning" th:href="@{/forum/update/{id}(id=${post.postId})}">修改貼文</a>
 		</div>
-
+		
+	  <div th:if="${post.memId == mem_Id}"> <!-- 刪除貼文按鈕，僅顯示給貼文的作者 -->
+	        <form th:action="@{/forum/delete}" method="post" onsubmit="return confirm('確定要刪除這篇貼文嗎?');">
+	            <input type="hidden" name="id" th:value="${post.postId}" />
+	            <button type="submit" class="btn btn-danger">刪除貼文</button>
+	        </form>
+	    </div>
 
 
                 </div>

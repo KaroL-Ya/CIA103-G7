@@ -45,7 +45,7 @@ public class NewsController {
     	model.addAttribute("newsList", newsList);
     	return "front-end/newsIndex";
     }
-    
+
     @GetMapping("/back-end/news/selectNews")
     public String selectNews(ModelMap model) {
     	List<NewsVO> newsList = newsSvc.getAll();
