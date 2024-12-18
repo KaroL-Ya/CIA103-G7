@@ -112,7 +112,6 @@
         <a href="<%= request.getContextPath() %>/" class="button">返回首頁</a>
         <h1>貼文管理</h1>
 
-        <h2>已發布的貼文</h2>
         <table>
             <tr>
                 <th>貼文編號</th>
@@ -141,7 +140,7 @@
                                 <input type="hidden" name="id" value="${post.postId}">
                                 <input type="hidden" name="status" value="${post.status == 0 ? 1 : 0}">
                                 <button type="submit" class="button">
-                                    ${post.status == 0 ? '停權' : '恢復'}
+                                    ${post.status == 0 ? '恢復' : '停權'}
                                 </button>
                             </form>
                         </div>

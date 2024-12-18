@@ -36,6 +36,34 @@ public class PostController {
     @Autowired
     private HttpSession session;
 
+    // GetMapping 用於顯示帖文更新頁面
+    @GetMapping("/forum/updateStatus/{id}")
+    public String showUpdateStatusPage(@PathVariable Integer id, Model model) {
+        PostVO post = postService.getPostById(id);
+        if (post == null) {
+            return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
+        }
+        
+        model.addAttribute("post", post); // 將貼文對象添加到模型中，傳遞給視圖頁面
+        model.addAttribute("currentMemberId", session.getAttribute("mem_Id")); // 當前用戶ID
+        
+        return "redirect:/forum"; // 返回更新頁面
+    }
+    
+    // PostMapping 用於處理貼文狀態更新
+    @PostMapping("/forum/updateStatus")
+    public String updatePostStatus(@RequestParam Integer id, @RequestParam Byte status) {
+        PostVO post = postService.getPostById(id);
+        if (post == null) {
+            return "redirect:/error"; // 如果找不到貼文，重定向到錯誤頁面
+        }
+
+        // 更新貼文狀態
+        post.setStatus(status);
+        postService.savePost(post); // 假設有一個方法可以更新貼文
+       
+        return  "forward:/WEB-INF/views/postManage.jsp"; // 更新成功後重定向到貼文列表頁
+    }
 
     @GetMapping("/forum")
     public String forum(Model model, 
