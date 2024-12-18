@@ -10,10 +10,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Date</th>
-				<th>Location</th>
-				<th>Actions</th>
+				<th>活動名稱</th>
+				<th>日期</th>
+				<th>地點</th>
+				<th>活動內容</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,7 +21,7 @@
 				<td th:text="${event.eveName}"></td>
 				<td th:text="${event.dat}"></td>
 				<td th:text="${event.loc}"></td>
-				<td th:text="${event.eveID}"></td>
+				<td th:text="${event.detail}"></td>
 				<td >
 				<form method="get" th:action="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">
 							<button type="submit">查看詳情</button>

@@ -31,7 +31,7 @@ public class ParticipateControllerBackUp {
     @Autowired
     EventService esvc;
     
-    //報名頁面
+    //報名頁面--也不是這個
     @GetMapping("Renroll/{id}")
     public String RegistraterForm(@PathVariable Integer eveID, Model model, HttpSession session) {
      
@@ -47,7 +47,7 @@ public class ParticipateControllerBackUp {
     }
     
     
-    //報名頁面
+    //報名頁面--不是這個
     @GetMapping("/join")
     // actNo EveId
     public String addParticipant(@RequestParam("eveID") Integer eveID, ModelMap model, HttpSession session) {
@@ -67,11 +67,49 @@ public class ParticipateControllerBackUp {
         return "participate/join_test1";
     }
     
-  //報名method
+  //活動詳情報名method
     @PostMapping("/enroll/{eventID}")
     public String registerForEvent(@PathVariable("eventID") Integer eventID,HttpSession session) {
-    	return psvc.addParticipant(eventID);
+    	return psvc.addParticipant(eventID,session);
+    	
         }
+    //報名後我的活動
+    @GetMapping("/myEvents/{memID}")
+    public String getEventsForMember(@PathVariable("memID") Integer memberId, Model model) {
+        List<EventVO> events = esvc.getEventsForMember(memberId);
+        model.addAttribute("events", events);
+        return "event/MyEve";
+    }
+   //活動詳情取消報名method 
+    @PostMapping("/cancel/{eventID}")
+    public String retreatParticipant(@PathVariable("eventID") Integer eventID,HttpSession session) {
+    	return psvc.retreatParticipant(eventID,session);
+        }
+    
+    //取消報名
+//    @PostMapping("cancel")
+//    public String cancelRegistration( @RequestParam("eventId") Integer eventId,HttpSession session, Model model) {
+//    	Integer memId = (Integer)session.getAttribute("mem_Id");
+//        psvc.cancel(memId, eventId);
+//        
+////        List<EventVO> eventList = esvc.getAllEvents();
+////        
+////        model.addAttribute("EventList", eventList);
+////        model.addAttribute("success", "- (報名取消成功)");
+//
+//        return "redirect:/event/Myeve"; 
+//    }
+//    @DeleteMapping("/cancel")
+//    public ResponseEntity<String> cancelRegistration(@RequestParam Integer memId, @RequestParam Integer eventId) {
+//        try {
+//            participateService.cancelRegistration(memId, eventId);
+//            return ResponseEntity.ok("Registration canceled successfully.");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel registration.");
+//        }
+//    }
+
+    
     
     //傳值 eventID
 //    @PostMapping("/enroll")
@@ -87,21 +125,23 @@ public class ParticipateControllerBackUp {
 //    }
     
     //直接用attribute EventVO 物件
-    @PostMapping("/enroll1")
-    public String enrollEvent1(@ModelAttribute("eveThis") EventVO eveVO,Model model) {
-    	
-    	
+//    @PostMapping("/enroll1")
+//    public String enrollEvent1(@ModelAttribute("eveThis") EventVO eveVO,Model model) {
+//    	
+//    	
 //    	ParticipateVO participateVO = new ParticipateVO();
 //    	Integer EveID=eveVO.getEveID();
 //    	List<ParticipateVO> list = psvc.addParticipant(EveID);
 //    	psvc.saveParticipate(participateVO);
-    	psvc.addParticipant2(eveVO);
-    	
-    	List<EventVO> list = esvc.getAllEvents();
-		model.addAttribute("Debug1", list);
-		model.addAttribute("success", "- (新增成功)");
-        return "redirect:/event/list";
-    }
+//    	psvc.addParticipant2(eveVO);
+//    	
+//    	List<EventVO> list = esvc.getAllEvents();
+//		model.addAttribute("Debug1", list);
+//		model.addAttribute("success", "- (新增成功)");
+//        return "redirect:/event/list";
+//    }
+    
+    
 //    @PostMapping("enroll")
 //    public String insert(@Valid ParticipateVO participateVO, BindingResult result, ModelMap model,
 //                         MultipartFile[] parts, HttpSession session) throws IOException {

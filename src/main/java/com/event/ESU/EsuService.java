@@ -15,7 +15,7 @@ import com.member.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-//
+/*
 
 @Service
 public class EsuService {
@@ -62,4 +62,4 @@ public class EsuService {
 
     }
 }
-
+*/
