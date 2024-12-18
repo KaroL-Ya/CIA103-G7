@@ -1,109 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的活動</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-    }
-
-    header {
-        text-align: center;
-        background-color: #c28888;
-        color: #fff;
-        padding: 20px 0;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 2rem;
-    }
-
-    .table-container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border: 1px solid #e0e0e0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #c28888;
-        color: white;
-    }
-
-    .actions {
-        text-align: center;
-    }
-
-    .actions button {
-        margin: 0 5px;
-        padding: 5px 10px;
-        background-color: #c28888;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .actions button:hover {
-        background-color: #a06a6a;
-    }
-</style>
+    <title>我的活動</title>
 </head>
 <body>
-    <header>
-        <h1>我的活動</h1>
-    </header>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>活動標題</th>
-                    <th>地點</th>
-                    <th>日期</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="event : ${myEvents}">
-                    <td th:text="${event.title}"></td>
-                    <td th:text="${event.location}"></td>
-                    <td th:text="${event.date}"></td>
-                    <td class="actions">
-                        <form th:action="@{/events/details/{id}(id=${event.id})}" method="get">
-                            <button type="submit">查看詳情</button>
-                        </form>
-                        <form th:action="@{/events/edit/{id}(id=${event.id})}" method="get">
-                            <button type="submit">編輯</button>
-                        </form>
-                        <form th:action="@{/events/delete}" method="post">
-                            <input type="hidden" name="id" th:value="${event.id}">
-                            <button type="submit">刪除</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1>我的活動</h1>
+    
+    <table>
+        <thead>
+            <tr>
+<!--                 <th>Event ID</th> -->
+                <th>活動名稱</th>
+                <th>活動內容</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="event : ${events}">
+<!--                 <td th:text="${event.eveID}"></td> -->
+                <td th:text="${event.eveName}"></td>
+                <td th:text="${event.detail}"></td>
+                
+                <td>
+            <a th:href="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">活動詳情</a>
+           </td>
+               <td>
+                <form method="post" th:action="@{cancel}"  style="margin-bottom:0px;"  >
+                
+<!--        <input type="hidden" name="memId" th:value="${member.mem_Id}" /> -->
+<!--     <input type ="submit" value="取消報名"> -->
+<!--        <input type="hidden" name=" eventId" th:value="${event.eveID}" /> -->
+<!--     <button type="submit" class="btn btn-danger">取消報名</button> -->
+    </form>
+<!--     style="margin-bottom: 0px -->
+<!--     <form method="post" th:action="@{delete}" -->
+<!--       style="margin-bottom: 0px;"> -->
+<!--       <input type="submit" value="刪除活動"> -->
+<!--        <input type="hidden"name ="eveID" th:value="${event.eveID}"> -->
+<!--      </form> -->
+    </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <form action="/cancel" method="post">
+<!--     <input type="hidden" name="memId" th:value="${member.mem_Id}" /> -->
+<!--     <input type="hidden" name="eventId" th:value="${event.eveID}" /> -->
+<!--     <button type="submit" class="btn btn-danger">取消報名</button> -->
+</form>
+ 
 </body>
 </html>

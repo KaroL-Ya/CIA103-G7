@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import com.member.model.MemberVO;
 import com.event.EveModel.EventVO;
-
+/*
 //用不到複合主鍵。可能會重複報名.....管他的
 @Entity
 @Table(name = "event_register")
@@ -75,3 +75,4 @@ public class EsuVO implements java.io.Serializable {
 	
     
 }
+*/

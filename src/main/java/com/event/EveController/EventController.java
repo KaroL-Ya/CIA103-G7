@@ -22,23 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.event.EveModel.EventService;
 import com.event.EveModel.EventVO;
 import com.mall.lookitem.LookItemVO;
+import com.event.Participate.ParticipateService;
 
 @Controller
 	@RequestMapping("/events")
 public class EventController {
-/*需要功能:各網頁、活動插入
-已完成:全部活動，確認CRUD可用
-活動列表放首頁，創建活動放在不同會員or商家的個人頁面，直接從session取會員or商家ID
-不用特別做商家or會員分割，不同名稱function和參數即可
-活動編輯和刪除用網頁分，直接登入-中心頁-我的活動去編輯，用登入後的session抓
-活動參加只准一般會員，商家不用做
-活動創建也要求登入，登入後導向不同頁面?不可。登入後還是用session存商家or會員
-還是需要做活動創建的不同implement
-session放在mem_id
-我的活動要從會員ID找活動
-*/
+
     @Autowired
     private EventService esvc;
+    
+    @Autowired
+    private ParticipateService psvc;
 
     // 1. 網頁-活動列表
     @GetMapping("/list")
@@ -127,9 +121,13 @@ session放在mem_id
 	
 	// 詳細資訊
 	@GetMapping("/ShowDetails/{eventID}")
-	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model) {
+	public String getOneItem(@PathVariable("eventID") Integer eventID, Model model, HttpSession session) {
+      //報名盼度安
+		Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+         boolean repeat = psvc.RepeatRegister(memberId, eventID);
 		EventVO eveThis = esvc.findById(eventID);
 		model.addAttribute("eveThis", eveThis);
+		model.addAttribute("repeat",repeat);
 		return "event/EventDetails";
 	}
 	
@@ -149,7 +147,7 @@ session放在mem_id
 //    }
     
     // 查詢活動
-	// 查看自己發布的所有活動
+	// 查看自己參加的所有活動
 //		@GetMapping("/MyPostedEvent")
 //		public String myPostedEvent(HttpSession session, Model model) {
 //			BusinessMember businessMember = (BusinessMember) session.getAttribute("presentBusinessMember");

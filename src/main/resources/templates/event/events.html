@@ -2,121 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>活動列表</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-    }
-
-    header {
-        text-align: center;
-        background-color: #c28888;
-        color: #fff;
-        padding: 20px 0;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 2rem;
-    }
-
-    .table-container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border: 1px solid #e0e0e0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #c28888;
-        color: white;
-    }
-
-    .actions {
-        text-align: center;
-    }
-
-    .actions button {
-        margin: 0 5px;
-        padding: 5px 10px;
-        background-color: #c28888;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .actions button:hover {
-        background-color: #a06a6a;
-    }
-
-    .add-event {
-        display: block;
-        text-align: center;
-        margin: 20px auto;
-        padding: 10px 20px;
-        background-color: #c28888;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-
-    .add-event:hover {
-        background-color: #a06a6a;
-    }
-</style>
+<title>Event List</title>
 </head>
 <body>
-    <header>
-        <h1>活動列表</h1>
-    </header>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>活動標題</th>
-                    <th>地點</th>
-                    <th>日期</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="event : ${events}">
-                    <td th:text="${event.evename}"></td>
-                    <td th:text="${event.loc}"></td>
-                    <td th:text="${event.dat}"></td>
-                    <td class="actions">
-                        <form th:action="@{/events/details/{id}(id=${event.id})}" method="get">
-                            <button type="submit">查看詳情</button>
-                        </form>
-                        <form th:action="@{/events/delete}" method="post">
-                            <input type="hidden" name="id" th:value="${event.id}">
-                            <button type="submit">刪除</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/events/add" class="add-event">新增活動</a>
-    </div>
+
+ <h2>Event List</h2>
+ <table>
+  <thead>
+   <tr>
+    <th>活動名稱</th>
+    <th>日期</th>
+    <th>地點</th>
+    <th>活動內容</th>
+   </tr>
+  </thead>
+  <tbody>
+   <tr th:each="event : ${events}">
+    <td th:text="${event.eveName}"></td>
+    <td th:text="${event.dat}"></td>
+    <td th:text="${event.loc}"></td>
+    <td th:text="${event.detail}"></td>
+    <td >
+    <form method="get" th:action="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">
+       <button type="submit">查看詳情</button>
+      </form>
+     </td>
+   
+    <td>
+     <form method="post" th:action="@{delete}"
+      style="margin-bottom: 0px;">
+      <input type="submit" value="刪除活動">
+       <input type="hidden"name ="eveID" th:value="${event.eveID}">
+     </form>
+    </td>
+
+
+   </tr>
+  </tbody>
+ </table>
+
 </body>
 </html>
