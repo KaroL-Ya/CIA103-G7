@@ -23,14 +23,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/news")
+//@RequestMapping("/news")
 public class NewsController {
 
     @Autowired
     NewsService newsSvc;
     
     
-    @GetMapping("/")
+    @GetMapping("/news")
     public String showPage(ModelMap model) {
     	// 假設這裡是查詢新聞列表的邏輯
     	List<NewsVO> newsList = newsSvc.getAll();
@@ -38,7 +38,15 @@ public class NewsController {
     	return "back-end/news/listAllNews";
     }
     
-    @GetMapping("/selectNews")
+    @GetMapping("/front-end/news")
+    public String showFrontendPage(ModelMap model) {
+    	// 假設這裡是查詢新聞列表的邏輯
+    	List<NewsVO> newsList = newsSvc.getAll();
+    	model.addAttribute("newsList", newsList);
+    	return "front-end/newsIndex";
+    }
+
+    @GetMapping("/back-end/news/selectNews")
     public String selectNews(ModelMap model) {
     	List<NewsVO> newsList = newsSvc.getAll();
         model.addAttribute("newsListData", newsList);
@@ -47,14 +55,14 @@ public class NewsController {
     
 
  // 顯示新增新聞頁面
-    @GetMapping("addNews")
+    @GetMapping("/news/addNews")
     public String addNews(ModelMap model) {
         model.addAttribute("newsVO", new NewsVO()); // 初始化表單物件
         return "back-end/news/addNews"; // 返回新增新聞的頁面
     }
 
     // 新增新聞
-    @PostMapping("insert")
+    @PostMapping("/news/insert")
     public String insert(@Valid NewsVO newsVO, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "back-end/news/addNews";
@@ -70,7 +78,7 @@ public class NewsController {
     }
 
     // 顯示所有新聞
-    @GetMapping("listAllNews")
+    @GetMapping("/news/listAllNews")
     public String listAllNews(ModelMap model) {
         List<NewsVO> newsList = newsSvc.getAll();
         model.addAttribute("newsListData", newsList);
@@ -78,7 +86,7 @@ public class NewsController {
     }
     
     // 提供所有新聞資料以供使用
-    @ModelAttribute("NewsListData")
+    @ModelAttribute("/news/NewsListData")
     public List<NewsVO> referenceNewsListData(Model model) {
     	List<NewsVO> list = newsSvc.getAll();
     	model.addAttribute("newsListData", list);
@@ -86,7 +94,7 @@ public class NewsController {
     }
 
     // 查詢單筆新聞資料以供更新
-    @PostMapping("getOne_For_Update")
+    @PostMapping("/news/getOne_For_Update")
     public String getOneForUpdate(@RequestParam("newsId") Integer newsId, ModelMap model) {
         NewsVO newsVO = newsSvc.getOneNews(newsId); // 呼叫 Service 查詢單筆資料
         model.addAttribute("newsVO", newsVO);
@@ -96,7 +104,7 @@ public class NewsController {
     
 
     // 更新新聞資料
-    @PostMapping("update")
+    @PostMapping("/news/update")
     public String update(@Valid NewsVO newsVO, BindingResult result, ModelMap model) {
 
         // 若驗證失敗，返回更新頁面
@@ -110,7 +118,7 @@ public class NewsController {
     }
 
     // 刪除新聞
-    @PostMapping("delete")
+    @PostMapping("/news/delete")
     public String delete(@RequestParam("newsId") Integer newsId) {
         newsSvc.deleteNews(newsId); // 呼叫 Service 刪除新聞
         return "redirect:/news/listAllNews"; // 刪除後重導至列表頁

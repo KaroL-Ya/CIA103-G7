@@ -3,311 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>商品詳情</title>
+<title>商品詳情~</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <style>
 body {
- font-family: Arial, sans-serif;
- margin: 0;
- padding: 0;
- box-sizing: border-box;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .container {
- max-width: 1000px;
- margin: 20px auto;
- padding: 20px;
- border: 1px solid #ddd;
- border-radius: 8px;
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- display: flex;
- gap: 20px;
+	max-width: 1000px;
+	margin: 20px auto;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	display: flex;
+	gap: 20px;
 }
 
 .product-image {
- flex: 1 1 45%;
- max-width: 45%;
+	flex: 1 1 45%;
+	max-width: 45%;
 }
 
 .product-image img {
- width: 100%;
- border-radius: 8px;
- object-fit: cover;
+	width: 100%;
+	border-radius: 8px;
+	object-fit: cover;
 }
 
 .product-info {
- flex: 1 1 50%;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
+	flex: 1 1 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .product-name {
- font-size: 24px;
- font-weight: bold;
- margin-bottom: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .product-price {
- font-size: 20px;
- color: #e63946;
- margin-bottom: 20px;
+	font-size: 20px;
+	color: #e63946;
+	margin-bottom: 20px;
 }
 
 .product-description {
- font-size: 16px;
- line-height: 1.6;
- margin-bottom: 20px;
+	font-size: 16px;
+	line-height: 1.6;
+	margin-bottom: 20px;
 }
 
 .product-rating {
- margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .product-rating span {
- color: gold;
- font-size: 18px;
+	color: gold;
+	font-size: 18px;
 }
 
 .product-quantity, .product-stock {
- margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .quantity-input {
- width: 60px;
- padding: 5px;
- font-size: 16px;
- margin-right: 10px;
+	width: 60px;
+	padding: 5px;
+	font-size: 16px;
+	margin-right: 10px;
 }
 
 .buttons {
- display: flex;
- gap: 10px;
- margin-top: 20px;
+	display: flex;
+	gap: 10px;
+	margin-top: 20px;
 }
 
 .btn {
- padding: 10px 20px;
- border: none;
- border-radius: 4px;
- cursor: pointer;
- font-size: 18px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 18px;
 }
 
 .btn-add-cart {
- background-color: #2a9d8f;
- color: white;
- height: 50px;
- border: none; /* 移除邊框 */
- border-radius: 10px; /* 圓角效果 */
- padding: 8px 20px; /* 上下8px，左右20px 內邊距 */
- font-size: 16px; /* 文字大小 */
- cursor: pointer; /* 滑鼠變為手型 */
- transition: background-color 0.3s ease; /* 平滑過渡效果 */
+	background-color: #2a9d8f;
+	color: white;
+	height: 50px;
+	border: none; /* 移除邊框 */
+	border-radius: 10px; /* 圓角效果 */
+	padding: 8px 20px; /* 上下8px，左右20px 內邊距 */
+	font-size: 16px; /* 文字大小 */
+	cursor: pointer; /* 滑鼠變為手型 */
+	transition: background-color 0.3s ease; /* 平滑過渡效果 */
 }
 
 .btn-add-favorite {
- background-color: #f4a261;
- color: white;
+	background-color: #f4a261;
+	color: white;
 }
 
 .btn-add-report {
- font-size: 12px;
- padding: 10px 10px; /* 控制橢圓形的長寬 */
- background-color: #ddd;
- border-radius: 50px;
- margin-left: auto; /*靠右 */
+	font-size: 12px;
+	padding: 10px 10px; /* 控制橢圓形的長寬 */
+	background-color: #ddd;
+	border-radius: 50px;
+	margin-left: auto; /*靠右 */
 }
 
 .btn:hover {
- opacity: 0.9;
+	opacity: 0.9;
 }
 
 .checkout-methods {
- margin-top: 20px;
+	margin-top: 20px;
 }
 
-* /
+
 .checkout-methods img {
- width: 50px;
- height: auto;
- margin-right: 10px;
+	width: 50px;
+	height: auto;
+	margin-right: 10px;
 }
 
 .product-id {
- font-size: 12px;
- color: rgba(131, 90, 8, 0.966);
- position: absolute;
- top: 40px;
- right: 150px;
+	font-size: 12px;
+	color: rgba(131, 90, 8, 0.966);
+	position: absolute;
+	top: 40px;
+	right: 150px;
 }
 
 .quantity-btn {
- width: 30px;
- height: 30px;
- background-color: #f0f0f0;
- border: 1px solid #ccc;
- text-align: center;
- font-size: 25px;
- cursor: pointer;
+	width: 30px;
+	height: 30px;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	text-align: center;
+	font-size: 25px;
+	cursor: pointer;
 }
 
 .quantity-input {
- width: 40px;
- height: 20px;
- text-align: center;
- border: 1px solid #ccc;
- font-size: 18px;
- margin: 0 10px;
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	border: 1px solid #ccc;
+	font-size: 18px;
+	margin: 0 10px;
 }
 
 /* 圖標的外部容器樣式 */
 .cart-icon-container {
- position: fixed;
- bottom: 40px;
- right: 50px;
- z-index: 1000;
- width: 50px;
- height: 50px;
+	position: fixed;
+	bottom: 40px;
+	right: 50px;
+	z-index: 1000;
+	width: 50px;
+	height: 50px;
 }
 
 /* 購物車圖標的樣式 */
 .cart-icon {
- width: 50px;
- height: 50px;
- border-radius: 50%;
- transition: transform 0.3s;
- cursor: pointer;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	transition: transform 0.3s;
+	cursor: pointer;
 }
 
 .cart-icon:hover {
- transform: scale(1.15);
+	transform: scale(1.15);
 }
+
+/* 檢舉按紐 */
+.btn-add-report {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #2a9d8f;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+	text-decoration: none; /* 移除超連結的下劃線 */
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.btn-add-report:hover {
+	background-color: #38b7a9; /* 當滑鼠懸停時改變背景顏色 */
+}
+
+.btn-add-report:active {
+	background-color: #1f7462; /* 按下時的背景顏色 */
+}
+.btn-warning {
+    background-color: orange;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;  
+    float: right;
+}
+.btn-warning:hover {
+    background-color: red;  /* 滑鼠停改變 */
+    }
+ 
+    button {
+        background-color: #ddd; /* 按鈕背景顏色 */
+        color: black; /* 文字顏色 */
+        border: none; /* 移除邊框 */
+        border-radius: 100px; /* 圓角邊框 */
+        padding:10px 10px; /* 內邊距 */
+        font-size: 16px; /* 字體大小 */
+        cursor: pointer; /* 滑鼠移到按鈕上顯示手指 */
+        transition: background-color 0.3s, transform 0.2s; /* 動畫過渡效果 */
+        outline: none; /* 移除點擊後的邊框 */
+    }
+
+    button:hover {
+        background-color: #ff7875; /* 滑鼠懸停時的背景顏色 */
+        transform: scale(1.05); /* 滑鼠懸停時按鈕放大 */
+    }
+
+    button:active {
+        background-color: #d9363e; /* 點擊時背景顏色 */
+        transform: scale(0.95); /* 點擊時按鈕稍微縮小 */
+    }
+ form {
+        display: flex; /* 使用 Flexbox 進行排列 */
+        justify-content: flex-end; /* 將內容推到右側 */
+        margin: 0; /* 可視需求調整外邊距 */
+    }
 </style>
 </head>
 <body>
 
 
- <div class="container">
-  <div>
-   <img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
-    alt="Cover Image" width="300px" />
-  </div>
-
-  <div class="product-info">
-   <div>
-    <div class="product-id">
-     商品編號：<span th:text="${item.itemId}"></span>
-    </div>
-    <span
-     style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;">
-     商品名稱: </span> <span
-     style="color: rgba(131, 90, 8, 0.966); font-weight: bold; font-size: 25px;"
-     th:text="${item.name}"></span> <br> <br> <span
-     style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-     商品價格: </span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 25px;"
-     th:text="${item.price}"></span> <br> <br> <span
-     style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-     商品敘述: </span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
-     th:text="${item.content}"></span> <br>
-
-    <hr>
-
-    <span
-     style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-     商品評分: </span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
-     th:text="${item.stars}"></span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
-     &nbsp( </span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px"
-     ; th:text="${item.comments}"></span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 12px;">
-     )</span> <br> <br> <span
-     style="color: rgba(228, 158, 7, 0.966); font-weight: bold; font-size: 20px;">
-     剩餘數量：</span> <span
-     style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;"
-     th:text="${item.num}"></span>
-    <hr>
-    <div>
-     <span
-      style="color: rgb(230, 117, 12); font-weight: bold; font-size: 20px;">
-      結帳方式：信用卡</span>
-    </div>
-
-
-
-
-   </div>
-   <div class="buttons">
-
-<!--     <button class="quantity-btn" onclick="decreaseQuantity()">-</button> -->
-<!--     <input type="text" id="quantity" class="quantity-input" value="1" -->
-<!--      readonly> -->
-<!--     <button class="quantity-btn" onclick="increaseQuantity()">+</button> -->
-
-    <form th:action="@{/cart/addCart}" method="post">
-     <input type="hidden" name="itemId" th:value="${item.itemId}">
-     <input type="hidden" class="form-quantity" name="num" value="1">
-     <button type="submit" class="btn-add-cart">加入購物車</button>
-    </form>
-
-    <button id="addFavorite" class="btn btn-add-favorite">
-     加入收藏
-
-     <button id="report" class="btn btn-add-report">檢舉</button>
-   </div>
-
-  </div>
- </div>
-
- <div>
-  <h4 class="cart-icon-container">
-   <!-- 購物車超連結 -->
-   <a th:href="@{/cart(memId=${session.mem_Id})}"> <img
-    th:src="@{/images/cart.png}" class="cart-icon" alt="購物車" />
-   </a>
-  </h4>
- </div>
-
- <script>
-  document.addEventListener("DOMContentLoaded", function() {
-   var addToCartBtn = document.getElementById("addToCart");
-   addToCartBtn.addEventListener("click", function() {
-    addToCartBtn.disabled = true; // 禁用按鈕
-    addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-    alert("商品已加入購物車");
-
-   });
-  });
-  document.addEventListener("DOMContentLoaded", function() {
-   var addFavoriteBtn = document.getElementById("addFavorite");
-   addFavoriteBtn.addEventListener("click", function() {
-    addFavoriteBtn.disabled = true;// 禁用按鈕
-    addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-    alert("商品已加入收藏");
-    addFavoriteBtn.innerText = "已加入收藏";
-
-   });
-  });
-  function increaseQuantity() {
-   var quantityInput = document.getElementById('quantity');
-   var currentQuantity = parseInt(quantityInput.value);
-   quantityInput.value = currentQuantity + 1;
-  }
-
-  function decreaseQuantity() {
-   var quantityInput = document.getElementById('quantity');
-   var currentQuantity = parseInt(quantityInput.value);
-   if (currentQuantity > 1) {
-    quantityInput.value = currentQuantity - 1;
-   }
-  }
- </script>
-
 	<div class="container">
+	<a th:href="@{/lookItem}"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#992B15"><path d="m274-450 248 248-42 42-320-320 320-320 42 42-248 248h526v60H274Z"/></svg> </a>
 		<div>
 			<img th:src="'data:image/jpeg;base64,' + ${item.base64CoverImg}"
 				alt="Cover Image" width="300px" />
@@ -362,23 +304,34 @@ body {
 			</div>
 			<div class="buttons">
 
-<!-- 				<button class="quantity-btn" onclick="decreaseQuantity()">-</button> -->
-<!-- 				<input type="text" id="quantity" class="quantity-input" value="1" -->
-<!-- 					readonly> -->
-<!-- 				<button class="quantity-btn" onclick="increaseQuantity()">+</button> -->
+				<!--     <button class="quantity-btn" onclick="decreaseQuantity()">-</button> -->
+				<!--     <input type="text" id="quantity" class="quantity-input" value="1" -->
+				<!--      readonly> -->
+				<!--     <button class="quantity-btn" onclick="increaseQuantity()">+</button> -->
 
 				<form th:action="@{/cart/addCart}" method="post">
 					<input type="hidden" name="itemId" th:value="${item.itemId}">
 					<input type="hidden" class="form-quantity" name="num" value="1">
-					<button type="submit" class="btn-add-cart">加入購物車</button>
+				
+					<button type="button" id="addToCart" class="btn-add-cart">加入購物車</button>
+					
 				</form>
 
 				<button id="addFavorite" class="btn btn-add-favorite">
 					加入收藏
 
-					<button id="report" class="btn btn-add-report">檢舉</button>
+					<!--      <button id="report" class="btn btn-add-report">檢舉</button> -->
 			</div>
-
+			
+			
+<!-- 				<div th:if="${item.itemId == itemId}"> -->
+<!--                 <a class="btn btn-warning" th:href="@{/lookitem/formReport/{id}(id=${item.itemId})}">檢舉</a> -->
+<!--             </div> -->
+				<form
+							th:action="@{/itemReport/itemReport/{itemId}(itemId=${item.itemId})}"
+							method="get">
+							<button type="submit">檢舉</button>
+						</form>
 		</div>
 	</div>
 
@@ -392,25 +345,36 @@ body {
 	</div>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var addToCartBtn = document.getElementById("addToCart");
-			addToCartBtn.addEventListener("click", function() {
-				addToCartBtn.disabled = true; // 禁用按鈕
-				addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-				alert("商品已加入購物車");
+	
+	document.addEventListener("DOMContentLoaded", function() {
+	    
+	    var addToCartBtn = document.getElementById("addToCart");
+	    var addFavoriteBtn = document.getElementById("addFavorite");
 
-			});
-		});
-		document.addEventListener("DOMContentLoaded", function() {
-			var addFavoriteBtn = document.getElementById("addFavorite");
-			addFavoriteBtn.addEventListener("click", function() {
-				addFavoriteBtn.disabled = true;// 禁用按鈕
-				addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-				alert("商品已加入收藏");
-				addFavoriteBtn.innerText = "已加入收藏";
+	    // 檢查 addToCart 按鈕是否存在
+	    if (addToCartBtn) {
+	        addToCartBtn.addEventListener("click", function() {
+	            addToCartBtn.disabled = true; // 禁用按鈕
+	            addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+	            alert("商品已加入購物車");
+	        });
+	    } else {
+	        console.error("找不到 'addToCart' 按鈕元素");
+	    }
 
-			});
-		});
+	    // 檢查 addFavorite 按鈕是否存在
+	    if (addFavoriteBtn) {
+	        addFavoriteBtn.addEventListener("click", function() {
+	            addFavoriteBtn.disabled = true; // 禁用按鈕
+	            addFavoriteBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+	            alert("商品已加入收藏");
+	            addFavoriteBtn.innerText = "已加入收藏";
+	        });
+	    } else {
+	        console.error("找不到 'addFavorite' 按鈕元素");
+	    }
+	});
+
 		function increaseQuantity() {
 			var quantityInput = document.getElementById('quantity');
 			var currentQuantity = parseInt(quantityInput.value);
@@ -425,7 +389,6 @@ body {
 			}
 		}
 	</script>
-
 
 </body>
 </html>

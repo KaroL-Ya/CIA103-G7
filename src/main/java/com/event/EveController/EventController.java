@@ -131,6 +131,12 @@ public class EventController {
 		return "event/EventDetails";
 	}
 	
+	// 春澔測試
+		@GetMapping("/addEventBackUp")
+		public String addEventBackUp() {
+			return "event/addEventBackUp";
+		}
+	
 	//活動報名
 	
 	//不需要這個

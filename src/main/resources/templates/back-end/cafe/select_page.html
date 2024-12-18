@@ -73,7 +73,7 @@
         }
 
         input[type="text"], select {
-            width: 100%;
+            width: 95%;
             padding: 0.5rem;
             border-radius: 4px;
             border: 1px solid #ccc;
@@ -132,7 +132,7 @@
     <nav class="navbar">
         <h2>商家管理 - 選擇頁面</h2>
         <h3>
-        <button class="btn" onclick="location.href='/cafe/index2'">回後台首頁</button>
+        <a class="btn" th:href="@{/back-end/backhome}">回後台首頁</a>
         </h3>
     </nav>
 
@@ -143,7 +143,7 @@
         <ul>
             <li>
                 <h5>
-                    <a href="listAllCafe">檢視所有商家</a>
+                    <a th:href="@{/cafe/listAllCafe}">檢視所有商家</a>
                 </h5>
             </li>
 

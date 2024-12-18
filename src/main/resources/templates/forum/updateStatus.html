@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Post Status</title>
+</head>
+<body>
+    <h2>Update Post Status</h2>
+    <form action="/forum/updateStatus" method="post">
+        <!-- 隱藏ID欄位 -->
+        <input type="hidden" name="id" th:value="${post.id}"/>
+
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <!-- 根據狀態選擇對應的選項 -->
+            <option value="0" th:selected="${post.status == 0}">Inactive</option>
+            <option value="1" th:selected="${post.status == 1}">Active</option>
+            <!-- 如果有更多狀態，可以在這裡加更多選項 -->
+        </select>
+
+        <button type="submit">Update Status</button>
+    </form>
+
+</body>
+</html>

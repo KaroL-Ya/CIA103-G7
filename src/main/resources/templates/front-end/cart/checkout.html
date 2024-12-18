@@ -1,114 +1,220 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>結帳頁面</title> -->
+<!-- <link rel="stylesheet" href="/css/checkout.css"> -->
+<!-- </head> -->
+<!-- <body> -->
+<!-- 	<div class="checkout-container"> -->
+<!-- 		<h1 class="checkout-title">結帳頁面</h1> -->
+
+<!-- 		<!-- 每間咖啡廳的購物車資料 --> 
+<!-- 		<div th:each="entry : ${groupedItems}" class="cafe-group"> -->
+<!-- 			<input type="hidden" class="cafe-id" th:value="${entry.key}"> -->
+<!-- 			<!-- 隱藏的咖啡廳ID -->
+<!-- 			<h2 th:text="'咖啡廳: ' + ${entry.key}" class="cafe-title">咖啡廳名稱</h2> -->
+<!-- 			<table class="product-table"> -->
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th>商品名稱</th> -->
+<!-- 						<th>數量</th> -->
+<!-- 						<th>單價</th> -->
+<!-- 						<th>總價</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
+<!-- 				<tbody> -->
+<!-- 					<tr th:each="item : ${entry.value}" -->
+<!-- 						th:attr="data-item-id=${item.itemId}"> -->
+<!-- 						<td th:text="${item.name}">商品名稱</td> -->
+<!-- 						<td th:text="${item.num}">數量</td> -->
+<!-- 						<td th:text="${item.price} + ' 元'">單價</td> -->
+<!-- 						<td th:text="${item.totalPrice} + ' 元'">總價</td> -->
+<!-- 					</tr> -->
+
+<!-- 				</tbody> -->
+<!-- 			</table> -->
+
+<!-- 			<!-- 咖啡廳優惠券選擇 -->
+<!-- 			<div class="cafe-discount"> -->
+<!-- 				<label th:for="'coupon-' + ${entry.key}">選擇優惠券：</label> <select -->
+<!-- 					th:id="'coupon-' + ${entry.key}" th:name="'coupon-' + ${entry.key}" -->
+<!-- 					class="cafe-coupon"> -->
+<!-- 					<option value="0" selected>不使用優惠券</option> -->
+<!-- 					<option th:each="coupon : ${coupons}" th:value="${coupon.value}" -->
+<!-- 						th:text="${coupon.text}">優惠券選項</option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
+
+<!-- 			<!-- 顯示運費 --> 
+<!-- 			<div class="shipping-fee"> -->
+<!-- 				<p> -->
+<!-- 					運費：<span class="shipping-fee-amount">100 元</span> -->
+<!-- 				</p> -->
+<!-- 			</div> -->
+
+<!-- 			<!-- 備註輸入區域 --> 
+<!-- 			<div class="cafe-remark"> -->
+<!-- 				<label for="'remark-' + ${entry.key}">備註（選填）：</label> <input -->
+<!-- 					type="text" th:id="'remark-' + ${entry.key}" -->
+<!-- 					th:name="'remark-' + ${entry.key}" placeholder="填寫備註"> -->
+<!-- 			</div> -->
+
+<!-- 			<!-- 顯示每間咖啡廳的商品總金額 --> 
+<!-- 			<div class="cafe-total"> -->
+<!-- 				<p> -->
+<!-- 					商品總金額：<span class="cafe-total-amount">0 元</span> -->
+<!-- 				</p> -->
+<!-- 				<p> -->
+<!-- 					咖啡廳總金額（含優惠券和運費）：<span class="final-cafe-total">0 元</span> -->
+<!-- 				</p> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+<!-- 		<!-- 平台優惠券選擇 -->
+<!-- 		<div class="platform-discount"> -->
+<!-- 			<label for="platform-coupon">選擇平台優惠券：</label> <select -->
+<!-- 				id="platform-coupon" name="platform-coupon"> -->
+<!-- 				<option value="0" selected>不使用優惠券</option> -->
+<!-- 				<option th:each="coupon : ${coupons}" th:value="${coupon.value}" -->
+<!-- 					th:text="${coupon.text}">平台優惠券選項</option> -->
+<!-- 			</select> -->
+<!-- 		</div> -->
+
+<!-- 		<!-- 付款詳情 --> 
+<!-- 		<div class="payment-details"> -->
+<!-- 			<h3>付款詳情</h3> -->
+<!-- 			<p> -->
+<!-- 				商品總金額：<span id="total-product-amount">0 元</span> -->
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				運費總金額：<span id="total-shipping-amount">0 元</span> -->
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				優惠券折扣：<span id="total-coupon-discount">0 元</span> -->
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				總付款金額：<span id="total-payment-amount">0 元</span> -->
+<!-- 			</p> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+<!-- 	<!-- 付款詳情與結帳按鈕 --> 
+<!-- 	<footer class="footer"> -->
+<!-- 		<p> -->
+<!-- 			總付款金額：<span id="total-payment-amount">0 元</span> -->
+<!-- 		</p> -->
+<!-- 		<div class="checkout-btn-container"> -->
+<!-- 			<button id="submit-order" onclick="submitOrder()">提交訂單</button> -->
+<!-- 		</div> -->
+<!-- 	</footer> -->
+
+<!-- 	<script src="/js/checkout.js"></script> -->
+<!-- </body> -->
+<!-- </html> -->
+
+<!-- VICKY修改 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>結帳頁面</title>
-<link rel="stylesheet" href="/css/checkout.css">
+    <meta charset="UTF-8">
+    <title>結帳頁面</title>
+    <link rel="stylesheet" href="/css/checkout.css">
 </head>
 <body>
-	<div class="checkout-container">
-		<h1 class="checkout-title">結帳頁面</h1>
+    <div class="checkout-container">
+        <h1 class="checkout-title">結帳頁面</h1>
 
-		<!-- 每間咖啡廳的購物車資料 -->
-		<div th:each="entry : ${groupedItems}" class="cafe-group">
-			<input type="hidden" class="cafe-id" th:value="${entry.key}">
-			<!-- 隱藏的咖啡廳ID -->
-			<h2 th:text="'咖啡廳: ' + ${entry.key}" class="cafe-title">咖啡廳名稱</h2>
-			<table class="product-table">
-				<thead>
-					<tr>
-						<th>商品名稱</th>
-						<th>數量</th>
-						<th>單價</th>
-						<th>總價</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item : ${entry.value}"
-						th:attr="data-item-id=${item.itemId}">
-						<td th:text="${item.name}">商品名稱</td>
-						<td th:text="${item.num}">數量</td>
-						<td th:text="${item.price} + ' 元'">單價</td>
-						<td th:text="${item.totalPrice} + ' 元'">總價</td>
-					</tr>
+<!--         每間咖啡廳的購物車資料 -->
+        <div th:each="entry : ${groupedItems}" class="cafe-group">
+            <input type="hidden" th:value="${entry.key}" class="cafe-id">
+<!--             隱藏的咖啡廳ID -->
+            <h2 th:text="'咖啡廳: ' + ${entry.key}" class="cafe-title">咖啡廳名稱</h2>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>商品名稱</th>
+                        <th>數量</th>
+                        <th>單價</th>
+                        <th>總價</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${entry.value}" th:attr="data-item-id=${item.itemId}">
+                        <td th:text="${item.name}">商品名稱</td>
+                        <td th:text="${item.num}">數量</td>
+                        <td th:text="${item.price} + ' 元'">單價</td>
+                        <td th:text="${item.totalPrice} + ' 元'">總價</td>
+                    </tr>
+                </tbody>
+            </table>
 
-				</tbody>
-			</table>
+<!--             咖啡廳優惠券選擇 -->
+            <div class="cafe-discount">
+                <label th:for="'coupon-' + ${entry.key}">選擇優惠券：</label>
+                <select th:id="'coupon-' + ${entry.key}" th:name="'cafes[' + ${entry.key} + '].coupon'"
+                        class="cafe-coupon">
+                    <option value="0" selected>不使用優惠券</option>
+                    <option th:each="coupon : ${merchantCoupons.get(entry.key)}" 
+                            th:value="${coupon.discount}" 
+                            th:text="${coupon.name + ' - 折扣: $' + coupon.discount}">
+<!--                         優惠券選項 -->
+                    </option>
+                </select>
+            </div>
 
-			<!-- 咖啡廳優惠券選擇 -->
-			<div class="cafe-discount">
-				<label th:for="'coupon-' + ${entry.key}">選擇優惠券：</label> <select
-					th:id="'coupon-' + ${entry.key}" th:name="'coupon-' + ${entry.key}"
-					class="cafe-coupon">
-					<option value="0" selected>不使用優惠券</option>
-					<option th:each="coupon : ${coupons}" th:value="${coupon.value}"
-						th:text="${coupon.text}">優惠券選項</option>
-				</select>
-			</div>
+<!--             顯示運費 -->
+            <div class="shipping-fee">
+                <p>運費：<span class="shipping-fee-amount">100 元</span></p>
+            </div>
 
-			<!-- 顯示運費 -->
-			<div class="shipping-fee">
-				<p>
-					運費：<span class="shipping-fee-amount">100 元</span>
-				</p>
-			</div>
+<!--             備註輸入區域 -->
+            <div class="cafe-remark">
+                <label th:for="'remark-' + ${entry.key}">備註（選填）：</label>
+                <input type="text" th:id="'remark-' + ${entry.key}" 
+                       th:name="'cafes[' + ${entry.key} + '].remark'" 
+                       placeholder="填寫備註">
+            </div>
 
-			<!-- 備註輸入區域 -->
-			<div class="cafe-remark">
-				<label for="'remark-' + ${entry.key}">備註（選填）：</label> <input
-					type="text" th:id="'remark-' + ${entry.key}"
-					th:name="'remark-' + ${entry.key}" placeholder="填寫備註">
-			</div>
+<!--             顯示每間咖啡廳的商品總金額 -->
+            <div class="cafe-total">
+                <p>商品總金額：<span th:text="${totalAmounts[entry.key]} + ' 元'" class="cafe-total-amount">0 元</span></p>
+                <p>咖啡廳總金額（含優惠券和運費）：<span class="final-cafe-total">0 元</span></p>
+            </div>
+        </div>
 
-			<!-- 顯示每間咖啡廳的商品總金額 -->
-			<div class="cafe-total">
-				<p>
-					商品總金額：<span class="cafe-total-amount">0 元</span>
-				</p>
-				<p>
-					咖啡廳總金額（含優惠券和運費）：<span class="final-cafe-total">0 元</span>
-				</p>
-			</div>
-		</div>
+<!--         平台優惠券選擇 -->
+        <div class="platform-discount">
+            <label for="platform-coupon">選擇平台優惠券：</label>
+            <select id="platform-coupon" name="platformCoupon">
+                <option value="0" selected>不使用優惠券</option>
+                <option th:each="coupon : ${platformCoupons}" 
+                        th:value="${coupon.discount}" 
+                        th:text="${coupon.name + ' - 折扣: $' + coupon.discount}">
+<!--                     平台優惠券選項 -->
+                </option>
+            </select>
+        </div>
 
-		<!-- 平台優惠券選擇 -->
-		<div class="platform-discount">
-			<label for="platform-coupon">選擇平台優惠券：</label> <select
-				id="platform-coupon" name="platform-coupon">
-				<option value="0" selected>不使用優惠券</option>
-				<option th:each="coupon : ${coupons}" th:value="${coupon.value}"
-					th:text="${coupon.text}">平台優惠券選項</option>
-			</select>
-		</div>
+<!--         付款詳情 -->
+        <div class="payment-details">
+            <h3>付款詳情</h3>
+            <p>商品總金額：<span id="total-product-amount">0 元</span></p>
+            <p>運費總金額：<span id="total-shipping-amount">0 元</span></p>
+            <p>優惠券折扣：<span id="total-coupon-discount">0 元</span></p>
+            <p>總付款金額：<span id="total-payment-amount">0 元</span></p>
+        </div>
+    </div>
 
-		<!-- 付款詳情 -->
-		<div class="payment-details">
-			<h3>付款詳情</h3>
-			<p>
-				商品總金額：<span id="total-product-amount">0 元</span>
-			</p>
-			<p>
-				運費總金額：<span id="total-shipping-amount">0 元</span>
-			</p>
-			<p>
-				優惠券折扣：<span id="total-coupon-discount">0 元</span>
-			</p>
-			<p>
-				總付款金額：<span id="total-payment-amount">0 元</span>
-			</p>
-		</div>
-	</div>
+<!--     付款詳情與結帳按鈕 -->
+    <footer class="footer">
+        <p>總付款金額：<span id="total-payment-amount">0 元</span></p>
+        <div class="checkout-btn-container">
+            <button id="submit-order" onclick="submitOrder()">提交訂單</button>
+        </div>
+    </footer>
 
-	<!-- 付款詳情與結帳按鈕 -->
-	<footer class="footer">
-		<p>
-			總付款金額：<span id="total-payment-amount">0 元</span>
-		</p>
-		<div class="checkout-btn-container">
-			<button id="submit-order" onclick="submitOrder()">提交訂單</button>
-		</div>
-	</footer>
-
-	<script src="/js/checkout.js"></script>
+    <script src="/js/checkout.js"></script>
 </body>
 </html>
+                    

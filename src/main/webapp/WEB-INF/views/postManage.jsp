@@ -82,43 +82,36 @@
         }
 
         .action-buttons {
-            display: block; /* 使用 block 來上下排列 */
+            display: flex;
+            justify-content: space-between;
         }
-		.action-buttons {
-		    display: flex;
-		    justify-content: space-between;
-		}
-		
-		.action-buttons form,
-		.action-buttons a {
-		    margin-bottom: 0; /* 移除底部邊距 */
-		    margin-right: 10px; /* 增加按鈕之間的水平間距 */
-		}
-		
-		.button {
-		    padding: 12px 8px; /* 增加按鈕的內邊距和大小 */
-		    background-color: #dc3545;
-		    color: white;
-		    border-radius: 4px;
-		    text-decoration: none;
-		    transition: background-color 0.3s;
-		    margin-right: 10px; /* 增加按鈕之間的水平間距 */
-		}
-		
-		.button:hover {
-		    background-color: #c82333;
-		}
-
-
         
+        .action-buttons form,
+        .action-buttons a {
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+        
+        .button {
+            padding: 12px 8px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        
+        .button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="<%= request.getContextPath() %>/" class="button">返回首頁</a>
         <h1>貼文管理</h1>
-        <a href="/forum/create" class="button">新增貼文</a>
 
-        <h2>已發布的貼文</h2>
         <table>
             <tr>
                 <th>貼文編號</th>
@@ -129,61 +122,39 @@
                 <th>貼文內容</th>
                 <th>操作</th>
             </tr>
-            <%
-                List<PostVO> posts = (List<PostVO>) request.getAttribute("posts");
-                if (posts != null && !posts.isEmpty()) {
-                    for (PostVO post : posts) {
-            %>
-            <tr>
-                <td><%= post.getPostId() %></td>
-                <td><%= post.getCafeId() %></td>
-                <td><%= post.getMemId() %></td>
-                <td><%= post.getTime() %></td>
-                <td><%= post.getTitle() %></td>
-                <td><%= post.getContent() %></td>
-                
-                <td>
-                    <div class="action-buttons">
-                        <form action="/forum/delete" method="post" style="display: inline;">
-                            <input type="hidden" name="id" value="<%=post.getPostId()%>">
-                            <button type="submit" class="button">刪除</button>
-                        </form>
-                        <a href="/forum/post?id=<%=post.getPostId()%>" class="button">修改</a>
-                        
-<%--                         <a href="/forum/post=<%=post.getPostId()%>" class="button">修改</a> --%>
-                    </div>
-                </td>
-            </tr>
-            <%
-                    }
-                } else {
-            %>
-            <tr>
-                <td colspan="7">尚未發布任何貼文。</td>
-            </tr>
-            <%
-                }
-            %>
+            
+            <!-- 使用 JSTL 遍歷 posts -->
+            <c:forEach var="post" items="${posts}">
+                <tr>
+                    <td>${post.postId}</td>
+                    <td>${post.cafeId}</td>
+                    <td>${post.memId}</td>
+                    <td>${post.time}</td>
+                    <td>${post.title}</td>
+                    <td>${post.content}</td>
+                    
+                    <td>
+                        <div class="action-buttons">
+                            <!-- 停權/恢復按鈕 -->
+                            <form action="/forum/updateStatus" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="${post.postId}">
+                                <input type="hidden" name="status" value="${post.status == 0 ? 1 : 0}">
+                                <button type="submit" class="button">
+                                    ${post.status == 0 ? '恢復' : '停權'}
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+            
+            <!-- 如果沒有貼文 -->
+            <c:if test="${empty posts}">
+                <tr>
+                    <td colspan="7">尚未發布任何貼文。</td>
+                </tr>
+            </c:if>
         </table>
-
-
-        <!-- 分頁顯示 -->
-       <div>
-    <c:if test="${currentPage > 1}">
-        <a href="?mem_Id=${mem_Id}&page=${currentPage - 1}" class="button">上一頁</a>
-    </c:if>
-    
-    <c:if test="${currentPage < totalPages}">
-        <a href="?mem_Id=${mem_Id}&page=${currentPage + 1}" class="button">下一頁</a>
-    </c:if>
-</div>
-
-<!-- 顯示當前頁碼和總頁碼 -->
-<div>
-    <span>當前頁: ${currentPage} / 總頁數: ${totalPages}</span>
-</div>
-
-
     </div>
 </body>
 </html>

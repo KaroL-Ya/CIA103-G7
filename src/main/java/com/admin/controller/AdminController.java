@@ -52,7 +52,7 @@ public class AdminController {
 	@PostMapping("insert")
 	public String insert(@Valid AdminVO adminVO, BindingResult result, ModelMap model,
 			@RequestParam("admin_Img") MultipartFile[] parts) throws IOException {
-
+		
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
 		result = removeFieldError(adminVO, result, "admin_Img");
@@ -68,6 +68,10 @@ public class AdminController {
 			return "back-end/admin/addAdmin";
 		}
 		/*************************** 2.開始新增資料 *****************************************/
+		if(adminSvc.checkAdmin_Ac(adminVO.getAdmin_Ac())) {
+			model.addAttribute("errorMessage","已有此帳號");
+			return "back-end/admin/addAdmin";
+		}
 		adminSvc.addAdmin(adminVO);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		List<AdminVO> list = adminSvc.getAll();

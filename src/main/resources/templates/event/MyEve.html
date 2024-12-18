@@ -23,22 +23,22 @@
                 
                 <td>
             <a th:href="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">活動詳情</a>
-       			 </td>
+           </td>
                <td>
                 <form method="post" th:action="@{cancel}"  style="margin-bottom:0px;"  >
                 
-<!--     			<input type="hidden" name="memId" th:value="${member.mem_Id}" /> -->
-<!-- 				<input type ="submit" value="取消報名"> -->
-<!--     			<input type="hidden" name=" eventId" th:value="${event.eveID}" /> -->
+<!--        <input type="hidden" name="memId" th:value="${member.mem_Id}" /> -->
+<!--     <input type ="submit" value="取消報名"> -->
+<!--        <input type="hidden" name=" eventId" th:value="${event.eveID}" /> -->
 <!--     <button type="submit" class="btn btn-danger">取消報名</button> -->
-				</form>
-<!-- 				style="margin-bottom: 0px -->
-<!-- 				<form method="post" th:action="@{delete}" -->
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="刪除活動"> -->
-<!-- 						 <input type="hidden"name ="eveID" th:value="${event.eveID}"> -->
-<!-- 					</form> -->
-				</td>
+    </form>
+<!--     style="margin-bottom: 0px -->
+<!--     <form method="post" th:action="@{delete}" -->
+<!--       style="margin-bottom: 0px;"> -->
+<!--       <input type="submit" value="刪除活動"> -->
+<!--        <input type="hidden"name ="eveID" th:value="${event.eveID}"> -->
+<!--      </form> -->
+    </td>
             </tr>
             
         </tbody>
@@ -48,6 +48,6 @@
 <!--     <input type="hidden" name="eventId" th:value="${event.eveID}" /> -->
 <!--     <button type="submit" class="btn btn-danger">取消報名</button> -->
 </form>
-	
+ 
 </body>
 </html>
