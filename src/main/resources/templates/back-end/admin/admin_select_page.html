@@ -180,7 +180,9 @@ footer {
     <section style="padding: 20px;">
 
         <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
-
+		<form th:action="@{/pco/select_page}" method="get">
+			<button type="submit" class="index">平台優惠券</button>
+		</form>
         <div class="query-section">
             <div class="a">
                 <a th:href="@{/back-end/admin/listAllAdmin}">管理員</a>
@@ -189,6 +191,7 @@ footer {
                 <a th:href="@{/back-end/admin/addDept}">新增部門</a>
                 <a th:href="@{/back-end/backhome}">回後台首頁</a>
 				<h4 style="color: #F5DEB3;">管理員查詢</h4>
+				
                 <div>
                     <form method="post" th:action="@{getOne_For_Display}">
                         <label for="admin_Id">輸入 admin 編號:</label>

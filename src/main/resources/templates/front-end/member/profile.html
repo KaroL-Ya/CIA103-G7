@@ -57,9 +57,9 @@
             border: 1px solid #ddd;
         }
         div {
-            margin: 20px auto;
+            margin: 5px auto;
             max-width: 800px;
-            padding: 20px;
+            padding: 5px;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -113,6 +113,15 @@ width:50px;
 
 a:hover {
     background-color: #FF7F50;
+}
+button.coupon{
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
 }
     </style>
 </head>
@@ -186,5 +195,13 @@ a:hover {
             <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}">
         </form>
     </div>
+    
+    <div>
+    	<form method="get" th:action="@{/uco/listCoupons}">
+            <button type="submit" class="coupon">我的優惠券</button>
+            <input type="hidden" name="mem_Id" th:value="${memberVO.mem_Id}">
+        </form>
+    </div>
+    
 </body>
 </html>
