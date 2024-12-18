@@ -20,7 +20,7 @@ public class ItemReportController {
     private ItemReportService itemReportService;
 
     // 顯示檢舉表單
-    @GetMapping("/formReport/{itemId}")
+    @GetMapping("/itemReport/{itemId}")
     public String showReportForm(@PathVariable("itemId") Integer itemId, Model model) {
         ItemReportVO itemReportVO = new ItemReportVO();
         itemReportVO.setItemId(itemId);
@@ -46,7 +46,7 @@ public class ItemReportController {
 
        
         itemReportService.reportItem(itemReportVO);
-        return "redirect:/lookitem/lookItem";  // 根据需求重定向或返回到检举列表页面
+        return "redirect:/lookitem/lookItem";  // 
     }
 
 

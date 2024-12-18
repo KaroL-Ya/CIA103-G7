@@ -216,7 +216,33 @@ body {
 .btn-warning:hover {
     background-color: red;  /* 滑鼠停改變 */
     }
-    
+ 
+    button {
+        background-color: #ddd; /* 按鈕背景顏色 */
+        color: black; /* 文字顏色 */
+        border: none; /* 移除邊框 */
+        border-radius: 100px; /* 圓角邊框 */
+        padding:10px 10px; /* 內邊距 */
+        font-size: 16px; /* 字體大小 */
+        cursor: pointer; /* 滑鼠移到按鈕上顯示手指 */
+        transition: background-color 0.3s, transform 0.2s; /* 動畫過渡效果 */
+        outline: none; /* 移除點擊後的邊框 */
+    }
+
+    button:hover {
+        background-color: #ff7875; /* 滑鼠懸停時的背景顏色 */
+        transform: scale(1.05); /* 滑鼠懸停時按鈕放大 */
+    }
+
+    button:active {
+        background-color: #d9363e; /* 點擊時背景顏色 */
+        transform: scale(0.95); /* 點擊時按鈕稍微縮小 */
+    }
+ form {
+        display: flex; /* 使用 Flexbox 進行排列 */
+        justify-content: flex-end; /* 將內容推到右側 */
+        margin: 0; /* 可視需求調整外邊距 */
+    }
 </style>
 </head>
 <body>
