@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Admin資料新增 - addAdmin.html</title>
+<title>Admin資料新增</title>
     <link th:href=@{/images/222.png} rel="shortcut icon">
 <style type="text/css">
 * {
@@ -158,12 +158,13 @@ footer {
         button.submit:hover {
             background-color: #e55b50;
         }
+  
 </style>
 </head>
 <body>
     <header class="header">
         <div class="header-left">
-            <label class="title">xxx</label>
+            <label class="title"></label>
         </div>
         <div class="header-right">
             管理員-<span th:if="${session.admin_Name != null}"
@@ -182,17 +183,17 @@ footer {
 	<div align="center">
 		<h3><b>所有欄位皆為必填欄位</b></h3>
 		<form th:action="@{insert}" method="post" th:object="${adminVO}" enctype="multipart/form-data">
-			<table>
-				<tr>
+			<table class="tab">
+				<tr >
 					<td>管理員帳號</td>
-					<td><input type="text" th:field="*{admin_Ac}" onclick="hideContent('admin_Ac.errors');" /></td>
-					<td><span  th:if="${#fields.hasErrors('admin_Ac')}" th:errors="*{admin_Ac}" class="error" id="admin_Ac.errors"></span></td>
+						<td><input type="text" th:field="*{admin_Ac}" onclick="hideContent('admin_Ac.errors');" /></td>
+						<td><span  th:if="${#fields.hasErrors('admin_Ac')}" th:errors="*{admin_Ac}" class="error" id="admin_Ac.errors"></span></td>
 				</tr>
 				<tr>
 					<td>管理員密碼</td>
 					<td><input type="text" th:field="*{admin_Pw}" onclick="hideContent('admin_Pw.errors');" /></td>
 					<td><span  th:if="${#fields.hasErrors('admin_Pw')}" th:errors="*{admin_Pw}" class="error" id="admin_Pw.errors"></span></td>
-				</tr>				
+				</tr>
 				<tr>
 					<td>管理員姓名</td>
 					<td><input type="text" th:field="*{admin_Name}" onclick="hideContent('admin_Name.errors');" /></td>
@@ -224,17 +225,17 @@ footer {
 				<tr>
 					<td>照片</td>
 					<td><input type="file" th:field="*{admin_Img}" onclick="previewImage()" multiple="multiple" onchange="hideContent('admin_Img.errors');" /></td>
-					<td><span class="error" th:utext="${errorMessage}" id="admin_Img.errors">${errorMessage}</span></td>
+					<td><span class="error" th:utext="${errorMessage}" id="admin_Img.errors" th:if="${#fields.hasErrors('admin_Img')}">${errorMessage}</span></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="center"><div id="blob_holder"></div></td>
-					<td></td>
-					<td></td>
+<!-- 					<td></td> -->
+<!-- 					<td></td> -->
 				</tr>
 				<tr>
 					<td colspan="3" align="center"><button type="submit" id="submit" class="submit">送出新增</button></td>
-					<td></td>
-					<td></td>
+<!-- 					<td></td> -->
+<!-- 					<td></td> -->
 				</tr>
 			</table>
 			

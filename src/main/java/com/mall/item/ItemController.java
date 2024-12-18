@@ -59,6 +59,7 @@ public class ItemController {
 	@PostMapping("insert")
 	public String insert(@Valid @ModelAttribute("item") Item item, BindingResult result,
 			@RequestParam("coverImg") MultipartFile file, // 接收圖片
+
 			Model model , HttpSession session) throws IOException {
 		// 從 Session 獲取 cafeId
 		Integer cafeId = (Integer) session.getAttribute("cafeId");
@@ -66,6 +67,7 @@ public class ItemController {
 			// 如果 session 中沒有 cafeId，重定向到登錄頁面或錯誤提示
 			return "redirect:/cafe/cafeLogin"; // 假設登錄頁面是 /login
 		}
+
 		// 去除 BindingResult 中 coverImg 欄位的 FieldError 紀錄
 		result = removeFieldError(item, result, "coverImg");
 
@@ -93,7 +95,9 @@ public class ItemController {
 		if (item.getNum() <= 0) {
 			item.setStatus(0);
 		}
+	
 		item.setCafeId(cafeId);
+
 		// 保存到資料庫
 		itemService.addItem(item);
 		return "redirect:/item";
