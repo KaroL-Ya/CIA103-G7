@@ -313,7 +313,7 @@ body {
 					<input type="hidden" name="itemId" th:value="${item.itemId}">
 					<input type="hidden" class="form-quantity" name="num" value="1">
 				
-					<button type="button" id="addToCart" class="btn-add-cart">加入購物車</button>
+					<button type="submit" id="addToCart" class="btn-add-cart">加入購物車</button>
 					
 				</form>
 
@@ -348,19 +348,19 @@ body {
 	
 	document.addEventListener("DOMContentLoaded", function() {
 	    
-	    var addToCartBtn = document.getElementById("addToCart");
+// 	    var addToCartBtn = document.getElementById("addToCart");
 	    var addFavoriteBtn = document.getElementById("addFavorite");
 
 	    // 檢查 addToCart 按鈕是否存在
-	    if (addToCartBtn) {
-	        addToCartBtn.addEventListener("click", function() {
-	            addToCartBtn.disabled = true; // 禁用按鈕
-	            addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
-	            alert("商品已加入購物車");
-	        });
-	    } else {
-	        console.error("找不到 'addToCart' 按鈕元素");
-	    }
+// 	    if (addToCartBtn) {
+// 	        addToCartBtn.addEventListener("click", function() {
+// 	            addToCartBtn.disabled = true; // 禁用按鈕
+// 	            addToCartBtn.style.backgroundColor = "#ddd"; // 灰色，表示禁用
+// 	            alert("商品已加入購物車");
+// 	        });
+// 	    } else {
+// 	        console.error("找不到 'addToCart' 按鈕元素");
+// 	    }
 
 	    // 檢查 addFavorite 按鈕是否存在
 	    if (addFavoriteBtn) {
@@ -375,19 +375,19 @@ body {
 	    }
 	});
 
-		function increaseQuantity() {
-			var quantityInput = document.getElementById('quantity');
-			var currentQuantity = parseInt(quantityInput.value);
-			quantityInput.value = currentQuantity + 1;
-		}
+// 		function increaseQuantity() {
+// 			var quantityInput = document.getElementById('quantity');
+// 			var currentQuantity = parseInt(quantityInput.value);
+// 			quantityInput.value = currentQuantity + 1;
+// 		}
 
-		function decreaseQuantity() {
-			var quantityInput = document.getElementById('quantity');
-			var currentQuantity = parseInt(quantityInput.value);
-			if (currentQuantity > 1) {
-				quantityInput.value = currentQuantity - 1;
-			}
-		}
+// 		function decreaseQuantity() {
+// 			var quantityInput = document.getElementById('quantity');
+// 			var currentQuantity = parseInt(quantityInput.value);
+// 			if (currentQuantity > 1) {
+// 				quantityInput.value = currentQuantity - 1;
+// 			}
+// 		}
 	</script>
 
 </body>
