@@ -80,25 +80,33 @@ public class ParticipateControllerBackUp {
         model.addAttribute("events", events);
         return "event/MyEve";
     }
+    //普通我的活動
+//    @GetMapping("/myEvents/{memID}")
+//    public String MyEvent(@PathVariable("memID") Integer memberId, Model model) {
+//        List<EventVO> events = esvc.getEventsForMember(memberId);
+//        model.addAttribute("events", events);
+//        return "event/MyEve";
+//    }
    //活動詳情取消報名method 
     @PostMapping("/cancel/{eventID}")
     public String retreatParticipant(@PathVariable("eventID") Integer eventID,HttpSession session) {
     	return psvc.retreatParticipant(eventID,session);
         }
     
-    //取消報名
-//    @PostMapping("cancel")
-//    public String cancelRegistration( @RequestParam("eventId") Integer eventId,HttpSession session, Model model) {
+//    取消報名
+    @PostMapping("/cancel1")
+    public String cancelRegistration( @RequestParam("eventId") Integer eventId,HttpSession session, Model model) {
 //    	Integer memId = (Integer)session.getAttribute("mem_Id");
-//        psvc.cancel(memId, eventId);
+    	Integer memId= 1001;
+        psvc.cancel(memId, eventId);
+        
+//        List<EventVO> eventList = esvc.getAllEvents();
 //        
-////        List<EventVO> eventList = esvc.getAllEvents();
-////        
-////        model.addAttribute("EventList", eventList);
-////        model.addAttribute("success", "- (報名取消成功)");
-//
-//        return "redirect:/event/Myeve"; 
-//    }
+//        model.addAttribute("EventList", eventList);
+//        model.addAttribute("success", "- (報名取消成功)");
+
+        return "redirect:/participate/myEvents/1001"; 
+    }
 //    @DeleteMapping("/cancel")
 //    public ResponseEntity<String> cancelRegistration(@RequestParam Integer memId, @RequestParam Integer eventId) {
 //        try {

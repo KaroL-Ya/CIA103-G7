@@ -37,8 +37,9 @@ public class EventController {
 
     // 1. 網頁-活動列表
     @GetMapping("/list")
-    public String getAllEvents(Model model) {
-        model.addAttribute("events", esvc.getAllEvents());
+    public String getAllEvents(Model model,HttpSession session) {
+    	Integer memberId = (Integer) session.getAttribute("mem_Id");
+    	model.addAttribute("events", esvc.getAllEvents());
         return "event/events"; 
     }
 
@@ -70,28 +71,41 @@ public class EventController {
             return "redirect:/member/loginMem"; 
         }
 */
+    //免圖片版本
     @PostMapping("/insert")
-    public String addEvent(@ModelAttribute("Debug1") EventVO Debug1, BindingResult result, @RequestParam("eveImg") MultipartFile eveImg, Model model) {
-    	if (eveImg.isEmpty()) {
-			model.addAttribute("ImgError", "請上傳圖片"); 
-			return "item/addItem";
-		} else {
-			try {
-				// 將圖片轉換為 byte[]
-				Debug1.setEveImg(eveImg.getBytes());
-			} catch (IOException e) {
-				model.addAttribute("UpdateError", "圖片上傳失敗，請重新嘗試");
-				return "event/new";
-			}
-		}
+    public String addEvent(@ModelAttribute("Debug1") EventVO Debug1, Model model) {
+    
     	esvc.addEvent(Debug1);
     	
     	
 		List<EventVO> list = esvc.getAllEvents();
 		model.addAttribute("Debug1", list);
 		model.addAttribute("success", "- (新增成功)");
-        return "events/list"; // Redirect to event list
+		return "redirect:/events/list"; // Redirect to event list
     }
+    //圖片版本
+//    @PostMapping("/insert")
+//    public String addEvent(@ModelAttribute("Debug1") EventVO Debug1, BindingResult result, @RequestParam("eveImg") MultipartFile eveImg, Model model) {
+//    	if (eveImg.isEmpty()) {
+//    		model.addAttribute("ImgError", "請上傳圖片"); 
+//    		return "item/addItem";
+//    	} else {
+//    		try {
+//    			// 將圖片轉換為 byte[]
+//    			Debug1.setEveImg(eveImg.getBytes());
+//    		} catch (IOException e) {
+//    			model.addAttribute("UpdateError", "圖片上傳失敗，請重新嘗試");
+//    			return "event/new";
+//    		}
+//    	}
+//    	esvc.addEvent(Debug1);
+//    	
+//    	
+//    	List<EventVO> list = esvc.getAllEvents();
+//    	model.addAttribute("Debug1", list);
+//    	model.addAttribute("success", "- (新增成功)");
+//    	return "events/list"; // Redirect to event list
+//    }
     
 
     
@@ -137,26 +151,27 @@ public class EventController {
 		model.addAttribute("repeat",repeat);
 		return "event/EventDetails";
 	}
-	
+	//在這邊
 	//我創的活動
-//	@GetMapping("MyHost")
-//	public String MyEvent(HttpSession session, Model model) {
-//		
-//		 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
-//         if (memberId == null) {
-//        	 model.addAttribute("Debug1", new EventVO());
-//        	 return "event/newEvent"; // newEvent.html 
-//         	}else{
-//           return "redirect:/member/loginMem";
-//         	}
-//	}
+	@GetMapping("MyHost")
+	public String MyEvent(HttpSession session, Model model) {
+		
+		 Integer memberId = (Integer) session.getAttribute("mem_Id"); 
+         if (memberId == null) {
+        	 model.addAttribute("Debug1", new EventVO());
+        	 return "event/MyHost"; // newEvent.html 
+         	}else{
+           return "redirect:/member/loginMem";
+         	}
+	}
 //	  @GetMapping("/myEvents/{memID}")
-//	    public String getEventsForMember(@PathVariable("memID") Integer memberId, Model model) {
+//	    public String getEventsForMember(HttpSession session, Integer memberId, Model model) {
 //		  MemberVO loggedInMember = (MemberVO) session.getAttribute("mem_Id");
 //	        if (loggedInMember == null) {
 //	            return "redirect:/member/loginMem";
-//	        }
+//	        }else {return null;};
 //	        System.out.println(1);
+//			return null;
 //	    }
 	//活動報名
 	

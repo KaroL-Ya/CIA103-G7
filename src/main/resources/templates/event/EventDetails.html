@@ -34,6 +34,7 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border: 1px solid #e0e0e0;
+        position: relative;
     }
 
     .details-container h2 {
@@ -41,21 +42,49 @@
         margin-bottom: 20px;
     }
 
-    .details-container p {
-        margin-bottom: 10px;
+     .details-container p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+      .details-container p strong {
+            color: #007BFF;
+        }
+    
+
+    .back-links-container {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .back-link {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
+        background-color: #fff;
+        padding: 10px 20px;
         color: #c28888;
+        text-align: center;
         text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+        border: 1px solid #c28888; /* Optional: add border for better visibility */
     }
 
     .back-link:hover {
-        text-decoration: underline;
+        background-color: #c28888;
+        color: #fff;
     }
+
+
+
+
+     img {
+         width: 50%; /* Adjust width to fit the container */
+         height: auto; /* Maintain aspect ratio */
+     }
 </style>
 </head>
 <body>
@@ -84,6 +113,8 @@
         <p><strong>報名開始日:</strong> <span th:text="${eveThis.opd}"></span></p>
         <p><strong>報名結束日:</strong> <span th:text="${eveThis.trm}"></span></p>
         <p><strong>是否收費:</strong> <span th:if="${eveThis.cost == 1}">是</span><span th:if="${eveThis.cost == 0}">否</span></p>
+    <img src="https://caffes.me/wp-content/uploads/2018/01/coffee-2589759_1920.jpg" alt="Coffee Image" style="position: fixed; right: 230px; top: 170px; width: 290px; height: auto; margin: 10px;">
+        
  <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post">
         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" />
 <!--         <button type="submit">報名</button> -->
@@ -98,28 +129,32 @@
 
     </form>
     
-    </div>
 <!--             <form th:action="@{/participate/enroll/{eveID}(eveID=${eveThis.eveID})}" method="post"> -->
 <!--         <input type="hidden" name="eveID" th:value="${eveThis.eveID}" /> -->
 <!--         <button type="submit">報名</button> -->
 <!--     </form> -->
 <!--         </div> -->
 <!--      </div> -->
- <a class="back-link" th:href="@{/events/list}"> 我的活動
-    </a>
-
+<div class="back-links-container">
+<!--  <a class="back-link" th:href="@{/events/list}" > 我的活動 -->
+<!--     </a> -->
+<a class="back-link" th:if="${session.ac != null}" href="http://localhost:8080/participate/myEvents/1001"> 我的活動</a>
     <a class="back-link" th:href="@{/events/list}"> 返回活動列表
     </a>
+    </div>
 <!--  <div th:if="${session.user != null}"> -->
 <!--         只有登入的用戶才會看到此按鈕 -->
 <!--         <a href="/my-profile">我的資料</a> -->
 <!--         <a href="/logout">登出</a> -->
 <!--     </div> -->
 
-    <div th:if="${session.mem_id == null}">
-        <!-- 未登入的用戶顯示登入選項 -->
-        <a href="/login">登入</a>
-        <a href="/register">註冊</a>
+    </div>
+    <div >
+        <!-- 未登入的用戶顯示登入選項 -->        
+        <a th:if="${session.mem_Id == null}" href="/login">登入</a>
+<form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
+    <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; padding: 0; font: inherit;">登出</button>
+ </form>        
     </div>
 </body>
 </html>

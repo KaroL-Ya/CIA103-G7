@@ -3,10 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <title>Event List</title>
+<style>
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #c28888; /* Coffee-inspired color */
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #c28888;
+            color: white;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+        th:first-child, td:first-child {
+    width: 10%; /* Adjust as needed */
+}
+
+th:last-child, td:last-child {
+    width: 10%; /* Adjust as needed */
+}
+        a {
+        cursor: default;
+        display: block;
+        text-align: center;
+        margin: 20px;
+        padding: 10px;
+        background-color: #c28888;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    a:hover {
+        background-color: #a27474; /* Slightly darker shade of coffee */
+    }
+
+        form {
+            margin-bottom: 0;
+        }
+
+        /* Submit Button Styling */
+        button[type="submit"] {
+            background-color: #e74c3c; /* Red color for cancel */
+            color: white;
+            padding: 8px 8px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            text-align: center;
+            font-size: small;
+            margin: 5px;
+
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c0392b; /* Darker red */
+        }
+
+        /* Form hidden input styling */
+        input[type="hidden"] {
+            display: none;
+        }
+        .top-right-buttons {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.top-right-buttons a {
+    display: inline-block; /* To make the buttons appear side by side */
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color:#a27474; /* Green button */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.top-right-buttons a:hover {
+    background-color:rgb(160, 100, 54); /* Darker green */
+}
+    </style>
 </head>
 <body>
-
- <h2>Event List</h2>
+<header>
+    <h1>活動列表</h1>
+    <div class="top-right-buttons">
+        <a href="/"style="position: fixed; top: 10px; left: 10px;" >回首頁</a>
+        <a th:if="${session.ac != null}" href="http://localhost:8080/participate/myEvents/1001">已報名活動</a>
+        <a th:if="${session.ac != null}" href="http://127.0.0.1:5500/MyHostA.html" >舉辦者-活動管理</a>
+    </div>
+</header>
  <table>
   <thead>
    <tr>
@@ -14,6 +129,8 @@
     <th>日期</th>
     <th>地點</th>
     <th>活動內容</th>
+    <th>現在報名人數/名額限制</th>
+    <th></th>
    </tr>
   </thead>
   <tbody>
@@ -22,24 +139,30 @@
     <td th:text="${event.dat}"></td>
     <td th:text="${event.loc}"></td>
     <td th:text="${event.detail}"></td>
+    <td><span th:text="${event.num}"></span>/<span th:text="${event.lim}"></span></td>
     <td >
     <form method="get" th:action="@{/events/ShowDetails/{eventID}(eventID=${event.eveID})}">
        <button type="submit">查看詳情</button>
       </form>
-     </td>
-   
-    <td>
-     <form method="post" th:action="@{delete}"
-      style="margin-bottom: 0px;">
-      <input type="submit" value="刪除活動">
-       <input type="hidden"name ="eveID" th:value="${event.eveID}">
-     </form>
+     
+<!--      <form method="post" th:action="@{delete}" -->
+<!--       style="margin-bottom: 0px;"> -->
+<!--       <input type="submit" value="刪除活動"> -->
+<!--        <input type="hidden"name ="eveID" th:value="${event.eveID}"> -->
+<!--      </form> -->
     </td>
 
 
    </tr>
   </tbody>
  </table>
-<a th:href="@{new}">新增活動</a>
+<a th:if="${session.mem_Id != null}" th:href="@{new}">新增活動</a>
+<div >
+        <!-- 未登入的用戶顯示登入選項 -->        
+        <a th:if="${session.mem_Id == null}"  style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; padding: 0; font: inherit;"href="/login">登入</a>
+<form th:action="@{/mlogout}" method="post" th:if="${session.ac != null}">
+    <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; padding: 0; font: inherit;">登出</button>
+ </form>        
+    </div>
 </body>
 </html>

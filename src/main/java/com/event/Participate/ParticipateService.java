@@ -102,6 +102,19 @@ public String retreatParticipant(Integer eventID, HttpSession session) {
 //    return "redirect:/event/ShowDetails/" + eventID + "?success=true"; // Redirect with success message
 }
 
+//取消報名(另一個)
+@Transactional
+public void cancel(Integer memId, Integer eventId) {
+	// 獲取活動
+    EventVO eventVO = EveRepo.findById(eventId).orElseThrow(() -> new IllegalArgumentException(""));
+
+    // 人數更新
+    eventVO.setNum(eventVO.getNum() - 1);
+    EveRepo.save(eventVO);
+    
+	PartRepo.cancelRegistration(memId, eventId);
+	
+}
     //所有活動
     public List<ParticipateVO> getall() {
         return PartRepo.findAll();
@@ -128,11 +141,6 @@ public String retreatParticipant(Integer eventID, HttpSession session) {
 		return PartRepo.Repeat(memID,eveID);
 	}
 	
-	//取消報名(這個)
-	 public void cancel(Integer memId, Integer eventId) {
-	        PartRepo.cancelRegistration(memId, eventId);
-
-	 }
 	 //wiring test
 	 public void wired() {System.out.println("part這裡");};
 //	public List<ParticipantVO> getAll(Map<String, String[]> map) {
